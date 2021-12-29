@@ -84,20 +84,20 @@ const AccountDropdown: FC<AccountDropdownProps> = ({ opened, setOpened }) => {
           linkTo: '/import-account',
           onClick: closeDropdown
         },
-        {
-          key: 'connect-ledger',
-          Icon: LinkIcon,
-          i18nKey: 'connectLedger',
-          linkTo: '/connect-ledger',
-          onClick: closeDropdown
-        },
-        {
-          key: 'dapps',
-          Icon: DAppsIcon,
-          i18nKey: 'dapps',
-          linkTo: '/dApps',
-          onClick: closeDropdown
-        },
+        // {
+        //   key: 'connect-ledger',
+        //   Icon: LinkIcon,
+        //   i18nKey: 'connectLedger',
+        //   linkTo: '/connect-ledger',
+        //   onClick: closeDropdown
+        // },
+        // {
+        //   key: 'dapps',
+        //   Icon: DAppsIcon,
+        //   i18nKey: 'dapps',
+        //   linkTo: '/dApps',
+        //   onClick: closeDropdown
+        // },
         {
           key: 'settings',
           Icon: SettingsIcon,

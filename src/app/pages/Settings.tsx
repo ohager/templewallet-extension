@@ -53,15 +53,15 @@ const TABS = [
     descriptionI18nKey: 'addressBookDescription',
     testID: SettingsSelectors.AddressBookButton
   },
-  {
-    slug: 'reveal-private-key',
-    titleI18nKey: 'revealPrivateKey',
-    Icon: KeyIcon,
-    Component: RevealPrivateKey,
-    color: '#3182CE',
-    descriptionI18nKey: 'revealPrivateKeyDescription',
-    testID: SettingsSelectors.RevealPrivateKeyButton
-  },
+  // {
+  //   slug: 'reveal-private-key',
+  //   titleI18nKey: 'revealPrivateKey',
+  //   Icon: KeyIcon,
+  //   Component: RevealPrivateKey,
+  //   color: '#3182CE',
+  //   descriptionI18nKey: 'revealPrivateKeyDescription',
+  //   testID: SettingsSelectors.RevealPrivateKeyButton
+  // },
   {
     slug: 'reveal-seed-phrase',
     titleI18nKey: 'revealSeedPhrase',
@@ -71,15 +71,15 @@ const TABS = [
     descriptionI18nKey: 'revealSeedPhraseDescription',
     testID: SettingsSelectors.RevealSeedPhraseButton
   },
-  {
-    slug: 'dapps',
-    titleI18nKey: 'dApps',
-    Icon: AppsIcon,
-    Component: DAppSettings,
-    color: '#9F7AEA',
-    descriptionI18nKey: 'dAppsDescription',
-    testID: SettingsSelectors.DAppsButton
-  },
+  // {
+  //   slug: 'dapps',
+  //   titleI18nKey: 'dApps',
+  //   Icon: AppsIcon,
+  //   Component: DAppSettings,
+  //   color: '#9F7AEA',
+  //   descriptionI18nKey: 'dAppsDescription',
+  //   testID: SettingsSelectors.DAppsButton
+  // },
   {
     slug: 'networks',
     titleI18nKey: 'networks',
@@ -89,15 +89,15 @@ const TABS = [
     descriptionI18nKey: 'networksDescription',
     testID: SettingsSelectors.NetworksButton
   },
-  {
-    slug: 'activate-account',
-    titleI18nKey: 'activateAccount',
-    Icon: OkIcon,
-    Component: ActivateAccount,
-    color: 'rgb(131, 179, 0)',
-    descriptionI18nKey: 'activateAccountDescription',
-    testID: SettingsSelectors.ActivateAccountButton
-  },
+  // {
+  //   slug: 'activate-account',
+  //   titleI18nKey: 'activateAccount',
+  //   Icon: OkIcon,
+  //   Component: ActivateAccount,
+  //   color: 'rgb(131, 179, 0)',
+  //   descriptionI18nKey: 'activateAccountDescription',
+  //   testID: SettingsSelectors.ActivateAccountButton
+  // },
   {
     slug: 'remove-account',
     titleI18nKey: 'removeAccount',

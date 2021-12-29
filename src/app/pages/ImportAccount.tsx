@@ -65,33 +65,33 @@ const ImportAccount: FC<ImportAccountProps> = ({ tabSlug }) => {
   const allTabs = useMemo(
     () =>
       [
-        {
-          slug: 'private-key',
-          i18nKey: 'privateKey',
-          Form: ByPrivateKeyForm
-        },
+        // {
+        //   slug: 'private-key',
+        //   i18nKey: 'privateKey',
+        //   Form: ByPrivateKeyForm
+        // },
         {
           slug: 'mnemonic',
           i18nKey: 'mnemonic',
           Form: ByMnemonicForm
         },
-        {
-          slug: 'fundraiser',
-          i18nKey: 'fundraiser',
-          Form: ByFundraiserForm
-        },
-        network.type !== 'main'
-          ? {
-              slug: 'faucet',
-              i18nKey: 'faucetFileTitle',
-              Form: FromFaucetForm
-            }
-          : undefined,
-        {
-          slug: 'managed-kt',
-          i18nKey: 'managedKTAccount',
-          Form: ManagedKTForm
-        },
+        // {
+        //   slug: 'fundraiser',
+        //   i18nKey: 'fundraiser',
+        //   Form: ByFundraiserForm
+        // },
+        // network.type !== 'main'
+        //   ? {
+        //       slug: 'faucet',
+        //       i18nKey: 'faucetFileTitle',
+        //       Form: FromFaucetForm
+        //     }
+        //   : undefined,
+        // {
+        //   slug: 'managed-kt',
+        //   i18nKey: 'managedKTAccount',
+        //   Form: ManagedKTForm
+        // },
         {
           slug: 'watch-only',
           i18nKey: 'watchOnlyAccount',
