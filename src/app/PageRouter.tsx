@@ -7,7 +7,6 @@ import CollectiblePage from 'app/pages/Collectibles/CollectiblePage';
 import ConnectLedger from 'app/pages/ConnectLedger';
 import CreateAccount from 'app/pages/CreateAccount';
 import CreateWallet from 'app/pages/CreateWallet';
-import DApps from 'app/pages/DApps';
 import Delegate from 'app/pages/Delegate';
 import Explore from 'app/pages/Explore';
 import ImportAccount from 'app/pages/ImportAccount';
@@ -75,9 +74,8 @@ const ROUTE_MAP = Woozie.Router.createMap<RouteContext>([
   ['/send/:assetSlug?', onlyReady(({ assetSlug }) => <Send assetSlug={assetSlug} />)],
   ['/swap/:assetSlug?', onlyReady(({ assetSlug }) => <Swap assetSlug={assetSlug} />)],
   ['/delegate', onlyReady(() => <Delegate />)],
-  ['/dapps', onlyReady(() => <DApps />)],
   ['/manage-assets/:assetType?', onlyReady(({ assetType }) => <ManageAssets assetType={assetType!} />)],
-  ['/collectible/:assetSlug?', onlyReady(({ assetSlug }) => <CollectiblePage assetSlug={assetSlug!} />)],
+  // ['/collectible/:assetSlug?', onlyReady(({ assetSlug }) => <CollectiblePage assetSlug={assetSlug!} />)],
   ['/add-asset', onlyReady(onlyInFullPage(() => <AddAsset />))],
   ['/settings/:tabSlug?', onlyReady(({ tabSlug }) => <Settings tabSlug={tabSlug} />)],
   ['/buy', onlyReady(onlyInFullPage(() => <BuyCrypto />))],
