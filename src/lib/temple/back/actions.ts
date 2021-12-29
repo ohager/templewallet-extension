@@ -156,7 +156,7 @@ export function importAccount(privateKey: string, encPassword?: string) {
 
 export function importMnemonicAccount(mnemonic: string, password?: string, derivationPath?: string) {
   return withUnlocked(async ({ vault }) => {
-    const updatedAccounts = await vault.importMnemonicAccount(mnemonic, password, derivationPath);
+    const updatedAccounts = await vault.importMnemonicAccount(mnemonic);
     accountsUpdated(updatedAccounts);
   });
 }

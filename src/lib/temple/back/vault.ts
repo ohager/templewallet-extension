@@ -1,3 +1,5 @@
+import { Address } from '@signumjs/core';
+import { generateMasterKeys, Keys } from '@signumjs/crypto';
 import { HttpResponseError } from '@taquito/http-utils';
 import { DerivationType } from '@taquito/ledger-signer';
 import { localForger } from '@taquito/local-forging';
@@ -43,6 +45,7 @@ enum StorageEntity {
   MigrationLevel = 'migration',
   Mnemonic = 'mnemonic',
   AccPrivKey = 'accprivkey',
+  AccPrivP2PKey = 'accprivp2pkey',
   AccPubKey = 'accpubkey',
   Accounts = 'accounts',
   Settings = 'settings',
@@ -52,6 +55,7 @@ enum StorageEntity {
 const checkStrgKey = createStorageKey(StorageEntity.Check);
 const migrationLevelStrgKey = createStorageKey(StorageEntity.MigrationLevel);
 const mnemonicStrgKey = createStorageKey(StorageEntity.Mnemonic);
+const accPrivP2PStrgKey = createDynamicStorageKey(StorageEntity.AccPrivP2PKey);
 const accPrivKeyStrgKey = createDynamicStorageKey(StorageEntity.AccPrivKey);
 const accPubKeyStrgKey = createDynamicStorageKey(StorageEntity.AccPubKey);
 const accountsStrgKey = createStorageKey(StorageEntity.Accounts);
@@ -326,7 +330,35 @@ export class Vault {
     });
   }
 
-  async importMnemonicAccount(mnemonic: string, password?: string, derivationPath?: string) {
+  async importAccountSignum(keys: Keys, encPassword?: string): Promise<TempleAccount[]> {
+    const errMessage = 'Failed to import account.\nThis may happen because provided Key is invalid';
+
+    return withError(errMessage, async () => {
+      const allAccounts = await this.fetchAccounts();
+      const accountId = Address.fromPublicKey(keys.publicKey).getNumericId();
+      const newAccount: TempleAccount = {
+        type: TempleAccountType.Imported,
+        name: getNewAccountName(allAccounts),
+        publicKeyHash: accountId
+      };
+
+      const newAllAcounts = concatAccount(allAccounts, newAccount);
+
+      await encryptAndSaveMany(
+        [
+          [accPrivP2PStrgKey(accountId), keys.agreementPrivateKey],
+          [accPrivKeyStrgKey(accountId), keys.signPrivateKey],
+          [accPubKeyStrgKey(accountId), keys.publicKey],
+          [accountsStrgKey, newAllAcounts]
+        ],
+        this.passKey
+      );
+
+      return newAllAcounts;
+    });
+  }
+
+  async importMnemonicAccountOriginal(mnemonic: string, password?: string, derivationPath?: string) {
     return withError('Failed to import account', async () => {
       let seed;
       try {
@@ -341,6 +373,17 @@ export class Vault {
 
       const privateKey = seedToPrivateKey(seed);
       return this.importAccount(privateKey);
+    });
+  }
+
+  async importMnemonicAccount(passphrase: string) {
+    return withError('Failed to import account', async () => {
+      try {
+        const keys = generateMasterKeys(passphrase);
+        return this.importAccountSignum(keys);
+      } catch (_err) {
+        throw new PublicError('Invalid Mnemonic or Password');
+      }
     });
   }
 

@@ -1,5 +1,7 @@
 import React, { memo } from 'react';
 
+import { Address } from '@signumjs/core';
+
 type HashShortViewProps = {
   hash: string;
   trim?: boolean;
@@ -13,17 +15,22 @@ const HashShortView = memo<HashShortViewProps>(
     if (!hash) return null;
 
     const trimmedHash = (() => {
-      if (!trim) return hash;
-
+      let address = hash;
+      try {
+        address = Address.create(hash).getReedSolomonAddress();
+      } catch (e) {
+        // no op as no valid Signum Address
+      }
+      if (!trim) return address;
       const ln = hash.length;
       return ln > trimAfter ? (
         <>
-          {hash.slice(0, firstCharsCount)}
+          {address.slice(0, firstCharsCount)}
           <span className="opacity-75">...</span>
-          {hash.slice(ln - lastCharsCount, ln)}
+          {address.slice(ln - lastCharsCount, ln)}
         </>
       ) : (
-        hash
+        address
       );
     })();
 

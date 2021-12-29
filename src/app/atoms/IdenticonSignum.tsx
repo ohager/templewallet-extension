@@ -1,7 +1,9 @@
-import React, { FC, HTMLAttributes } from 'react';
+// @ts-ignore
+import React, { createRef, FC, HTMLAttributes, useEffect } from 'react';
 
-import { Hashicon } from '@emeraldpay/hashicon-react';
 import classNames from 'clsx';
+// @ts-ignore
+import hashicon from 'hashicon';
 
 type IdenticonProps = HTMLAttributes<HTMLDivElement> & {
   accountId: string;
@@ -9,6 +11,15 @@ type IdenticonProps = HTMLAttributes<HTMLDivElement> & {
 };
 
 const IdenticonSignum: FC<IdenticonProps> = ({ accountId, size = 100, className, style = {}, ...rest }) => {
+  const ref = createRef<HTMLCanvasElement>();
+  useEffect(() => {
+    if (!ref.current) return;
+    hashicon(accountId, {
+      size: size - 8,
+      createCanvas: () => ref.current!
+    });
+  }, [accountId]);
+
   return (
     <div
       className={classNames('inline-block', 'bg-gray-100', 'bg-no-repeat bg-center', 'overflow-hidden', className)}
@@ -21,7 +32,7 @@ const IdenticonSignum: FC<IdenticonProps> = ({ accountId, size = 100, className,
       }}
       {...rest}
     >
-      <Hashicon value={accountId} />
+      <canvas ref={ref} />
     </div>
   );
 };

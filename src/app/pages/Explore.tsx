@@ -36,6 +36,7 @@ import MainBanner from './Explore/MainBanner';
 import Tokens from './Explore/Tokens';
 import { useOnboardingProgress } from './Onboarding/hooks/useOnboardingProgress.hook';
 import Onboarding from './Onboarding/Onboarding';
+import { Address } from "@signumjs/core";
 
 type ExploreProps = {
   assetSlug?: string | null;

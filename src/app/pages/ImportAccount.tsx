@@ -108,7 +108,6 @@ const ImportAccount: FC<ImportAccountProps> = ({ tabSlug }) => {
 
 export default ImportAccount;
 
-
 const DERIVATION_PATHS = [
   {
     type: 'none',
@@ -152,7 +151,7 @@ const ByMnemonicForm: FC = () => {
     async ({ mnemonic, password, customDerivationPath, accountNumber }: ByMnemonicFormData) => {
       if (formState.isSubmitting) return;
 
-      formAnalytics.trackSubmit();
+      // formAnalytics.trackSubmit();
       setError(null);
       try {
         // TODO: use this to import a new account
@@ -197,8 +196,7 @@ const ByMnemonicForm: FC = () => {
         rows={4}
         name="mnemonic"
         ref={register({
-          required: t('required'),
-          validate: val => validateMnemonic(formatMnemonic(val)) || MNEMONIC_ERROR_CAPTION
+          required: t('required')
         })}
         errorCaption={errors.mnemonic?.message}
         label={t('mnemonicInputLabel')}
@@ -210,121 +208,6 @@ const ByMnemonicForm: FC = () => {
         containerClassName="mb-4"
         className="resize-none"
       />
-
-      {/*<FormField*/}
-      {/*  ref={register}*/}
-      {/*  name="password"*/}
-      {/*  type="password"*/}
-      {/*  id="importfundacc-password"*/}
-      {/*  label={*/}
-      {/*    <>*/}
-      {/*      <T id="password" />{' '}*/}
-      {/*      <T id="optionalComment">{message => <span className="text-sm font-light text-gray-600">{message}</span>}</T>*/}
-      {/*    </>*/}
-      {/*  }*/}
-      {/*  labelDescription={t('passwordInputDescription')}*/}
-      {/*  placeholder="*********"*/}
-      {/*  errorCaption={errors.password?.message}*/}
-      {/*  containerClassName="mb-6"*/}
-      {/*/>*/}
-
-      {/*<div className={classNames('mb-4', 'flex flex-col')}>*/}
-      {/*  <h2 className={classNames('mb-4', 'leading-tight', 'flex flex-col')}>*/}
-      {/*    <span className="text-base font-semibold text-gray-700">*/}
-      {/*      <T id="derivation" />{' '}*/}
-      {/*      <T id="optionalComment">{message => <span className="text-sm font-light text-gray-600">{message}</span>}</T>*/}
-      {/*    </span>*/}
-
-      {/*    <T id="addDerivationPathPrompt">*/}
-      {/*      {message => (*/}
-      {/*        <span className={classNames('mt-1', 'text-xs font-light text-gray-600')} style={{ maxWidth: '90%' }}>*/}
-      {/*          {message}*/}
-      {/*        </span>*/}
-      {/*      )}*/}
-      {/*    </T>*/}
-      {/*  </h2>*/}
-
-      {/*  <div*/}
-      {/*    className={classNames(*/}
-      {/*      'rounded-md overflow-hidden',*/}
-      {/*      'border-2 bg-gray-100',*/}
-      {/*      'flex flex-col',*/}
-      {/*      'text-gray-700 text-sm leading-tight'*/}
-      {/*    )}*/}
-      {/*  >*/}
-      {/*    {DERIVATION_PATHS.map((dp, i, arr) => {*/}
-      {/*      const last = i === arr.length - 1;*/}
-      {/*      const selected = derivationPath.type === dp.type;*/}
-      {/*      const handleClick = () => {*/}
-      {/*        setDerivationPath(dp);*/}
-      {/*      };*/}
-
-      {/*      return (*/}
-      {/*        <button*/}
-      {/*          key={dp.type}*/}
-      {/*          type="button"*/}
-      {/*          className={classNames(*/}
-      {/*            'block w-full',*/}
-      {/*            'overflow-hidden',*/}
-      {/*            !last && 'border-b border-gray-200',*/}
-      {/*            selected ? 'bg-gray-300' : 'hover:bg-gray-200 focus:bg-gray-200',*/}
-      {/*            'flex items-center',*/}
-      {/*            'text-gray-700',*/}
-      {/*            'transition ease-in-out duration-200',*/}
-      {/*            'focus:outline-none',*/}
-      {/*            'opacity-90 hover:opacity-100'*/}
-      {/*          )}*/}
-      {/*          style={{*/}
-      {/*            padding: '0.4rem 0.375rem 0.4rem 0.375rem'*/}
-      {/*          }}*/}
-      {/*          onClick={handleClick}*/}
-      {/*        >*/}
-      {/*          <T id={dp.i18nKey} />*/}
-      {/*          <div className="flex-1" />*/}
-      {/*          {selected && (*/}
-      {/*            <OkIcon*/}
-      {/*              className={classNames('mx-2 h-4 w-auto stroke-2')}*/}
-      {/*              style={{*/}
-      {/*                stroke: '#777'*/}
-      {/*              }}*/}
-      {/*            />*/}
-      {/*          )}*/}
-      {/*        </button>*/}
-      {/*      );*/}
-      {/*    })}*/}
-      {/*  </div>*/}
-      {/*</div>*/}
-
-      {/*{derivationPath.type === 'another' && (*/}
-      {/*  <FormField*/}
-      {/*    ref={register({*/}
-      {/*      min: { value: 1, message: t('positiveIntMessage') },*/}
-      {/*      required: t('required')*/}
-      {/*    })}*/}
-      {/*    min={0}*/}
-      {/*    type="number"*/}
-      {/*    name="accountNumber"*/}
-      {/*    id="importacc-acc-number"*/}
-      {/*    label={t('accountNumber')}*/}
-      {/*    placeholder="1"*/}
-      {/*    errorCaption={errors.accountNumber?.message}*/}
-      {/*  />*/}
-      {/*)}*/}
-
-      {/*{derivationPath.type === 'custom' && (*/}
-      {/*  <FormField*/}
-      {/*    ref={register({*/}
-      {/*      required: t('required'),*/}
-      {/*      validate: validateDerivationPath*/}
-      {/*    })}*/}
-      {/*    name="customDerivationPath"*/}
-      {/*    id="importacc-cdp"*/}
-      {/*    label={t('customDerivationPath')}*/}
-      {/*    placeholder={t('derivationPathExample2')}*/}
-      {/*    errorCaption={errors.customDerivationPath?.message}*/}
-      {/*    containerClassName="mb-6"*/}
-      {/*  />*/}
-      {/*)}*/}
 
       <T id="importAccount">
         {message => (
