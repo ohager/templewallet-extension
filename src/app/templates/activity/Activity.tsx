@@ -9,16 +9,16 @@ import useSafeState from 'lib/ui/useSafeState';
 import ActivityView from './ActivityView';
 
 type ActivityProps = {
-  address: string;
+  accountId: string;
   assetSlug?: string;
   className?: string;
 };
 
-const Activity = memo<ActivityProps>(({ address, assetSlug, className }) => {
+const Activity = memo<ActivityProps>(({ accountId, assetSlug, className }) => {
   const chainId = useChainId(true)!;
   const syncSupported = useMemo(() => isSyncSupported(chainId), [chainId]);
 
-  const safeStateKey = useMemo(() => [chainId, address, assetSlug].join('_'), [chainId, address, assetSlug]);
+  const safeStateKey = useMemo(() => [chainId, accountId, assetSlug].join('_'), [chainId, accountId, assetSlug]);
 
   const [restOperations, setRestOperations] = useSafeState<IOperation[]>([], safeStateKey);
   const [syncing, setSyncing] = useSafeState(false, safeStateKey);
@@ -30,11 +30,11 @@ const Activity = memo<ActivityProps>(({ address, assetSlug, className }) => {
     isValidating: fetching,
     revalidate: refetchLatest
   } = useRetryableSWR(
-    ['latest-operations', chainId, address, assetSlug],
+    ['latest-operations', chainId, accountId, assetSlug],
     () =>
       fetchOperations({
         chainId,
-        address,
+        address: accountId,
         assetIds: assetSlug ? [assetSlug] : undefined,
         limit: ACTIVITY_PAGE_SIZE
       }),
@@ -63,7 +63,7 @@ const Activity = memo<ActivityProps>(({ address, assetSlug, className }) => {
     setLoadingMore(true);
 
     try {
-      await syncOperations('old', chainId, address);
+      await syncOperations('old', chainId, accountId);
     } catch (err: any) {
       console.error(err);
       setSyncError(err);
@@ -72,7 +72,7 @@ const Activity = memo<ActivityProps>(({ address, assetSlug, className }) => {
     try {
       const oldOperations = await fetchOperations({
         chainId,
-        address,
+        address: accountId,
         assetIds: assetSlug ? [assetSlug] : undefined,
         limit: ACTIVITY_PAGE_SIZE,
         offset: operations?.length ?? 0
@@ -87,7 +87,7 @@ const Activity = memo<ActivityProps>(({ address, assetSlug, className }) => {
     }
 
     setLoadingMore(false);
-  }, [setLoadingMore, setSyncError, setRestOperations, chainId, address, assetSlug, operations]);
+  }, [setLoadingMore, setSyncError, setRestOperations, chainId, accountId, assetSlug, operations]);
 
   /**
    * New operations syncing
@@ -96,7 +96,7 @@ const Activity = memo<ActivityProps>(({ address, assetSlug, className }) => {
   const syncNewOperations = useCallback(async () => {
     setSyncing(true);
     try {
-      const newCount = await syncOperations('new', chainId, address);
+      const newCount = await syncOperations('new', chainId, accountId);
       if (newCount > 0) {
         refetchLatest();
       }
@@ -105,7 +105,7 @@ const Activity = memo<ActivityProps>(({ address, assetSlug, className }) => {
       setSyncError(err);
     }
     setSyncing(false);
-  }, [setSyncing, setSyncError, chainId, address, refetchLatest]);
+  }, [setSyncing, setSyncError, chainId, accountId, refetchLatest]);
 
   const timeoutRef = useRef<any>();
 
@@ -124,7 +124,7 @@ const Activity = memo<ActivityProps>(({ address, assetSlug, className }) => {
 
   return (
     <ActivityView
-      address={address}
+      address={accountId}
       syncSupported={syncSupported}
       operations={operations ?? []}
       initialLoading={fetching || (!operations || operations.length === 0 ? syncing : false)}

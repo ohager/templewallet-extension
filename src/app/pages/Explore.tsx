@@ -1,20 +1,18 @@
 import React, { FC, FunctionComponent, ReactNode, Suspense, SVGProps, useLayoutEffect, useMemo } from 'react';
 
-import { Address } from '@signumjs/core';
 import classNames from 'clsx';
 import { Props as TippyProps } from 'tippy.js';
 
 import Spinner from 'app/atoms/Spinner';
 import { useAppEnv } from 'app/env';
 import ErrorBoundary from 'app/ErrorBoundary';
-import { ReactComponent as BuyIcon } from 'app/icons/buy.svg';
 import { ReactComponent as ChevronRightIcon } from 'app/icons/chevron-right.svg';
 import { ReactComponent as ExploreIcon } from 'app/icons/explore.svg';
 import { ReactComponent as ReceiveIcon } from 'app/icons/receive.svg';
 import { ReactComponent as SendIcon } from 'app/icons/send-alt.svg';
 import { ReactComponent as SwapVerticalIcon } from 'app/icons/swap-vertical.svg';
 import PageLayout from 'app/layouts/PageLayout';
-import Activity from 'app/templates/activity/Activity';
+import Activity from 'app/templates/SignumActivity/Activity';
 import AssetInfo from 'app/templates/AssetInfo';
 import { T, t } from 'lib/i18n/react';
 import {
@@ -187,7 +185,7 @@ const ActivityTab: FC<ActivityTabProps> = ({ assetSlug }) => {
 
   return (
     <SuspenseContainer whileMessage={t('operationHistoryWhileMessage')}>
-      <Activity address={account.publicKeyHash} assetSlug={assetSlug} />
+      <Activity accountId={account.publicKeyHash} />
     </SuspenseContainer>
   );
 };
@@ -220,18 +218,18 @@ const SecondarySection: FC<SecondarySectionProps> = ({ assetSlug, className }) =
   >(() => {
     if (!assetSlug) {
       return [
-        {
-          slug: 'tokens',
-          title: t('tokens'),
-          Component: Tokens,
-          testID: ExploreSelectors.AssetsTab
-        },
-        {
-          slug: 'collectibles',
-          title: t('collectibles'),
-          Component: CollectiblesList,
-          testID: ExploreSelectors.CollectiblesTab
-        },
+        // {
+        //   slug: 'tokens',
+        //   title: t('tokens'),
+        //   Component: Tokens,
+        //   testID: ExploreSelectors.AssetsTab
+        // },
+        // {
+        //   slug: 'collectibles',
+        //   title: t('collectibles'),
+        //   Component: CollectiblesList,
+        //   testID: ExploreSelectors.CollectiblesTab
+        // },
         {
           slug: 'activity',
           title: t('activity'),

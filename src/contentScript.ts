@@ -2,7 +2,7 @@ import { TemplePageMessage, TemplePageMessageType } from '@temple-wallet/dapp/di
 import { browser } from 'webextension-polyfill-ts';
 
 import { IntercomClient } from 'lib/intercom/client';
-import { serealizeError } from 'lib/intercom/helpers';
+import { serializeError } from 'lib/intercom/helpers';
 import { TempleMessageType, TempleResponse } from 'lib/temple/types';
 
 enum BeaconMessageTarget {
@@ -86,7 +86,7 @@ function templeRequest(evt: MessageEvent, isLegacyRequest: boolean) {
       send(
         {
           type: isLegacyRequest ? LegacyPageMessageType.ErrorResponse : TemplePageMessageType.ErrorResponse,
-          payload: serealizeError(err),
+          payload: serializeError(err),
           reqId
         },
         evt.origin
