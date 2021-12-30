@@ -15,6 +15,63 @@ export const NETWORK_IDS = new Map<string, string>([
   [TempleChainId.Idiazabalnet, 'idiazabalnet']
 ]);
 
+export const SIGNUM_NETWORKS: TempleNetwork[] = [
+  {
+    id: 'signum-europe',
+    name: 'Signum Network Europe',
+    description: 'Reliable Node from Europe',
+    type: 'main',
+    rpcBaseURL: 'https://europe.signum.network',
+    color: '#00309a',
+    disabled: false
+  },
+  {
+    id: 'signum-brazil',
+    name: 'Signum Network Latin America',
+    description: 'Reliable Node from Latin America',
+    type: 'main',
+    rpcBaseURL: 'https://brazil.signum.network',
+    color: '#009c37',
+    disabled: false
+  },
+  {
+    id: 'signum-canada',
+    name: 'Signum Network Canada',
+    description: 'Reliable Node from Canada',
+    type: 'main',
+    rpcBaseURL: 'https://canada.signum.network',
+    color: '#d62718',
+    disabled: false
+  },
+  {
+    id: 'signum-australia',
+    name: 'Signum Network Australia',
+    description: 'Reliable Node from Australia',
+    type: 'main',
+    rpcBaseURL: 'https://australia.signum.network',
+    color: '#001b69',
+    disabled: false
+  },
+  {
+    id: 'signum-testnet-europe',
+    name: 'Signum Testnet Europe ',
+    description: 'Public Testnet node Europe',
+    type: 'test',
+    rpcBaseURL: 'https://europe3.testnet.signum.network/',
+    color: '#E8F3FF',
+    disabled: false
+  },
+  {
+    id: 'signum-testnet-local',
+    name: 'localhost:6876',
+    description: 'Local Testnet',
+    type: 'test',
+    rpcBaseURL: 'http://localhost:6876',
+    color: '#EAF0F6',
+    disabled: false
+  }
+];
+
 export const NETWORKS: TempleNetwork[] = [
   {
     id: 'mainnet',
@@ -104,6 +161,15 @@ export const NETWORKS: TempleNetwork[] = [
     type: 'test',
     rpcBaseURL: 'http://localhost:8732',
     color: '#e9e1cc',
+    disabled: false
+  },
+  {
+    id: 'signum-testnet-local',
+    name: 'localhost:6876',
+    description: 'Local Testnet',
+    type: 'test',
+    rpcBaseURL: 'http://localhost:6876',
+    color: '#EAF0F6',
     disabled: false
   },
   // Hidden

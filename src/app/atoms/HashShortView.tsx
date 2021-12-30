@@ -1,6 +1,8 @@
 import React, { memo } from 'react';
 
-import { Address } from '@signumjs/core';
+import { Address, AddressPrefix } from '@signumjs/core';
+
+import { useNetwork } from '../../lib/temple/front';
 
 type HashShortViewProps = {
   hash: string;
@@ -12,12 +14,14 @@ type HashShortViewProps = {
 
 const HashShortView = memo<HashShortViewProps>(
   ({ hash, trim = true, trimAfter = 20, firstCharsCount = 7, lastCharsCount = 4 }) => {
+    const network = useNetwork();
     if (!hash) return null;
 
     const trimmedHash = (() => {
       let address = hash;
       try {
-        address = Address.create(hash).getReedSolomonAddress();
+        const prefix = network.type === 'test' ? AddressPrefix.TestNet : AddressPrefix.MainNet;
+        address = Address.create(hash, prefix).getReedSolomonAddress();
       } catch (e) {
         // no op as no valid Signum Address
       }

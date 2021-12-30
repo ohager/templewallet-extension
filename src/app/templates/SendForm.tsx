@@ -593,7 +593,7 @@ const Form: FC<FormProps> = ({ assetSlug, setOperation, onAddContactRequested })
                 className="flex-shrink-0 shadow-xs opacity-75"
               />
               <div className="ml-1 mr-px font-normal">{filledContact.name}</div> (
-              <Balance assetSlug={assetSlug} address={filledContact.address}>
+              <Balance assetSlug={assetSlug} accountId={filledContact.address}>
                 {bal => (
                   <span className={classNames('text-xs leading-none')}>
                     <Money>{bal}</Money> <span style={{ fontSize: '0.75em' }}>{assetSymbol}</span>

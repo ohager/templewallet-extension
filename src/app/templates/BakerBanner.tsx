@@ -111,7 +111,7 @@ const BakerBanner = memo<BakerBannerProps>(({ bakerPkh, displayAddress = true, c
 
             {displayAddress && (
               <div className={classNames('mb-1 pl-px', 'flex flex-wrap items-center')}>
-                <AddressChip pkh={bakerPkh} small />
+                <AddressChip accountId={bakerPkh} small />
               </div>
             )}
           </div>

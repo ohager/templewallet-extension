@@ -8,7 +8,7 @@ import Name from 'app/atoms/Name';
 import { ReactComponent as ChevronDownIcon } from 'app/icons/chevron-down.svg';
 import { ReactComponent as SignalAltIcon } from 'app/icons/signal-alt.svg';
 import { T } from 'lib/i18n/react';
-import { loadChainId, useAllNetworks, useNetwork, useSetNetworkId } from 'lib/temple/front';
+import { useAllNetworks, useNetwork, useSetNetworkId } from 'lib/temple/front';
 import Popper from 'lib/ui/Popper';
 
 import styles from './NetworkSelect.module.css';
@@ -26,16 +26,15 @@ const NetworkSelect: FC<NetworkSelectProps> = () => {
       setOpened(false);
 
       if (!selected) {
-        try {
-          await loadChainId(rpcUrl);
-        } catch {}
-
+        // TODO: figure out what this does
+        // try {
+        //   // await loadChainId(rpcUrl);
+        // } catch {}
         setNetworkId(netId);
       }
     },
     [setNetworkId]
   );
-
   return (
     <Popper
       placement="bottom-end"

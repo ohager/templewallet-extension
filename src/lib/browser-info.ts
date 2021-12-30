@@ -7,7 +7,7 @@ const secureBrowserVersions: Record<string, number> = {
   Safari: 12
 };
 
-const browserInfo = (() => {
+export const browserInfo = (() => {
   let ua = navigator.userAgent,
     tem,
     M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];

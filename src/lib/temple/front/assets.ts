@@ -16,6 +16,7 @@ import {
   fetchTokenMetadata,
   PRESERVED_TOKEN_METADATA,
   TEZOS_METADATA,
+  SIGNA_METADATA,
   fetchDisplayedFungibleTokens,
   fetchFungibleTokens,
   fetchAllKnownFungibleTokenSlugs,
@@ -26,6 +27,8 @@ import {
   fetchAllKnownCollectibleTokenSlugs,
   DetailedAssetMetdata
 } from 'lib/temple/front';
+import { CurrencySymbol } from '@signumjs/util';
+import { browserInfo } from 'lib/browser-info';
 
 export const ALL_TOKENS_BASE_METADATA_STORAGE_KEY = 'tokens_base_metadata';
 
@@ -83,6 +86,10 @@ export function useAllKnownCollectibleTokenSlugs(chainId: string) {
 
 const enqueueAutoFetchMetadata = createQueue();
 const autoFetchMetadataFails = new Set<string>();
+
+export function useSignumAssetMetadata(slug: string): AssetMetadata {
+  return SIGNA_METADATA;
+}
 
 export function useAssetMetadata(slug: string) {
   const tezos = useTezos();

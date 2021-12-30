@@ -7,7 +7,7 @@ import CSSTransition from 'react-transition-group/CSSTransition';
 import { useBalance } from 'lib/temple/front';
 
 type BalanceProps = {
-  address: string;
+  accountId: string;
   children: (b: BigNumber) => ReactElement;
   assetSlug?: string;
   networkRpc?: string;
@@ -15,8 +15,8 @@ type BalanceProps = {
   initial?: BigNumber;
 };
 
-const Balance = memo<BalanceProps>(({ address, children, assetSlug = 'tez', networkRpc, displayed, initial }) => {
-  const { data: balance } = useBalance(assetSlug, address, {
+const Balance = memo<BalanceProps>(({ accountId, children, assetSlug = 'tez', networkRpc, displayed, initial }) => {
+  const { data: balance } = useBalance(assetSlug, accountId, {
     networkRpc,
     suspense: false,
     displayed,
@@ -25,7 +25,7 @@ const Balance = memo<BalanceProps>(({ address, children, assetSlug = 'tez', netw
   const exist = balance !== undefined;
 
   return useMemo(() => {
-    const childNode = children(balance !== undefined ? balance : new BigNumber(0));
+    const childNode = children(balance || new BigNumber(0));
 
     return (
       <CSSTransition

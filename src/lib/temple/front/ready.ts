@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo } from 'react';
 
+import { composeApi } from '@signumjs/core';
 import { RpcClient } from '@taquito/rpc';
 import { TezosToolkit } from '@taquito/taquito';
 import { Tzip16Module } from '@taquito/tzip16';
@@ -33,7 +34,8 @@ export const [
   useSetAccountPkh,
   useAccount,
   useSettings,
-  useTezos
+  useTezos,
+  useSignum
 ] = constate(
   useReadyTemple,
   v => v.allNetworks,
@@ -43,7 +45,8 @@ export const [
   v => v.setAccountPkh,
   v => v.account,
   v => v.settings,
-  v => v.tezos
+  v => v.tezos,
+  v => v.signum
 );
 
 function useReadyTemple() {
@@ -106,7 +109,6 @@ function useReadyTemple() {
   /**
    * tezos = TezosToolkit instance
    */
-
   const tezos = useMemo(() => {
     const checksum = [network.id, account.publicKeyHash].join('_');
     const rpc = network.rpcBaseURL;
@@ -125,6 +127,12 @@ function useReadyTemple() {
     }
   }, [tezos]);
 
+  const signum = useMemo(() => {
+    return composeApi({
+      nodeHost: network.rpcBaseURL
+    });
+  }, [network]);
+
   return {
     allNetworks,
     network,
@@ -137,7 +145,8 @@ function useReadyTemple() {
     setAccountPkh,
 
     settings,
-    tezos
+    tezos,
+    signum
   };
 }
 

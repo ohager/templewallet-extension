@@ -286,7 +286,7 @@ const ListItem = memo<ListItemProps>(({ assetSlug, last, active, accountPkh }) =
               <div className={classNames('ml-1 px-2 py-1', styles['apyBadge'])}>{<T id="tezosApy" />}</div>
             )}
           </div>
-          <Balance address={accountPkh} assetSlug={assetSlug} displayed={displayed}>
+          <Balance accountId={accountPkh} assetSlug={assetSlug} displayed={displayed}>
             {renderBalancInToken}
           </Balance>
         </div>
@@ -294,7 +294,7 @@ const ListItem = memo<ListItemProps>(({ assetSlug, last, active, accountPkh }) =
           <div className={classNames('text-xs font-normal text-gray-700 truncate w-auto flex-1')}>
             {getAssetName(metadata)}
           </div>
-          <Balance address={accountPkh} assetSlug={assetSlug} displayed={displayed}>
+          <Balance accountId={accountPkh} assetSlug={assetSlug} displayed={displayed}>
             {renderBalanceInUSD}
           </Balance>
         </div>

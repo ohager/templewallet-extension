@@ -17,22 +17,23 @@ import {
   useChainId,
   useDisplayedFungibleTokens,
   useBalance,
-  useAssetUSDPrice
+  useAssetUSDPrice,
+  useSignumAssetMetadata
 } from 'lib/temple/front';
 
 type MainBannerProps = {
   assetSlug?: string | null;
-  accountPkh: string;
+  accountId: string;
 };
 
-const MainBanner = memo<MainBannerProps>(({ assetSlug, accountPkh }) => {
+const MainBanner = memo<MainBannerProps>(({ assetSlug, accountId }) => {
   const chainId = useChainId(true)!;
   const assetBannerDisplayed = true; // assetSlug || !mainnet
 
   return assetBannerDisplayed ? (
-    <AssetBanner assetSlug={assetSlug ?? 'tez'} accountPkh={accountPkh} />
+    <AssetBanner assetSlug={assetSlug ?? 'signa'} accountId={accountId} />
   ) : (
-    <MainnetVolumeBanner chainId={chainId} accountPkh={accountPkh} />
+    <MainnetVolumeBanner chainId={chainId} accountPkh={accountId} />
   );
 });
 
@@ -44,20 +45,21 @@ type MainnetVolumeBannerProps = {
 };
 
 const MainnetVolumeBanner: FC<MainnetVolumeBannerProps> = ({ chainId, accountPkh }) => {
+  // TODO: Consider Signum Tokens
   const { data: tokens } = useDisplayedFungibleTokens(chainId, accountPkh);
-  const { data: tezBalance } = useBalance('tez', accountPkh);
+  const { data: balancePlanck } = useBalance('tez', accountPkh);
   const tezPrice = useAssetUSDPrice('tez');
 
   const volumeInUSD = useMemo(() => {
-    if (tokens && tezBalance && tezPrice) {
-      const tezBalanceInUSD = tezBalance.times(tezPrice);
+    if (tokens && balancePlanck && tezPrice) {
+      const tezBalanceInUSD = balancePlanck.times(tezPrice);
       const tokensBalanceInUSD = tokens.reduce((sum, t) => sum.plus(t.latestUSDBalance ?? 0), new BigNumber(0));
 
       return tezBalanceInUSD.plus(tokensBalanceInUSD);
     }
 
     return null;
-  }, [tokens, tezBalance, tezPrice]);
+  }, [tokens, balancePlanck, tezPrice]);
 
   return (
     <BannerLayout name={<T id="totalBalance" />}>
@@ -71,7 +73,7 @@ const MainnetVolumeBanner: FC<MainnetVolumeBannerProps> = ({ chainId, accountPkh
             </div>
 
             <h3 className="text-3xl font-light text-gray-700 flex items-center">
-              <Money fiat>{volumeInUSD}</Money>
+              <Money fiat>{volumeInUSD.toNumber()}</Money>
             </h3>
 
             <div className="flex-1" />
@@ -84,19 +86,19 @@ const MainnetVolumeBanner: FC<MainnetVolumeBannerProps> = ({ chainId, accountPkh
 
 type AssetBannerProps = {
   assetSlug: string;
-  accountPkh: string;
+  accountId: string;
 };
 
-const AssetBanner: FC<AssetBannerProps> = ({ assetSlug, accountPkh }) => {
-  const assetMetadata = useAssetMetadata(assetSlug);
-
+const AssetBanner: FC<AssetBannerProps> = ({ assetSlug, accountId }) => {
+  const assetMetadata = useSignumAssetMetadata(assetSlug);
+  console.log('AssetBanner', assetMetadata, assetSlug);
   return (
     <BannerLayout name={<Name style={{ maxWidth: '13rem' }}>{getAssetName(assetMetadata)}</Name>}>
       <AssetIcon assetSlug={assetSlug} size={48} className="mr-3 flex-shrink-0" />
 
       <div className="font-light leading-none">
         <div className="flex items-center">
-          <Balance address={accountPkh} assetSlug={assetSlug}>
+          <Balance accountId={accountId} assetSlug={assetSlug}>
             {balance => (
               <div className="flex flex-col">
                 <span className="text-xl text-gray-800">

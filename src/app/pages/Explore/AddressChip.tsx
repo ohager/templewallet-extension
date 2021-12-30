@@ -9,12 +9,12 @@ import HashChip from 'app/templates/HashChip';
 import { useTezos, useTezosDomainsClient, fetchFromStorage, putToStorage } from 'lib/temple/front';
 
 type AddressChipProps = {
-  pkh: string;
+  accountId: string;
   className?: string;
   small?: boolean;
 };
 
-const AddressChip: FC<AddressChipProps> = ({ pkh, className, small }) => {
+const AddressChip: FC<AddressChipProps> = ({ accountId, className, small }) => {
   const tezos = useTezos();
   const { resolver: domainsResolver } = useTezosDomainsClient();
 
@@ -23,10 +23,14 @@ const AddressChip: FC<AddressChipProps> = ({ pkh, className, small }) => {
     [domainsResolver]
   );
 
-  const { data: reverseName } = useSWR(() => ['tzdns-reverse-name', pkh, tezos.checksum], resolveDomainReverseName, {
-    shouldRetryOnError: false,
-    revalidateOnFocus: false
-  });
+  const { data: reverseName } = useSWR(
+    () => ['tzdns-reverse-name', accountId, tezos.checksum],
+    resolveDomainReverseName,
+    {
+      shouldRetryOnError: false,
+      revalidateOnFocus: false
+    }
+  );
 
   const [domainDisplayed, setDomainDisplayed] = useState(false);
   const domainDisplayedKey = useMemo(() => 'domain-displayed', []);
@@ -55,7 +59,7 @@ const AddressChip: FC<AddressChipProps> = ({ pkh, className, small }) => {
       {reverseName && domainDisplayed ? (
         <HashChip hash={reverseName} firstCharsCount={7} lastCharsCount={10} small={small} />
       ) : (
-        <HashChip hash={pkh} small={small} />
+        <HashChip hash={accountId} small={small} />
       )}
 
       {reverseName && (

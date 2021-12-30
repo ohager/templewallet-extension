@@ -1,7 +1,7 @@
 import { createStore, createEvent } from 'effector';
 
 import { Vault } from 'lib/temple/back/vault';
-import { NETWORKS } from 'lib/temple/networks';
+import { NETWORKS, SIGNUM_NETWORKS } from 'lib/temple/networks';
 import { TempleState, TempleStatus, TempleAccount, TempleSettings } from 'lib/temple/types';
 
 export interface StoreState extends TempleState {

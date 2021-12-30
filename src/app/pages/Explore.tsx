@@ -1,5 +1,6 @@
 import React, { FC, FunctionComponent, ReactNode, Suspense, SVGProps, useLayoutEffect, useMemo } from 'react';
 
+import { Address } from '@signumjs/core';
 import classNames from 'clsx';
 import { Props as TippyProps } from 'tippy.js';
 
@@ -22,7 +23,8 @@ import {
   TempleAccountType,
   useAccount,
   useAssetMetadata,
-  useNetwork
+  useNetwork,
+  useSignumAssetMetadata
 } from 'lib/temple/front';
 import useTippy from 'lib/ui/useTippy';
 import { HistoryAction, Link, navigate, useLocation } from 'lib/woozie';
@@ -36,7 +38,6 @@ import MainBanner from './Explore/MainBanner';
 import Tokens from './Explore/Tokens';
 import { useOnboardingProgress } from './Onboarding/hooks/useOnboardingProgress.hook';
 import Onboarding from './Onboarding/Onboarding';
-import { Address } from "@signumjs/core";
 
 type ExploreProps = {
   assetSlug?: string | null;
@@ -56,7 +57,7 @@ const Explore: FC<ExploreProps> = ({ assetSlug }) => {
   const { search } = useLocation();
   const network = useNetwork();
 
-  const assetMetadata = useAssetMetadata(assetSlug ?? 'tez');
+  const assetMetadata = useSignumAssetMetadata(assetSlug || 'signa');
 
   useLayoutEffect(() => {
     const usp = new URLSearchParams(search);
@@ -68,10 +69,10 @@ const Explore: FC<ExploreProps> = ({ assetSlug }) => {
     return undefined;
   }, [registerBackHandler, assetSlug, search]);
 
-  const accountPkh = account.publicKeyHash;
+  const accountId = account.publicKeyHash;
   const canSend = account.type !== TempleAccountType.WatchOnly;
   const fullpageClassName = fullPage ? 'mb-10' : 'mb-6';
-  const swapLink = assetSlug ? `/swap/${assetSlug}` : '/swap';
+  // const swapLink = assetSlug ? `/swap/${assetSlug}` : '/swap';
   const sendLink = assetSlug ? `/send/${assetSlug}` : '/send';
 
   return onboardingCompleted ? (
@@ -98,21 +99,20 @@ const Explore: FC<ExploreProps> = ({ assetSlug }) => {
       )}
 
       <div className={classNames('flex flex-col items-center', fullpageClassName)}>
-        <AddressChip pkh={accountPkh} className="mb-6" />
+        <AddressChip accountId={accountId} className="mb-6" />
 
-        <MainBanner accountPkh={accountPkh} assetSlug={assetSlug} />
+        <MainBanner accountId={accountId} assetSlug={assetSlug} />
 
-        <div className="flex justify-between mx-auto w-full max-w-sm mt-6 px-8">
+        <div className="flex justify-around mx-auto w-full max-w-sm mt-6 px-8">
           <ActionButton label={<T id="receive" />} Icon={ReceiveIcon} href="/receive" />
-          {network.type !== 'test' && <ActionButton label={<T id="buyButton" />} Icon={BuyIcon} href="/buy" />}
-
-          <ActionButton
-            label={<T id="swap" />}
-            Icon={SwapIcon}
-            href={swapLink}
-            disabled={!canSend}
-            tippyProps={tippyPropsMock}
-          />
+          {/*{network.type !== 'test' && <ActionButton label={<T id="buyButton" />} Icon={BuyIcon} href="/buy" />}*/}
+          {/*<ActionButton*/}
+          {/*  label={<T id="swap" />}*/}
+          {/*  Icon={SwapIcon}*/}
+          {/*  href={swapLink}*/}
+          {/*  disabled={!canSend}*/}
+          {/*  tippyProps={tippyPropsMock}*/}
+          {/*/>*/}
           <ActionButton
             label={<T id="send" />}
             Icon={SendIcon}

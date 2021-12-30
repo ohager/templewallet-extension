@@ -105,7 +105,7 @@ const AssetInMenuContent: FC<AssetSelectOptionRenderProps> = ({ option: asset })
 
       <span className={classNames('text-gray-600', 'text-sm leading-none')}>
         {asset === 'tez' ? (
-          <Balance assetSlug={assetSlug} address={account.publicKeyHash}>
+          <Balance assetSlug={assetSlug} accountId={account.publicKeyHash}>
             {balance => (
               <>
                 <Money>{balance}</Money>{' '}
@@ -129,7 +129,7 @@ const AssetSelectedContent: FC<AssetSelectOptionRenderProps> = ({ option }) => {
   const metadata = useAssetMetadata(assetSlug);
 
   return (
-    <Balance assetSlug={assetSlug} address={account.publicKeyHash}>
+    <Balance assetSlug={assetSlug} accountId={account.publicKeyHash}>
       {balance => (
         <div className="flex flex-col items-start">
           <span className="text-xl text-gray-800">
