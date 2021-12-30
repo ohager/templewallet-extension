@@ -7,7 +7,7 @@ import Spinner from 'app/atoms/Spinner';
 import { ReactComponent as LayersIcon } from 'app/icons/layers.svg';
 import { T } from 'lib/i18n/react';
 import ActivityItem from './ActivityItem';
-import { Transaction } from "@signumjs/core";
+import { Transaction } from '@signumjs/core';
 
 type ActivityViewProps = {
   accountId: string;

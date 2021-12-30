@@ -16,7 +16,7 @@ type ActivityProps = {
   className?: string;
 };
 
-const Activity = memo<ActivityProps>(({ accountId , className}) => {
+const Activity = memo<ActivityProps>(({ accountId, className }) => {
   const signum = useSignum();
   const safeStateKey = useMemo(() => accountId, [accountId]);
   const [restTransactions, setRestTransactions] = useSafeState<Transaction[]>([], safeStateKey);
