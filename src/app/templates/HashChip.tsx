@@ -10,6 +10,7 @@ type HashChipProps = HTMLAttributes<HTMLButtonElement> &
 const HashChip: FC<HashChipProps> = ({
   hash,
   trim,
+  isAccount,
   trimAfter,
   firstCharsCount,
   lastCharsCount,
@@ -19,6 +20,7 @@ const HashChip: FC<HashChipProps> = ({
   <CopyButton text={hash} type={type} {...rest}>
     <HashShortView
       hash={hash}
+      isAccount={isAccount}
       trimAfter={trimAfter}
       firstCharsCount={firstCharsCount}
       lastCharsCount={lastCharsCount}

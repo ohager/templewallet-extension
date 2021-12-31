@@ -38,10 +38,21 @@ const Activity = memo<ActivityProps>(({ accountId, className }) => {
     }
   );
 
-  const transactions = useMemo(
-    () => mergeTransactions(latestTransactions?.transactions, restTransactions),
-    [latestTransactions, restTransactions]
+  const { data: unconfirmedTransactions, isValidating: fetchingUnconfirmed } = useRetryableSWR(
+    ['getUnconfirmedAccountTransactions', accountId],
+    () => signum.account.getUnconfirmedAccountTransactions(accountId, true),
+    {
+      revalidateOnMount: true,
+      refreshInterval: 5_000,
+      dedupingInterval: 5_000
+    }
   );
+
+  const transactions = useMemo(() => {
+    const pendingTransactions = unconfirmedTransactions?.unconfirmedTransactions || [];
+    const confirmedTransactions = mergeTransactions(latestTransactions?.transactions, restTransactions);
+    return [...pendingTransactions, ...confirmedTransactions];
+  }, [unconfirmedTransactions, latestTransactions, restTransactions]);
 
   /**
    * Load more / Pagination
@@ -73,11 +84,12 @@ const Activity = memo<ActivityProps>(({ accountId, className }) => {
     setLoadingMore(false);
   }, [setLoadingMore, setRestTransactions, accountId, transactions]);
 
+  const initialLoading = fetching || fetchingUnconfirmed || !transactions || transactions.length === 0;
   return (
     <ActivityView
       accountId={accountId}
-      transactions={transactions ?? []}
-      initialLoading={fetching || !transactions || transactions.length === 0}
+      transactions={transactions}
+      initialLoading={initialLoading}
       loadingMore={loadingMore}
       loadMoreDisplayed={hasMoreRef.current}
       loadMore={handleLoadMore}
@@ -89,7 +101,7 @@ const Activity = memo<ActivityProps>(({ accountId, className }) => {
 export default Activity;
 
 function mergeTransactions(base?: Transaction[], toAppend: Transaction[] = []) {
-  if (!base) return undefined;
+  if (!base) return [];
 
   const uniqueHashes = new Set<string>();
   const uniques: Transaction[] = [];

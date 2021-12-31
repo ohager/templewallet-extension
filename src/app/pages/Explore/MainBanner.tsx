@@ -91,9 +91,8 @@ type AssetBannerProps = {
 
 const AssetBanner: FC<AssetBannerProps> = ({ assetSlug, accountId }) => {
   const assetMetadata = useSignumAssetMetadata(assetSlug);
-  console.log('AssetBanner', assetMetadata, assetSlug);
   return (
-    <BannerLayout name={<Name style={{ maxWidth: '13rem' }}>{getAssetName(assetMetadata)}</Name>}>
+    <BannerLayout name={<Name style={{ maxWidth: '18rem' }}>{getAssetName(assetMetadata)}</Name>}>
       <AssetIcon assetSlug={assetSlug} size={48} className="mr-3 flex-shrink-0" />
 
       <div className="font-light leading-none">

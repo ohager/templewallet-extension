@@ -1,3 +1,4 @@
+// DO NOT CHANGE THE ORDER :eyes :shrug :wtf
 export * from 'lib/temple/types';
 export * from 'lib/temple/helpers';
 export * from 'lib/temple/assets';
@@ -23,6 +24,7 @@ export * from 'lib/temple/front/blockexplorer';
 export * from 'lib/temple/front/address-book';
 export * from 'lib/temple/front/kukai';
 export * from 'lib/temple/front/local-storage';
+export * from 'lib/temple/front/aliases';
 
 // Legacy
 export * from 'lib/temple/front/legacy-assets';

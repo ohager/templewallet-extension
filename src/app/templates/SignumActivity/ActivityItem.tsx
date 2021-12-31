@@ -25,7 +25,7 @@ type ActivityItemProps = {
 
 const ActivityItem = memo<ActivityItemProps>(({ accountId, transaction, className }) => {
   const { transaction: explorerBaseUrl } = useExplorerBaseUrls();
-  const { transaction: txId, blockTimestamp } = transaction;
+  const { transaction: txId, timestamp } = transaction;
 
   // const moneyDiffs = useMemo(
   //   () => (!status || ['pending', 'applied'].includes(status) ? parseMoneyDiffs(transaction, address) : []),
@@ -34,23 +34,15 @@ const ActivityItem = memo<ActivityItemProps>(({ accountId, transaction, classNam
 
   // const opStack = useMemo(() => parseOpStack(transaction, accountId), [transaction, accountId]);
 
-  // const statusNode = useMemo(() => {
-  //   if (!syncSupported) return null;
-  //
-  //   const explorerStatus = transaction.data.tzktGroup?.[0]?.status ?? transaction.data.bcdTokenTransfers?.[0]?.status;
-  //   const content = explorerStatus ?? 'pending';
-  //
-  //   return (
-  //     <span
-  //       className={classNames(
-  //         explorerStatus === 'applied' ? 'text-gray-600' : explorerStatus ? 'text-red-600' : 'text-yellow-600',
-  //         'capitalize'
-  //       )}
-  //     >
-  //       {t(content) || content}
-  //     </span>
-  //   );
-  // }, [syncSupported, transaction.data]);
+  const transactionStatus = useMemo(() => {
+    const isPending = transaction.blockTimestamp === undefined;
+    const content = isPending ? 'pending' : 'applied';
+    return (
+      <span className={classNames(isPending ? 'text-gray-600' : 'text-green-600', 'capitalize')}>
+        {t(content) || content}
+      </span>
+    );
+  }, [transaction]);
 
   return (
     <div className={classNames('my-3', className)}>
@@ -66,12 +58,11 @@ const ActivityItem = memo<ActivityItemProps>(({ accountId, transaction, classNam
         <div className="flex flex-col pt-2">
           {/*<OpStack opStack={opStack} className="mb-2" />*/}
 
-          {/*{statusNode && <div className="mb-px text-xs font-light leading-none">{statusNode}</div>}*/}
-
+          <div className="mb-px text-xs font-light leading-none">{transactionStatus}</div>
           <Time
             children={() => (
               <span className="text-xs font-light text-gray-500">
-                {formatDistanceToNow(ChainTime.fromChainTimestamp(blockTimestamp!).getDate(), {
+                {formatDistanceToNow(ChainTime.fromChainTimestamp(timestamp!).getDate(), {
                   includeSeconds: true,
                   addSuffix: true,
                   locale: getDateFnsLocale()

@@ -6,6 +6,7 @@ import { useNetwork } from '../../lib/temple/front';
 
 type HashShortViewProps = {
   hash: string;
+  isAccount?: boolean;
   trim?: boolean;
   trimAfter?: number;
   firstCharsCount?: number;
@@ -13,7 +14,7 @@ type HashShortViewProps = {
 };
 
 const HashShortView = memo<HashShortViewProps>(
-  ({ hash, trim = true, trimAfter = 20, firstCharsCount = 7, lastCharsCount = 4 }) => {
+  ({ hash, isAccount = false, trim = true, trimAfter = 20, firstCharsCount = 7, lastCharsCount = 4 }) => {
     const network = useNetwork();
     if (!hash) return null;
 
@@ -21,7 +22,7 @@ const HashShortView = memo<HashShortViewProps>(
       let address = hash;
       try {
         const prefix = network.type === 'test' ? AddressPrefix.TestNet : AddressPrefix.MainNet;
-        address = Address.create(hash, prefix).getReedSolomonAddress();
+        address = isAccount ? Address.create(hash, prefix).getReedSolomonAddress() : hash;
       } catch (e) {
         // no op as no valid Signum Address
       }
