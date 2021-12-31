@@ -87,7 +87,7 @@ export function useAllKnownCollectibleTokenSlugs(chainId: string) {
 const enqueueAutoFetchMetadata = createQueue();
 const autoFetchMetadataFails = new Set<string>();
 
-export function useSignumAssetMetadata(slug: string): AssetMetadata {
+export function useSignumAssetMetadata(slug?: string): AssetMetadata {
   return SIGNA_METADATA;
 }
 

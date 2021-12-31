@@ -1,12 +1,11 @@
-import React, { memo, useMemo } from 'react';
+import React, { memo } from 'react';
 
-import BigNumber from 'bignumber.js';
 import classNames from 'clsx';
 
 import Money from 'app/atoms/Money';
 import { useAppEnv } from 'app/env';
 import InUSD from 'app/templates/InUSD';
-import { useAssetMetadata, getAssetSymbol, useSignumAssetMetadata } from 'lib/temple/front';
+import { getAssetSymbol, useSignumAssetMetadata } from 'lib/temple/front';
 
 type MoneyDiffViewProps = {
   assetId: string;
@@ -18,9 +17,6 @@ type MoneyDiffViewProps = {
 const MoneyDiffView = memo<MoneyDiffViewProps>(({ assetId: assetSlug, diff, pending = false, className }) => {
   const { popup } = useAppEnv();
   const metadata = useSignumAssetMetadata(assetSlug);
-
-  // const diffBN = useMemo(() => new BigNumber(diff).div(metadata ? 10 ** metadata.decimals : 1), [diff, metadata]);
-
   return metadata ? (
     <div className={classNames('inline-flex flex-wrap justify-end items-baseline', className)}>
       <div

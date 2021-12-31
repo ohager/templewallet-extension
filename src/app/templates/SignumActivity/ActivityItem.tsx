@@ -1,15 +1,15 @@
 import React, { memo, useMemo } from 'react';
 
 import { Transaction } from '@signumjs/core';
-import { ChainTime } from '@signumjs/util';
+import { Amount, ChainTime } from '@signumjs/util';
 import classNames from 'clsx';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
 import OpenInExplorerChip from 'app/atoms/OpenInExplorerChip';
 import HashChip from 'app/templates/HashChip';
 import { t, getDateFnsLocale } from 'lib/i18n/react';
-import { parseTxStack, parseMoneyDiffs, parseAmountDiffs } from 'lib/temple/activity';
-import { useSignumExplorerBaseUrls } from 'lib/temple/front';
+import { parseTxStack, parseAmountDiffs } from 'lib/temple/activity';
+import { useSignumAssetMetadata, useSignumExplorerBaseUrls } from 'lib/temple/front';
 
 import MoneyDiffView from './MoneyDiffView';
 import Time from './Time';
@@ -23,15 +23,12 @@ type ActivityItemProps = {
 
 const ActivityItem = memo<ActivityItemProps>(({ accountId, transaction, className }) => {
   const { transaction: explorerBaseUrl } = useSignumExplorerBaseUrls();
+  const metadata = useSignumAssetMetadata();
   const { transaction: txId, timestamp } = transaction;
 
-  const moneyDiff = useMemo(
-    () => parseAmountDiffs(transaction, accountId)[0],
-    [transaction, accountId]
-  );
+  const moneyDiff = useMemo(() => parseAmountDiffs(transaction, accountId)[0], [transaction, accountId]);
 
-  console.log('MoneyDiffs', moneyDiff)
-
+  const feeAmount = useMemo(() => Amount.fromPlanck(transaction.feeNQT!).getSigna(), [accountId]);
   const txStack = useMemo(() => parseTxStack(transaction, accountId), [transaction, accountId]);
   const isPending = transaction.blockTimestamp === undefined;
   const transactionStatus = useMemo(() => {
@@ -73,7 +70,10 @@ const ActivityItem = memo<ActivityItemProps>(({ accountId, transaction, classNam
         <div className="flex-1" />
 
         <div className="flex flex-col flex-shrink-0">
-            <MoneyDiffView assetId='signa' diff={moneyDiff.diff} pending={isPending} />
+          <MoneyDiffView assetId="signa" diff={moneyDiff.diff} pending={isPending} />
+          <div className="text-xs text-gray-500 justify-end">
+            {feeAmount} {metadata.symbol}
+          </div>
         </div>
       </div>
     </div>
