@@ -13,7 +13,7 @@ import { ReactComponent as ClipboardIcon } from 'app/icons/clipboard.svg';
 import HashChip from 'app/templates/HashChip';
 import { T, t, getDateFnsLocale, TProps } from 'lib/i18n/react';
 import { OpStackItem, OpStackItemType, parseMoneyDiffs, parseOpStack } from 'lib/temple/activity';
-import { useExplorerBaseUrls } from 'lib/temple/front';
+import { useExplorerBaseUrls, useSignumExplorerBaseUrls } from 'lib/temple/front';
 
 import MoneyDiffView from './MoneyDiffView';
 
@@ -24,7 +24,7 @@ type ActivityItemProps = {
 };
 
 const ActivityItem = memo<ActivityItemProps>(({ accountId, transaction, className }) => {
-  const { transaction: explorerBaseUrl } = useExplorerBaseUrls();
+  const { transaction: explorerBaseUrl } = useSignumExplorerBaseUrls();
   const { transaction: txId, timestamp } = transaction;
 
   // const moneyDiffs = useMemo(
