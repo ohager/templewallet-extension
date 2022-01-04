@@ -15,13 +15,13 @@ import { ReactComponent as StickerIcon } from 'app/icons/sticker.svg';
 import PageLayout from 'app/layouts/PageLayout';
 import About from 'app/templates/About';
 import ActivateAccount from 'app/templates/ActivateAccount';
-import AddressBook from 'app/templates/SignumAddressBook';
 import CustomNetworksSettings from 'app/templates/CustomNetworksSettings';
 import DAppSettings from 'app/templates/DAppSettings';
 import GeneralSettings from 'app/templates/GeneralSettings';
 import HelpAndCommunity from 'app/templates/HelpAndCommunity';
 import RemoveAccount from 'app/templates/RemoveAccount';
 import RevealSecret from 'app/templates/RevealSecret';
+import AddressBook from 'app/templates/SignumAddressBook';
 import { T } from 'lib/i18n/react';
 import { Link } from 'lib/woozie';
 

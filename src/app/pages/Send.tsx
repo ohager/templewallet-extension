@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 
 import { ReactComponent as SendIcon } from 'app/icons/send.svg';
 import PageLayout from 'app/layouts/PageLayout';
-import SendForm from 'app/templates/SendForm';
+import SendForm from 'app/templates/SignumSendForm';
 import { t } from 'lib/i18n/react';
 
 type SendProps = {
@@ -19,7 +19,7 @@ const Send: FC<SendProps> = ({ assetSlug }) => (
   >
     <div className="py-4">
       <div className="w-full max-w-sm mx-auto">
-        <SendForm assetSlug={assetSlug} />
+        <SendForm />
       </div>
     </div>
   </PageLayout>

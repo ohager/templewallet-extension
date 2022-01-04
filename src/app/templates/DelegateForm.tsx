@@ -461,7 +461,7 @@ const DelegateForm: FC = () => {
               control={control}
               onChange={handleFeeFieldChange}
               assetSymbol={assetSymbol}
-              baseFee={baseFee}
+              // baseFee={baseFee}
               error={errors.fee}
               id="delegate-fee"
             />

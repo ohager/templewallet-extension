@@ -1,4 +1,4 @@
-import React, { FC, HTMLAttributes, memo, useCallback, useMemo, useRef } from 'react';
+import React, { FC, HTMLAttributes, memo, MouseEventHandler, useCallback, useMemo, useRef } from 'react';
 
 import BigNumber from 'bignumber.js';
 import classNames from 'clsx';
@@ -16,6 +16,7 @@ type MoneyProps = {
   shortened?: boolean;
   smallFractionFont?: boolean;
   tooltip?: boolean;
+  onClick?: MouseEventHandler;
 };
 
 const DEFAULT_CRYPTO_DECIMALS = 6;
@@ -28,6 +29,7 @@ const Money = memo<MoneyProps>(
     cryptoDecimals = DEFAULT_CRYPTO_DECIMALS,
     roundingMode = BigNumber.ROUND_DOWN,
     shortened,
+    onClick,
     smallFractionFont = true,
     tooltip = true
   }) => {
@@ -52,7 +54,7 @@ const Money = memo<MoneyProps>(
     );
 
     if (indexOfDecimal === -1) {
-      return <JustMoney tooltip={tooltip} result={result} className={tippyClassName} bn={bn} />;
+      return <JustMoney tooltip={tooltip} result={result} className={tippyClassName} bn={bn} onClick={onClick} />;
     }
 
     if (!fiat && decimalsLength > cryptoDecimals && !shortened) {
@@ -64,6 +66,7 @@ const Money = memo<MoneyProps>(
           cryptoDecimals={cryptoDecimals}
           roundingMode={roundingMode}
           smallFractionFont={smallFractionFont}
+          onClick={onClick}
         />
       );
     }
@@ -89,10 +92,11 @@ interface JustMoneyProps {
   bn: BigNumber;
   className: string;
   result: string;
+  onClick?: MouseEventHandler;
 }
 
-const JustMoney: FC<JustMoneyProps> = ({ tooltip, bn, className, result }) => (
-  <FullAmountTippy enabled={tooltip} fullAmount={bn} className={className}>
+const JustMoney: FC<JustMoneyProps> = ({ tooltip, bn, className, result, onClick = () => {} }) => (
+  <FullAmountTippy enabled={tooltip} fullAmount={bn} className={className} onClick={onClick}>
     {result}
   </FullAmountTippy>
 );
@@ -104,6 +108,7 @@ interface MoneyWithoutFormatProps {
   cryptoDecimals: number;
   roundingMode?: BigNumber.RoundingMode;
   smallFractionFont: boolean;
+  onClick?: MouseEventHandler;
 }
 
 const MoneyWithoutFormat: FC<MoneyWithoutFormatProps> = ({
@@ -112,7 +117,8 @@ const MoneyWithoutFormat: FC<MoneyWithoutFormatProps> = ({
   className,
   cryptoDecimals,
   roundingMode,
-  smallFractionFont
+  smallFractionFont,
+  onClick
 }) => {
   const { decimal } = getNumberSymbols();
   const result = toLocalFormat(bn, {
@@ -122,7 +128,7 @@ const MoneyWithoutFormat: FC<MoneyWithoutFormatProps> = ({
   const indexOfDecimal = result.indexOf(decimal);
 
   return (
-    <FullAmountTippy enabled={tooltip} fullAmount={bn} className={className} showAmountTooltip>
+    <FullAmountTippy enabled={tooltip} fullAmount={bn} className={className} showAmountTooltip onClick={onClick}>
       {result.slice(0, indexOfDecimal + 1)}
       <span style={{ fontSize: smallFractionFont ? '0.9em' : undefined }}>
         {result.slice(indexOfDecimal + 1, result.length)}

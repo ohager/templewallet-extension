@@ -7,11 +7,12 @@ import React, {
   MutableRefObject,
   SVGProps,
   useCallback,
+  useEffect,
   useRef,
   useState
 } from 'react';
 
-import BigNumber from 'bignumber.js';
+import { FeeQuantPlanck } from '@signumjs/util';
 import classNames from 'clsx';
 import { Controller, ControllerProps, EventFunction, FieldError } from 'react-hook-form';
 
@@ -26,15 +27,15 @@ import CustomSelect, { OptionRenderProps } from 'app/templates/CustomSelect';
 import { AnalyticsEventCategory, useAnalytics } from 'lib/analytics';
 import { toLocalFixed } from 'lib/i18n/numbers';
 import { T, t } from 'lib/i18n/react';
-import { TEZOS_METADATA } from 'lib/temple/front';
+import { SIGNA_METADATA, useSignum } from 'lib/temple/front';
 
+import Spinner from '../atoms/Spinner';
 import { AdditionalFeeInputSelectors } from './AdditionalFeeInput.selectors';
 
 type AssetFieldProps = typeof AssetField extends ForwardRefExoticComponent<infer T> ? T : never;
 
 export type AdditionalFeeInputProps = Pick<ControllerProps<ComponentType>, 'name' | 'control' | 'onChange'> & {
   assetSymbol: string;
-  baseFee?: BigNumber | Error;
   error?: FieldError;
   id: string;
 };
@@ -51,44 +52,61 @@ const feeOptions: FeeOption[] = [
     Icon: CoffeeIcon,
     descriptionI18nKey: 'minimalFeeDescription',
     type: 'minimal',
-    amount: 1e-4
+    amount: FeeQuantPlanck / 1e8
   },
   {
     Icon: ({ className, ...rest }) => <CupIcon className={classNames('transform scale-95', className)} {...rest} />,
     descriptionI18nKey: 'fastFeeDescription',
     type: 'fast',
-    amount: 1.5e-4
+    amount: undefined
   },
   {
     Icon: RocketIcon,
     descriptionI18nKey: 'rocketFeeDescription',
     type: 'rocket',
-    amount: 2e-4
-  },
-  {
-    Icon: ({ className, ...rest }) => (
-      <SettingsIcon className={classNames('transform scale-95', className)} {...rest} />
-    ),
-    descriptionI18nKey: 'customFeeDescription',
-    type: 'custom'
+    amount: undefined
   }
 ];
 
 const getFeeOptionId = (option: FeeOption) => option.type;
 
 const AdditionalFeeInput: FC<AdditionalFeeInputProps> = props => {
-  const { assetSymbol, baseFee, control, id, name, onChange } = props;
-  const { trackEvent } = useAnalytics();
+  const { assetSymbol, control, id, name, onChange } = props;
+  const [isFetchingFees, setIsFetchingFees] = useState<boolean>(true);
+  // const { trackEvent } = useAnalytics();
 
   const customFeeInputRef = useRef<HTMLInputElement>(null);
+  const signum = useSignum();
   const focusCustomFeeInput = useCallback(() => {
     customFeeInputRef.current?.focus();
   }, []);
 
+  useEffect(() => {
+    if (!signum) return;
+
+    async function fetchFees() {
+      setIsFetchingFees(true);
+      const { cheap, standard, priority } = await signum.network.getSuggestedFees();
+      feeOptions[0].amount = cheap / 1e8;
+      feeOptions[1].amount = standard / 1e8;
+      feeOptions[2].amount = priority / 1e8;
+      setIsFetchingFees(false);
+    }
+
+    fetchFees();
+  }, []);
+
   const handleChange: EventFunction = event => {
-    trackEvent(AdditionalFeeInputSelectors.FeeButton, AnalyticsEventCategory.ButtonPress);
     return onChange !== undefined && onChange(event);
   };
+
+  if (isFetchingFees) {
+    return (
+      <div className={classNames('flex items-center justify-center')}>
+        <Spinner theme="gray" style={{ width: '2rem' }} />
+      </div>
+    );
+  }
 
   return (
     <Controller
@@ -102,16 +120,14 @@ const AdditionalFeeInput: FC<AdditionalFeeInputProps> = props => {
       onFocus={focusCustomFeeInput}
       label={t('additionalFee')}
       labelDescription={
-        baseFee instanceof BigNumber && (
-          <T
-            id="feeInputDescription"
-            substitutions={[
-              <Fragment key={0}>
-                <span className="font-normal">{toLocalFixed(baseFee)}</span>
-              </Fragment>
-            ]}
-          />
-        )
+        <T
+          id="feeInputDescription"
+          substitutions={[
+            <Fragment key={0}>
+              <span className="font-normal">{toLocalFixed(FeeQuantPlanck / 1e8)}</span>
+            </Fragment>
+          ]}
+        />
       }
       placeholder="0"
     />
@@ -154,7 +170,7 @@ const AdditionalFeeInputContent: FC<AdditionalFeeInputContentProps> = props => {
 
   return (
     <div className="flex flex-col w-full mb-2">
-      {label ? (
+      {label && (
         <label className="flex flex-col mb-4 leading-tight" htmlFor={`${id}-select`}>
           <span className="text-base font-semibold text-gray-700">{label}</span>
 
@@ -164,7 +180,7 @@ const AdditionalFeeInputContent: FC<AdditionalFeeInputContentProps> = props => {
             </span>
           )}
         </label>
-      ) : null}
+      )}
 
       <div className="relative flex flex-col items-stretch">
         <CustomSelect
@@ -177,16 +193,6 @@ const AdditionalFeeInputContent: FC<AdditionalFeeInputContentProps> = props => {
           padding="0.2rem 0.375rem 0.2rem 0.375rem"
           OptionIcon={FeeOptionIcon}
           OptionContent={FeeOptionContent}
-        />
-
-        <AssetField
-          containerClassName={classNames(selectedPreset !== 'custom' && 'hidden', 'mb-2')}
-          id={id}
-          onChange={onChange}
-          ref={customFeeInputRef}
-          assetSymbol={assetSymbol}
-          value={value}
-          {...restProps}
         />
       </div>
     </div>
@@ -212,7 +218,7 @@ const FeeOptionContent: FC<OptionRenderProps<FeeOption>> = ({ item: { descriptio
         {amount && (
           <div className="ml-2 leading-none text-gray-600">
             <Money cryptoDecimals={5}>{amount}</Money>{' '}
-            <span style={{ fontSize: '0.75em' }}>{TEZOS_METADATA.symbol}</span>
+            <span style={{ fontSize: '0.75em' }}>{SIGNA_METADATA.symbol}</span>
           </div>
         )}
       </div>

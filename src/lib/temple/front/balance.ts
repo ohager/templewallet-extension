@@ -5,6 +5,7 @@ import BigNumber from 'bignumber.js';
 
 import { useRetryableSWR } from 'lib/swr';
 import { useTezos, ReactiveTezosToolkit, useSignum } from 'lib/temple/front';
+import { responseInterface } from 'swr';
 
 type UseBalanceOptions = {
   suspense?: boolean;
@@ -15,7 +16,6 @@ type UseBalanceOptions = {
 
 export function useBalance(assetSlug: string, accountId: string, opts: UseBalanceOptions = {}) {
   // FUTURE: accept assetSlugs to get the tokens amounts also
-
   const signum = useSignum();
   const fetchBalanceLocal = useCallback(async () => {
     const { balanceNQT } = await signum.account.getAccountBalance(accountId);
