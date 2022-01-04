@@ -126,7 +126,7 @@ const AddNewContactForm: React.FC<{ className?: string }> = ({ className }) => {
           throw new Error(t('invalidAddressOrDomain'));
         }
 
-        await addContact({ address, name, addedAt: Date.now() });
+        await addContact({ address: address, name, addedAt: Date.now() });
         resetForm();
       } catch (err: any) {
         await withErrorHumanDelay(err, () => setError('address', SUBMIT_ERROR_TYPE, err.message));

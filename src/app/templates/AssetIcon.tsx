@@ -3,9 +3,7 @@ import React, { CSSProperties, memo, useCallback, useState } from 'react';
 import classNames from 'clsx';
 
 import Identicon from 'app/atoms/Identicon';
-import { AssetTypesEnum } from 'lib/temple/assets';
-import { useAssetMetadata, getAssetSymbol, getThumbnailUri, useSignumAssetMetadata } from 'lib/temple/front';
-import useImageLoader from 'lib/ui/useImageLoader';
+import { getAssetSymbol, getThumbnailUri, useSignumAssetMetadata } from 'lib/temple/front';
 
 export type AssetIconProps = {
   assetSlug: string;
@@ -16,27 +14,14 @@ export type AssetIconProps = {
 };
 
 const AssetIcon = memo((props: AssetIconProps) => {
-  const { assetSlug, className, style, size, assetType } = props;
+  const { assetSlug, className, style, size } = props;
 
-  const [fallbackIcon, setFallbackIcon] = useState<Boolean>(false);
   const metadata = useSignumAssetMetadata(assetSlug);
-  // const nftSrc = useImageLoader(assetSlug);
-  let thumbnailUri;
-  // const isNft = assetType === AssetTypesEnum.Collectibles && !fallbackIcon;
-  // if (isNft) {
-  //   thumbnailUri = nftSrc;
-  // } else {
-  thumbnailUri = getThumbnailUri(metadata);
-  // }
+  let thumbnailUri = getThumbnailUri(metadata);
 
-  console.log('AssetIcon', props, metadata);
   const [imageDisplayed, setImageDisplayed] = useState(true);
   const handleImageError = useCallback(() => {
-    // if (isNft) {
-    //   setFallbackIcon(true);
-    // } else {
     setImageDisplayed(false);
-    // }
   }, [setImageDisplayed]);
 
   if (thumbnailUri && imageDisplayed) {

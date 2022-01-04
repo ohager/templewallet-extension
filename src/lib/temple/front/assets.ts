@@ -27,8 +27,6 @@ import {
   fetchAllKnownCollectibleTokenSlugs,
   DetailedAssetMetdata
 } from 'lib/temple/front';
-import { CurrencySymbol } from '@signumjs/util';
-import { browserInfo } from 'lib/browser-info';
 
 export const ALL_TOKENS_BASE_METADATA_STORAGE_KEY = 'tokens_base_metadata';
 
@@ -88,6 +86,7 @@ const enqueueAutoFetchMetadata = createQueue();
 const autoFetchMetadataFails = new Set<string>();
 
 export function useSignumAssetMetadata(slug?: string): AssetMetadata {
+  // TODO: add more token support in the future
   return SIGNA_METADATA;
 }
 

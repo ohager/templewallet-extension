@@ -16,7 +16,7 @@ type AddressChipProps = {
 
 const AddressChip: FC<AddressChipProps> = ({ accountId, className, small }) => {
   const signum = useSignum();
-  const aliasResolver = useSignumAliasResolver();
+  const { resolveAccountIdToAlias } = useSignumAliasResolver();
 
   const { data: accountInfo } = useSWR(
     () => ['getAccount', accountId],
@@ -34,7 +34,7 @@ const AddressChip: FC<AddressChipProps> = ({ accountId, className, small }) => {
 
   const { data: aliasName } = useSWR(
     () => ['getAlias', accountId],
-    () => aliasResolver(accountId),
+    () => resolveAccountIdToAlias(accountId),
     {
       shouldRetryOnError: false,
       revalidateOnFocus: false

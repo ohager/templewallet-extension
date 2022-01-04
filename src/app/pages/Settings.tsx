@@ -15,7 +15,7 @@ import { ReactComponent as StickerIcon } from 'app/icons/sticker.svg';
 import PageLayout from 'app/layouts/PageLayout';
 import About from 'app/templates/About';
 import ActivateAccount from 'app/templates/ActivateAccount';
-import AddressBook from 'app/templates/AddressBook';
+import AddressBook from 'app/templates/SignumAddressBook';
 import CustomNetworksSettings from 'app/templates/CustomNetworksSettings';
 import DAppSettings from 'app/templates/DAppSettings';
 import GeneralSettings from 'app/templates/GeneralSettings';

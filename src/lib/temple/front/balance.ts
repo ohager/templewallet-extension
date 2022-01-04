@@ -25,7 +25,8 @@ export function useBalance(assetSlug: string, accountId: string, opts: UseBalanc
   return useRetryableSWR(displayed ? `balance-${accountId}` : null, fetchBalanceLocal, {
     suspense: opts.suspense ?? true,
     revalidateOnFocus: false,
-    dedupingInterval: 20_000,
+    dedupingInterval: 10_000,
+    refreshInterval: 30_000,
     // @ts-ignore
     initialData: opts.initial
   });
