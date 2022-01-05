@@ -98,7 +98,9 @@ const Receive: FC = () => {
             </div>
             <div className="mt-2 mb-2 leading-tight text-center">
               <a href="https://phoenix-wallet.rocks" target="_blank" rel="noopener noreferrer">
-                <T id="usePhoenixWallet">{message => <span className="underline text-xs text-gray-600">{message}</span>}</T>
+                <T id="usePhoenixWallet">
+                  {message => <span className="underline text-xs text-gray-600">{message}</span>}
+                </T>
               </a>
             </div>
           </div>

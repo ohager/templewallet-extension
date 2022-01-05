@@ -2296,7 +2296,7 @@
   "totalAmount": {
     "message": "Valor total"
   },
-  "usePhoenixWallet" : {
+  "usePhoenixWallet": {
     "message": "Use a carteira móvel Phoenix para processar o código"
   }
 }

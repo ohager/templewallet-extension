@@ -1659,7 +1659,7 @@
   "faucetJsonDescription": {
     "message": "Vous pouvez coller du JSON ici au lieu d'ajouter un fichier"
   },
-  "usePhoenixWallet" : {
+  "usePhoenixWallet": {
     "message": "Utilisez le porte-monnaie mobile de Phoenix pour traiter le code"
   }
 }

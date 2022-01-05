@@ -1650,7 +1650,7 @@
   "faucetJsonDescription": {
     "message": "您可以通过在此粘贴JSON来代替添加文件"
   },
-  "usePhoenixWallet" : {
+  "usePhoenixWallet": {
     "message": "使用 \"凤凰 \"移动钱包来处理代码"
   }
 }

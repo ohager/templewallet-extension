@@ -15,11 +15,12 @@ import {
   useAccount,
   useBalance,
   useNetwork,
-  useSignum, useSignumAccountPrefix,
+  useSignum,
+  useSignumAccountPrefix,
   useSignumAliasResolver,
   useSignumAssetMetadata,
   useTempleClient
-} from "../../../lib/temple/front";
+} from '../../../lib/temple/front';
 import { useFilteredContacts } from '../../../lib/temple/front/use-filtered-contacts.hook';
 import { withErrorHumanDelay } from '../../../lib/ui/humanDelay';
 import useSafeState from '../../../lib/ui/useSafeState';
