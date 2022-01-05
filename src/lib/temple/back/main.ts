@@ -1,6 +1,7 @@
 import { Runtime } from 'webextension-polyfill-ts';
 
 import * as Actions from 'lib/temple/back/actions';
+import { getSignumTxKeys } from 'lib/temple/back/actions';
 import { intercom } from 'lib/temple/back/defaults';
 import { store, toFront } from 'lib/temple/back/store';
 import { TempleMessageType, TempleRequest, TempleResponse } from 'lib/temple/types';
@@ -23,7 +24,13 @@ async function processRequest(req: TempleRequest, port: Runtime.Port): Promise<T
         type: TempleMessageType.GetStateResponse,
         state
       };
-
+    case TempleMessageType.GetSignumTxKeysRequest:
+      const { signingKey, publicKey: pk } = await Actions.getSignumTxKeys(req.accountPublicKeyHash);
+      return {
+        type: TempleMessageType.GetSignumTxKeysResponse,
+        signingKey,
+        publicKey: pk
+      };
     case TempleMessageType.NewWalletRequest:
       await Actions.registerNewWallet(req.password, req.mnemonic);
       return { type: TempleMessageType.NewWalletResponse };

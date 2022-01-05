@@ -1028,6 +1028,14 @@
   "backtracked": {
     "message": "backtracked"
   },
+  "operationSuccessfullyAccepted": {
+    "message": "$type$ successfully accepted and waiting for confirmation!",
+    "placeholders": {
+      "type": {
+        "content": "$1"
+      }
+    }
+  },
   "operationSuccessfullyProcessed": {
     "message": "$type$ successfully processed and confirmed!",
     "placeholders": {

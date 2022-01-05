@@ -1083,16 +1083,24 @@
     "message": "Keine Vorgänge gefunden"
   },
   "pending": {
-    "message": "ausstehend..."
+    "message": "Ausstehend..."
   },
   "applied": {
-    "message": "Angewandt"
+    "message": "Bestätigt"
   },
   "skipped": {
     "message": "Übersprungen"
   },
   "backtracked": {
-    "message": "zurückverfolgt"
+    "message": "Zurückverfolgt"
+  },
+  "operationSuccessfullyAccepted": {
+    "message": "$type$ erfolgreich angenommen und wartet auf Bestätigung!",
+    "placeholders": {
+      "type": {
+        "content": "$1"
+      }
+    }
   },
   "operationSuccessfullyProcessed": {
     "message": "$type$ erfolgreich verarbeitet und bestätigt!",
@@ -2284,5 +2292,8 @@
   },
   "warningTopUpServiceMessage": {
     "message": "Die Token-Austausch-Funktion wird von einem Drittanbieter bereitgestellt. Die Temple Wallet ist nicht für die Arbeit von Drittanbieterdiensten verantwortlich."
+  },
+  "totalAmount": {
+    "message": "Gesamtbetrag"
   }
 }

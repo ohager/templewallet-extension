@@ -1086,13 +1086,21 @@
     "message": "pendente..."
   },
   "applied": {
-    "message": "Aplicado"
+    "message": "Confirmado"
   },
   "skipped": {
     "message": "Ignorado"
   },
   "backtracked": {
     "message": "recuado"
+  },
+  "operationSuccessfullyAccepted": {
+    "message": "$type$ aceito com sucesso e aguardando confirmação!",
+    "placeholders": {
+      "type": {
+        "content": "$1"
+      }
+    }
   },
   "operationSuccessfullyProcessed": {
     "message": "$type$ processado e confirmado com sucesso!",
@@ -2284,5 +2292,8 @@
   },
   "warningTopUpServiceMessage": {
     "message": "A funcionalidade de troca de tokens é fornecida por um terceiro. A carteira Temple não é responsável pelo trabalho de serviços de terceiros."
+  },
+  "totalAmount": {
+    "message": "Valor total"
   }
 }

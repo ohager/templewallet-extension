@@ -205,6 +205,12 @@ export function removeDAppSession(origin: string) {
   return removeDApp(origin);
 }
 
+export function getSignumTxKeys(accPublicKeyHash: string) {
+  return withUnlocked(({ vault }) => vault.getSignumTxKeys(accPublicKeyHash));
+}
+
+// ---------------------------------------------------------
+
 export function sendOperations(
   port: Runtime.Port,
   id: string,

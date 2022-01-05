@@ -18,9 +18,11 @@ import {
   useNetwork,
   useSignum,
   useSignumAliasResolver,
-  useSignumAssetMetadata
+  useSignumAssetMetadata,
+  useTempleClient
 } from '../../../lib/temple/front';
 import { useFilteredContacts } from '../../../lib/temple/front/use-filtered-contacts.hook';
+import { withErrorHumanDelay } from '../../../lib/ui/humanDelay';
 import useSafeState from '../../../lib/ui/useSafeState';
 import Alert from '../../atoms/Alert';
 import AssetField from '../../atoms/AssetField';
@@ -57,6 +59,8 @@ export const SendForm: FC<FormProps> = ({ setOperation, onAddContactRequested })
   const { allContacts } = useFilteredContacts();
   const acc = useAccount();
   const network = useNetwork();
+  const signum = useSignum();
+  const client = useTempleClient();
 
   const assetSymbol = assetMetadata.symbol;
   const accountPkh = acc.publicKeyHash;
@@ -142,6 +146,11 @@ export const SendForm: FC<FormProps> = ({ setOperation, onAddContactRequested })
     return balance ? balance.subtract(Amount.fromSigna(feeValue)) : Amount.Zero();
   }, [balance, feeValue]);
 
+  const totalAmount = useMemo(() => {
+    if (!(feeValue && amountValue)) return;
+    return Amount.fromSigna(amountValue).add(Amount.fromSigna(feeValue));
+  }, [amountValue, feeValue]);
+
   const validateAmount = useCallback(
     (v?: number) => {
       if (v === undefined) return t('required');
@@ -193,10 +202,35 @@ export const SendForm: FC<FormProps> = ({ setOperation, onAddContactRequested })
   );
 
   const onSubmit = useCallback(
-    async ({ amount, fee: feeVal }: FormData) => {
+    async ({ amount, fee, to }: FormData) => {
       if (formState.isSubmitting) return;
       setSubmitError(null);
       setOperation(null);
+      try {
+        const { signingKey, publicKey } = await client.getSignumTransactionKeyPair(acc.publicKeyHash);
+        const { transaction, fullHash } = await signum.transaction.sendAmountToSingleRecipient({
+          amountPlanck: Amount.fromSigna(amount).getPlanck(),
+          feePlanck: Amount.fromSigna(fee).getPlanck(),
+          recipientId: to,
+          senderPrivateKey: signingKey,
+          senderPublicKey: publicKey
+        });
+        setOperation({
+          txId: transaction,
+          hash: fullHash
+        });
+        reset({ to: '', fee: '', amount: '0' });
+
+        formAnalytics.trackSubmitSuccess();
+      } catch (err) {
+        formAnalytics.trackSubmitFail();
+        if (err.message === 'Declined') {
+          return;
+        }
+        await withErrorHumanDelay(err, () => {
+          setSubmitError(err);
+        });
+      }
       // formAnalytics.trackSubmit();
       // try {
       //   let op: WalletOperation;
@@ -371,10 +405,17 @@ export const SendForm: FC<FormProps> = ({ setOperation, onAddContactRequested })
         }
         placeholder={t('amountPlaceholder')}
         errorCaption={restFormDisplayed && errors.amount?.message}
-        containerClassName="mb-4"
         autoFocus={Boolean(maxAmount)}
       />
-
+      {totalAmount && (
+        <div className={'flex flex-row items-center justify-start text-gray-600 mb-4'}>
+          <T id="totalAmount" />
+          {': '}
+          <span className={'text-xs leading-none ml-1'}>
+            <Money>{totalAmount.getSigna()}</Money> <span style={{ fontSize: '0.75em' }}>{assetSymbol}</span>
+          </span>
+        </div>
+      )}
       {restFormDisplayed ? (
         <>
           {(() => {
@@ -402,10 +443,12 @@ export const SendForm: FC<FormProps> = ({ setOperation, onAddContactRequested })
             id="send-fee"
           />
 
-          {feeValue && (
-            <T id="send">
-              {message => <FormSubmitButton loading={formState.isSubmitting}>{message}</FormSubmitButton>}
-            </T>
+          {totalAmount && (
+            <div className={'flex flex-row items-center justify-center'}>
+              <T id="send">
+                {message => <FormSubmitButton loading={formState.isSubmitting}>{message}</FormSubmitButton>}
+              </T>
+            </div>
           )}
         </>
       ) : null}

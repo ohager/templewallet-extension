@@ -184,6 +184,7 @@ export class Vault {
 
   static async revealPrivateKey(accPublicKeyHash: string, password: string) {
     const passKey = await Vault.toValidPassKey(password);
+    console.log('revealPrivateKey', passKey, accPublicKeyHash, password);
     return withError('Failed to reveal private key', async () => {
       const privateKeySeed = await fetchAndDecryptOne<string>(accPrivKeyStrgKey(accPublicKeyHash), passKey);
       const signer = await createMemorySigner(privateKeySeed);
@@ -235,7 +236,9 @@ export class Vault {
     });
   }
 
-  constructor(private passKey: CryptoKey) {}
+  constructor(private passKey: CryptoKey) {
+    console.log('passKey', passKey);
+  }
 
   revealPublicKey(accPublicKeyHash: string) {
     return withError('Failed to reveal public key', () =>
@@ -330,7 +333,7 @@ export class Vault {
     });
   }
 
-  async importAccountSignum(keys: Keys, encPassword?: string): Promise<TempleAccount[]> {
+  async importAccountSignum(keys: Keys): Promise<TempleAccount[]> {
     const errMessage = 'Failed to import account.\nThis may happen because provided Key is invalid';
 
     return withError(errMessage, async () => {
@@ -534,6 +537,19 @@ export class Vault {
             throw new Error(`Failed to send operations. ${err.message}`);
         }
       }
+    });
+  }
+
+  async getSignumTxKeys(accPublicKeyHash: string) {
+    return withError('Failed to fetch Signum transaction keys', async () => {
+      const [signingKey, publicKey] = await Promise.all([
+        fetchAndDecryptOne<string>(accPrivKeyStrgKey(accPublicKeyHash), this.passKey),
+        fetchAndDecryptOne<string>(accPubKeyStrgKey(accPublicKeyHash), this.passKey)
+      ]);
+      return {
+        signingKey,
+        publicKey
+      };
     });
   }
 

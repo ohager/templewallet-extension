@@ -1131,16 +1131,24 @@
     "message": "No operations found"
   },
   "pending": {
-    "message": "pending..."
+    "message": "Pending..."
   },
   "applied": {
-    "message": "Applied"
+    "message": "Confirmed"
   },
   "skipped": {
     "message": "Skipped"
   },
   "backtracked": {
     "message": "backtracked"
+  },
+  "operationSuccessfullyAccepted": {
+    "message": "$type$ successfully accepted and waiting for confirmation!",
+    "placeholders": {
+      "type": {
+        "content": "$1"
+      }
+    }
   },
   "operationSuccessfullyProcessed": {
     "message": "$type$ successfully processed and confirmed!",
@@ -2479,5 +2487,8 @@
   },
   "warningTopUpServiceMessage": {
     "message": "The token exchange feature is provided by a third party. The Temple wallet is not responsible for the work of third-party services."
+  },
+  "totalAmount": {
+    "message": "Total amount"
   }
 }

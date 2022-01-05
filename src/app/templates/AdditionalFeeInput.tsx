@@ -155,7 +155,7 @@ const AdditionalFeeInputContent: FC<AdditionalFeeInputContentProps> = props => {
   } = props;
 
   const [selectedPreset, setSelectedPreset] = useState<FeeOption['type']>(
-    feeOptions.find(({ amount }) => amount === value)?.type || 'custom'
+    feeOptions.find(({ amount }) => amount === value)?.type || 'minimal'
   );
   const handlePresetSelected = useCallback(
     (newType: FeeOption['type']) => {

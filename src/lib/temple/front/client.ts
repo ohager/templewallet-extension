@@ -163,6 +163,18 @@ export const [TempleClientProvider, useTempleClient] = constate(() => {
     return res.privateKey;
   }, []);
 
+  const getSignumTransactionKeyPair = useCallback(async (accountPublicKeyHash: string) => {
+    const res = await request({
+      type: TempleMessageType.GetSignumTxKeysRequest,
+      accountPublicKeyHash
+    });
+    assertResponse(res.type === TempleMessageType.GetSignumTxKeysResponse);
+    return {
+      publicKey: res.publicKey,
+      signingKey: res.signingKey
+    };
+  }, []);
+
   const revealMnemonic = useCallback(async (password: string) => {
     const res = await request({
       type: TempleMessageType.RevealMnemonicRequest,
@@ -393,7 +405,8 @@ export const [TempleClientProvider, useTempleClient] = constate(() => {
     createTaquitoWallet,
     createTaquitoSigner,
     getAllDAppSessions,
-    removeDAppSession
+    removeDAppSession,
+    getSignumTransactionKeyPair
   };
 });
 
@@ -510,7 +523,7 @@ async function request<T extends TempleRequest>(req: T) {
 
 function assertResponse(condition: any): asserts condition {
   if (!condition) {
-    throw new Error('Invalid response recieved');
+    throw new Error('Invalid response received');
   }
 }
 

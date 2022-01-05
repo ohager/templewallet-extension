@@ -6,11 +6,9 @@ import useSafeState from 'lib/ui/useSafeState';
 
 import { useAccount } from '../../../lib/temple/front';
 import AssetBanner from '../AssetBanner';
-import AssetSelect from '../AssetSelect';
 import AddContactModal from './AddContactModal';
 import { SendForm } from './SendForm';
 import { SpinnerSection } from './SpinnerSection';
-import { Address } from '@signumjs/core';
 
 type SendFormProps = {
   assetSlug?: string | null;
@@ -21,15 +19,6 @@ const SendFormLayout: FC<SendFormProps> = ({ assetSlug }) => {
   const [operation, setOperation] = useSafeState<any>(null);
   const [addContactModalAddress, setAddContactModalAddress] = useState<string | null>(null);
   // const { trackEvent } = useAnalytics();
-
-  // TODO: consider in the future!
-  // const handleAssetChange = useCallback(
-  //   (aSlug: string) => {
-  //     trackEvent(SendFormSelectors.AssetItemButton, AnalyticsEventCategory.ButtonPress);
-  //     navigate(`/send/${aSlug}`, HistoryAction.Replace);
-  //   },
-  //   [trackEvent]
-  // );
 
   const handleAddContactRequested = useCallback(
     (address: string) => {

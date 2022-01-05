@@ -206,6 +206,8 @@ export enum TempleMessageType {
   // Request-Response pairs
   GetStateRequest = 'TEMPLE_GET_STATE_REQUEST',
   GetStateResponse = 'TEMPLE_GET_STATE_RESPONSE',
+  GetSignumTxKeysRequest = 'TEMPLE_GET_SIGNUM_TX_KEYS_REQUEST',
+  GetSignumTxKeysResponse = 'TEMPLE_GET_SIGNUM_TX_KEYS_RESPONSE',
   NewWalletRequest = 'TEMPLE_NEW_WALLET_REQUEST',
   NewWalletResponse = 'TEMPLE_NEW_WALLET_RESPONSE',
   UnlockRequest = 'TEMPLE_UNLOCK_REQUEST',
@@ -264,6 +266,7 @@ export type TempleNotification = TempleStateUpdated | TempleConfirmationRequeste
 
 export type TempleRequest =
   | TempleGetStateRequest
+  | TempleGetSignumTxKeysRequest
   | TempleNewWalletRequest
   | TempleUnlockRequest
   | TempleLockRequest
@@ -293,6 +296,7 @@ export type TempleRequest =
 
 export type TempleResponse =
   | TempleGetStateResponse
+  | TempleGetSignumTxKeysResponse
   | TempleNewWalletResponse
   | TempleUnlockResponse
   | TempleLockResponse
@@ -346,6 +350,17 @@ export interface TempleGetStateRequest extends TempleMessageBase {
 export interface TempleGetStateResponse extends TempleMessageBase {
   type: TempleMessageType.GetStateResponse;
   state: TempleState;
+}
+
+export interface TempleGetSignumTxKeysRequest extends TempleMessageBase {
+  type: TempleMessageType.GetSignumTxKeysRequest;
+  accountPublicKeyHash: string;
+}
+
+export interface TempleGetSignumTxKeysResponse extends TempleMessageBase {
+  type: TempleMessageType.GetSignumTxKeysResponse;
+  publicKey: string;
+  signingKey: string;
 }
 
 export interface TempleNewWalletRequest extends TempleMessageBase {
