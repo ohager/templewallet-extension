@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
 
-import { Address, AddressPrefix } from '@signumjs/core';
+import { Address } from '@signumjs/core';
 
-import { useNetwork, useSignumAccountPrefix } from "../../lib/temple/front";
+import { useSignumAccountPrefix } from 'lib/temple/front';
 
 type HashShortViewProps = {
   hash: string;
