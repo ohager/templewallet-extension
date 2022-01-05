@@ -211,7 +211,7 @@ export const SendForm: FC<FormProps> = ({ setOperation, onAddContactRequested })
         const { transaction, fullHash } = await signum.transaction.sendAmountToSingleRecipient({
           amountPlanck: Amount.fromSigna(amount).getPlanck(),
           feePlanck: Amount.fromSigna(fee).getPlanck(),
-          recipientId: to,
+          recipientId: toResolved,
           senderPrivateKey: signingKey,
           senderPublicKey: publicKey
         });
