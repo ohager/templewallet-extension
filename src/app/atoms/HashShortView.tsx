@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 
 import { Address, AddressPrefix } from '@signumjs/core';
 
-import { useNetwork } from '../../lib/temple/front';
+import { useNetwork, useSignumAccountPrefix } from "../../lib/temple/front";
 
 type HashShortViewProps = {
   hash: string;
@@ -15,13 +15,12 @@ type HashShortViewProps = {
 
 const HashShortView = memo<HashShortViewProps>(
   ({ hash, isAccount = false, trim = true, trimAfter = 20, firstCharsCount = 7, lastCharsCount = 4 }) => {
-    const network = useNetwork();
+    const prefix = useSignumAccountPrefix();
     if (!hash) return null;
 
     const trimmedHash = (() => {
       let address = hash;
       try {
-        const prefix = network.type === 'test' ? AddressPrefix.TestNet : AddressPrefix.MainNet;
         address = isAccount ? Address.create(hash, prefix).getReedSolomonAddress() : hash;
       } catch (e) {
         // no op as no valid Signum Address

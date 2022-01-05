@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo } from 'react';
 
-import { composeApi } from '@signumjs/core';
+import { AddressPrefix, composeApi } from '@signumjs/core';
 import { RpcClient } from '@taquito/rpc';
 import { TezosToolkit } from '@taquito/taquito';
 import { Tzip16Module } from '@taquito/tzip16';
@@ -9,15 +9,15 @@ import constate from 'constate';
 import { IS_DEV_ENV } from 'app/env';
 import { useRetryableSWR } from 'lib/swr';
 import {
+  loadChainId,
+  loadFastRpcClient,
+  michelEncoder,
   ReadyTempleState,
   TempleAccountType,
-  TempleStatus,
   TempleState,
+  TempleStatus,
   usePassiveStorage,
-  useTempleClient,
-  loadChainId,
-  michelEncoder,
-  loadFastRpcClient
+  useTempleClient
 } from 'lib/temple/front';
 
 export enum ActivationStatus {
@@ -35,7 +35,8 @@ export const [
   useAccount,
   useSettings,
   useTezos,
-  useSignum
+  useSignum,
+  useSignumAccountPrefix
 ] = constate(
   useReadyTemple,
   v => v.allNetworks,
@@ -46,7 +47,8 @@ export const [
   v => v.account,
   v => v.settings,
   v => v.tezos,
-  v => v.signum
+  v => v.signum,
+  v => v.signumAccountPrefix
 );
 
 function useReadyTemple() {
@@ -133,6 +135,10 @@ function useReadyTemple() {
     });
   }, [network]);
 
+  const signumAccountPrefix = useMemo(() => {
+    return (network.type === 'test' ? AddressPrefix.TestNet : AddressPrefix.MainNet).toString();
+  }, [network]);
+
   return {
     allNetworks,
     network,
@@ -146,7 +152,8 @@ function useReadyTemple() {
 
     settings,
     tezos,
-    signum
+    signum,
+    signumAccountPrefix
   };
 }
 

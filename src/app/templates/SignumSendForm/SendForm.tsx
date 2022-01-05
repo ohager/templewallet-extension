@@ -1,8 +1,7 @@
 import React, { Dispatch, FC, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
-import { Address, AddressPrefix } from '@signumjs/core';
+import { Address } from '@signumjs/core';
 import { Amount, FeeQuantPlanck } from '@signumjs/util';
-import BigNumber from 'bignumber.js';
 import classNames from 'clsx';
 import { Controller, useForm } from 'react-hook-form';
 import useSWR from 'swr';
@@ -16,11 +15,11 @@ import {
   useAccount,
   useBalance,
   useNetwork,
-  useSignum,
+  useSignum, useSignumAccountPrefix,
   useSignumAliasResolver,
   useSignumAssetMetadata,
   useTempleClient
-} from '../../../lib/temple/front';
+} from "../../../lib/temple/front";
 import { useFilteredContacts } from '../../../lib/temple/front/use-filtered-contacts.hook';
 import { withErrorHumanDelay } from '../../../lib/ui/humanDelay';
 import useSafeState from '../../../lib/ui/useSafeState';
@@ -60,6 +59,7 @@ export const SendForm: FC<FormProps> = ({ setOperation, onAddContactRequested })
   const acc = useAccount();
   const network = useNetwork();
   const signum = useSignum();
+  const prefix = useSignumAccountPrefix();
   const client = useTempleClient();
 
   const assetSymbol = assetMetadata.symbol;
@@ -79,7 +79,6 @@ export const SendForm: FC<FormProps> = ({ setOperation, onAddContactRequested })
       }
     });
 
-  const prefix = network.type === 'test' ? AddressPrefix.TestNet : AddressPrefix.MainNet;
   const toValue = watch('to');
   const amountValue = watch('amount');
   const feeValue = watch('fee');

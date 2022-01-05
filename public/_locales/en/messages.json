@@ -2490,5 +2490,8 @@
   },
   "totalAmount": {
     "message": "Total amount"
+  },
+  "usePhoenixWallet" : {
+    "message": "Use the Phoenix Mobile Wallet to process the code"
   }
 }

@@ -2295,5 +2295,8 @@
   },
   "totalAmount": {
     "message": "Gesamtbetrag"
+  },
+  "usePhoenixWallet" : {
+    "message": "Benutze die Phoenix Mobile Wallet um den Code verarbeiten zu können"
   }
 }
