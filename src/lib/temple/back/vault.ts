@@ -184,7 +184,6 @@ export class Vault {
 
   static async revealPrivateKey(accPublicKeyHash: string, password: string) {
     const passKey = await Vault.toValidPassKey(password);
-    console.log('revealPrivateKey', passKey, accPublicKeyHash, password);
     return withError('Failed to reveal private key', async () => {
       const privateKeySeed = await fetchAndDecryptOne<string>(accPrivKeyStrgKey(accPublicKeyHash), passKey);
       const signer = await createMemorySigner(privateKeySeed);
@@ -225,20 +224,18 @@ export class Vault {
 
   private static assertValidPassword(password: string) {
     return withError('Invalid password', async () => {
-      const legacyCheckStored = await isStoredLegacy(checkStrgKey);
-      if (legacyCheckStored) {
-        const legacyPassKey = await Passworder.generateKeyLegacy(password);
-        await fetchAndDecryptOneLegacy<any>(checkStrgKey, legacyPassKey);
-      } else {
-        const passKey = await Passworder.generateKey(password);
-        await fetchAndDecryptOne<any>(checkStrgKey, passKey);
-      }
+      // const legacyCheckStored = await isStoredLegacy(checkStrgKey);
+      // if (legacyCheckStored) {
+      //   const legacyPassKey = await Passworder.generateKeyLegacy(password);
+      //   await fetchAndDecryptOneLegacy<any>(checkStrgKey, legacyPassKey);
+      // } else {
+      const passKey = await Passworder.generateKey(password);
+      await fetchAndDecryptOne<any>(checkStrgKey, passKey);
+      // }
     });
   }
 
-  constructor(private passKey: CryptoKey) {
-    console.log('passKey', passKey);
-  }
+  constructor(private passKey: CryptoKey) {}
 
   revealPublicKey(accPublicKeyHash: string) {
     return withError('Failed to reveal public key', () =>
