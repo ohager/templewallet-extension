@@ -25,6 +25,7 @@ export * from 'lib/temple/front/address-book';
 export * from 'lib/temple/front/kukai';
 export * from 'lib/temple/front/local-storage';
 export * from 'lib/temple/front/aliases';
+export * from 'lib/temple/front/network';
 
 // Legacy
 export * from 'lib/temple/front/legacy-assets';

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo } from 'react';
 
-import { AddressPrefix, composeApi } from '@signumjs/core';
+import { composeApi } from '@signumjs/core';
 import { RpcClient } from '@taquito/rpc';
 import { TezosToolkit } from '@taquito/taquito';
 import { Tzip16Module } from '@taquito/tzip16';
@@ -35,8 +35,7 @@ export const [
   useAccount,
   useSettings,
   useTezos,
-  useSignum,
-  useSignumAccountPrefix
+  useSignum
 ] = constate(
   useReadyTemple,
   v => v.allNetworks,
@@ -47,8 +46,7 @@ export const [
   v => v.account,
   v => v.settings,
   v => v.tezos,
-  v => v.signum,
-  v => v.signumAccountPrefix
+  v => v.signum
 );
 
 function useReadyTemple() {
@@ -135,10 +133,6 @@ function useReadyTemple() {
     });
   }, [network]);
 
-  const signumAccountPrefix = useMemo(() => {
-    return (network.type === 'test' ? AddressPrefix.TestNet : AddressPrefix.MainNet).toString();
-  }, [network]);
-
   return {
     allNetworks,
     network,
@@ -152,8 +146,7 @@ function useReadyTemple() {
 
     settings,
     tezos,
-    signum,
-    signumAccountPrefix
+    signum
   };
 }
 

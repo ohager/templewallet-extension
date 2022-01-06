@@ -6,36 +6,33 @@ import classNames from 'clsx';
 import { Controller, useForm } from 'react-hook-form';
 import useSWR from 'swr';
 
-import { useFormAnalytics } from '../../../lib/analytics';
-import { toLocalFixed } from '../../../lib/i18n/numbers';
-import { T, t } from '../../../lib/i18n/react';
+import Alert from 'app/atoms/Alert';
+import AssetField from 'app/atoms/AssetField';
+import FormSubmitButton from 'app/atoms/FormSubmitButton';
+import Money from 'app/atoms/Money';
+import NoSpaceField from 'app/atoms/NoSpaceField';
+import { useFormAnalytics } from 'lib/analytics';
+import { toLocalFixed } from 'lib/i18n/numbers';
+import { T, t } from 'lib/i18n/react';
 import {
   isSignumAddress,
-  TempleContact,
   useAccount,
   useBalance,
-  useNetwork,
   useSignum,
   useSignumAccountPrefix,
   useSignumAliasResolver,
   useSignumAssetMetadata,
   useTempleClient
-} from '../../../lib/temple/front';
-import { useFilteredContacts } from '../../../lib/temple/front/use-filtered-contacts.hook';
-import { withErrorHumanDelay } from '../../../lib/ui/humanDelay';
-import useSafeState from '../../../lib/ui/useSafeState';
-import Alert from '../../atoms/Alert';
-import AssetField from '../../atoms/AssetField';
-import FormSubmitButton from '../../atoms/FormSubmitButton';
-import IdenticonSignum from '../../atoms/IdenticonSignum';
-import Money from '../../atoms/Money';
-import NoSpaceField from '../../atoms/NoSpaceField';
+} from 'lib/temple/front';
+import { useFilteredContacts } from 'lib/temple/front/use-filtered-contacts.hook';
+import { withErrorHumanDelay } from 'lib/ui/humanDelay';
+import useSafeState from 'lib/ui/useSafeState';
+
 import { useAppEnv } from '../../env';
 import AdditionalFeeInput from '../AdditionalFeeInput';
-import Balance from '../Balance';
-import InUSD from '../InUSD';
-import ContactsDropdown from '../SendForm/ContactsDropdown';
-import SendErrorAlert from '../SendForm/SendErrorAlert';
+import ContactsDropdown from './ContactsDropdown';
+import FilledContact from './FilledContact';
+import SendErrorAlert from './SendErrorAlert';
 
 interface FormData {
   to: string;
@@ -58,7 +55,6 @@ export const SendForm: FC<FormProps> = ({ setOperation, onAddContactRequested })
   const formAnalytics = useFormAnalytics('SendForm');
   const { allContacts } = useFilteredContacts();
   const acc = useAccount();
-  const network = useNetwork();
   const signum = useSignum();
   const prefix = useSignumAccountPrefix();
   const client = useTempleClient();
@@ -67,18 +63,13 @@ export const SendForm: FC<FormProps> = ({ setOperation, onAddContactRequested })
   const accountPkh = acc.publicKeyHash;
   const { data: balanceData } = useBalance(assetMetadata.name, accountPkh);
   const balance = balanceData && Amount.fromSigna(balanceData.toNumber());
-  const [shouldUseUsd, setShouldUseUsd] = useSafeState(false);
 
-  // const canToggleUsd = false; // network.type === 'main' && assetPrice !== null;
-  // const prevCanToggleUsd = useRef(canToggleUsd);
-
-  const { watch, handleSubmit, errors, control, formState, setValue, triggerValidation, reset, getValues } =
-    useForm<FormData>({
-      mode: 'onChange',
-      defaultValues: {
-        fee: MinimumFee
-      }
-    });
+  const { watch, handleSubmit, errors, control, formState, setValue, triggerValidation, reset } = useForm<FormData>({
+    mode: 'onChange',
+    defaultValues: {
+      fee: MinimumFee
+    }
+  });
 
   const toValue = watch('to');
   const amountValue = watch('amount');
@@ -231,46 +222,6 @@ export const SendForm: FC<FormProps> = ({ setOperation, onAddContactRequested })
           setSubmitError(err);
         });
       }
-      // formAnalytics.trackSubmit();
-      // try {
-      //   let op: WalletOperation;
-      //   if (isKTAddress(acc.publicKeyHash)) {
-      //     const michelsonLambda = isKTAddress(toResolved) ? transferToContract : transferImplicit;
-      //
-      //     const contract = await loadContract(tezos, acc.publicKeyHash);
-      //     op = await contract.methods.do(michelsonLambda(toResolved, tzToMutez(amount))).send({ amount: 0 });
-      //   } else {
-      //     const actualAmount = shouldUseUsd ? toAssetAmount(amount) : amount;
-      //     const transferParams = await toTransferParams(
-      //       tezos,
-      //       assetSlug,
-      //       assetMetadata,
-      //       accountPkh,
-      //       toResolved,
-      //       actualAmount
-      //     );
-      //     const estmtn = await tezos.estimate.transfer(transferParams);
-      //     const addFee = tzToMutez(feeVal ?? 0);
-      //     const fee = addFee.plus(estmtn.suggestedFeeMutez).toNumber();
-      //     op = await tezos.wallet.transfer({ ...transferParams, fee } as any).send();
-      //   }
-      //   setOperation(op);
-      //   reset({ to: '', fee: RECOMMENDED_ADD_FEE });
-      //
-      //   formAnalytics.trackSubmitSuccess();
-      // } catch (err: any) {
-      //   formAnalytics.trackSubmitFail();
-      //
-      //   if (err.message === 'Declined') {
-      //     return;
-      //   }
-      //
-      //   console.error(err);
-      //
-      //   // Human delay.
-      //   await new Promise(res => setTimeout(res, 300));
-      //   setSubmitError(err);
-      // }
     },
     [
       acc,
@@ -281,7 +232,6 @@ export const SendForm: FC<FormProps> = ({ setOperation, onAddContactRequested })
       reset,
       accountPkh,
       toResolved,
-      shouldUseUsd,
       formAnalytics
     ]
   );
@@ -387,7 +337,7 @@ export const SendForm: FC<FormProps> = ({ setOperation, onAddContactRequested })
         onFocus={() => amountFieldRef.current?.focus()}
         id="send-amount"
         assetSymbol={assetSymbol}
-        assetDecimals={shouldUseUsd ? 2 : assetMetadata?.decimals ?? 0}
+        assetDecimals={assetMetadata?.decimals ?? 0}
         label={t('amount')}
         labelDescription={
           restFormDisplayed &&
@@ -455,23 +405,3 @@ export const SendForm: FC<FormProps> = ({ setOperation, onAddContactRequested })
     </form>
   );
 };
-
-interface FilledContactProps {
-  contact: TempleContact;
-  assetSymbol: string;
-}
-
-const FilledContact: FC<FilledContactProps> = ({ contact, assetSymbol }) => (
-  <div className="flex flex-wrap items-center">
-    <IdenticonSignum accountId={contact.address} size={24} className="flex-shrink-0 shadow-xs opacity-75" />
-    <div className="ml-1 mr-px font-normal">{contact.name}</div>(
-    <Balance accountId={contact.address}>
-      {bal => (
-        <span className={classNames('text-xs leading-none')}>
-          <Money>{bal}</Money> <span style={{ fontSize: '0.75em' }}>{assetSymbol}</span>
-        </span>
-      )}
-    </Balance>
-    )
-  </div>
-);

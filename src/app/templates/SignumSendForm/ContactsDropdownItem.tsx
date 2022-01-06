@@ -4,13 +4,12 @@ import classNames from 'clsx';
 
 import { Button } from 'app/atoms/Button';
 import HashShortView from 'app/atoms/HashShortView';
-import Identicon from 'app/atoms/Identicon';
+import IdenticonSignum from 'app/atoms/IdenticonSignum';
 import Name from 'app/atoms/Name';
 import { T } from 'lib/i18n/react';
 import { TempleContact } from 'lib/temple/front';
 
-import { SendFormSelectors } from '../SendForm.selectors';
-import IdenticonSignum from '../../atoms/IdenticonSignum';
+import { SendFormSelectors } from './SendForm.selectors';
 
 type ContactsDropdownItemProps = ComponentProps<typeof Button> & {
   contact: TempleContact;
