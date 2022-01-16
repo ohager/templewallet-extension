@@ -71,15 +71,15 @@ const TABS = [
     descriptionI18nKey: 'revealSeedPhraseDescription',
     testID: SettingsSelectors.RevealSeedPhraseButton
   },
-  // {
-  //   slug: 'dapps',
-  //   titleI18nKey: 'dApps',
-  //   Icon: AppsIcon,
-  //   Component: DAppSettings,
-  //   color: '#9F7AEA',
-  //   descriptionI18nKey: 'dAppsDescription',
-  //   testID: SettingsSelectors.DAppsButton
-  // },
+  {
+    slug: 'dapps',
+    titleI18nKey: 'dApps',
+    Icon: AppsIcon,
+    Component: DAppSettings,
+    color: '#9F7AEA',
+    descriptionI18nKey: 'dAppsDescription',
+    testID: SettingsSelectors.DAppsButton
+  },
   {
     slug: 'networks',
     titleI18nKey: 'networks',

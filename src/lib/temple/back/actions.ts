@@ -401,6 +401,7 @@ export async function processDApp(origin: string, req: TempleDAppRequest): Promi
   }
 }
 
+// TODO: obsolete, we do not use beacon "standard"
 export async function processBeacon(origin: string, msg: string, encrypted = false) {
   let recipientPubKey: string | null = null;
 
