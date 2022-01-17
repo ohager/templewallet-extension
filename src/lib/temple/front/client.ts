@@ -11,7 +11,7 @@ import {
 } from '@taquito/taquito';
 import { buf2hex } from '@taquito/utils';
 import constate from 'constate';
-import { nanoid } from 'nanoid';
+import { v4 as uuid } from 'uuid';
 
 import { IntercomClient } from 'lib/intercom';
 import { useRetryableSWR } from 'lib/swr';
@@ -437,7 +437,7 @@ class TaquitoWallet implements WalletProvider {
   }
 
   async sendOperations(opParams: any[]) {
-    const id = nanoid();
+    const id = uuid();
     if (this.opts.onBeforeSend) {
       this.opts.onBeforeSend(id);
     }
@@ -469,7 +469,7 @@ class TempleSigner {
   }
 
   async sign(bytes: string, watermark?: Uint8Array) {
-    const id = nanoid();
+    const id = uuid();
     if (this.onBeforeSign) {
       this.onBeforeSign(id);
     }

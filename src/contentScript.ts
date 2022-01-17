@@ -1,5 +1,4 @@
 import { browser } from 'webextension-polyfill-ts';
-
 import { IntercomClient } from 'lib/intercom/client';
 import { serializeError } from 'lib/intercom/helpers';
 import { TempleMessageType, TempleResponse } from 'lib/temple/types';
@@ -19,9 +18,11 @@ enum SignumPageMessageType {
 window.addEventListener(
   'message',
   evt => {
-    console.log('Message received', evt);
     if (evt.source !== window) return;
-    evt.data?.type === SignumPageMessageType.Request && walletRequest(evt);
+    if (evt.data?.type === SignumPageMessageType.Request) {
+      console.debug('Valid Signum XT Message received:', evt);
+      walletRequest(evt);
+    }
   },
   false
 );

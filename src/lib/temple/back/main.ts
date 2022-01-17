@@ -159,27 +159,11 @@ async function processRequest(req: TempleRequest, port: Runtime.Port): Promise<T
             payload: 'PONG'
           };
         }
-        // no Beacon Support
-        // else if (req.beacon && req.payload === 'ping') {
-        //   return {
-        //     type: TempleMessageType.PageResponse,
-        //     payload: 'pong'
-        //   };
-        // }
-
         const resPayload = await Actions.processDApp(req.origin, req.payload);
         return {
           type: TempleMessageType.PageResponse,
           payload: resPayload ?? null
         };
-        // } else {
-        //   const res = await Actions.processBeacon(req.origin, req.payload, req.encrypted);
-        //   return {
-        //     type: TempleMessageType.PageResponse,
-        //     payload: res?.payload ?? null,
-        //     encrypted: res?.encrypted
-        //   };
-        // }
       }
       break;
   }

@@ -1,5 +1,5 @@
 import Analytics from 'analytics-node';
-import { nanoid } from 'nanoid';
+import { v4 as uuid } from 'uuid';
 
 import { useLocalStorage } from 'lib/temple/front/local-storage';
 
@@ -70,7 +70,7 @@ export const sendPageEvent = async (
 export const useAnalyticsState = () => {
   const [analyticsState, setAnalyticsState] = useLocalStorage<AnalyticsStateInterface>('analytics', {
     enabled: undefined,
-    userId: nanoid()
+    userId: uuid()
   });
 
   return {

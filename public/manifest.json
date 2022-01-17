@@ -19,15 +19,9 @@
     "unlimitedStorage",
     "clipboardWrite",
     "activeTab",
-    "http://localhost:8732/",
-    "https://*.giganode.io/",
-    "https://*.tzstats.com/",
-    "https://api.tezos-nodes.com/",
-    "https://api.better-call.dev/",
-    "https://*.tzkt.io/",
-    "https://api.baking-bad.org/v2/",
-    "https://api.templewallet.com/",
-    "https://quipuswap.com/"
+    "http://localhost:8125/",
+    "http://localhost:6876/",
+    "https://*.signum.network/"
   ],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
 

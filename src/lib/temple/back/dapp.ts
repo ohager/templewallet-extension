@@ -18,7 +18,7 @@ import {
   TempleDAppBroadcastResponse,
   TempleDAppNetwork
 } from '@temple-wallet/dapp/dist/types';
-import { nanoid } from 'nanoid';
+import { v4 as uuid } from 'uuid';
 import { browser, Runtime } from 'webextension-polyfill-ts';
 
 import { addLocalOperation } from 'lib/temple/activity';
@@ -79,7 +79,7 @@ export async function requestPermission(
   }
 
   return new Promise(async (resolve, reject) => {
-    const id = nanoid();
+    const id = uuid();
 
     await requestConfirm({
       id,
@@ -147,7 +147,7 @@ export async function requestOperation(
   }
 
   return new Promise(async (resolve, reject) => {
-    const id = nanoid();
+    const id = uuid();
     const networkRpc = await getNetworkRPC(dApp.network);
 
     await requestConfirm({
@@ -227,7 +227,7 @@ export async function requestSign(origin: string, req: TempleDAppSignRequest): P
   }
 
   return new Promise(async (resolve, reject) => {
-    const id = nanoid();
+    const id = uuid();
     const networkRpc = await getNetworkRPC(dApp.network);
 
     let preview: any;
