@@ -12,11 +12,18 @@ import CustomSelect, { OptionRenderProps } from 'app/templates/CustomSelect';
 import { ModifyFeeAndLimit } from 'app/templates/ExpensesView';
 import OperationView from 'app/templates/OperationView';
 import { T } from 'lib/i18n/react';
-import { useCustomChainId, useRelevantAccounts } from 'lib/temple/front';
+import {
+  SIGNA_METADATA,
+  useCustomChainId,
+  useRelevantAccounts,
+  useSignumAccountPrefix,
+  useSignumAssetMetadata
+} from 'lib/temple/front';
 import { TempleAccount, TempleChainId, TempleDAppPayload } from 'lib/temple/types';
+import IdenticonSignum from '../../atoms/IdenticonSignum';
 
 const AccountIcon: FC<OptionRenderProps<TempleAccount>> = ({ item }) => (
-  <Identicon type="bottts" hash={item.publicKeyHash} size={32} className="flex-shrink-0 shadow-xs" />
+  <IdenticonSignum accountId={item.publicKeyHash} size={32} className="flex-shrink-0 shadow-xs" />
 );
 
 const AccountOptionContentHOC = (networkRpc: string) => {
@@ -29,13 +36,13 @@ const AccountOptionContentHOC = (networkRpc: string) => {
 
       <div className="flex flex-wrap items-center mt-1">
         <div className={classNames('text-xs leading-none', 'text-gray-700')}>
-          <HashShortView hash={acc.publicKeyHash} />
+          <HashShortView hash={acc.publicKeyHash} isAccount />
         </div>
 
         <Balance accountId={acc.publicKeyHash} networkRpc={networkRpc}>
           {bal => (
             <div className={classNames('ml-2', 'text-xs leading-none', 'text-gray-600')}>
-              <Money>{bal}</Money> <span style={{ fontSize: '0.75em' }}>tez</span>
+              <Money>{bal}</Money> <span style={{ fontSize: '0.75em' }}>{SIGNA_METADATA.symbol}</span>
             </div>
           )}
         </Balance>

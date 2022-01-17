@@ -3,7 +3,6 @@ import React, { FC } from 'react';
 import classNames from 'clsx';
 
 import { Button } from 'app/atoms/Button';
-import Identicon from 'app/atoms/Identicon';
 import IdenticonSignum from 'app/atoms/IdenticonSignum';
 import Logo from 'app/atoms/Logo';
 import Name from 'app/atoms/Name';

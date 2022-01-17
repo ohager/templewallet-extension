@@ -8,11 +8,11 @@ import FormSecondaryButton from 'app/atoms/FormSecondaryButton';
 import FormSubmitButton from 'app/atoms/FormSubmitButton';
 import Name from 'app/atoms/Name';
 import SubTitle from 'app/atoms/SubTitle';
-import AccountBanner from 'app/templates//AccountBanner';
-import ConnectBanner from 'app/templates//ConnectBanner';
 import DAppLogo from 'app/templates//DAppLogo';
 import { ModifyFeeAndLimit } from 'app/templates//ExpensesView';
 import NetworkBanner from 'app/templates//NetworkBanner';
+import AccountBanner from 'app/templates/AccountBanner';
+import ConnectBanner from 'app/templates/ConnectBanner';
 import { CustomRpsContext } from 'lib/analytics';
 import { T, t } from 'lib/i18n/react';
 import { useRetryableSWR } from 'lib/swr';
@@ -244,7 +244,7 @@ const ConfirmDAppForm: FC = () => {
   return (
     <CustomRpsContext.Provider value={payload.networkRpc}>
       <div
-        className={classNames('relative bg-white rounded-md shadow-md overflow-y-auto', 'flex flex-col')}
+        className="relative bg-white rounded-md shadow-md overflow-y-auto flex flex-col"
         style={{
           width: 380,
           height: 610
@@ -329,7 +329,7 @@ const ConfirmDAppForm: FC = () => {
           </div>
         </div>
 
-        <ConfirmLedgerOverlay displayed={confirming && connectedAccount?.type === TempleAccountType.Ledger} />
+        {/*<ConfirmLedgerOverlay displayed={confirming && connectedAccount?.type === TempleAccountType.Ledger} />*/}
       </div>
     </CustomRpsContext.Provider>
   );

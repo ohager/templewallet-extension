@@ -4,6 +4,7 @@ import { ReactComponent as LogoTitle } from 'app/misc/logo-title.svg';
 import { ReactComponent as WhiteLogoTitle } from 'app/misc/logo-white-title.svg';
 import { ReactComponent as WhiteLogo } from 'app/misc/logo-white.svg';
 import { ReactComponent as PlainLogo } from 'app/misc/logo.svg';
+import { ReactComponent as BlueLogo } from 'app/misc/logo-blue.svg';
 
 type LogoProps = SVGProps<SVGSVGElement> & {
   hasTitle?: boolean;
@@ -13,12 +14,12 @@ type LogoProps = SVGProps<SVGSVGElement> & {
 
 const Logo = memo<LogoProps>(({ hasTitle, white, style = {}, ...rest }) => {
   const whiteLogoType = hasTitle ? WhiteLogoTitle : WhiteLogo;
-  const plainLogoType = hasTitle ? LogoTitle : PlainLogo;
+  const plainLogoType = hasTitle ? LogoTitle : BlueLogo;
   const Component = white ? whiteLogoType : plainLogoType;
 
   return (
     <Component
-      title="Signum Navigator Wallet"
+      title="Signum Wallet XT"
       style={{
         height: 40,
         width: 'auto',
