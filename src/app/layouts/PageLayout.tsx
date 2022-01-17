@@ -47,7 +47,7 @@ const PageLayout: FC<PageLayoutProps> = ({ children, ...toolbarProps }) => {
 
       <NoLambdaViewContractAlert />
       <ConfirmationOverlay />
-      <AnalyticsConfirmationOverlay />
+      {/*<AnalyticsConfirmationOverlay />*/}
     </>
   );
 };
