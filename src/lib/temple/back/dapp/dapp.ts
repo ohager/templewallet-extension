@@ -1,8 +1,10 @@
-import { TempleDAppNetwork } from '@temple-wallet/dapp/dist/types';
 import { browser } from 'webextension-polyfill-ts';
+
 import { loadChainId } from 'lib/temple/helpers';
 import { NETWORKS } from 'lib/temple/networks';
 import { TempleDAppSession, TempleDAppSessions } from 'lib/temple/types';
+
+import { ExtensionNetwork } from './typings';
 
 const STORAGE_KEY = 'dapp_sessions';
 
@@ -36,7 +38,7 @@ function setDApps(newDApps: TempleDAppSessions) {
   return browser.storage.local.set({ [STORAGE_KEY]: newDApps });
 }
 
-export async function getNetworkRPC(net: TempleDAppNetwork) {
+export async function getNetworkRPC(net: ExtensionNetwork) {
   const targetRpc = typeof net === 'string' ? NETWORKS.find(n => n.id === net)!.rpcBaseURL : removeLastSlash(net.rpc);
 
   if (typeof net === 'string') {
@@ -65,11 +67,11 @@ async function getCurrentTempleNetwork() {
   return [...NETWORKS, ...(customNetworksSnapshot ?? [])].find(n => n.id === networkId) ?? NETWORKS[0];
 }
 
-function isAllowedNetwork(net: TempleDAppNetwork) {
+function isAllowedNetwork(net: ExtensionNetwork) {
   return typeof net === 'string' ? NETWORKS.some(n => !n.disabled && n.id === net) : Boolean(net?.rpc);
 }
 
-function isNetworkEquals(fNet: TempleDAppNetwork, sNet: TempleDAppNetwork) {
+function isNetworkEquals(fNet: ExtensionNetwork, sNet: ExtensionNetwork) {
   return typeof fNet !== 'string' && typeof sNet !== 'string'
     ? removeLastSlash(fNet.rpc) === removeLastSlash(sNet.rpc)
     : fNet === sNet;

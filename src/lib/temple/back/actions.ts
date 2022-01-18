@@ -35,6 +35,7 @@ import {
 } from 'lib/temple/types';
 
 import { getCurrentPermission, requestPermission, requestSign, getAllDApps, removeDApp } from './dapp';
+import { ExtensionMessageType, ExtensionRequest, ExtensionResponse } from './dapp/typings';
 
 const ACCOUNT_NAME_PATTERN = /^.{0,16}$/;
 const AUTODECLINE_AFTER = 60_000;
@@ -375,19 +376,19 @@ export function sign(port: Runtime.Port, id: string, sourcePkh: string, bytes: s
   );
 }
 
-export async function processDApp(origin: string, req: TempleDAppRequest): Promise<TempleDAppResponse | void> {
+export async function processDApp(origin: string, req: ExtensionRequest): Promise<ExtensionResponse | void> {
   switch (req?.type) {
-    case TempleDAppMessageType.GetCurrentPermissionRequest:
+    case ExtensionMessageType.GetCurrentPermissionRequest:
       return withInited(() => getCurrentPermission(origin));
 
-    case TempleDAppMessageType.PermissionRequest:
+    case ExtensionMessageType.PermissionRequest:
       return withInited(() => enqueueDApp(() => requestPermission(origin, req)));
 
     // TODO: seems that signum does not need this
     // case TempleDAppMessageType.OperationRequest:
     //   return withInited(() => enqueueDApp(() => requestOperation(origin, req)));
 
-    case TempleDAppMessageType.SignRequest:
+    case ExtensionMessageType.SignRequest:
       return withInited(() => enqueueDApp(() => requestSign(origin, req)));
 
     // TODO: seems that signum does not need this

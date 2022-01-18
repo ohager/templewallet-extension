@@ -1,5 +1,6 @@
 import { Estimate } from '@taquito/taquito/dist/types/contract/estimate';
-import { TempleDAppMetadata, TempleDAppNetwork } from '@temple-wallet/dapp/dist/types';
+
+import { ExtensionDAppMetadata, ExtensionNetwork } from './back/dapp/typings';
 
 type NonEmptyArray<T> = [T, ...T[]];
 
@@ -11,8 +12,8 @@ export interface ReadyTempleState extends TempleState {
 }
 
 export interface TempleDAppSession {
-  network: TempleDAppNetwork;
-  appMeta: TempleDAppMetadata;
+  network: ExtensionNetwork;
+  appMeta: ExtensionDAppMetadata;
   pkh: string;
   publicKey: string;
 }
@@ -168,13 +169,14 @@ export interface TempleDAppPayloadBase {
   type: string;
   origin: string;
   networkRpc: string;
-  appMeta: TempleDAppMetadata;
+  appMeta: ExtensionDAppMetadata;
 }
 
 export interface TempleDAppConnectPayload extends TempleDAppPayloadBase {
   type: 'connect';
 }
 
+// TODO: do we need this?
 export interface TempleDAppOperationsPayload extends TempleDAppPayloadBase {
   type: 'confirm_operations';
   sourcePkh: string;

@@ -1,8 +1,7 @@
-import { TempleDAppGetCurrentPermissionResponse, TempleDAppMessageType } from '@temple-wallet/dapp/dist/types';
-
 import { getDApp, getNetworkRPC } from './dapp';
+import { ExtensionMessageType, ExtensionGetCurrentPermissionResponse } from './typings';
 
-export async function getCurrentPermission(origin: string): Promise<TempleDAppGetCurrentPermissionResponse> {
+export async function getCurrentPermission(origin: string): Promise<ExtensionGetCurrentPermissionResponse> {
   const dApp = await getDApp(origin);
   const permission = dApp
     ? {
@@ -12,7 +11,7 @@ export async function getCurrentPermission(origin: string): Promise<TempleDAppGe
       }
     : null;
   return {
-    type: TempleDAppMessageType.GetCurrentPermissionResponse,
+    type: ExtensionMessageType.GetCurrentPermissionResponse,
     permission
   };
 }

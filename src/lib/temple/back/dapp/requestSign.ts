@@ -1,8 +1,4 @@
-import { ApiComposer, ChainService, composeApi, Transaction } from '@signumjs/core';
-import { localForger } from '@taquito/local-forging';
-import { valueDecoder } from '@taquito/local-forging/dist/lib/michelson/codec';
-import { Uint8ArrayConsumer } from '@taquito/local-forging/dist/lib/uint8array-consumer';
-import { emitMicheline } from '@taquito/michel-codec';
+import { composeApi, Transaction } from '@signumjs/core';
 import {
   TempleDAppErrorType,
   TempleDAppMessageType,
@@ -16,10 +12,11 @@ import { TempleMessageType } from '../../types';
 import { withUnlocked } from '../store';
 import { getDApp, getNetworkRPC } from './dapp';
 import { requestConfirm } from './requestConfirm';
+import { ExtensionMessageType, ExtensionSignRequest, ExtensionSignResponse } from './typings';
 
 const HEX_PATTERN = /^[0-9a-fA-F]+$/;
 
-export async function requestSign(origin: string, req: TempleDAppSignRequest): Promise<TempleDAppSignResponse> {
+export async function requestSign(origin: string, req: ExtensionSignRequest): Promise<ExtensionSignResponse> {
   if (req?.payload?.startsWith('0x')) {
     req = { ...req, payload: req.payload.substring(2) };
   }
@@ -42,10 +39,12 @@ export async function requestSign(origin: string, req: TempleDAppSignRequest): P
     const id = uuid();
     const networkRpc = await getNetworkRPC(dApp.network);
     // TODO: use the newest "parseTransaction" method from rc.9
-    const service = new ChainService({ nodeHost: networkRpc });
+    const ledger = composeApi({ nodeHost: networkRpc });
     let preview: any;
     try {
-      const transaction = await service.query<Transaction>('parseTransaction', { transactionBytes: req?.payload });
+      const transaction = await ledger.service.query<Transaction>('parseTransaction', {
+        transactionBytes: req?.payload
+      });
       preview = JSON.stringify(transaction);
     } catch {
       preview = null;
@@ -68,10 +67,12 @@ export async function requestSign(origin: string, req: TempleDAppSignRequest): P
       handleIntercomRequest: async (confirmReq, decline) => {
         if (confirmReq?.type === TempleMessageType.DAppSignConfirmationRequest && confirmReq?.id === id) {
           if (confirmReq.confirmed) {
-            const { prefixSig: signature } = await withUnlocked(({ vault }) => vault.sign(dApp.pkh, req.payload));
+            const signedTransaction = await withUnlocked(({ vault }) => vault.signumSign(dApp.pkh, req.payload));
+            const { transaction, fullHash } = await ledger.transaction.broadcastTransaction(signedTransaction);
             resolve({
-              type: TempleDAppMessageType.SignResponse,
-              signature
+              type: ExtensionMessageType.SignResponse,
+              fullHash,
+              transactionId: transaction
             });
           } else {
             decline();

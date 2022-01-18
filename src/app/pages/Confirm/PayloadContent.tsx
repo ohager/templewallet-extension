@@ -4,22 +4,16 @@ import classNames from 'clsx';
 
 import AccountTypeBadge from 'app/atoms/AccountTypeBadge';
 import HashShortView from 'app/atoms/HashShortView';
-import Identicon from 'app/atoms/Identicon';
 import Money from 'app/atoms/Money';
 import Name from 'app/atoms/Name';
 import Balance from 'app/templates/Balance';
 import CustomSelect, { OptionRenderProps } from 'app/templates/CustomSelect';
 import { ModifyFeeAndLimit } from 'app/templates/ExpensesView';
-import OperationView from 'app/templates/OperationView';
+import OperationView from 'app/templates/SignumOperationView/OperationView';
 import { T } from 'lib/i18n/react';
-import {
-  SIGNA_METADATA,
-  useCustomChainId,
-  useRelevantAccounts,
-  useSignumAccountPrefix,
-  useSignumAssetMetadata
-} from 'lib/temple/front';
+import { SIGNA_METADATA, useCustomChainId, useRelevantAccounts } from 'lib/temple/front';
 import { TempleAccount, TempleChainId, TempleDAppPayload } from 'lib/temple/types';
+
 import IdenticonSignum from '../../atoms/IdenticonSignum';
 
 const AccountIcon: FC<OptionRenderProps<TempleAccount>> = ({ item }) => (

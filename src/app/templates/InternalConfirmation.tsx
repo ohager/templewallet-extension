@@ -266,7 +266,7 @@ const InternalConfirmation: FC<InternalConfiramtionProps> = ({ payload, onConfir
 
               {payload.type === 'operations' && spFormat.key === 'raw' && (
                 <OperationsBanner
-                  opParams={payload.rawToSign ?? payload.opParams}
+                  jsonPayloadString={payload.rawToSign ?? payload.opParams}
                   jsonViewStyle={signPayloadFormats.length > 1 ? { height: '11rem' } : undefined}
                   modifiedTotalFee={modifiedTotalFeeValue}
                   modifiedStorageLimit={modifiedStorageLimitValue}

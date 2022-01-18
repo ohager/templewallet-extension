@@ -1,5 +1,11 @@
 import { Address } from '@signumjs/core';
-import { generateMasterKeys, Keys } from '@signumjs/crypto';
+import {
+  generateMasterKeys,
+  generateSignature,
+  generateSignedTransactionBytes,
+  Keys,
+  verifySignature
+} from '@signumjs/crypto';
 import { HttpResponseError } from '@taquito/http-utils';
 import { DerivationType } from '@taquito/ledger-signer';
 import { localForger } from '@taquito/local-forging';
@@ -495,6 +501,17 @@ export class Vault {
       const newSettings = { ...current, ...settings };
       await encryptAndSaveMany([[settingsStrgKey, newSettings]], this.passKey);
       return newSettings;
+    });
+  }
+
+  async signumSign(accPublicKeyHash: string, unsignedTransactionBytes: string) {
+    return withError('Failed to sign', async () => {
+      const { publicKey, signingKey } = await this.getSignumTxKeys(accPublicKeyHash);
+      const signature = generateSignature(unsignedTransactionBytes, signingKey);
+      if (!verifySignature(signature, unsignedTransactionBytes, publicKey)) {
+        throw new Error('The signed message could not be verified');
+      }
+      return generateSignedTransactionBytes(unsignedTransactionBytes, signature);
     });
   }
 

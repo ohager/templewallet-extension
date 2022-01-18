@@ -1,7 +1,7 @@
-import { TempleDAppNetwork } from '@temple-wallet/dapp/dist/types';
 import { browser } from 'webextension-polyfill-ts';
 
 import { NETWORKS } from '../../networks';
+import { ExtensionNetwork } from './typings';
 
 export async function getCurrentTempleNetwork() {
   const { network_id: networkId, custom_networks_snapshot: customNetworksSnapshot } = await browser.storage.local.get([
@@ -12,11 +12,11 @@ export async function getCurrentTempleNetwork() {
   return [...NETWORKS, ...(customNetworksSnapshot ?? [])].find(n => n.id === networkId) ?? NETWORKS[0];
 }
 
-export function isAllowedNetwork(net: TempleDAppNetwork) {
+export function isAllowedNetwork(net: ExtensionNetwork) {
   return typeof net === 'string' ? NETWORKS.some(n => !n.disabled && n.id === net) : Boolean(net?.rpc);
 }
 
-export function isNetworkEquals(fNet: TempleDAppNetwork, sNet: TempleDAppNetwork) {
+export function isNetworkEquals(fNet: ExtensionNetwork, sNet: ExtensionNetwork) {
   return typeof fNet !== 'string' && typeof sNet !== 'string'
     ? removeLastSlash(fNet.rpc) === removeLastSlash(sNet.rpc)
     : fNet === sNet;

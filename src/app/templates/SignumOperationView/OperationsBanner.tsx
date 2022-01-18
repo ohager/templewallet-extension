@@ -81,21 +81,23 @@ const OperationsBanner = memo<OperationsBannerProps>(
               ...jsonViewStyle
             }}
           >
-            {/*{typeof opParams === 'string' ? (*/}
-            {/*  <div className={classNames('p-1', 'text-lg text-gray-700 font-normal whitespace-pre-line')}>*/}
-            {/*    {opParams}*/}
-            {/*  </div>*/}
-            {/*) : (*/}
-            <ReactJson
-              src={JSON.parse(opParams)}
-              name={null}
-              iconStyle="circle"
-              indentWidth={2}
-              enableClipboard={false}
-              displayObjectSize={false}
-              displayDataTypes={false}
-            />
-            {/*)}*/}
+            {typeof opParams === 'string' ? (
+              <div className={classNames('p-1', 'text-lg text-gray-700 font-normal whitespace-pre-line')}>
+                {opParams}
+              </div>
+            ) : (
+              <ReactJson
+                src={opParams}
+                name={null}
+                iconStyle="square"
+                indentWidth={4}
+                collapsed={Array.isArray(opParams) ? 2 : 3}
+                collapseStringsAfterLength={36}
+                enableClipboard={false}
+                displayObjectSize={false}
+                displayDataTypes={false}
+              />
+            )}
           </div>
 
           <div className={classNames('absolute top-0 right-0 pt-2 pr-2')}>
