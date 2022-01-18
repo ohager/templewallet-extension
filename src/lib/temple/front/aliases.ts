@@ -1,17 +1,8 @@
 import { useCallback } from 'react';
 
-import { Address, Alias } from '@signumjs/core';
+import { Alias } from '@signumjs/core';
 
 import { useSignum } from './ready';
-
-export function isSignumAddress(address: string): boolean {
-  try {
-    Address.create(address);
-    return true;
-  } catch (e) {
-    return false;
-  }
-}
 
 interface AliasList {
   aliases: Alias[];

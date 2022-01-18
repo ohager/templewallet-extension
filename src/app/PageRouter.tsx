@@ -23,6 +23,7 @@ import { useTempleClient } from 'lib/temple/front';
 import * as Woozie from 'lib/woozie';
 
 import AttentionPage from './pages/Onboarding/pages/AttentionPage';
+import DApps from './pages/DApps';
 
 interface RouteContext {
   popup: boolean;
@@ -72,6 +73,7 @@ const ROUTE_MAP = Woozie.Router.createMap<RouteContext>([
   // ['/connect-ledger', onlyReady(onlyInFullPage(() => <ConnectLedger />))],
   ['/receive', onlyReady(() => <Receive />)],
   ['/send/:assetSlug?', onlyReady(({ assetSlug }) => <Send assetSlug={assetSlug} />)],
+  // ['/dapps', onlyReady(() => <DApps />)],
   // ['/swap/:assetSlug?', onlyReady(({ assetSlug }) => <Swap assetSlug={assetSlug} />)],
   // ['/delegate', onlyReady(() => <Delegate />)],
   // ['/manage-assets/:assetType?', onlyReady(({ assetType }) => <ManageAssets assetType={assetType!} />)],

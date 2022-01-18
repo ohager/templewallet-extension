@@ -1,4 +1,3 @@
-import { browser } from 'webextension-polyfill-ts';
 import { IntercomClient } from 'lib/intercom/client';
 import { serializeError } from 'lib/intercom/helpers';
 import { TempleMessageType, TempleResponse } from 'lib/temple/types';

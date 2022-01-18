@@ -12,8 +12,8 @@ import { ReactComponent as ReceiveIcon } from 'app/icons/receive.svg';
 import { ReactComponent as SendIcon } from 'app/icons/send-alt.svg';
 import { ReactComponent as SwapVerticalIcon } from 'app/icons/swap-vertical.svg';
 import PageLayout from 'app/layouts/PageLayout';
-import Activity from 'app/templates/SignumActivity/Activity';
 import AssetInfo from 'app/templates/AssetInfo';
+import Activity from 'app/templates/SignumActivity/Activity';
 import { T, t } from 'lib/i18n/react';
 import {
   getAssetSymbol,

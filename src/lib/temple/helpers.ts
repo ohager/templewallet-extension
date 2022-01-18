@@ -8,6 +8,7 @@ import memoize from 'micro-memoize';
 import { getMessage } from 'lib/i18n';
 import { IntercomError } from 'lib/intercom/helpers';
 import { FastRpcClient } from 'lib/taquito-fast-rpc';
+import { Address } from '@signumjs/core';
 
 export const loadFastRpcClient = memoize((rpc: string) => new FastRpcClient(rpc));
 
@@ -62,6 +63,15 @@ export function atomsToTokens(x: BigNumber, decimals: number) {
 
 export function tokensToAtoms(x: BigNumber, decimals: number) {
   return x.times(10 ** decimals).integerValue();
+}
+
+export function isSignumAddress(address: string): boolean {
+  try {
+    Address.create(address);
+    return true;
+  } catch (_) {
+    return false;
+  }
 }
 
 export function isAddressValid(address: string) {

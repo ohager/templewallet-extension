@@ -10,15 +10,6 @@ import { browser, Runtime } from 'webextension-polyfill-ts';
 
 import { createQueue } from 'lib/queue';
 import { addLocalOperation } from 'lib/temple/activity';
-import {
-  getCurrentPermission,
-  requestPermission,
-  requestOperation,
-  requestSign,
-  requestBroadcast,
-  getAllDApps,
-  removeDApp
-} from 'lib/temple/back/dapp';
 import { intercom } from 'lib/temple/back/defaults';
 import { buildFinalOpParmas, dryRunOpParams } from 'lib/temple/back/dryrun';
 import {
@@ -42,6 +33,8 @@ import {
   TempleSettings,
   TempleSharedStorageKey
 } from 'lib/temple/types';
+
+import { getCurrentPermission, requestPermission, requestSign, getAllDApps, removeDApp } from './dapp';
 
 const ACCOUNT_NAME_PATTERN = /^.{0,16}$/;
 const AUTODECLINE_AFTER = 60_000;
@@ -390,14 +383,16 @@ export async function processDApp(origin: string, req: TempleDAppRequest): Promi
     case TempleDAppMessageType.PermissionRequest:
       return withInited(() => enqueueDApp(() => requestPermission(origin, req)));
 
-    case TempleDAppMessageType.OperationRequest:
-      return withInited(() => enqueueDApp(() => requestOperation(origin, req)));
+    // TODO: seems that signum does not need this
+    // case TempleDAppMessageType.OperationRequest:
+    //   return withInited(() => enqueueDApp(() => requestOperation(origin, req)));
 
     case TempleDAppMessageType.SignRequest:
       return withInited(() => enqueueDApp(() => requestSign(origin, req)));
 
-    case TempleDAppMessageType.BroadcastRequest:
-      return withInited(() => requestBroadcast(origin, req));
+    // TODO: seems that signum does not need this
+    // case TempleDAppMessageType.BroadcastRequest:
+    //   return withInited(() => requestBroadcast(origin, req));
   }
 }
 
