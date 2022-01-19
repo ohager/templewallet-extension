@@ -2298,5 +2298,8 @@
   },
   "usePhoenixWallet": {
     "message": "Use a carteira móvel Phoenix para processar o código"
+  },
+  "messageTo": {
+    "message": "Mensagem"
   }
 }

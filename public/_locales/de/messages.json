@@ -2298,5 +2298,8 @@
   },
   "usePhoenixWallet": {
     "message": "Benutze die Phoenix Mobile Wallet um den Code verarbeiten zu können"
+  },
+  "messageTo": {
+    "message": "Nachricht"
   }
 }

@@ -191,7 +191,7 @@ export interface TempleDAppSignPayload extends TempleDAppPayloadBase {
   type: 'sign';
   sourcePkh: string;
   payload: string;
-  preview: any;
+  preview: string;
 }
 
 export type TempleDAppPayload = TempleDAppConnectPayload | TempleDAppOperationsPayload | TempleDAppSignPayload;

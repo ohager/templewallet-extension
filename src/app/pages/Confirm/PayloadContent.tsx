@@ -9,9 +9,9 @@ import Name from 'app/atoms/Name';
 import Balance from 'app/templates/Balance';
 import CustomSelect, { OptionRenderProps } from 'app/templates/CustomSelect';
 import { ModifyFeeAndLimit } from 'app/templates/ExpensesView';
-import OperationView from 'app/templates/SignumOperationView/OperationView';
+import SignView from 'app/templates/SignumSignView/SignView';
 import { T } from 'lib/i18n/react';
-import { SIGNA_METADATA, useCustomChainId, useRelevantAccounts } from 'lib/temple/front';
+import { SIGNA_METADATA, TempleDAppSignPayload, useCustomChainId, useRelevantAccounts } from 'lib/temple/front';
 import { TempleAccount, TempleChainId, TempleDAppPayload } from 'lib/temple/types';
 
 import IdenticonSignum from '../../atoms/IdenticonSignum';
@@ -91,8 +91,8 @@ const PayloadContent: React.FC<PayloadContentProps> = ({
       />
     </div>
   ) : (
-    <OperationView
-      payload={payload}
+    <SignView
+      payload={payload as TempleDAppSignPayload}
       networkRpc={payload.networkRpc}
       mainnet={mainnet}
       modifyFeeAndLimit={modifyFeeAndLimit}

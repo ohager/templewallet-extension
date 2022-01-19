@@ -2493,5 +2493,8 @@
   },
   "usePhoenixWallet": {
     "message": "Use the Phoenix Mobile Wallet to process the code"
+  },
+  "messageTo": {
+    "message": "Message"
   }
 }

@@ -30,6 +30,7 @@ import { useLocation } from 'lib/woozie';
 import { ConfirmPageSelectors } from './ConfirmPage.selectors';
 import PayloadContent from './PayloadContent';
 
+// TODO: remove operations stuff
 const ConfirmDAppForm: FC = () => {
   const { getDAppPayload, confirmDAppPermission, confirmDAppOperation, confirmDAppSign } = useTempleClient();
   const allAccounts = useRelevantAccounts(false);
