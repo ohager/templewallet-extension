@@ -1,20 +1,15 @@
-import React, { FC, ReactNode, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { FC, ReactNode, useCallback, useLayoutEffect, useState } from 'react';
 
-import { generateMnemonic, validateMnemonic } from 'bip39';
 import classNames from 'clsx';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 import Alert from 'app/atoms/Alert';
-import FileInput, { FileInputProps } from 'app/atoms/FileInput';
 import FormCheckbox from 'app/atoms/FormCheckbox';
 import FormField, { PASSWORD_ERROR_CAPTION } from 'app/atoms/FormField';
 import FormSubmitButton from 'app/atoms/FormSubmitButton';
-import TabSwitcher from 'app/atoms/TabSwitcher';
-import { formatMnemonic, MNEMONIC_ERROR_CAPTION, PASSWORD_PATTERN } from 'app/defaults';
-import { ReactComponent as TrashbinIcon } from 'app/icons/bin.svg';
-import { ReactComponent as PaperclipIcon } from 'app/icons/paperclip.svg';
+import { formatMnemonic, PASSWORD_PATTERN } from 'app/defaults';
 import { T, t } from 'lib/i18n/react';
-import { decryptKukaiSeedPhrase, useTempleClient } from 'lib/temple/front';
+import { useTempleClient, generateSignumMnemonic } from 'lib/temple/front';
 import { useAlert } from 'lib/ui/dialog';
 import { PasswordValidation } from 'lib/ui/PasswordStrengthIndicator';
 import { Link } from 'lib/woozie';
@@ -43,54 +38,19 @@ type NewWalletProps = {
   tabSlug?: string;
 };
 
-const importWalletOptions = [
-  {
-    slug: 'seed-phrase',
-    i18nKey: 'seedPhrase'
-  },
-  {
-    slug: 'keystore-file',
-    i18nKey: 'keystoreFile'
-  }
-];
-
-const validateKeystoreFile = (value?: FileList) => {
-  const file = value?.item(0);
-
-  if (file && !file.name.endsWith('.tez')) {
-    return t('selectedFileFormatNotSupported');
-  }
-  return true;
-};
-
-const NewWallet: FC<NewWalletProps> = ({ ownMnemonic = false, title, tabSlug = 'seed-phrase' }) => {
+const NewWallet: FC<NewWalletProps> = ({ ownMnemonic = false, title }) => {
   const { locked, registerWallet } = useTempleClient();
   const alert = useAlert();
 
-  const { control, watch, register, handleSubmit, errors, reset, triggerValidation, formState, setValue } =
-    useForm<FormData>({ defaultValues: { shouldUseKeystorePassword: true } });
+  const { watch, register, handleSubmit, errors, triggerValidation, formState } = useForm<FormData>();
   const submitting = formState.isSubmitting;
-
-  const shouldUseKeystorePassword = watch('shouldUseKeystorePassword');
   const passwordValue = watch('password');
-
   const [passwordValidation, setPasswordValidation] = useState<PasswordValidation>({
     minChar: false,
     cases: false,
     number: false,
     specialChar: false
   });
-
-  const isImportFromSeedPhrase = tabSlug === 'seed-phrase';
-  const isImportFromKeystore = tabSlug === 'keystore-file';
-
-  const prevTabSlugRef = useRef(tabSlug);
-  useEffect(() => {
-    if (prevTabSlugRef.current !== tabSlug) {
-      reset({ shouldUseKeystorePassword: true });
-    }
-    prevTabSlugRef.current = tabSlug;
-  }, [tabSlug, reset]);
 
   useLayoutEffect(() => {
     if (formState.dirtyFields.has('repassword')) {
@@ -101,40 +61,17 @@ const NewWallet: FC<NewWalletProps> = ({ ownMnemonic = false, title, tabSlug = '
   const [backupData, setBackupData] = useState<BackupData | null>(null);
   const [verifySeedPhrase, setVerifySeedPhrase] = useState(false);
 
-  const clearKeystoreFileInput = useCallback(
-    (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
-      e.stopPropagation();
-      setValue('keystoreFile', undefined);
-      triggerValidation('keystoreFile');
-    },
-    [triggerValidation, setValue]
-  );
-
   const onSubmit = useCallback(
     async (data: FormData) => {
       if (submitting) return;
 
       try {
         if (ownMnemonic) {
-          if (isImportFromSeedPhrase) {
-            await registerWallet(data.password!, formatMnemonic(data.mnemonic!));
-          } else {
-            try {
-              const mnemonic = await decryptKukaiSeedPhrase(
-                await data.keystoreFile!.item(0)!.text(),
-                data.keystorePassword!
-              );
-              await registerWallet(data.shouldUseKeystorePassword ? data.keystorePassword! : data.password!, mnemonic);
-            } catch (err: any) {
-              alert({
-                title: t('errorImportingKukaiWallet'),
-                children: err instanceof SyntaxError ? t('fileHasSyntaxError') : err.message
-              });
-            }
-          }
+          await registerWallet(data.password!, formatMnemonic(data.mnemonic!));
         } else {
+          const mnemonic = await generateSignumMnemonic();
           setBackupData({
-            mnemonic: generateMnemonic(128),
+            mnemonic,
             password: data.password!
           });
         }
@@ -147,7 +84,7 @@ const NewWallet: FC<NewWalletProps> = ({ ownMnemonic = false, title, tabSlug = '
         });
       }
     },
-    [submitting, ownMnemonic, setBackupData, registerWallet, alert, isImportFromSeedPhrase]
+    [submitting, ownMnemonic, setBackupData, registerWallet, alert]
   );
 
   const handleBackupComplete = useCallback(() => {
@@ -172,9 +109,6 @@ const NewWallet: FC<NewWalletProps> = ({ ownMnemonic = false, title, tabSlug = '
   // Initial step (create or import mnemonic)
   return (
     <Template title={title}>
-      {ownMnemonic && (
-        <TabSwitcher className="py-4" tabs={importWalletOptions} activeTabSlug={tabSlug} urlPrefix="/import-wallet" />
-      )}
       <form className="w-full max-w-sm mx-auto my-8" onSubmit={handleSubmit(onSubmit)}>
         {locked && (
           <Alert
@@ -205,14 +139,13 @@ const NewWallet: FC<NewWalletProps> = ({ ownMnemonic = false, title, tabSlug = '
           />
         )}
 
-        {ownMnemonic && isImportFromSeedPhrase && (
+        {ownMnemonic ? (
           <FormField
             secret
             textarea
             rows={4}
             ref={register({
-              required: t('required'),
-              validate: val => validateMnemonic(formatMnemonic(val)) || MNEMONIC_ERROR_CAPTION
+              required: t('required')
             })}
             label={t('mnemonicInputLabel')}
             labelDescription={t('mnemonicInputDescription')}
@@ -224,59 +157,7 @@ const NewWallet: FC<NewWalletProps> = ({ ownMnemonic = false, title, tabSlug = '
             containerClassName="mb-4"
             className="resize-none"
           />
-        )}
-
-        {ownMnemonic && (
-          <div className={classNames('w-full', !isImportFromKeystore && 'hidden')}>
-            <label className={classNames('mb-4 leading-tight flex flex-col')}>
-              <span className="text-base font-semibold text-gray-700">
-                <T id="file" />
-              </span>
-
-              <span className={classNames('mt-1', 'text-xs font-light text-gray-600')} style={{ maxWidth: '90%' }}>
-                <T id="keystoreFileFieldDescription" />
-              </span>
-            </label>
-
-            <div className="w-full mb-10">
-              <Controller
-                control={control}
-                name="keystoreFile"
-                as={KeystoreFileInput}
-                rules={{
-                  required: isImportFromKeystore ? t('required') : false,
-                  validate: isImportFromKeystore ? validateKeystoreFile : undefined
-                }}
-                clearKeystoreFileInput={clearKeystoreFileInput}
-              />
-              {errors.keystoreFile && <div className="text-xs text-red-500 mt-1">{errors.keystoreFile.message}</div>}
-            </div>
-
-            <FormField
-              ref={register({
-                required: isImportFromKeystore ? t('required') : false
-              })}
-              label={t('filePassword')}
-              labelDescription={t('filePasswordInputDescription')}
-              id="keystore-password"
-              type="password"
-              name="keystorePassword"
-              placeholder="********"
-              errorCaption={errors.keystorePassword?.message}
-              containerClassName="mb-8"
-            />
-
-            <Controller
-              control={control}
-              name="shouldUseKeystorePassword"
-              as={FormCheckbox}
-              label={t('useKeystorePassword')}
-              containerClassName={shouldUseKeystorePassword ? 'mb-2' : 'mb-8'}
-            />
-          </div>
-        )}
-
-        {(!ownMnemonic || isImportFromSeedPhrase || !shouldUseKeystorePassword) && (
+        ) : (
           <>
             <FormField
               ref={register({
@@ -377,44 +258,3 @@ const Template: FC<TemplateProps> = ({ title, children }) => (
     {children}
   </div>
 );
-
-type KeystoreFileInputProps = Pick<FileInputProps, 'value' | 'onChange' | 'name'> & {
-  clearKeystoreFileInput: (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => void;
-};
-
-const KeystoreFileInput: React.FC<KeystoreFileInputProps> = ({ value, onChange, name, clearKeystoreFileInput }) => {
-  const keystoreFile = value?.item?.(0);
-
-  return (
-    <FileInput name={name} multiple={false} accept=".tez" onChange={onChange} value={value}>
-      <div
-        className={classNames(
-          'w-full px-4 py-10 flex flex-col items-center',
-          'border-2 border-dashed border-gray-400 rounded-md',
-          'focus:border-primary-orange',
-          'transition ease-in-out duration-200',
-          'text-gray-400 text-lg leading-tight',
-          'placeholder-alphagray'
-        )}
-      >
-        <div className="flex flex-row justify-center items-center mb-10">
-          <span className="text-lg leading-tight text-gray-600" style={{ wordBreak: 'break-word' }}>
-            {keystoreFile?.name ?? t('fileInputPrompt')}
-          </span>
-          {keystoreFile ? (
-            <TrashbinIcon
-              className="ml-2 w-6 h-auto text-red-700 stroke-current z-10 cursor-pointer"
-              onClick={clearKeystoreFileInput}
-              style={{ minWidth: '1.5rem' }}
-            />
-          ) : (
-            <PaperclipIcon className="ml-2 w-6 h-auto text-gray-600 stroke-current" />
-          )}
-        </div>
-        <div className="w-40 py-3 rounded bg-blue-600 shadow-sm text-center font-semibold text-sm text-white">
-          {t('selectFile')}
-        </div>
-      </div>
-    </FileInput>
-  );
-};

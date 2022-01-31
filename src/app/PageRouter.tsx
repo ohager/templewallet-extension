@@ -36,7 +36,7 @@ type RouteFactory = Woozie.Router.ResolveResult<RouteContext>;
 
 const ROUTE_MAP = Woozie.Router.createMap<RouteContext>([
   [
-    '/import-wallet/:tabSlug?',
+    '/import-wallet',
     (p, ctx) => {
       switch (true) {
         case ctx.ready:
@@ -46,7 +46,7 @@ const ROUTE_MAP = Woozie.Router.createMap<RouteContext>([
           return <OpenInFullPage />;
 
         default:
-          return <ImportWallet key={p.tabSlug ?? ''} tabSlug={p.tabSlug} />;
+          return <ImportWallet />;
       }
     }
   ],

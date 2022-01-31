@@ -22,6 +22,7 @@ export * from 'lib/temple/front/expenses';
 // TODO: clean up expenses conflicts
 // export * from 'lib/temple/front/signumExpenses';
 export * from 'lib/temple/front/swap';
+export * from 'lib/temple/front/signumMnemonic';
 export * from 'lib/temple/front/blockexplorer';
 export * from 'lib/temple/front/address-book';
 export * from 'lib/temple/front/kukai';
