@@ -1,39 +1,34 @@
 import React, { FC, ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
+import { Address } from '@signumjs/core';
 import { validateMnemonic } from 'bip39';
 import classNames from 'clsx';
 import { useForm, Controller } from 'react-hook-form';
 import useSWR from 'swr';
 
 import Alert from 'app/atoms/Alert';
-import FileInput, { FileInputProps } from 'app/atoms/FileInput';
 import FormField from 'app/atoms/FormField';
 import FormSubmitButton from 'app/atoms/FormSubmitButton';
 import NoSpaceField from 'app/atoms/NoSpaceField';
 import TabSwitcher from 'app/atoms/TabSwitcher';
 import { formatMnemonic } from 'app/defaults';
 import { ReactComponent as DownloadIcon } from 'app/icons/download.svg';
-import { ReactComponent as OkIcon } from 'app/icons/ok.svg';
 import PageLayout from 'app/layouts/PageLayout';
 import { useFormAnalytics } from 'lib/analytics';
 import { T, t } from 'lib/i18n/react';
 import {
   useTempleClient,
   useSetAccountPkh,
-  validateDerivationPath,
-  useTezos,
-  ActivationStatus,
   useAllAccounts,
-  isAddressValid,
-  isDomainNameValid,
-  useTezosDomainsClient,
-  isKTAddress,
-  confirmOperation,
   useNetwork,
-  ImportAccountFormType
+  ImportAccountFormType,
+  isSignumAddress,
+  useSignumAliasResolver,
+  useSignumAccountPrefix
 } from 'lib/temple/front';
-import useSafeState from 'lib/ui/useSafeState';
 import { navigate } from 'lib/woozie';
+
+import { withErrorHumanDelay } from '../../lib/ui/humanDelay';
 
 type ImportAccountProps = {
   tabSlug: string | null;
@@ -138,6 +133,7 @@ const ByMnemonicForm: FC = () => {
   const { importMnemonicAccount } = useTempleClient();
   const formAnalytics = useFormAnalytics(ImportAccountFormType.Mnemonic);
 
+  // TOOD: review these things, as we dont need anymore
   const { register, handleSubmit, errors, formState } = useForm<ByMnemonicFormData>({
     defaultValues: {
       customDerivationPath: "m/44'/1729'/0'/0'",
@@ -226,30 +222,40 @@ interface WatchOnlyFormData {
 
 const WatchOnlyForm: FC = () => {
   const { importWatchOnlyAccount } = useTempleClient();
-  const tezos = useTezos();
-  const domainsClient = useTezosDomainsClient();
-  const canUseDomainNames = domainsClient.isSupported;
-  const formAnalytics = useFormAnalytics(ImportAccountFormType.WatchOnly);
-
+  const { resolveAliasToAccountId } = useSignumAliasResolver();
+  const prefix = useSignumAccountPrefix();
   const { watch, handleSubmit, errors, control, formState, setValue, triggerValidation } = useForm<WatchOnlyFormData>({
     mode: 'onChange'
   });
   const [error, setError] = useState<ReactNode>(null);
-
+  const [resolvedAddress, setResolvedAddress] = useState<string>('');
   const addressFieldRef = useRef<HTMLTextAreaElement>(null);
-
   const addressValue = watch('address');
-
-  const domainAddressFactory = useCallback(
-    (_k: string, _checksum: string, address: string) => domainsClient.resolver.resolveNameToAddress(address),
-    [domainsClient]
+  const resolveAlias = useCallback(
+    async (address: string) => {
+      if (!isSignumAddress(address)) {
+        const accountId = await resolveAliasToAccountId(address);
+        if (!accountId) {
+          // TODO: adjust the translations
+          throw new Error(t('domainDoesntResolveToAddress', address));
+        }
+        return accountId;
+      } else {
+        return Address.create(address).getNumericId();
+      }
+    },
+    [resolveAliasToAccountId]
   );
-  const { data: resolvedAddress } = useSWR(['tzdns-address', tezos.checksum, addressValue], domainAddressFactory, {
-    shouldRetryOnError: false,
-    revalidateOnFocus: false
-  });
 
-  const finalAddress = useMemo(() => resolvedAddress || addressValue, [resolvedAddress, addressValue]);
+  useEffect(() => {
+    resolveAlias(addressValue)
+      .then(accountId => {
+        setResolvedAddress(accountId);
+      })
+      .catch(() => {
+        setResolvedAddress('');
+      });
+  }, [addressValue]);
 
   const cleanToField = useCallback(() => {
     setValue('to', '');
@@ -261,61 +267,28 @@ const WatchOnlyForm: FC = () => {
       if (!value?.length || value.length < 0) {
         return false;
       }
-
-      if (!canUseDomainNames) {
-        return validateAddress(value);
-      }
-
-      if (isDomainNameValid(value, domainsClient)) {
-        const resolved = await domainsClient.resolver.resolveNameToAddress(value);
-        if (!resolved) {
-          return t('domainDoesntResolveToAddress', value);
-        }
-
-        value = resolved;
-      }
-
-      return isAddressValid(value) ? true : t('invalidAddressOrDomain');
+      const accountId = await resolveAlias(value);
+      return isSignumAddress(accountId) ? true : t('invalidAddressOrDomain');
     },
-    [canUseDomainNames, domainsClient]
+    [resolveAlias]
   );
 
   const onSubmit = useCallback(async () => {
-    if (formState.isSubmitting) return;
-
+    if (formState.isSubmitting || !addressValue) return;
     setError(null);
-
-    formAnalytics.trackSubmit();
     try {
-      if (!isAddressValid(finalAddress)) {
+      const finalAddress = await resolveAlias(addressValue);
+      if (!isSignumAddress(finalAddress)) {
         throw new Error(t('invalidAddress'));
       }
-
-      let chainId: string | undefined;
-
-      if (isKTAddress(finalAddress)) {
-        try {
-          await tezos.contract.at(finalAddress);
-        } catch {
-          throw new Error(t('contractNotExistOnNetwork'));
-        }
-
-        chainId = await tezos.rpc.getChainId();
-      }
-
-      await importWatchOnlyAccount(finalAddress, chainId);
-
-      formAnalytics.trackSubmitSuccess();
+      await importWatchOnlyAccount(finalAddress);
     } catch (err: any) {
-      formAnalytics.trackSubmitFail();
-
       console.error(err);
-
-      // Human delay
-      await new Promise(r => setTimeout(r, 300));
-      setError(err.message);
+      await withErrorHumanDelay(err, () => {
+        setError(err.message);
+      });
     }
-  }, [importWatchOnlyAccount, finalAddress, tezos, formState.isSubmitting, setError, formAnalytics]);
+  }, [importWatchOnlyAccount, formState.isSubmitting, setError, addressValue]);
 
   return (
     <form className="w-full max-w-sm mx-auto my-8" onSubmit={handleSubmit(onSubmit)}>
@@ -337,10 +310,8 @@ const WatchOnlyForm: FC = () => {
         onClean={cleanToField}
         id="send-to"
         label={t('address')}
-        labelDescription={
-          <T id={canUseDomainNames ? 'addressInputDescriptionWithDomain' : 'addressInputDescription'} />
-        }
-        placeholder={t(canUseDomainNames ? 'recipientInputPlaceholderWithDomain' : 'recipientInputPlaceholder')}
+        labelDescription={<T id={'addressInputDescriptionWithDomain'} />}
+        placeholder={t('recipientInputPlaceholderWithDomain')}
         errorCaption={errors.address?.message}
         style={{
           resize: 'none'
@@ -348,27 +319,16 @@ const WatchOnlyForm: FC = () => {
         containerClassName="mb-4"
       />
 
-      {resolvedAddress && (
+      {resolvedAddress && resolvedAddress !== addressValue && (
         <div className={classNames('mb-4 -mt-3', 'text-xs font-light text-gray-600', 'flex flex-wrap items-center')}>
           <span className="mr-1 whitespace-no-wrap">{t('resolvedAddress')}:</span>
-          <span className="font-normal">{resolvedAddress}</span>
+          <span className="font-normal">{Address.fromNumericId(resolvedAddress, prefix).getReedSolomonAddress()}</span>
         </div>
       )}
 
-      <FormSubmitButton loading={formState.isSubmitting}>{t('importAccount')}</FormSubmitButton>
+      <FormSubmitButton loading={formState.isSubmitting} disabled={!resolvedAddress}>
+        {t('importAccount')}
+      </FormSubmitButton>
     </form>
   );
 };
-
-function validateAddress(value: any) {
-  switch (false) {
-    case value?.length > 0:
-      return true;
-
-    case isAddressValid(value):
-      return 'invalidAddress';
-
-    default:
-      return true;
-  }
-}

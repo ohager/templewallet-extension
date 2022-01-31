@@ -12,6 +12,8 @@ import { T, t } from 'lib/i18n/react';
 import { TempleAccountType, useTempleClient, useAllAccounts, useSetAccountPkh } from 'lib/temple/front';
 import { navigate } from 'lib/woozie';
 
+import { withErrorHumanDelay } from '../../lib/ui/humanDelay';
+
 type FormData = {
   name: string;
 };
@@ -58,16 +60,13 @@ const CreateAccount: FC = () => {
       formAnalytics.trackSubmit();
       try {
         await createAccount(name);
-
-        formAnalytics.trackSubmitSuccess();
+        // formAnalytics.trackSubmitSuccess();
       } catch (err: any) {
-        formAnalytics.trackSubmitFail();
-
+        // formAnalytics.trackSubmitFail();
         console.error(err);
-
-        // Human delay.
-        await new Promise(res => setTimeout(res, 300));
-        setError('name', SUBMIT_ERROR_TYPE, err.message);
+        await withErrorHumanDelay(err, () => {
+          setError('name', SUBMIT_ERROR_TYPE, err.message);
+        });
       }
     },
     [submitting, clearError, setError, createAccount, formAnalytics]
@@ -86,10 +85,8 @@ const CreateAccount: FC = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormField
             ref={register({
-              pattern: {
-                value: ACCOUNT_NAME_PATTERN,
-                message: t('accountNameInputTitle')
-              }
+              validate: () => true
+              // message: t('accountNameInputTitle')
             })}
             label={t('accountName')}
             labelDescription={t('accountNameInputDescription')}

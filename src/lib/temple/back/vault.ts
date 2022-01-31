@@ -42,6 +42,8 @@ import * as Passworder from 'lib/temple/passworder';
 import { clearStorage } from 'lib/temple/reset';
 import { TempleAccount, TempleAccountType, TempleContact, TempleSettings } from 'lib/temple/types';
 
+import { generateSignumMnemonic } from '../front';
+
 const TEZOS_BIP44_COINTYPE = 1729;
 const STORAGE_KEY_PREFIX = 'vault';
 const DEFAULT_SETTINGS: TempleSettings = {};
@@ -78,8 +80,6 @@ export class Vault {
 
   static async setup(password: string) {
     return withError('Failed to unlock wallet', async () => {
-      await Vault.runMigrations(password);
-
       const passKey = await Vault.toValidPassKey(password);
       return new Vault(passKey);
     });
@@ -88,31 +88,24 @@ export class Vault {
   static async spawnSignum(password: string, mnemonic?: string) {
     return withError('Failed to create wallet', async () => {
       if (!mnemonic) {
-        mnemonic = Bip39.generateMnemonic(128);
+        mnemonic = await generateSignumMnemonic();
       }
-      const seed = Bip39.mnemonicToSeedSync(mnemonic);
-
-      const hdAccIndex = 0;
-      const accPrivateKey = seedToHDPrivateKey(seed, hdAccIndex);
-      const [accPublicKey, accPublicKeyHash] = await getPublicKeyAndHash(accPrivateKey);
-
+      const keys = generateMasterKeys(mnemonic);
+      const accountId = Address.fromPublicKey(keys.publicKey).getNumericId();
       const initialAccount: TempleAccount = {
-        type: TempleAccountType.HD,
+        type: TempleAccountType.Imported,
         name: 'Account 1',
-        publicKeyHash: accPublicKeyHash,
-        hdIndex: hdAccIndex
+        publicKeyHash: accountId
       };
       const newAccounts = [initialAccount];
-
       const passKey = await Passworder.generateKey(password);
-
       await clearStorage();
       await encryptAndSaveMany(
         [
           [checkStrgKey, generateCheck()],
-          [mnemonicStrgKey, mnemonic],
-          [accPrivKeyStrgKey(accPublicKeyHash), accPrivateKey],
-          [accPubKeyStrgKey(accPublicKeyHash), accPublicKey],
+          [accPrivP2PStrgKey(accountId), keys.agreementPrivateKey],
+          [accPrivKeyStrgKey(accountId), keys.signPrivateKey],
+          [accPubKeyStrgKey(accountId), keys.publicKey],
           [accountsStrgKey, newAccounts]
         ],
         passKey
@@ -121,6 +114,7 @@ export class Vault {
     });
   }
 
+  // TODO: remove - this is obsolete
   static async spawn(password: string, mnemonic?: string) {
     return withError('Failed to create wallet', async () => {
       if (!mnemonic) {
@@ -400,24 +394,6 @@ export class Vault {
     });
   }
 
-  async importMnemonicAccountOriginal(mnemonic: string, password?: string, derivationPath?: string) {
-    return withError('Failed to import account', async () => {
-      let seed;
-      try {
-        seed = Bip39.mnemonicToSeedSync(mnemonic, password);
-      } catch (_err) {
-        throw new PublicError('Invalid Mnemonic or Password');
-      }
-
-      if (derivationPath) {
-        seed = deriveSeed(seed, derivationPath);
-      }
-
-      const privateKey = seedToPrivateKey(seed);
-      return this.importAccount(privateKey);
-    });
-  }
-
   async importMnemonicAccount(passphrase: string) {
     return withError('Failed to import account', async () => {
       try {
@@ -429,6 +405,7 @@ export class Vault {
     });
   }
 
+  // TODO: remove, we dont have it
   async importFundraiserAccount(email: string, password: string, mnemonic: string) {
     return withError('Failed to import fundraiser account', async () => {
       const seed = Bip39.mnemonicToSeedSync(mnemonic, `${email}${password}`);
@@ -437,6 +414,7 @@ export class Vault {
     });
   }
 
+  // TODO: remove we don't have it
   async importManagedKTAccount(accPublicKeyHash: string, chainId: string, owner: string) {
     return withError('Failed to import Managed KT account', async () => {
       const allAccounts = await this.fetchAccounts();

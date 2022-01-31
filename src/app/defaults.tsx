@@ -44,22 +44,3 @@ export const URL_PATTERN =
 export function formatMnemonic(m: string) {
   return m.replace(/\n/g, ' ').trim();
 }
-
-export function getAccountBadgeTitle(account: Pick<TempleAccount, 'type'>) {
-  switch (account.type) {
-    case TempleAccountType.Imported:
-      return t('importedAccount');
-
-    case TempleAccountType.Ledger:
-      return t('ledger');
-
-    case TempleAccountType.ManagedKT:
-      return t('managedKTAccount');
-
-    case TempleAccountType.WatchOnly:
-      return t('watchOnlyAccount');
-
-    default:
-      return null;
-  }
-}

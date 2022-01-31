@@ -62,15 +62,15 @@ const TABS = [
   //   descriptionI18nKey: 'revealPrivateKeyDescription',
   //   testID: SettingsSelectors.RevealPrivateKeyButton
   // },
-  {
-    slug: 'reveal-seed-phrase',
-    titleI18nKey: 'revealSeedPhrase',
-    Icon: StickerIcon,
-    Component: RevealSeedPhrase,
-    color: '#F6AD55',
-    descriptionI18nKey: 'revealSeedPhraseDescription',
-    testID: SettingsSelectors.RevealSeedPhraseButton
-  },
+  // {
+  //   slug: 'reveal-seed-phrase',
+  //   titleI18nKey: 'revealSeedPhrase',
+  //   Icon: StickerIcon,
+  //   Component: RevealSeedPhrase,
+  //   color: '#F6AD55',
+  //   descriptionI18nKey: 'revealSeedPhraseDescription',
+  //   testID: SettingsSelectors.RevealSeedPhraseButton
+  // },
   {
     slug: 'dapps',
     titleI18nKey: 'dApps',

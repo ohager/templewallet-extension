@@ -1,11 +1,5 @@
 import { DerivationType } from '@taquito/ledger-signer';
 import { TezosOperationError } from '@taquito/taquito';
-import {
-  TempleDAppMessageType,
-  TempleDAppErrorType,
-  TempleDAppRequest,
-  TempleDAppResponse
-} from '@temple-wallet/dapp/dist/types';
 import { browser, Runtime } from 'webextension-polyfill-ts';
 
 import { createQueue } from 'lib/queue';
@@ -24,7 +18,6 @@ import {
   withUnlocked
 } from 'lib/temple/back/store';
 import { Vault } from 'lib/temple/back/vault';
-import * as Beacon from 'lib/temple/beacon';
 import { loadChainId } from 'lib/temple/helpers';
 import {
   TempleState,
@@ -39,7 +32,6 @@ import { ExtensionMessageType, ExtensionRequest, ExtensionResponse } from './dap
 
 const ACCOUNT_NAME_PATTERN = /^.{0,16}$/;
 const AUTODECLINE_AFTER = 60_000;
-const BEACON_ID = `temple_wallet_${browser.runtime.id}`;
 
 const enqueueDApp = createQueue();
 const enqueueUnlock = createQueue();
@@ -74,7 +66,7 @@ export async function isDAppEnabled() {
 
 export function registerNewWallet(password: string, mnemonic?: string) {
   return withInited(async () => {
-    await Vault.spawn(password, mnemonic);
+    await Vault.spawnSignum(password, mnemonic);
     await unlock(password);
   });
 }

@@ -91,15 +91,12 @@ const NewWallet: FC<NewWalletProps> = ({ ownMnemonic = false, title }) => {
     setVerifySeedPhrase(true);
   }, [setVerifySeedPhrase]);
 
-  // Backup or Verify step
   if (backupData) {
     return verifySeedPhrase ? (
-      // Verify step
       <Template title={t('verifySeedPhrase')}>
         <Verify data={backupData} />
       </Template>
     ) : (
-      // Backup step
       <Template title={t('backupNewSeedPhrase')}>
         <Backup data={backupData} onBackupComplete={handleBackupComplete} />
       </Template>
@@ -139,7 +136,7 @@ const NewWallet: FC<NewWalletProps> = ({ ownMnemonic = false, title }) => {
           />
         )}
 
-        {ownMnemonic ? (
+        {ownMnemonic && (
           <FormField
             secret
             textarea
@@ -157,44 +154,44 @@ const NewWallet: FC<NewWalletProps> = ({ ownMnemonic = false, title }) => {
             containerClassName="mb-4"
             className="resize-none"
           />
-        ) : (
-          <>
-            <FormField
-              ref={register({
-                required: PASSWORD_ERROR_CAPTION,
-                pattern: {
-                  value: PASSWORD_PATTERN,
-                  message: PASSWORD_ERROR_CAPTION
-                }
-              })}
-              label={t('password')}
-              labelDescription={t('unlockPasswordInputDescription')}
-              id="newwallet-password"
-              type="password"
-              name="password"
-              placeholder="********"
-              errorCaption={errors.password?.message}
-              containerClassName="mb-8"
-              passwordValidation={passwordValidation}
-              setPasswordValidation={setPasswordValidation}
-            />
-
-            <FormField
-              ref={register({
-                required: t('required'),
-                validate: val => val === passwordValue || t('mustBeEqualToPasswordAbove')
-              })}
-              label={t('repeatPassword')}
-              labelDescription={t('repeatPasswordInputDescription')}
-              id="newwallet-repassword"
-              type="password"
-              name="repassword"
-              placeholder="********"
-              errorCaption={errors.repassword?.message}
-              containerClassName="mb-8"
-            />
-          </>
         )}
+
+        <>
+          <FormField
+            ref={register({
+              required: PASSWORD_ERROR_CAPTION,
+              pattern: {
+                value: PASSWORD_PATTERN,
+                message: PASSWORD_ERROR_CAPTION
+              }
+            })}
+            label={t('password')}
+            labelDescription={t('unlockPasswordInputDescription')}
+            id="newwallet-password"
+            type="password"
+            name="password"
+            placeholder="********"
+            errorCaption={errors.password?.message}
+            containerClassName="mb-8"
+            passwordValidation={passwordValidation}
+            setPasswordValidation={setPasswordValidation}
+          />
+
+          <FormField
+            ref={register({
+              required: t('required'),
+              validate: val => val === passwordValue || t('mustBeEqualToPasswordAbove')
+            })}
+            label={t('repeatPassword')}
+            labelDescription={t('repeatPasswordInputDescription')}
+            id="newwallet-repassword"
+            type="password"
+            name="repassword"
+            placeholder="********"
+            errorCaption={errors.repassword?.message}
+            containerClassName="mb-8"
+          />
+        </>
 
         <FormCheckbox
           ref={register({
