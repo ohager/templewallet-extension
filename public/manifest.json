@@ -14,15 +14,7 @@
   "__chrome|firefox|opera__homepage_url": "https://github.com/ohager/templewallet-extension",
   "short_name": "Signum Wallet XT",
 
-  "permissions": [
-    "storage",
-    "unlimitedStorage",
-    "clipboardWrite",
-    "activeTab",
-    "http://localhost:8125/",
-    "http://localhost:6876/",
-    "https://*.signum.network/"
-  ],
+  "permissions": ["storage", "clipboardWrite", "activeTab"],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
 
   "__chrome|firefox__author": "https://signum.network",

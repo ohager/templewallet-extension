@@ -6,10 +6,10 @@ import ExploreButtonsImg from '../assets/explore-buttons.png';
 import styles from '../Onboarding.module.css';
 
 interface Props {
-  setStep: (step: number) => void;
+  nextStep: () => void;
 }
 
-const SecondStep: FC<Props> = ({ setStep }) => {
+const SecondStep: FC<Props> = ({ nextStep }) => {
   return (
     <>
       <p className={styles['title']}>
@@ -34,7 +34,7 @@ const SecondStep: FC<Props> = ({ setStep }) => {
           marginTop: '40px',
           borderRadius: 4
         }}
-        onClick={() => setStep(2)}
+        onClick={nextStep}
       >
         <T id={'next'} />
       </Button>

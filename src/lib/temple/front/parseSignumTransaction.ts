@@ -3,7 +3,9 @@ import {
   getRecipientAmountsFromMultiOutPayment,
   Transaction,
   TransactionArbitrarySubtype,
+  TransactionMiningSubtype,
   TransactionPaymentSubtype,
+  TransactionSmartContractSubtype,
   TransactionType
 } from '@signumjs/core';
 import BigNumber from 'bignumber.js';
@@ -11,11 +13,13 @@ import BigNumber from 'bignumber.js';
 export type ParsedTransactionExpense = {
   tokenAddress?: string;
   tokenId?: string;
+  aliasName?: string;
   amount: BigNumber;
   to: string;
 };
 
 export interface ParsedTransactionType {
+  hasAmount: boolean;
   i18nKey: string;
   textIcon: string;
 }
@@ -28,6 +32,11 @@ export type ParsedTransaction = {
   contractAddress?: string;
   expenses: ParsedTransactionExpense[];
   fee: BigNumber;
+  isSelf: boolean;
+};
+
+const throwInappropriateTransactionType = () => {
+  throw new Error('Inappropriate Transaction Type');
 };
 
 async function isContractInteraction(signumApi: Api, recipientId: string): Promise<boolean> {
@@ -37,6 +46,18 @@ async function isContractInteraction(signumApi: Api, recipientId: string): Promi
   } catch (e) {
     return false;
   }
+}
+
+function isTransactionToSelf(tx: Transaction): boolean {
+  if (tx.type === TransactionType.Payment && tx.subtype !== TransactionPaymentSubtype.Ordinary) {
+    return false;
+  }
+
+  if (!tx.recipient) {
+    return true;
+  }
+
+  return tx.recipient === tx.sender;
 }
 
 /*
@@ -58,38 +79,15 @@ export async function parseSignumTransaction(
       contractAddress: contractInteraction ? tx.recipient : undefined,
       delegate: undefined,
       isEntrypointInteraction: contractInteraction,
-      type: parseTransactionType(tx)
+      type: parseTransactionType(tx),
+      isSelf: isTransactionToSelf(tx)
     };
   } catch (e) {
     return Promise.resolve(null);
   }
 }
 
-function parseTransactionType(tx: Transaction): ParsedTransactionType {
-  switch (tx.type) {
-    case TransactionType.Payment:
-    case TransactionType.Asset:
-      return {
-        i18nKey: 'transfer',
-        textIcon: '➡'
-      };
-    case TransactionType.AT:
-      return {
-        i18nKey: 'contract',
-        textIcon: '🤖'
-      };
-    case TransactionType.Arbitrary:
-      return {
-        i18nKey: 'messageTo',
-        textIcon: '✉'
-      };
-    default:
-      return {
-        i18nKey: 'transaction',
-        textIcon: '⚙'
-      };
-  }
-}
+// --- EXPENSES SECTION
 
 function parseTransactionExpenses(tx: Transaction, senderAddress: string): ParsedTransactionExpense[] {
   switch (tx.type) {
@@ -101,30 +99,83 @@ function parseTransactionExpenses(tx: Transaction, senderAddress: string): Parse
       return parseContractExpenses(tx);
     case TransactionType.Arbitrary:
       return parseArbitraryExpenses(tx);
+    case TransactionType.Mining:
+      return parseMiningExpenses(tx);
     default:
       return [];
   }
 }
 
-function parseArbitraryExpenses(tx: Transaction): ParsedTransactionExpense[] {
-  return [
-    {
-      to: tx.recipient as string,
-      amount: new BigNumber(0)
-    }
-  ];
+function parseMiningExpenses(tx: Transaction): ParsedTransactionExpense[] {
+  switch (tx.subtype) {
+    case TransactionMiningSubtype.AddCommitment:
+    case TransactionMiningSubtype.RemoveCommitment:
+      return [
+        {
+          to: tx.sender!,
+          amount: new BigNumber(tx?.amountNQT || 0)
+        }
+      ];
+    case TransactionMiningSubtype.RewardRecipientAssignment:
+      return [
+        {
+          to: tx.recipient!,
+          amount: new BigNumber(0)
+        }
+      ];
+  }
+  return throwInappropriateTransactionType();
 }
 
 function parseContractExpenses(tx: Transaction): ParsedTransactionExpense[] {
   return [
     {
-      to: tx.recipient as string,
+      to: tx.recipient!,
       amount: new BigNumber(tx?.amountNQT || 0)
     }
   ];
 }
 
+function parseArbitraryExpenses(tx: Transaction): ParsedTransactionExpense[] {
+  switch (tx.subtype) {
+    case TransactionArbitrarySubtype.AliasAssignment:
+      return [
+        {
+          to: tx.sender!,
+          aliasName: tx.attachment.alias,
+          amount: new BigNumber(0)
+        }
+      ];
+    case TransactionArbitrarySubtype.AliasSale:
+      return [
+        {
+          to: tx.recipient || tx.sender!,
+          aliasName: tx.attachment.alias || tx.attachment.uri,
+          amount: new BigNumber(tx.attachment.priceNQT)
+        }
+      ];
+    case TransactionArbitrarySubtype.AliasBuy:
+      return [
+        {
+          to: tx.sender!,
+          aliasName: tx.attachment.alias || tx.attachment.uri,
+          amount: new BigNumber(tx.amountNQT || 0)
+        }
+      ];
+    case TransactionArbitrarySubtype.AccountInfo:
+    case TransactionArbitrarySubtype.Message:
+    default:
+      return [
+        {
+          to: tx.recipient || tx.sender!,
+          amount: new BigNumber(0)
+        }
+      ];
+  }
+}
+
 function parseAssetExpenses(tx: Transaction, senderAddress: string): ParsedTransactionExpense[] {
+  // TODO: add asset expenses stuff
   return [];
 }
 
@@ -141,9 +192,107 @@ function parsePaymentExpenses(tx: Transaction): ParsedTransactionExpense[] {
     default:
       return [
         {
-          to: tx.recipient as string,
+          to: tx.recipient!,
           amount: new BigNumber(tx?.amountNQT || 0)
         }
       ];
+  }
+}
+
+// -- TYPE SECTION
+
+function parseTransactionType(tx: Transaction): ParsedTransactionType {
+  switch (tx.type) {
+    case TransactionType.Payment:
+    case TransactionType.Asset:
+      return {
+        i18nKey: 'transferTo',
+        textIcon: '➡',
+        hasAmount: true
+      };
+    case TransactionType.AT:
+      return parseATSubType(tx);
+    case TransactionType.Arbitrary:
+      return parseArbitrarySubType(tx);
+    case TransactionType.Mining:
+      return parseMiningSubType(tx);
+    default:
+      return {
+        i18nKey: 'transaction',
+        textIcon: '⚙',
+        hasAmount: true
+      };
+  }
+}
+
+function parseATSubType(tx: Transaction): ParsedTransactionType {
+  if (tx.subtype === TransactionSmartContractSubtype.SmartContractCreation) {
+    return {
+      i18nKey: 'contractCreation',
+      textIcon: '🤖',
+      hasAmount: true
+    };
+  }
+  return throwInappropriateTransactionType();
+}
+
+function parseMiningSubType(tx: Transaction): ParsedTransactionType {
+  switch (tx.subtype) {
+    case TransactionMiningSubtype.RemoveCommitment:
+      return {
+        i18nKey: 'removeCommitment',
+        textIcon: '⚒',
+        hasAmount: false
+      };
+    case TransactionMiningSubtype.AddCommitment:
+      return {
+        i18nKey: 'addCommitment',
+        textIcon: '⚒',
+        hasAmount: true
+      };
+    case TransactionMiningSubtype.RewardRecipientAssignment:
+      return {
+        i18nKey: 'joinPool',
+        textIcon: '⚒',
+        hasAmount: false
+      };
+  }
+  return throwInappropriateTransactionType();
+}
+
+function parseArbitrarySubType(tx: Transaction): ParsedTransactionType {
+  switch (tx.subtype) {
+    case TransactionArbitrarySubtype.Message:
+      return {
+        i18nKey: 'messageTo',
+        textIcon: '✉',
+        hasAmount: false
+      };
+    case TransactionArbitrarySubtype.AccountInfo:
+      return {
+        i18nKey: 'updateAccountInfo',
+        textIcon: 'ℹ',
+        hasAmount: false
+      };
+    case TransactionArbitrarySubtype.AliasAssignment:
+      return {
+        i18nKey: 'aliasCreation',
+        textIcon: '👤',
+        hasAmount: false
+      };
+    case TransactionArbitrarySubtype.AliasBuy:
+      return {
+        i18nKey: 'aliasBuy',
+        textIcon: '👤',
+        hasAmount: true
+      };
+    case TransactionArbitrarySubtype.AliasSale:
+      return {
+        i18nKey: 'aliasSell',
+        textIcon: '👤',
+        hasAmount: true
+      };
+    default:
+      return throwInappropriateTransactionType();
   }
 }

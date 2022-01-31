@@ -6,10 +6,10 @@ import AddressBalanceImg from '../assets/address-balance.png';
 import styles from '../Onboarding.module.css';
 
 interface Props {
-  setStep: (step: number) => void;
+  nextStep: () => void;
 }
 
-const FirstStep: FC<Props> = ({ setStep }) => {
+const FirstStep: FC<Props> = ({ nextStep }) => {
   return (
     <>
       <p className={styles['title']}>
@@ -31,7 +31,7 @@ const FirstStep: FC<Props> = ({ setStep }) => {
           marginTop: '40px',
           borderRadius: 4
         }}
-        onClick={() => setStep(1)}
+        onClick={nextStep}
       >
         <T id={'next'} />
       </Button>

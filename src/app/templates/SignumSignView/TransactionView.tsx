@@ -33,6 +33,7 @@ const TransactionView: FC<TransactionViewProps> = ({ transaction, mainnet }) => 
             last={index === arr.length - 1}
             mainnet={mainnet}
             type={transaction.type}
+            isSelf={transaction.isSelf}
           />
         ))}
       </div>
@@ -50,28 +51,30 @@ type ExpenseViewItemProps = {
   type: ParsedTransactionType;
   last: boolean;
   mainnet?: boolean;
+  isSelf: boolean;
 };
 
-const ExpenseViewItem: FC<ExpenseViewItemProps> = ({ expense, last, mainnet = false, type }) => {
+const ExpenseViewItem: FC<ExpenseViewItemProps> = ({ expense, last, mainnet = false, type, isSelf }) => {
   const operationTypeLabel = useMemo(() => `${type.textIcon} ${t(type.i18nKey)}`, [expense]);
 
-  console.log(expense, operationTypeLabel);
-
   return (
-    <div className={classNames('pt-3 pb-2 px-2 flex items-stretch', !last && 'border-b border-gray-200')}>
+    <div className={classNames('pt-3 pb-2 px-2 flex justify-start items-center', !last && 'border-b border-gray-200')}>
       <div className="mr-2">
         <IdenticonSignum accountId={expense.to} size={40} className="shadow-xs" />
       </div>
 
       <div className="flex-1 flex-col">
         <div className="mb-1 text-xs text-gray-500 font-light flex flex-wrap">
-          <span className="mr-1 flex items-center text-blue-600 opacity-100">{operationTypeLabel}</span>
-          <HashShortView hash={expense.to} isAccount />
+          <span className="mr-1 flex text-blue-600 opacity-100">{operationTypeLabel}</span>
+          {!isSelf && <HashShortView hash={expense.to} isAccount />}
+          {expense.aliasName && <HashShortView hash={expense.aliasName} />}
         </div>
 
-        <div className={classNames('flex items-end flex-shrink-0 flex-wrap', 'text-gray-800')}>
-          {expense.amount && <OperationVolumeDisplay expense={expense} mainnet={mainnet} />}
-        </div>
+        {type.hasAmount && expense.amount && (
+          <div className="flex items-end flex-shrink-0 flex-wrap text-gray-800">
+            <OperationVolumeDisplay expense={expense} mainnet={mainnet} />
+          </div>
+        )}
       </div>
     </div>
   );

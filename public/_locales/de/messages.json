@@ -2300,6 +2300,12 @@
     "message": "Benutze die Phoenix Mobile Wallet um den Code verarbeiten zu können"
   },
   "messageTo": {
-    "message": "Nachricht"
+    "message": "Nachricht an"
+  },
+  "transferTo": {
+    "message": "Transfer an"
+  },
+  "interactionWith": {
+    "message": "Kontraktinteraktion mit"
   }
 }

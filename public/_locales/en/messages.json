@@ -2495,6 +2495,33 @@
     "message": "Use the Phoenix Mobile Wallet to process the code"
   },
   "messageTo": {
-    "message": "Message"
+    "message": "Message to"
+  },
+  "transferTo": {
+    "message": "Transfer to"
+  },
+  "interactionWith": {
+    "message": "Contract interaction with"
+  },
+  "updateAccountInfo": {
+    "message": "Account Info Update"
+  },
+  "contractCreation": {
+    "message": "Contract creation"
+  },
+  "aliasCreation": {
+    "message": "Alias creation"
+  },
+  "aliasBuy": {
+    "message": "Buy Alias"
+  },
+  "addCommitment": {
+    "message": "Add Commitment"
+  },
+  "removeCommitment": {
+    "message": "Remove Commitment"
+  },
+  "joinPool": {
+    "message": "Join Pool"
   }
 }

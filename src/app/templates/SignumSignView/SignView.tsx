@@ -49,23 +49,7 @@ const SignView: FC<OperationViewProps> = ({ payload, networkRpc, mainnet = false
     parseSignumTransaction(payload.preview, payload.sourcePkh, signum).then(setParsedTransaction);
   }, [payload]);
 
-  // const expensesData = useMemo(() => {
-  //   if (!rawExpenses) return;
-  //
-  //   return rawExpenses.map(({ expenses, ...restRaw }) => ({
-  //     expenses: expenses.map(({ tokenAddress, tokenId, ...restProps }) => ({
-  //       assetSlug: tokenAddress ? toTokenSlug(tokenAddress, tokenId) : 'signa',
-  //       tokenAddress,
-  //       tokenId,
-  //       ...restProps
-  //     })),
-  //     ...restRaw
-  //   }));
-  // }, [rawExpenses]);
-
   if (!parsedTransaction) return null;
-
-  console.log(parsedTransaction);
 
   return (
     <div className="flex flex-col w-full">

@@ -6,10 +6,10 @@ import ProfileRpcImg from '../assets/profile-rpc.png';
 import styles from '../Onboarding.module.css';
 
 interface Props {
-  setStep: (step: number) => void;
+  nextStep: () => void;
 }
 
-const FourthStep: FC<Props> = ({ setStep }) => {
+const FourthStep: FC<Props> = ({ nextStep }) => {
   return (
     <>
       <p className={styles['title']}>
@@ -46,7 +46,7 @@ const FourthStep: FC<Props> = ({ setStep }) => {
           marginTop: '40px',
           borderRadius: 4
         }}
-        onClick={() => setStep(4)}
+        onClick={nextStep}
       >
         <T id={'done'} />
       </Button>

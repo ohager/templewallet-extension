@@ -8,31 +8,34 @@ import CongratsPage from './pages/CongratsPage';
 import FirstStep from './steps/FirstStep';
 import FourthStep from './steps/FourthStep';
 import SecondStep from './steps/SecondStep';
-import ThirdStep from './steps/ThirdStep';
 
-const steps = [`${t('step')} 1`, `${t('step')} 2`, `${t('step')} 3`, `${t('step')} 4`];
+const steps = [`${t('step')} 1`, `${t('step')} 2`, `${t('step')} 3`];
 
 const Onboarding: FC = () => {
   const [step, setStep] = useStorage<number>(`onboarding_step_state`, 0);
+  const MaxSteps = steps.length;
 
+  const nextStep = () => {
+    setStep(Math.min(MaxSteps, step + 1));
+  };
   return (
     <PageLayout
       pageTitle={
-        <span style={step !== 4 ? { marginLeft: 62 } : {}}>
+        <span style={step !== MaxSteps ? { marginLeft: 62 } : {}}>
           {step >= 1 ? <T id="onboarding" /> : <T id="welcomeToOnboarding" />}
         </span>
       }
       step={step}
       setStep={setStep}
-      skip={step < 4}
+      skip={step < MaxSteps}
     >
       <div style={{ maxWidth: '360px', margin: 'auto' }} className="pb-8 text-center">
-        {step < 4 && <Stepper style={{ marginTop: '40px' }} steps={steps} currentStep={step} />}
-        {step === 0 && <FirstStep setStep={setStep} />}
-        {step === 1 && <SecondStep setStep={setStep} />}
-        {step === 2 && <ThirdStep setStep={setStep} />}
-        {step === 3 && <FourthStep setStep={setStep} />}
-        {step === 4 && <CongratsPage />}
+        {step < MaxSteps && <Stepper style={{ marginTop: '40px' }} steps={steps} currentStep={step} />}
+        {step === 0 && <FirstStep nextStep={nextStep} />}
+        {step === 1 && <SecondStep nextStep={nextStep} />}
+        {/*{step === 2 && <ThirdStep setStep={setStep} />}*/}
+        {step === 2 && <FourthStep nextStep={nextStep} />}
+        {step === 3 && <CongratsPage />}
       </div>
     </PageLayout>
   );

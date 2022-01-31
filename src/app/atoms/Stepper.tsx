@@ -27,7 +27,10 @@ const Stepper: FC<Props> = ({ style, steps, currentStep }) => (
             {currentStep > index && <OkIcon style={{ width: '14px', height: '14px' }} />}
           </div>
           {index !== steps.length - 1 && (
-            <div className={classNames(styles['line'], currentStep > index && styles['line-active'])} />
+            <div
+              className={classNames(styles['line'], currentStep > index && styles['line-active'])}
+              style={{ width: 300 / (steps.length - 1) + 'px' }}
+            />
           )}
         </div>
       </div>

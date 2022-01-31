@@ -85,6 +85,42 @@ export class Vault {
     });
   }
 
+  static async spawnSignum(password: string, mnemonic?: string) {
+    return withError('Failed to create wallet', async () => {
+      if (!mnemonic) {
+        mnemonic = Bip39.generateMnemonic(128);
+      }
+      const seed = Bip39.mnemonicToSeedSync(mnemonic);
+
+      const hdAccIndex = 0;
+      const accPrivateKey = seedToHDPrivateKey(seed, hdAccIndex);
+      const [accPublicKey, accPublicKeyHash] = await getPublicKeyAndHash(accPrivateKey);
+
+      const initialAccount: TempleAccount = {
+        type: TempleAccountType.HD,
+        name: 'Account 1',
+        publicKeyHash: accPublicKeyHash,
+        hdIndex: hdAccIndex
+      };
+      const newAccounts = [initialAccount];
+
+      const passKey = await Passworder.generateKey(password);
+
+      await clearStorage();
+      await encryptAndSaveMany(
+        [
+          [checkStrgKey, generateCheck()],
+          [mnemonicStrgKey, mnemonic],
+          [accPrivKeyStrgKey(accPublicKeyHash), accPrivateKey],
+          [accPubKeyStrgKey(accPublicKeyHash), accPublicKey],
+          [accountsStrgKey, newAccounts]
+        ],
+        passKey
+      );
+      await savePlain(migrationLevelStrgKey, MIGRATIONS.length);
+    });
+  }
+
   static async spawn(password: string, mnemonic?: string) {
     return withError('Failed to create wallet', async () => {
       if (!mnemonic) {

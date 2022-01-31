@@ -2300,6 +2300,27 @@
     "message": "Use a carteira móvel Phoenix para processar o código"
   },
   "messageTo": {
-    "message": "Mensagem"
+    "message": "Mensagem para"
+  },
+  "transferTo": {
+    "message": "Transferência para"
+  },
+  "interactionWith": {
+    "message": "Interação com contrato"
+  },
+  "aliasCreation": {
+    "message": "Alias creation"
+  },
+  "aliasBuy": {
+    "message": "Buy Alias"
+  },
+  "addCommitment": {
+    "message": "Add Commitment"
+  },
+  "removeCommitment": {
+    "message": "Remove Commitment"
+  },
+  "joinPool": {
+    "message": "Join Pool"
   }
 }

@@ -91,12 +91,7 @@ const PayloadContent: React.FC<PayloadContentProps> = ({
       />
     </div>
   ) : (
-    <SignView
-      payload={payload as TempleDAppSignPayload}
-      networkRpc={payload.networkRpc}
-      mainnet={mainnet}
-      modifyFeeAndLimit={modifyFeeAndLimit}
-    />
+    <SignView payload={payload as TempleDAppSignPayload} networkRpc={payload.networkRpc} mainnet={mainnet} />
   );
 };
 
