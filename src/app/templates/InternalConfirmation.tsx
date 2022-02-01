@@ -24,11 +24,9 @@ import { T, t } from 'lib/i18n/react';
 import { useRetryableSWR } from 'lib/swr';
 import {
   TempleAccountType,
-  TempleChainId,
   TempleConfirmationPayload,
   toTokenSlug,
   tryParseExpenses,
-  useCustomChainId,
   useNetwork,
   useRelevantAccounts
 } from 'lib/temple/front';
@@ -43,6 +41,7 @@ type InternalConfiramtionProps = {
 
 const MIN_GAS_FEE = 0;
 
+// TODO: Do we need internal confirmation???
 const InternalConfirmation: FC<InternalConfiramtionProps> = ({ payload, onConfirm }) => {
   const { rpcBaseURL: currentNetworkRpc } = useNetwork();
   const { popup } = useAppEnv();
@@ -67,8 +66,7 @@ const InternalConfirmation: FC<InternalConfiramtionProps> = ({ payload, onConfir
 
   const networkRpc = payload.type === 'operations' ? payload.networkRpc : currentNetworkRpc;
 
-  const chainId = useCustomChainId(networkRpc, true)!;
-  const mainnet = chainId === TempleChainId.Mainnet;
+  const mainnet = true; //chainId === TempleChainId.Mainnet;
 
   const allAccounts = useRelevantAccounts();
   const account = useMemo(
@@ -214,6 +212,7 @@ const InternalConfirmation: FC<InternalConfiramtionProps> = ({ payload, onConfir
     ]
   );
 
+  // @ts-ignore
   return (
     <div className={classNames('h-full w-full', 'max-w-sm mx-auto', 'flex flex-col', !popup && 'justify-center px-2')}>
       <div className={classNames('flex flex-col items-center justify-center', popup && 'flex-1')}>

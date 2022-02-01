@@ -16,7 +16,6 @@ export * from 'lib/temple/front/chain';
 export * from 'lib/temple/front/balance';
 export * from 'lib/temple/front/baking';
 export * from 'lib/temple/front/assets';
-export * from 'lib/temple/front/sync-tokens';
 export * from 'lib/temple/front/expenses';
 // TODO: clean up expenses conflicts
 // export * from 'lib/temple/front/signumExpenses';

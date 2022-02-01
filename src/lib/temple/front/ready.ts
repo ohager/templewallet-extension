@@ -1,15 +1,13 @@
-import { useCallback, useEffect, useLayoutEffect, useMemo } from 'react';
+import { useEffect, useLayoutEffect, useMemo } from 'react';
 
-import { composeApi } from '@signumjs/core';
+import { LedgerClientFactory } from '@signumjs/core';
 import { RpcClient } from '@taquito/rpc';
 import { TezosToolkit } from '@taquito/taquito';
 import { Tzip16Module } from '@taquito/tzip16';
 import constate from 'constate';
 
 import { IS_DEV_ENV } from 'app/env';
-import { useRetryableSWR } from 'lib/swr';
 import {
-  loadChainId,
   loadFastRpcClient,
   michelEncoder,
   ReadyTempleState,
@@ -108,6 +106,7 @@ function useReadyTemple() {
 
   /**
    * tezos = TezosToolkit instance
+   * TODO: remove that
    */
   const tezos = useMemo(() => {
     const checksum = [network.id, account.publicKeyHash].join('_');
@@ -128,7 +127,8 @@ function useReadyTemple() {
   }, [tezos]);
 
   const signum = useMemo(() => {
-    return composeApi({
+    console.log('network changed', network);
+    return LedgerClientFactory.createClient({
       nodeHost: network.rpcBaseURL
     });
   }, [network]);
@@ -150,55 +150,36 @@ function useReadyTemple() {
   };
 }
 
-export function useChainId(suspense?: boolean) {
-  const tezos = useTezos();
-  const rpcUrl = useMemo(() => tezos.rpc.getRpcUrl(), [tezos]);
-  return useCustomChainId(rpcUrl, suspense);
-}
-
-export function useCustomChainId(rpcUrl: string, suspense?: boolean) {
-  const fetchChainId = useCallback(async () => {
-    try {
-      return await loadChainId(rpcUrl);
-    } catch (_err) {
-      return null;
-    }
-  }, [rpcUrl]);
-
-  const { data: chainId } = useRetryableSWR(['chain-id', rpcUrl], fetchChainId, { suspense, revalidateOnFocus: false });
-  return chainId;
-}
+// export function useChainId(suspense?: boolean) {
+//   const tezos = useTezos();
+//   const rpcUrl = useMemo(() => tezos.rpc.getRpcUrl(), [tezos]);
+//   return useCustomChainId(rpcUrl, suspense);
+// }
+//
+// export function useCustomChainId(rpcUrl: string, suspense?: boolean) {
+//   const fetchChainId = useCallback(async () => {
+//     try {
+//       return await loadChainId(rpcUrl);
+//     } catch (_err) {
+//       return null;
+//     }
+//   }, [rpcUrl]);
+//
+//   const { data: chainId } = useRetryableSWR(['chain-id', rpcUrl], fetchChainId, { suspense, revalidateOnFocus: false });
+//   return chainId;
+// }
 
 export function useRelevantAccounts(withExtraTypes = true) {
   const allAccounts = useAllAccounts();
   const account = useAccount();
   const setAccountPkh = useSetAccountPkh();
-  const lazyChainId = useChainId();
-
-  const relevantAccounts = useMemo(
-    () =>
-      allAccounts.filter(acc => {
-        switch (acc.type) {
-          case TempleAccountType.ManagedKT:
-            return withExtraTypes && acc.chainId === lazyChainId;
-
-          case TempleAccountType.WatchOnly:
-            return withExtraTypes && (!acc.chainId || acc.chainId === lazyChainId);
-
-          default:
-            return true;
-        }
-      }),
-    [allAccounts, lazyChainId, withExtraTypes]
-  );
-
   useEffect(() => {
-    if (relevantAccounts.every(a => a.publicKeyHash !== account.publicKeyHash) && lazyChainId) {
-      setAccountPkh(relevantAccounts[0].publicKeyHash);
+    if (allAccounts.every(a => a.publicKeyHash !== account.publicKeyHash)) {
+      setAccountPkh(allAccounts[0].publicKeyHash);
     }
-  }, [relevantAccounts, account, setAccountPkh, lazyChainId]);
+  }, [allAccounts, account, setAccountPkh]);
 
-  return useMemo(() => relevantAccounts, [relevantAccounts]);
+  return useMemo(() => allAccounts, [allAccounts]);
 }
 
 export class ReactiveTezosToolkit extends TezosToolkit {

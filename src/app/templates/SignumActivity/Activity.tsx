@@ -1,18 +1,16 @@
-import React, { memo, useCallback, useEffect, useMemo, useRef, useLayoutEffect } from 'react';
+import React, { memo, useCallback, useMemo, useRef, useLayoutEffect } from 'react';
 
 import { Transaction } from '@signumjs/core';
 
 import { ACTIVITY_PAGE_SIZE } from 'app/defaults';
 import { useRetryableSWR } from 'lib/swr';
-import { useChainId, fetchOperations, syncOperations, isSyncSupported, useSignum } from 'lib/temple/front';
-import { IOperation } from 'lib/temple/repo';
+import { useSignum } from 'lib/temple/front';
 import useSafeState from 'lib/ui/useSafeState';
 
 import ActivityView from './ActivityView';
 
 type ActivityProps = {
   accountId: string;
-  // assetSlug?: string;
   className?: string;
 };
 
@@ -22,8 +20,10 @@ const Activity = memo<ActivityProps>(({ accountId, className }) => {
   const [restTransactions, setRestTransactions] = useSafeState<Transaction[]>([], safeStateKey);
   const [loadingMore, setLoadingMore] = useSafeState(false, safeStateKey);
 
+  console.log('Network changed', signum.service.settings.nodeHost);
+
   const { data: latestTransactions, isValidating: fetching } = useRetryableSWR(
-    ['getAccountTransactions', accountId],
+    ['getAccountTransactions', accountId, signum],
     () =>
       signum.account.getAccountTransactions({
         accountId,
@@ -39,12 +39,12 @@ const Activity = memo<ActivityProps>(({ accountId, className }) => {
   );
 
   const { data: unconfirmedTransactions, isValidating: fetchingUnconfirmed } = useRetryableSWR(
-    ['getUnconfirmedAccountTransactions', accountId],
+    ['getUnconfirmedAccountTransactions', accountId, signum],
     () => signum.account.getUnconfirmedAccountTransactions(accountId, true),
     {
       revalidateOnMount: true,
-      refreshInterval: 5_000,
-      dedupingInterval: 5_000
+      refreshInterval: 10_000,
+      dedupingInterval: 10_000
     }
   );
 

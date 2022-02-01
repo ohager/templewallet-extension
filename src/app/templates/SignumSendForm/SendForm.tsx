@@ -1,6 +1,6 @@
 import React, { Dispatch, FC, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
-import { Address } from '@signumjs/core';
+import { Address, TransactionId } from '@signumjs/core';
 import { Amount, FeeQuantPlanck } from '@signumjs/util';
 import classNames from 'clsx';
 import { Controller, useForm } from 'react-hook-form';
@@ -199,13 +199,13 @@ export const SendForm: FC<FormProps> = ({ setOperation, onAddContactRequested })
       setOperation(null);
       try {
         const { signingKey, publicKey } = await client.getSignumTransactionKeyPair(acc.publicKeyHash);
-        const { transaction, fullHash } = await signum.transaction.sendAmountToSingleRecipient({
+        const { transaction, fullHash } = (await signum.transaction.sendAmountToSingleRecipient({
           amountPlanck: Amount.fromSigna(amount).getPlanck(),
           feePlanck: Amount.fromSigna(fee).getPlanck(),
           recipientId: toResolved,
           senderPrivateKey: signingKey,
           senderPublicKey: publicKey
-        });
+        })) as TransactionId;
         setOperation({
           txId: transaction,
           hash: fullHash

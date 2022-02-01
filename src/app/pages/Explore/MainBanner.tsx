@@ -1,28 +1,19 @@
-import React, { memo, FC, ReactNode, useMemo } from 'react';
+import React, { memo, FC } from 'react';
 
-import BigNumber from 'bignumber.js';
 import classNames from 'clsx';
 
 import Money from 'app/atoms/Money';
-import Name from 'app/atoms/Name';
 import { ReactComponent as DollarIcon } from 'app/icons/dollar.svg';
-import AssetIcon from 'app/templates/AssetIcon';
-import Balance from 'app/templates/Balance';
-import InUSD from 'app/templates/InUSD';
 import { T } from 'lib/i18n/react';
 import {
-  getAssetName,
-  getAssetSymbol,
-  useAssetMetadata,
-  useChainId,
-  useDisplayedFungibleTokens,
+  // useChainId,
   useBalance,
-  useAssetUSDPrice,
-  useSignumAssetMetadata
+  useAssetUSDPrice
 } from 'lib/temple/front';
 
 import AssetBanner from '../../templates/AssetBanner';
 import BannerLayout from '../../templates/BannerLayout';
+import BigNumber from 'bignumber.js';
 
 type MainBannerProps = {
   assetSlug?: string | null;
@@ -30,39 +21,27 @@ type MainBannerProps = {
 };
 
 const MainBanner = memo<MainBannerProps>(({ assetSlug, accountId }) => {
-  const chainId = useChainId(true)!;
   const assetBannerDisplayed = true; // assetSlug || !mainnet
 
   return assetBannerDisplayed ? (
     <AssetBanner assetSlug={assetSlug ?? 'signa'} accountId={accountId} />
   ) : (
-    <MainnetVolumeBanner chainId={chainId} accountPkh={accountId} />
+    <MainnetVolumeBanner accountPkh={accountId} />
   );
 });
 
 export default MainBanner;
 
 type MainnetVolumeBannerProps = {
-  chainId: string;
   accountPkh: string;
 };
 
-const MainnetVolumeBanner: FC<MainnetVolumeBannerProps> = ({ chainId, accountPkh }) => {
+const MainnetVolumeBanner: FC<MainnetVolumeBannerProps> = ({ accountPkh }) => {
   // TODO: Consider Signum Tokens
-  const { data: tokens } = useDisplayedFungibleTokens(chainId, accountPkh);
-  const { data: balancePlanck } = useBalance('tez', accountPkh);
-  const tezPrice = useAssetUSDPrice('tez');
-
-  const volumeInUSD = useMemo(() => {
-    if (tokens && balancePlanck && tezPrice) {
-      const tezBalanceInUSD = balancePlanck.times(tezPrice);
-      const tokensBalanceInUSD = tokens.reduce((sum, t) => sum.plus(t.latestUSDBalance ?? 0), new BigNumber(0));
-
-      return tezBalanceInUSD.plus(tokensBalanceInUSD);
-    }
-
-    return null;
-  }, [tokens, balancePlanck, tezPrice]);
+  // const { data: tokens } = useDisplayedFungibleTokens(chainId, accountPkh);
+  const { data: balancePlanck } = useBalance('signa', accountPkh);
+  // TODO: get USD price
+  const volumeInUSD = null;
 
   return (
     <BannerLayout name={<T id="totalBalance" />}>

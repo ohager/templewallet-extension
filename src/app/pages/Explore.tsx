@@ -12,28 +12,16 @@ import { ReactComponent as ReceiveIcon } from 'app/icons/receive.svg';
 import { ReactComponent as SendIcon } from 'app/icons/send-alt.svg';
 import { ReactComponent as SwapVerticalIcon } from 'app/icons/swap-vertical.svg';
 import PageLayout from 'app/layouts/PageLayout';
-import AssetInfo from 'app/templates/AssetInfo';
 import Activity from 'app/templates/SignumActivity/Activity';
 import { T, t } from 'lib/i18n/react';
-import {
-  getAssetSymbol,
-  isTezAsset,
-  TempleAccountType,
-  useAccount,
-  useAssetMetadata,
-  useNetwork,
-  useSignumAssetMetadata
-} from 'lib/temple/front';
+import { getAssetSymbol, TempleAccountType, useAccount, useNetwork, useSignumAssetMetadata } from 'lib/temple/front';
 import useTippy from 'lib/ui/useTippy';
 import { HistoryAction, Link, navigate, useLocation } from 'lib/woozie';
 
-import CollectiblesList from './Collectibles/CollectiblesList';
 import { ExploreSelectors } from './Explore.selectors';
 import AddressChip from './Explore/AddressChip';
-import BakingSection from './Explore/BakingSection';
 import EditableTitle from './Explore/EditableTitle';
 import MainBanner from './Explore/MainBanner';
-import Tokens from './Explore/Tokens';
 import { useOnboardingProgress } from './Onboarding/hooks/useOnboardingProgress.hook';
 import Onboarding from './Onboarding/Onboarding';
 
@@ -170,12 +158,6 @@ const ActionButton: FC<ActionButtonProps> = ({ label, Icon, href, disabled, tipp
   return disabled ? <button ref={buttonRef} {...commonButtonProps} /> : <Link to={href} {...commonButtonProps} />;
 };
 
-const Delegation: FC = () => (
-  <SuspenseContainer whileMessage={t('delegationInfoWhileMessage')}>
-    <BakingSection />
-  </SuspenseContainer>
-);
-
 type ActivityTabProps = {
   assetSlug?: string;
 };
@@ -246,26 +228,14 @@ const SecondarySection: FC<SecondarySectionProps> = ({ assetSlug, className }) =
       testID: ExploreSelectors.ActivityTab
     };
 
-    const info = {
-      slug: 'info',
-      title: t('info'),
-      Component: () => <AssetInfo assetSlug={assetSlug} />,
-      testID: ExploreSelectors.AboutTab
-    };
+    // const info = {
+    //   slug: 'info',
+    //   title: t('info'),
+    //   Component: () => <AssetInfo assetSlug={assetSlug} />,
+    //   testID: ExploreSelectors.AboutTab
+    // };
 
-    if (isTezAsset(assetSlug)) {
-      return [
-        activity,
-        {
-          slug: 'delegation',
-          title: t('delegate'),
-          Component: Delegation,
-          testID: ExploreSelectors.DelegationTab
-        }
-      ];
-    }
-
-    return [activity, info];
+    return [activity];
   }, [assetSlug]);
 
   const { slug, Component } = useMemo(() => {

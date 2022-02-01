@@ -62,15 +62,15 @@ export const NETWORKS: TempleNetwork[] = [
     color: '#00B7AE',
     disabled: false
   },
-  {
-    id: 'signum-brazil',
-    name: 'Latin America BR',
-    description: 'Featured Node from South America',
-    type: 'main',
-    rpcBaseURL: 'https://brazil.signum.network',
-    color: '#0090A2',
-    disabled: false
-  },
+  // {
+  //   id: 'signum-brazil',
+  //   name: 'Latin America BR',
+  //   description: 'Featured Node from South America',
+  //   type: 'main',
+  //   rpcBaseURL: 'https://brazil.signum.network',
+  //   color: '#0090A2',
+  //   disabled: false
+  // },
   {
     id: 'signum-australia',
     name: 'Australia',

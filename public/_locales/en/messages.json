@@ -2523,5 +2523,11 @@
   },
   "joinPool": {
     "message": "Join Pool"
+  },
+  "networkIsTestnetLabel": {
+    "message": "It's a test network"
+  },
+  "networkIsTestnetDescription": {
+    "message": "Test networks do not carry any value and are only for experimenting and/or development."
   }
 }
