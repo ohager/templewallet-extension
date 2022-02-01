@@ -1,21 +1,14 @@
 import React, { FC, useLayoutEffect, useMemo } from 'react';
 
 import { OpenInFullPage, useAppEnv } from 'app/env';
-import AddAsset from 'app/pages/AddAsset';
-import BuyCrypto from 'app/pages/BuyCrypto/BuyCrypto';
-import CollectiblePage from 'app/pages/Collectibles/CollectiblePage';
-import ConnectLedger from 'app/pages/ConnectLedger';
 import CreateAccount from 'app/pages/CreateAccount';
 import CreateWallet from 'app/pages/CreateWallet';
-import Delegate from 'app/pages/Delegate';
 import Explore from 'app/pages/Explore';
 import ImportAccount from 'app/pages/ImportAccount';
 import ImportWallet from 'app/pages/ImportWallet';
-import ManageAssets from 'app/pages/ManageAssets';
 import Receive from 'app/pages/Receive';
 import Send from 'app/pages/Send';
 import Settings from 'app/pages/Settings';
-import Swap from 'app/pages/Swap';
 import Unlock from 'app/pages/Unlock';
 import Welcome from 'app/pages/Welcome';
 import { usePageRouterAnalytics } from 'lib/analytics';
@@ -23,7 +16,6 @@ import { useTempleClient } from 'lib/temple/front';
 import * as Woozie from 'lib/woozie';
 
 import AttentionPage from './pages/Onboarding/pages/AttentionPage';
-import DApps from './pages/DApps';
 
 interface RouteContext {
   popup: boolean;

@@ -7,12 +7,13 @@ import DropdownWrapper from 'app/atoms/DropdownWrapper';
 import Name from 'app/atoms/Name';
 import { ReactComponent as ChevronDownIcon } from 'app/icons/chevron-down.svg';
 import { ReactComponent as SignalAltIcon } from 'app/icons/signal-alt.svg';
-import { T } from 'lib/i18n/react';
-import { useAllNetworks, useNetwork, useSetNetworkId } from 'lib/temple/front';
+import { t, T } from 'lib/i18n/react';
+import { TempleNetwork, useAllNetworks, useNetwork, useSetNetworkId } from 'lib/temple/front';
 import Popper from 'lib/ui/Popper';
 
 import styles from './NetworkSelect.module.css';
 import { NetworkSelectSelectors } from './NetworkSelect.selectors';
+import useTippy from '../../../../lib/ui/useTippy';
 
 type NetworkSelectProps = HTMLAttributes<HTMLDivElement>;
 
@@ -56,50 +57,15 @@ const NetworkSelect: FC<NetworkSelectProps> = () => {
             </h2>
 
             {allNetworks
-              // Don't show hidden (but known) nodes on the dropdown
               .filter(n => !n.hidden)
-              .map(({ id, rpcBaseURL, name, color, disabled, nameI18nKey }) => {
-                const selected = id === network.id;
-
-                return (
-                  <Button
-                    key={id}
-                    className={classNames(
-                      'w-full',
-                      'mb-1',
-                      'rounded',
-                      'transition easy-in-out duration-200',
-                      !disabled && (selected ? 'bg-white bg-opacity-10' : 'hover:bg-white hover:bg-opacity-5'),
-                      disabled ? 'cursor-default' : 'cursor-pointer',
-                      'flex items-center',
-                      disabled && 'opacity-25'
-                    )}
-                    style={{
-                      padding: '0.375rem 1.5rem 0.375rem 0.5rem'
-                    }}
-                    disabled={disabled}
-                    autoFocus={selected}
-                    onClick={() => {
-                      if (!disabled) {
-                        handleNetworkSelect(id, rpcBaseURL, selected, setOpened);
-                      }
-                    }}
-                    testID={NetworkSelectSelectors.NetworkItemButton}
-                  >
-                    <div
-                      className={classNames('mr-2 w-3 h-3', 'border border-primary-white', 'rounded-full', 'shadow-xs')}
-                      style={{ backgroundColor: color }}
-                    />
-
-                    <span
-                      className="overflow-hidden text-sm text-white whitespace-no-wrap text-shadow-black"
-                      style={{ textOverflow: 'ellipsis', maxWidth: '10rem' }}
-                    >
-                      {(nameI18nKey && <T id={nameI18nKey} />) || name}
-                    </span>
-                  </Button>
-                );
-              })}
+              .map(n => (
+                <NetworkSelectItem
+                  key={n.id}
+                  network={n}
+                  selected={n.id === network.id}
+                  onSelected={({ id, rpcBaseURL }) => handleNetworkSelect(id, rpcBaseURL, id === network.id, setOpened)}
+                />
+              ))}
           </div>
         </DropdownWrapper>
       )}
@@ -135,6 +101,59 @@ const NetworkSelect: FC<NetworkSelectProps> = () => {
         </Button>
       )}
     </Popper>
+  );
+};
+
+interface NetworkSelectItemProps {
+  network: TempleNetwork;
+  selected: boolean;
+  onSelected: (n: TempleNetwork) => void;
+}
+
+const NetworkSelectItem: FC<NetworkSelectItemProps> = ({ network, selected, onSelected }) => {
+  const { disabled, description, color, nameI18nKey, name } = network;
+  const buttonRef = useTippy<HTMLButtonElement>({
+    delay: 1000,
+    trigger: 'mouseenter',
+    hideOnClick: false,
+    content: description,
+    animation: 'shift-away-subtle'
+  });
+  return (
+    <Button
+      ref={buttonRef}
+      className={classNames(
+        'w-full',
+        'mb-1',
+        'rounded',
+        'transition easy-in-out duration-200',
+        !disabled && (selected ? 'bg-white bg-opacity-10' : 'hover:bg-white hover:bg-opacity-5'),
+        disabled ? 'cursor-default' : 'cursor-pointer',
+        'flex items-center',
+        disabled && 'opacity-25'
+      )}
+      style={{
+        padding: '0.375rem 1.5rem 0.375rem 0.5rem'
+      }}
+      disabled={disabled}
+      autoFocus={selected}
+      onClick={() => {
+        !disabled && onSelected(network);
+      }}
+      testID={NetworkSelectSelectors.NetworkItemButton}
+    >
+      <div
+        className={classNames('mr-2 w-3 h-3', 'border border-primary-white', 'rounded-full', 'shadow-xs')}
+        style={{ backgroundColor: color }}
+      />
+
+      <span
+        className="overflow-hidden text-sm text-white whitespace-no-wrap text-shadow-black"
+        style={{ textOverflow: 'ellipsis', maxWidth: '10rem' }}
+      >
+        {(nameI18nKey && <T id={nameI18nKey} />) || name}
+      </span>
+    </Button>
   );
 };
 
