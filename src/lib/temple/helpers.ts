@@ -1,3 +1,4 @@
+import { Address } from '@signumjs/core';
 import { HttpResponseError } from '@taquito/http-utils';
 import { ManagerKeyResponse, RpcClient } from '@taquito/rpc';
 import { MichelCodecPacker } from '@taquito/taquito';
@@ -8,7 +9,6 @@ import memoize from 'micro-memoize';
 import { getMessage } from 'lib/i18n';
 import { IntercomError } from 'lib/intercom/helpers';
 import { FastRpcClient } from 'lib/taquito-fast-rpc';
-import { Address } from '@signumjs/core';
 
 export const loadFastRpcClient = memoize((rpc: string) => new FastRpcClient(rpc));
 

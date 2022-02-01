@@ -7,12 +7,12 @@ import Name from 'app/atoms/Name';
 import { ReactComponent as CloseIcon } from 'app/icons/close.svg';
 import CustomSelect, { OptionRenderProps } from 'app/templates/CustomSelect';
 import DAppLogo from 'app/templates/DAppLogo';
-import HashChip from 'app/templates/HashChip';
 import { T, t } from 'lib/i18n/react';
 import { useRetryableSWR } from 'lib/swr';
 import { useStorage, TempleSharedStorageKey, useTempleClient } from 'lib/temple/front';
 import { TempleDAppSession, TempleDAppSessions } from 'lib/temple/types';
 import { useConfirm } from 'lib/ui/dialog';
+
 import HashShortView from '../atoms/HashShortView';
 
 type DAppEntry = [string, TempleDAppSession];

@@ -1,10 +1,9 @@
 import React, { CSSProperties, memo, SVGProps } from 'react';
 
+import { ReactComponent as BlueLogo } from 'app/misc/logo-blue.svg';
 import { ReactComponent as LogoTitle } from 'app/misc/logo-title.svg';
 import { ReactComponent as WhiteLogoTitle } from 'app/misc/logo-white-title.svg';
 import { ReactComponent as WhiteLogo } from 'app/misc/logo-white.svg';
-import { ReactComponent as PlainLogo } from 'app/misc/logo.svg';
-import { ReactComponent as BlueLogo } from 'app/misc/logo-blue.svg';
 
 type LogoProps = SVGProps<SVGSVGElement> & {
   hasTitle?: boolean;

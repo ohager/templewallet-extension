@@ -5,15 +5,10 @@ import classNames from 'clsx';
 import Money from 'app/atoms/Money';
 import { ReactComponent as DollarIcon } from 'app/icons/dollar.svg';
 import { T } from 'lib/i18n/react';
-import {
-  // useChainId,
-  useBalance,
-  useAssetUSDPrice
-} from 'lib/temple/front';
+import { useBalance } from 'lib/temple/front';
 
 import AssetBanner from '../../templates/AssetBanner';
 import BannerLayout from '../../templates/BannerLayout';
-import BigNumber from 'bignumber.js';
 
 type MainBannerProps = {
   assetSlug?: string | null;

@@ -7,12 +7,11 @@ import FormField from 'app/atoms/FormField';
 import FormSecondaryButton from 'app/atoms/FormSecondaryButton';
 import FormSubmitButton from 'app/atoms/FormSubmitButton';
 import HashShortView from 'app/atoms/HashShortView';
-import Identicon from 'app/atoms/Identicon';
 import ModalWithTitle from 'app/templates/ModalWithTitle';
 import { T, t } from 'lib/i18n/react';
 import { useContacts } from 'lib/temple/front';
 import { withErrorHumanDelay } from 'lib/ui/humanDelay';
-import { Address } from '@signumjs/core';
+
 import IdenticonSignum from '../../atoms/IdenticonSignum';
 
 type AddContactModalProps = {

@@ -20,8 +20,6 @@ const Activity = memo<ActivityProps>(({ accountId, className }) => {
   const [restTransactions, setRestTransactions] = useSafeState<Transaction[]>([], safeStateKey);
   const [loadingMore, setLoadingMore] = useSafeState(false, safeStateKey);
 
-  console.log('Network changed', signum.service.settings.nodeHost);
-
   const { data: latestTransactions, isValidating: fetching } = useRetryableSWR(
     ['getAccountTransactions', accountId, signum],
     () =>
