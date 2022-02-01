@@ -1,7 +1,6 @@
 import { Runtime } from 'webextension-polyfill-ts';
 
 import * as Actions from 'lib/temple/back/actions';
-import { getSignumTxKeys } from 'lib/temple/back/actions';
 import { intercom } from 'lib/temple/back/defaults';
 import { store, toFront } from 'lib/temple/back/store';
 import { TempleMessageType, TempleRequest, TempleResponse } from 'lib/temple/types';
@@ -43,9 +42,13 @@ async function processRequest(req: TempleRequest, port: Runtime.Port): Promise<T
       await Actions.lock();
       return { type: TempleMessageType.LockResponse };
 
-    case TempleMessageType.CreateAccountRequest:
-      await Actions.createHDAccount(req.name);
-      return { type: TempleMessageType.CreateAccountResponse };
+    case TempleMessageType.CreateAccountRequest: {
+      const mnemonic = await Actions.createAccount(req.name);
+      return {
+        type: TempleMessageType.CreateAccountResponse,
+        mnemonic
+      };
+    }
 
     case TempleMessageType.RevealPublicKeyRequest:
       const publicKey = await Actions.revealPublicKey(req.accountPublicKeyHash);
@@ -87,7 +90,7 @@ async function processRequest(req: TempleRequest, port: Runtime.Port): Promise<T
       };
 
     case TempleMessageType.ImportMnemonicAccountRequest:
-      await Actions.importMnemonicAccount(req.mnemonic, req.password, req.derivationPath);
+      await Actions.importMnemonicAccount(req.mnemonic, req.name);
       return {
         type: TempleMessageType.ImportMnemonicAccountResponse
       };

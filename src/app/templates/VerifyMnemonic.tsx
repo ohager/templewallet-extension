@@ -38,7 +38,7 @@ const shuffle = (array: any[]) => {
   return result;
 };
 
-const Verify: FC<VerifyProps> = ({ data }) => {
+const VerifyMnemonic: FC<VerifyProps> = ({ data }) => {
   const { registerWallet } = useTempleClient();
 
   const words = useMemo(() => data.mnemonic.split(' '), [data.mnemonic]);
@@ -128,7 +128,7 @@ const Verify: FC<VerifyProps> = ({ data }) => {
   );
 };
 
-export default Verify;
+export default VerifyMnemonic;
 
 type WordsRowProps = {
   allWords: string[];

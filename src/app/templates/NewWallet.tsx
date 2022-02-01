@@ -14,8 +14,8 @@ import { useAlert } from 'lib/ui/dialog';
 import { PasswordValidation } from 'lib/ui/PasswordStrengthIndicator';
 import { Link } from 'lib/woozie';
 
-import Backup from './NewWallet/Backup';
-import Verify from './NewWallet/Verify';
+import BackupMnemonic from './BackupMnemonic';
+import VerifyMnemonic from './VerifyMnemonic';
 
 interface FormData {
   keystoreFile?: FileList;
@@ -94,11 +94,15 @@ const NewWallet: FC<NewWalletProps> = ({ ownMnemonic = false, title }) => {
   if (backupData) {
     return verifySeedPhrase ? (
       <Template title={t('verifySeedPhrase')}>
-        <Verify data={backupData} />
+        <VerifyMnemonic data={backupData} />
       </Template>
     ) : (
       <Template title={t('backupNewSeedPhrase')}>
-        <Backup data={backupData} onBackupComplete={handleBackupComplete} />
+        <BackupMnemonic
+          mnemonic={backupData.mnemonic}
+          onBackupComplete={handleBackupComplete}
+          buttonLabelId="continue"
+        />
       </Template>
     );
   }

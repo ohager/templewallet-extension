@@ -66,7 +66,7 @@ export async function isDAppEnabled() {
 
 export function registerNewWallet(password: string, mnemonic?: string) {
   return withInited(async () => {
-    await Vault.spawnSignum(password, mnemonic);
+    await Vault.registerNewWallet(password, mnemonic);
     await unlock(password);
   });
 }
@@ -88,7 +88,7 @@ export function unlock(password: string) {
   );
 }
 
-export function createHDAccount(name?: string) {
+export function createAccount(name?: string) {
   return withUnlocked(async ({ vault }) => {
     if (name) {
       name = name.trim();
@@ -97,8 +97,9 @@ export function createHDAccount(name?: string) {
       }
     }
 
-    const updatedAccounts = await vault.createHDAccount(name);
+    const [mnemonic, updatedAccounts] = await vault.createSignumAccount(name);
     accountsUpdated(updatedAccounts);
+    return mnemonic;
   });
 }
 
@@ -140,9 +141,9 @@ export function importAccount(privateKey: string, encPassword?: string) {
   });
 }
 
-export function importMnemonicAccount(mnemonic: string, password?: string, derivationPath?: string) {
+export function importMnemonicAccount(mnemonic: string, name?: string) {
   return withUnlocked(async ({ vault }) => {
-    const updatedAccounts = await vault.importMnemonicAccount(mnemonic);
+    const updatedAccounts = await vault.importMnemonicAccount(mnemonic, name);
     accountsUpdated(updatedAccounts);
   });
 }

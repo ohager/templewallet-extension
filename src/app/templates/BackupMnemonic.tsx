@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { useForm } from 'react-hook-form';
+import { OnSubmit, useForm } from 'react-hook-form';
 
 import Alert from 'app/atoms/Alert';
 import FormCheckbox from 'app/atoms/FormCheckbox';
@@ -13,16 +13,18 @@ interface BackupFormData {
 }
 
 type BackupProps = {
-  data: {
-    mnemonic: string;
-    password: string;
-  };
-  onBackupComplete: () => void;
+  mnemonic: string;
+  buttonLabelId: string;
+  onBackupComplete: OnSubmit<BackupFormData>;
+  disabled?: boolean;
 };
 
-const Backup: FC<BackupProps> = ({ data, onBackupComplete }) => {
-  const { register, handleSubmit, errors, formState } = useForm<BackupFormData>();
+const BackupMnemonic: FC<BackupProps> = ({ mnemonic, buttonLabelId, onBackupComplete, disabled = false }) => {
+  const { register, handleSubmit, errors, formState, watch } = useForm<BackupFormData>({
+    defaultValues: { backuped: false }
+  });
   const submitting = formState.isSubmitting;
+  const backuped = watch('backuped');
 
   return (
     <div className="w-full max-w-sm mx-auto my-8">
@@ -53,7 +55,7 @@ const Backup: FC<BackupProps> = ({ data, onBackupComplete }) => {
         spellCheck={false}
         containerClassName="mb-4"
         className="resize-none notranslate"
-        value={data.mnemonic}
+        value={mnemonic}
       />
 
       <form className="w-full mt-8" onSubmit={handleSubmit(onBackupComplete)}>
@@ -68,12 +70,12 @@ const Backup: FC<BackupProps> = ({ data, onBackupComplete }) => {
           containerClassName="mb-6"
         />
 
-        <FormSubmitButton loading={submitting}>
-          <T id="continue" />
+        <FormSubmitButton className="capitalize" loading={submitting} disabled={!backuped || disabled}>
+          <T id={buttonLabelId} />
         </FormSubmitButton>
       </form>
     </div>
   );
 };
 
-export default Backup;
+export default BackupMnemonic;

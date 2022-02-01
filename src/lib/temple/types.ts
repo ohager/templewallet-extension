@@ -399,6 +399,7 @@ export interface TempleCreateAccountRequest extends TempleMessageBase {
 
 export interface TempleCreateAccountResponse extends TempleMessageBase {
   type: TempleMessageType.CreateAccountResponse;
+  mnemonic: string;
 }
 
 export interface TempleRevealPublicKeyRequest extends TempleMessageBase {
@@ -465,8 +466,7 @@ export interface TempleImportAccountResponse extends TempleMessageBase {
 export interface TempleImportMnemonicAccountRequest extends TempleMessageBase {
   type: TempleMessageType.ImportMnemonicAccountRequest;
   mnemonic: string;
-  password?: string;
-  derivationPath?: string;
+  name?: string;
 }
 
 export interface TempleImportMnemonicAccountResponse extends TempleMessageBase {

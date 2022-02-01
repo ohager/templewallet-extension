@@ -145,6 +145,7 @@ export const [TempleClientProvider, useTempleClient] = constate(() => {
     assertResponse(res.type === TempleMessageType.LockResponse);
   }, []);
 
+  // TODO: not needed - we can use import Mnemonic Account
   const createAccount = useCallback(async (name?: string) => {
     const res = await request({
       type: TempleMessageType.CreateAccountRequest,
@@ -153,6 +154,7 @@ export const [TempleClientProvider, useTempleClient] = constate(() => {
     assertResponse(res.type === TempleMessageType.CreateAccountResponse);
   }, []);
 
+  // TODO: remove not used
   const revealPrivateKey = useCallback(async (accountPublicKeyHash: string, password: string) => {
     const res = await request({
       type: TempleMessageType.RevealPrivateKeyRequest,
@@ -175,6 +177,7 @@ export const [TempleClientProvider, useTempleClient] = constate(() => {
     };
   }, []);
 
+  // TODO: remove not used
   const revealMnemonic = useCallback(async (password: string) => {
     const res = await request({
       type: TempleMessageType.RevealMnemonicRequest,
@@ -211,12 +214,11 @@ export const [TempleClientProvider, useTempleClient] = constate(() => {
     assertResponse(res.type === TempleMessageType.ImportAccountResponse);
   }, []);
 
-  const importMnemonicAccount = useCallback(async (mnemonic: string, password?: string, derivationPath?: string) => {
+  const importMnemonicAccount = useCallback(async (mnemonic: string, name?) => {
     const res = await request({
       type: TempleMessageType.ImportMnemonicAccountRequest,
       mnemonic,
-      password,
-      derivationPath
+      name
     });
     assertResponse(res.type === TempleMessageType.ImportMnemonicAccountResponse);
   }, []);
