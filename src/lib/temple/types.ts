@@ -103,7 +103,6 @@ export interface TempleNetwork {
   nameI18nKey?: string;
   description: string;
   descriptionI18nKey?: string;
-  lambdaContract?: string;
   type: TempleNetworkType;
   rpcBaseURL: string;
   color: string;

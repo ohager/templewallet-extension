@@ -114,7 +114,7 @@ function useReadyTemple() {
     const rpc = network.rpcBaseURL;
     const pkh = account.type === TempleAccountType.ManagedKT ? account.owner : account.publicKeyHash;
 
-    const t = new ReactiveTezosToolkit(loadFastRpcClient(rpc), checksum, network.lambdaContract);
+    const t = new ReactiveTezosToolkit(loadFastRpcClient(rpc), checksum);
     t.setSignerProvider(createTaquitoSigner(pkh));
     t.setWalletProvider(createTaquitoWallet(pkh, rpc));
     t.setPackerProvider(michelEncoder);
@@ -145,7 +145,7 @@ function useReadyTemple() {
     setAccountPkh,
 
     settings,
-    tezos,
+    tezos, // TODO: remove tezos
     signum
   };
 }

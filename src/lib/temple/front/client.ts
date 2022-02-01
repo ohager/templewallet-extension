@@ -91,31 +91,8 @@ export const [TempleClientProvider, useTempleClient] = constate(() => {
   const locked = status === TempleStatus.Locked;
   const ready = status === TempleStatus.Ready;
 
-  const customNetworks = useMemo(() => {
-    const customNetworksWithoutLambdaContracts = settings?.customNetworks ?? [];
-    return customNetworksWithoutLambdaContracts.map(network =>
-      network.lambdaContract
-        ? network
-        : {
-            ...network,
-            lambdaContract: settings?.lambdaContracts?.[network.id]
-          }
-    );
-  }, [settings]);
-  const defaultNetworksWithLambdaContracts = useMemo(() => {
-    return defaultNetworks.map(network =>
-      network.lambdaContract
-        ? network
-        : {
-            ...network,
-            lambdaContract: settings?.lambdaContracts?.[network.id]
-          }
-    );
-  }, [settings, defaultNetworks]);
-  const networks = useMemo(
-    () => [...defaultNetworksWithLambdaContracts, ...customNetworks],
-    [defaultNetworksWithLambdaContracts, customNetworks]
-  );
+  const customNetworks = useMemo(() => settings?.customNetworks ?? [], [settings]);
+  const networks = useMemo(() => [...defaultNetworks, ...customNetworks], [defaultNetworks, customNetworks]);
 
   /**
    * Actions
@@ -371,7 +348,7 @@ export const [TempleClientProvider, useTempleClient] = constate(() => {
     // Aliases
     status,
     defaultNetworks,
-    customNetworks: defaultNetworksWithLambdaContracts,
+    customNetworks,
     networks,
     accounts,
     settings,

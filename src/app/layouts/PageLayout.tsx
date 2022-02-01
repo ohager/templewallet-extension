@@ -9,7 +9,6 @@ import { useAppEnv } from 'app/env';
 import ErrorBoundary from 'app/ErrorBoundary';
 import { ReactComponent as ChevronLeftIcon } from 'app/icons/chevron-left.svg';
 import ContentContainer from 'app/layouts/ContentContainer';
-import NoLambdaViewContractAlert from 'app/templates/NoLambdaViewContractAlert';
 import { isSafeBrowserVersion } from 'lib/browser-info';
 import { T } from 'lib/i18n/react';
 import { goBack, HistoryAction, Link, navigate, useLocation } from 'lib/woozie';
@@ -44,8 +43,6 @@ const PageLayout: FC<PageLayoutProps> = ({ children, ...toolbarProps }) => {
           </div>
         </ContentPaper>
       </div>
-
-      <NoLambdaViewContractAlert />
       <ConfirmationOverlay />
       {/*<AnalyticsConfirmationOverlay />*/}
     </>
