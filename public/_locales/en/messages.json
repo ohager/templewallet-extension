@@ -2529,5 +2529,8 @@
   },
   "networkIsTestnetDescription": {
     "message": "Test networks do not carry any value and are only for experimenting and/or development."
+  },
+  "failedToParseTransactionData": {
+    "message": "Failed to parse the transaction data."
   }
 }

@@ -24,7 +24,6 @@ import {
   toTokenSlug,
   NotFoundTokenMetadata,
   assertGetBalance,
-  useChainId,
   useAccount,
   getBalanceSWRKey,
   detectTokenStandard,
@@ -80,7 +79,7 @@ class ContractNotFoundError extends Error {}
 const Form: FC = () => {
   const tezos = useTezos();
   const { id: networkId } = useNetwork();
-  const chainId = useChainId(true)!;
+  const chainId = '';
   const { publicKeyHash: accountPkh } = useAccount();
 
   const { fetchMetadata, setTokensBaseMetadata, setTokensDetailedMetadata } = useTokensMetadata();

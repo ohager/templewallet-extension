@@ -1,38 +1,29 @@
-import React, { FC, Fragment, memo, useCallback, useMemo, useState } from 'react';
+import React, { FC, Fragment, useCallback, useMemo, useState } from 'react';
 
 import classNames from 'clsx';
 
 import Alert from 'app/atoms/Alert';
-import ConfirmLedgerOverlay from 'app/atoms/ConfirmLedgerOverlay';
 import FormSecondaryButton from 'app/atoms/FormSecondaryButton';
 import FormSubmitButton from 'app/atoms/FormSubmitButton';
 import Name from 'app/atoms/Name';
 import SubTitle from 'app/atoms/SubTitle';
 import DAppLogo from 'app/templates//DAppLogo';
-import { ModifyFeeAndLimit } from 'app/templates//ExpensesView';
 import NetworkBanner from 'app/templates//NetworkBanner';
 import AccountBanner from 'app/templates/AccountBanner';
 import ConnectBanner from 'app/templates/ConnectBanner';
 import { CustomRpsContext } from 'lib/analytics';
 import { T, t } from 'lib/i18n/react';
 import { useRetryableSWR } from 'lib/swr';
-import {
-  TempleAccount,
-  TempleAccountType,
-  TempleDAppPayload,
-  useAccount,
-  useRelevantAccounts,
-  useTempleClient
-} from 'lib/temple/front';
+import { TempleDAppPayload, useAccount, useRelevantAccounts, useTempleClient } from 'lib/temple/front';
 import useSafeState from 'lib/ui/useSafeState';
 import { useLocation } from 'lib/woozie';
 
+import { withErrorHumanDelay } from '../../../lib/ui/humanDelay';
 import { ConfirmPageSelectors } from './ConfirmPage.selectors';
 import PayloadContent from './PayloadContent';
 
-// TODO: remove operations stuff
 const ConfirmDAppForm: FC = () => {
-  const { getDAppPayload, confirmDAppPermission, confirmDAppOperation, confirmDAppSign } = useTempleClient();
+  const { getDAppPayload, confirmDAppPermission, confirmDAppSign } = useTempleClient();
   const allAccounts = useRelevantAccounts(false);
   const account = useAccount();
 
@@ -63,60 +54,34 @@ const ConfirmDAppForm: FC = () => {
   );
 
   const onConfirm = useCallback(
-    async (confimed: boolean, modifiedTotalFee?: number, modifiedStorageLimit?: number) => {
+    async (confimed: boolean) => {
       switch (payload.type) {
         case 'connect':
           return confirmDAppPermission(id, confimed, accountPkhToConnect);
-
-        case 'confirm_operations':
-          return confirmDAppOperation(id, confimed, modifiedTotalFee, modifiedStorageLimit);
-
         case 'sign':
           return confirmDAppSign(id, confimed);
       }
     },
-    [id, payload.type, confirmDAppPermission, confirmDAppOperation, confirmDAppSign, accountPkhToConnect]
+    [id, payload.type, confirmDAppPermission, confirmDAppSign, accountPkhToConnect]
   );
 
   const [error, setError] = useSafeState<any>(null);
   const [confirming, setConfirming] = useSafeState(false);
   const [declining, setDeclining] = useSafeState(false);
 
-  const revealFee = useMemo(() => {
-    if (
-      payload.type === 'confirm_operations' &&
-      payload.estimates &&
-      payload.estimates.length === payload.opParams.length + 1
-    ) {
-      return payload.estimates[0].suggestedFeeMutez;
-    }
-
-    return 0;
-  }, [payload]);
-
-  const [modifiedTotalFeeValue, setModifiedTotalFeeValue] = useSafeState(
-    (payload.type === 'confirm_operations' &&
-      payload.opParams.reduce((sum, op) => sum + (op.fee ? +op.fee : 0), 0) + revealFee) ||
-      0
-  );
-  const [modifiedStorageLimitValue, setModifiedStorageLimitValue] = useSafeState(
-    (payload.type === 'confirm_operations' && payload.opParams[0].storageLimit) || 0
-  );
-
   const confirm = useCallback(
     async (confirmed: boolean) => {
       setError(null);
       try {
-        await onConfirm(confirmed, modifiedTotalFeeValue - revealFee, modifiedStorageLimitValue);
+        await onConfirm(confirmed);
       } catch (err: any) {
         console.error(err);
-
-        // Human delay.
-        await new Promise(res => setTimeout(res, 300));
-        setError(err);
+        await withErrorHumanDelay(err, () => {
+          setError(err);
+        });
       }
     },
-    [onConfirm, setError, modifiedTotalFeeValue, modifiedStorageLimitValue, revealFee]
+    [onConfirm, setError]
   );
 
   const handleConfirmClick = useCallback(async () => {
@@ -163,35 +128,6 @@ const ConfirmDAppForm: FC = () => {
           )
         };
 
-      case 'confirm_operations':
-        return {
-          title: t('confirmAction', t('operations').toLowerCase()),
-          declineActionTitle: t('reject'),
-          declineActionTestID: ConfirmPageSelectors.ConfirmOperationsAction_RejectButton,
-          confirmActionTitle: error ? t('retry') : t('confirm'),
-          confirmActionTestID: error
-            ? ConfirmPageSelectors.ConfirmOperationsAction_RetryButton
-            : ConfirmPageSelectors.ConfirmOperationsAction_ConfirmButton,
-          want: (
-            <div className={classNames('mb-2 text-sm text-center text-gray-700', 'flex flex-col items-center')}>
-              <div className="flex items-center justify-center">
-                <DAppLogo origin={payload.origin} size={16} className="mr-1" />
-                <Name className="font-semibold" style={{ maxWidth: '10rem' }}>
-                  {payload.appMeta.name}
-                </Name>
-              </div>
-              <T
-                id="appRequestOperationToYou"
-                substitutions={[
-                  <Name className="max-w-full text-xs italic" key="origin">
-                    {payload.origin}
-                  </Name>
-                ]}
-              />
-            </div>
-          )
-        };
-
       case 'sign':
         return {
           title: t('confirmAction', t('signAction').toLowerCase()),
@@ -220,27 +156,6 @@ const ConfirmDAppForm: FC = () => {
         };
     }
   }, [payload.type, payload.origin, payload.appMeta.name, error]);
-
-  const modifiedStorageLimitDisplayed = useMemo(
-    () => payload.type === 'confirm_operations' && payload.opParams.length < 2,
-    [payload]
-  );
-
-  const modifyFeeAndLimit = useMemo<ModifyFeeAndLimit>(
-    () => ({
-      totalFee: modifiedTotalFeeValue,
-      onTotalFeeChange: v => setModifiedTotalFeeValue(v),
-      storageLimit: modifiedStorageLimitDisplayed ? modifiedStorageLimitValue : null,
-      onStorageLimitChange: v => setModifiedStorageLimitValue(v)
-    }),
-    [
-      modifiedTotalFeeValue,
-      setModifiedTotalFeeValue,
-      modifiedStorageLimitValue,
-      setModifiedStorageLimitValue,
-      modifiedStorageLimitDisplayed
-    ]
-  );
 
   return (
     <CustomRpsContext.Provider value={payload.networkRpc}>
@@ -294,7 +209,6 @@ const ConfirmDAppForm: FC = () => {
                 payload={payload}
                 accountPkhToConnect={accountPkhToConnect}
                 setAccountPkhToConnect={setAccountPkhToConnect}
-                modifyFeeAndLimit={modifyFeeAndLimit}
               />
             </>
           )}

@@ -50,7 +50,7 @@ const MainnetVolumeBanner: FC<MainnetVolumeBannerProps> = ({ accountPkh }) => {
             </div>
 
             <h3 className="text-3xl font-light text-gray-700 flex items-center">
-              <Money fiat>{volumeInUSD.toNumber()}</Money>
+              <Money fiat>{volumeInUSD}</Money>
             </h3>
 
             <div className="flex-1" />

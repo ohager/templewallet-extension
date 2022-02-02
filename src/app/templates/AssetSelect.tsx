@@ -12,7 +12,6 @@ import { T } from 'lib/i18n/react';
 import {
   useDisplayedFungibleTokens,
   useAccount,
-  useChainId,
   useAssetMetadata,
   getAssetName,
   getAssetSymbol,
@@ -32,7 +31,7 @@ type IAsset = Repo.IAccountToken | 'tez';
 const getSlug = (asset: IAsset) => (asset === 'tez' ? asset : asset.tokenSlug);
 
 const AssetSelect: FC<AssetSelectProps> = ({ value, onChange, className }) => {
-  const chainId = useChainId(true)!;
+  const chainId = '';
   const account = useAccount();
   const address = account.publicKeyHash;
 

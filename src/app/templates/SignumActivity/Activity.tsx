@@ -21,7 +21,7 @@ const Activity = memo<ActivityProps>(({ accountId, className }) => {
   const [loadingMore, setLoadingMore] = useSafeState(false, safeStateKey);
 
   const { data: latestTransactions, isValidating: fetching } = useRetryableSWR(
-    ['getAccountTransactions', accountId, signum],
+    ['getAccountTransactions', accountId, signum.account],
     () =>
       signum.account.getAccountTransactions({
         accountId,
@@ -37,7 +37,7 @@ const Activity = memo<ActivityProps>(({ accountId, className }) => {
   );
 
   const { data: unconfirmedTransactions, isValidating: fetchingUnconfirmed } = useRetryableSWR(
-    ['getUnconfirmedAccountTransactions', accountId, signum],
+    ['getUnconfirmedAccountTransactions', accountId, signum.account],
     () => signum.account.getUnconfirmedAccountTransactions(accountId, true),
     {
       revalidateOnMount: true,
@@ -80,7 +80,7 @@ const Activity = memo<ActivityProps>(({ accountId, className }) => {
     }
 
     setLoadingMore(false);
-  }, [setLoadingMore, setRestTransactions, accountId, transactions]);
+  }, [setLoadingMore, setRestTransactions, accountId, transactions, signum.account]);
 
   const initialLoading = fetching || fetchingUnconfirmed || !transactions || transactions.length === 0;
   return (

@@ -6,21 +6,16 @@ import { ReactComponent as AppsIcon } from 'app/icons/apps.svg';
 import { ReactComponent as ContactBookIcon } from 'app/icons/contact-book.svg';
 import { ReactComponent as ExtensionIcon } from 'app/icons/extension.svg';
 import { ReactComponent as HelpIcon } from 'app/icons/help.svg';
-import { ReactComponent as KeyIcon } from 'app/icons/key.svg';
 import { ReactComponent as MinusIcon } from 'app/icons/minus.svg';
-import { ReactComponent as OkIcon } from 'app/icons/ok.svg';
 import { ReactComponent as SettingsIcon } from 'app/icons/settings.svg';
 import { ReactComponent as SignalAltIcon } from 'app/icons/signal-alt.svg';
-import { ReactComponent as StickerIcon } from 'app/icons/sticker.svg';
 import PageLayout from 'app/layouts/PageLayout';
 import About from 'app/templates/About';
-import ActivateAccount from 'app/templates/ActivateAccount';
 import CustomNetworksSettings from 'app/templates/CustomNetworksSettings';
 import DAppSettings from 'app/templates/DAppSettings';
 import GeneralSettings from 'app/templates/GeneralSettings';
 import HelpAndCommunity from 'app/templates/HelpAndCommunity';
 import RemoveAccount from 'app/templates/RemoveAccount';
-import RevealSecret from 'app/templates/RevealSecret';
 import AddressBook from 'app/templates/SignumAddressBook';
 import { T } from 'lib/i18n/react';
 import { Link } from 'lib/woozie';
@@ -30,9 +25,6 @@ import { SettingsSelectors } from './Settings.selectors';
 type SettingsProps = {
   tabSlug?: string | null;
 };
-
-const RevealPrivateKey: FC = () => <RevealSecret reveal="private-key" />;
-const RevealSeedPhrase: FC = () => <RevealSecret reveal="seed-phrase" />;
 
 const TABS = [
   {

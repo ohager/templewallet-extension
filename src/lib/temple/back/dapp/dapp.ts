@@ -67,11 +67,11 @@ async function getCurrentTempleNetwork() {
   return [...NETWORKS, ...(customNetworksSnapshot ?? [])].find(n => n.id === networkId) ?? NETWORKS[0];
 }
 
-function isAllowedNetwork(net: ExtensionNetwork) {
+export function isAllowedNetwork(net: ExtensionNetwork) {
   return typeof net === 'string' ? NETWORKS.some(n => !n.disabled && n.id === net) : Boolean(net?.rpc);
 }
 
-function isNetworkEquals(fNet: ExtensionNetwork, sNet: ExtensionNetwork) {
+export function isNetworkEquals(fNet: ExtensionNetwork, sNet: ExtensionNetwork) {
   return typeof fNet !== 'string' && typeof sNet !== 'string'
     ? removeLastSlash(fNet.rpc) === removeLastSlash(sNet.rpc)
     : fNet === sNet;

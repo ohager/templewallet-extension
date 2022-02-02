@@ -43,7 +43,7 @@ const PageLayout: FC<PageLayoutProps> = ({ children, ...toolbarProps }) => {
           </div>
         </ContentPaper>
       </div>
-      <ConfirmationOverlay />
+      {/*<ConfirmationOverlay />*/}
       {/*<AnalyticsConfirmationOverlay />*/}
     </>
   );

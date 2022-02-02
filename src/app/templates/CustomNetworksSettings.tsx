@@ -1,32 +1,20 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useCallback } from 'react';
 
 import classNames from 'clsx';
 import { useForm } from 'react-hook-form';
 
-import Alert from 'app/atoms/Alert';
 import FormField from 'app/atoms/FormField';
-import FormSecondaryButton from 'app/atoms/FormSecondaryButton';
 import FormSubmitButton from 'app/atoms/FormSubmitButton';
 import Name from 'app/atoms/Name';
 import SubTitle from 'app/atoms/SubTitle';
 import { URL_PATTERN } from 'app/defaults';
 import { ReactComponent as CloseIcon } from 'app/icons/close.svg';
-import HashChip from 'app/templates/HashChip';
 import { T, t } from 'lib/i18n/react';
-import { viewLambda } from 'lib/michelson';
-import { useRetryableSWR } from 'lib/swr';
 import {
-  isKnownChainId,
-  loadChainId,
   TempleNetwork,
-  useNetwork,
   useSettings,
-  useTezos,
   useTempleClient,
   validateContractAddress,
-  confirmOperation,
-  getOriginatedContractAddress,
-  useChainId,
   canConnectToNetwork
 } from 'lib/temple/front';
 import { COLORS } from 'lib/ui/colors';

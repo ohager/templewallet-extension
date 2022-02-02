@@ -16,7 +16,6 @@ import { ReactComponent as HashIcon } from 'app/icons/hash.svg';
 import AccountBanner from 'app/templates/AccountBanner';
 import ExpensesView, { ModifyFeeAndLimit } from 'app/templates/ExpensesView';
 import NetworkBanner from 'app/templates/NetworkBanner';
-import OperationsBanner from 'app/templates/OperationsBanner';
 import RawPayloadView from 'app/templates/RawPayloadView';
 import ViewsSwitcher from 'app/templates/ViewsSwitcher/ViewsSwitcher';
 import { ViewsSwitcherItemProps } from 'app/templates/ViewsSwitcher/ViewsSwitcherItem';
@@ -261,15 +260,6 @@ const InternalConfirmation: FC<InternalConfiramtionProps> = ({ payload, onConfir
 
                   <ViewsSwitcher activeItem={spFormat} items={signPayloadFormats} onChange={setSpFormat} />
                 </div>
-              )}
-
-              {payload.type === 'operations' && spFormat.key === 'raw' && (
-                <OperationsBanner
-                  jsonPayloadString={payload.rawToSign ?? payload.opParams}
-                  jsonViewStyle={signPayloadFormats.length > 1 ? { height: '11rem' } : undefined}
-                  modifiedTotalFee={modifiedTotalFeeValue}
-                  modifiedStorageLimit={modifiedStorageLimitValue}
-                />
               )}
 
               {payload.type === 'sign' && spFormat.key === 'bytes' && (

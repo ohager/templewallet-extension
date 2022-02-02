@@ -68,23 +68,22 @@ export async function parseSignumTransaction(
   transaction: string,
   accountAddress: string,
   signumApi: Api
-): Promise<ParsedTransaction | null> {
-  try {
-    const tx = JSON.parse(transaction) as Transaction;
-    const contractInteraction = await isContractInteraction(signumApi, tx.recipient || '');
-    return {
-      amount: new BigNumber(tx.amountNQT || 0),
-      fee: new BigNumber(tx.feeNQT!),
-      expenses: parseTransactionExpenses(tx, accountAddress),
-      contractAddress: contractInteraction ? tx.recipient : undefined,
+): Promise<[ParsedTransaction, object]> {
+  const jsonTx = JSON.parse(transaction) as Transaction;
+  const contractInteraction = await isContractInteraction(signumApi, jsonTx.recipient || '');
+  return [
+    {
+      amount: new BigNumber(jsonTx.amountNQT || 0),
+      fee: new BigNumber(jsonTx.feeNQT!),
+      expenses: parseTransactionExpenses(jsonTx, accountAddress),
+      contractAddress: contractInteraction ? jsonTx.recipient : undefined,
       delegate: undefined,
       isEntrypointInteraction: contractInteraction,
-      type: parseTransactionType(tx),
-      isSelf: isTransactionToSelf(tx)
-    };
-  } catch (e) {
-    return Promise.resolve(null);
-  }
+      type: parseTransactionType(jsonTx),
+      isSelf: isTransactionToSelf(jsonTx)
+    },
+    jsonTx
+  ];
 }
 
 // --- EXPENSES SECTION

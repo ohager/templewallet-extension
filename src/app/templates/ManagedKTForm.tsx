@@ -21,7 +21,6 @@ import {
   useRelevantAccounts,
   useTezos,
   useTempleClient,
-  useChainId,
   isKnownChainId,
   ImportAccountFormType
 } from 'lib/temple/front';
@@ -33,12 +32,13 @@ type ImportKTAccountFormData = {
 
 const getContractAddress = (contract: TzktRelatedContract) => contract.address;
 
+// TODO: This is obsolete
 const ManagedKTForm: FC = () => {
   const accounts = useRelevantAccounts();
   const tezos = useTezos();
   const { importKTManagedAccount } = useTempleClient();
   const formAnalytics = useFormAnalytics(ImportAccountFormType.ManagedKT);
-  const chainId = useChainId(true);
+  const chainId = '';
 
   const [error, setError] = useState<ReactNode>(null);
 

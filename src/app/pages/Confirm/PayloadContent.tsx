@@ -11,8 +11,8 @@ import CustomSelect, { OptionRenderProps } from 'app/templates/CustomSelect';
 import { ModifyFeeAndLimit } from 'app/templates/ExpensesView';
 import SignView from 'app/templates/SignumSignView/SignView';
 import { T } from 'lib/i18n/react';
-import { SIGNA_METADATA, TempleDAppSignPayload, useCustomChainId, useRelevantAccounts } from 'lib/temple/front';
-import { TempleAccount, TempleChainId, TempleDAppPayload } from 'lib/temple/types';
+import { SIGNA_METADATA, TempleDAppSignPayload, useRelevantAccounts } from 'lib/temple/front';
+import { TempleAccount, TempleDAppPayload } from 'lib/temple/types';
 
 import IdenticonSignum from '../../atoms/IdenticonSignum';
 
@@ -51,19 +51,11 @@ interface PayloadContentProps {
   accountPkhToConnect: string;
   setAccountPkhToConnect: (item: string) => void;
   payload: TempleDAppPayload;
-  modifyFeeAndLimit: ModifyFeeAndLimit;
 }
 
-const PayloadContent: React.FC<PayloadContentProps> = ({
-  accountPkhToConnect,
-  setAccountPkhToConnect,
-  payload,
-  modifyFeeAndLimit
-}) => {
+const PayloadContent: React.FC<PayloadContentProps> = ({ accountPkhToConnect, setAccountPkhToConnect, payload }) => {
   const allAccounts = useRelevantAccounts(false);
   const AccountOptionContent = useMemo(() => AccountOptionContentHOC(payload.networkRpc), [payload.networkRpc]);
-  const chainId = useCustomChainId(payload.networkRpc, true)!;
-  const mainnet = chainId === TempleChainId.Mainnet;
 
   return payload.type === 'connect' ? (
     <div className={classNames('w-full', 'flex flex-col')}>
@@ -91,7 +83,7 @@ const PayloadContent: React.FC<PayloadContentProps> = ({
       />
     </div>
   ) : (
-    <SignView payload={payload as TempleDAppSignPayload} networkRpc={payload.networkRpc} mainnet={mainnet} />
+    <SignView payload={payload as TempleDAppSignPayload} />
   );
 };
 

@@ -193,7 +193,7 @@ export interface TempleDAppSignPayload extends TempleDAppPayloadBase {
   preview: string;
 }
 
-export type TempleDAppPayload = TempleDAppConnectPayload | TempleDAppOperationsPayload | TempleDAppSignPayload;
+export type TempleDAppPayload = TempleDAppConnectPayload | TempleDAppSignPayload;
 
 /**
  * Messages

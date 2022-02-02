@@ -17,7 +17,6 @@ import { T } from 'lib/i18n/react';
 import {
   useAccount,
   useBalanceSWRKey,
-  useChainId,
   useDisplayedFungibleTokens,
   useAssetMetadata,
   getAssetSymbol,
@@ -31,7 +30,7 @@ import { AssetsSelectors } from './Assets.selectors';
 import styles from './Tokens.module.css';
 
 const Tokens: FC = () => {
-  const chainId = useChainId(true)!;
+  const chainId = '';
   const account = useAccount();
   const address = account.publicKeyHash;
 

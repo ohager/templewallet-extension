@@ -2,7 +2,6 @@ import { browser, Runtime } from 'webextension-polyfill-ts';
 
 import { TempleDAppPayload, TempleMessageType, TempleRequest } from '../../types';
 import { intercom } from '../defaults';
-import { dryRunOpParams } from '../dryrun';
 
 const CONFIRM_WINDOW_WIDTH = 380;
 const CONFIRM_WINDOW_HEIGHT = 632;
@@ -39,21 +38,6 @@ export async function requestConfirm({ id, payload, onDecline, handleIntercomReq
   const stopRequestListening = intercom.onRequest(async (req: TempleRequest, port) => {
     if (req?.type === TempleMessageType.DAppGetPayloadRequest && req.id === id) {
       knownPort = port;
-
-      if (payload.type === 'confirm_operations') {
-        const dryrunResult = await dryRunOpParams({
-          opParams: payload.opParams,
-          networkRpc: payload.networkRpc,
-          sourcePkh: payload.sourcePkh,
-          sourcePublicKey: payload.sourcePublicKey
-        });
-        if (dryrunResult) {
-          payload = {
-            ...payload,
-            ...dryrunResult
-          };
-        }
-      }
 
       return {
         type: TempleMessageType.DAppGetPayloadResponse,
