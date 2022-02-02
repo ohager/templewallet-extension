@@ -1,12 +1,13 @@
 import React, { FC, memo, useMemo } from 'react';
 
+import { Amount } from '@signumjs/util';
 import classNames from 'clsx';
 
 import HashShortView from 'app/atoms/HashShortView';
 import IdenticonSignum from 'app/atoms/IdenticonSignum';
 import Money from 'app/atoms/Money';
 import { t } from 'lib/i18n/react';
-import { getAssetSymbol, useSignumAssetMetadata } from 'lib/temple/front';
+import { getAssetSymbol, SIGNA_METADATA, useSignumAssetMetadata } from 'lib/temple/front';
 import {
   ParsedTransaction,
   ParsedTransactionExpense,
@@ -19,6 +20,16 @@ type TransactionViewProps = {
 };
 
 const TransactionView: FC<TransactionViewProps> = ({ transaction, mainnet }) => {
+  const totalSigna = useMemo(() => {
+    if (!transaction) return '';
+
+    const signa = Amount.fromPlanck(transaction.fee.toString());
+    if (transaction.amount) {
+      signa.add(Amount.fromPlanck(transaction.amount.toString()));
+    }
+    return signa.getSigna();
+  }, [transaction]);
+
   if (!transaction) {
     return null;
   }
@@ -37,8 +48,11 @@ const TransactionView: FC<TransactionViewProps> = ({ transaction, mainnet }) => 
           />
         ))}
       </div>
-      <div className="mt-3 leading-tight flex items-center">
-        <span className="mr-2 text-base font-semibold text-gray-700">{t('totalAmount')}</span>
+      <div className="mt-4 leading-tight flex text-base font-semibold text-gray-700 items-center justify-between w-full">
+        <span>{t('totalAmount')}</span>
+        <span>
+          {totalSigna}&nbsp;{SIGNA_METADATA.symbol}
+        </span>
       </div>
     </div>
   );

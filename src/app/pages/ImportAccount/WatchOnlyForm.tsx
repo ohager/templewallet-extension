@@ -55,7 +55,7 @@ export const WatchOnlyForm: FC = () => {
       .catch(() => {
         setResolvedAddress('');
       });
-  }, [addressValue]);
+  }, [addressValue, resolveAlias]);
 
   const cleanToField = useCallback(() => {
     setValue('to', '');

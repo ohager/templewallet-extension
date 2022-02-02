@@ -73,7 +73,7 @@ export async function parseSignumTransaction(
   const contractInteraction = await isContractInteraction(signumApi, jsonTx.recipient || '');
   return [
     {
-      amount: new BigNumber(jsonTx.amountNQT || 0),
+      amount: calculateAmount(jsonTx),
       fee: new BigNumber(jsonTx.feeNQT!),
       expenses: parseTransactionExpenses(jsonTx, accountAddress),
       contractAddress: contractInteraction ? jsonTx.recipient : undefined,
@@ -84,6 +84,14 @@ export async function parseSignumTransaction(
     },
     jsonTx
   ];
+}
+
+function calculateAmount(tx: Transaction): BigNumber {
+  if (tx.type === TransactionType.Payment && tx.subtype === TransactionPaymentSubtype.MultiOut) {
+    const amounts = getRecipientAmountsFromMultiOutPayment(tx);
+    amounts.reduce((amount, { amountNQT }) => amount.plus(new BigNumber(amountNQT)), new BigNumber(0));
+  }
+  return new BigNumber(tx.amountNQT || 0);
 }
 
 // --- EXPENSES SECTION
