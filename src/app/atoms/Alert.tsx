@@ -62,12 +62,7 @@ const Alert: FC<AlertProps> = ({
     >
       {title && <h2 className="mb-1 text-lg font-semibold">{title}</h2>}
       {description && (
-        <div
-          className={classNames('pb-3 text-sm font-light break-words', 'overflow-y-auto')}
-          style={{ maxHeight: '8rem' }}
-        >
-          {description}
-        </div>
+        <div className={classNames('pb-3 text-sm font-light break-words', 'overflow-y-auto')}>{description}</div>
       )}
       {closable && (
         <button className="absolute top-3 right-3" onClick={onClose} type="button">

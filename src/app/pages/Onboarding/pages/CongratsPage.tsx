@@ -12,27 +12,27 @@ import styles from '../Onboarding.module.css';
 
 const links = [
   {
-    href: 'https://www.madfish.solutions/discord',
+    href: 'https://discord.gg/QHZkF4KHDS',
     background: '#7289DA',
     Icon: DiscordIcon
   },
   {
-    href: 'https://t.me/MadFishCommunity',
+    href: 'https://t.me/signumnetwork',
     background: '#26A5E4',
     Icon: TelegramIcon
   },
   {
-    href: 'https://twitter.com/madfishofficial',
+    href: 'https://twitter.com/signum_official',
     background: '#1DA1F2',
     Icon: TwitterIcon
   },
   {
-    href: 'https://www.youtube.com/channel/UCUp80EXfJEigks3xU5hiwyA',
+    href: 'https://www.youtube.com/c/SignumNetwork',
     background: '#FF0000',
     Icon: YoutubeIcon
   },
   {
-    href: 'https://www.reddit.com/r/MadFishCommunity',
+    href: 'https://www.reddit.com/r/Signum/',
     background: '#FF4500',
     Icon: RedditIcon
   }
@@ -52,23 +52,23 @@ const CongratsPage: FC = () => {
       <p className={styles['description']} style={{ marginTop: 20, marginBottom: 0 }}>
         <T id={'congratsDescription2'} />
       </p>
-      <p className={styles['description']} style={{ marginTop: 20, marginBottom: 0 }}>
-        <T id={'congratsDescription3'} />
-      </p>
-      <a
-        href={'https://www.youtube.com/playlist?list=PLVfSwYHwGJ2Gyyf16LEIgvkNoC1YtgjX1'}
-        target="_blank"
-        rel="noreferrer"
-        className={styles['link']}
-      >
-        https://www.youtube.com/playlist?list=PLVfSwYHwGJ2Gyyf16LEIgvkNoC1YtgjX1
-      </a>
-      <p className={styles['description']} style={{ marginTop: 20, marginBottom: 0 }}>
-        <T id={'congratsDescription4'} />
-      </p>
-      <a href={'https://madfish.crunch.help/temple-wallet'} target="_blank" rel="noreferrer" className={styles['link']}>
-        https://madfish.crunch.help/temple-wallet
-      </a>
+      {/*<p className={styles['description']} style={{ marginTop: 20, marginBottom: 0 }}>*/}
+      {/*  <T id={'congratsDescription3'} />*/}
+      {/*</p>*/}
+      {/*<a*/}
+      {/*  href={'https://www.youtube.com/playlist?list=PLVfSwYHwGJ2Gyyf16LEIgvkNoC1YtgjX1'}*/}
+      {/*  target="_blank"*/}
+      {/*  rel="noreferrer"*/}
+      {/*  className={styles['link']}*/}
+      {/*>*/}
+      {/*  https://www.youtube.com/playlist?list=PLVfSwYHwGJ2Gyyf16LEIgvkNoC1YtgjX1*/}
+      {/*</a>*/}
+      {/*<p className={styles['description']} style={{ marginTop: 20, marginBottom: 0 }}>*/}
+      {/*  <T id={'congratsDescription4'} />*/}
+      {/*</p>*/}
+      {/*<a href={'https://madfish.crunch.help/temple-wallet'} target="_blank" rel="noreferrer" className={styles['link']}>*/}
+      {/*  https://madfish.crunch.help/temple-wallet*/}
+      {/*</a>*/}
       <p className={styles['description']} style={{ marginTop: 20, marginBottom: 10, fontWeight: 'bold' }}>
         <T id={'congratsDescription5'} />
       </p>

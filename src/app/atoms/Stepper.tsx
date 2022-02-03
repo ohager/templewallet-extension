@@ -15,7 +15,7 @@ const Stepper: FC<Props> = ({ style, steps, currentStep }) => (
   <div className={classNames(styles['stepperWrapper'])} style={style}>
     {steps.map((stepItem, index) => (
       <div className="stepBlock" key={stepItem}>
-        <p>{stepItem}</p>
+        <p className="capitalize">{stepItem}</p>
         <div className={styles['stepWrapper']}>
           <div
             className={classNames(
