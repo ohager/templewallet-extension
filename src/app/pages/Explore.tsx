@@ -91,14 +91,6 @@ const Explore: FC<ExploreProps> = ({ assetSlug }) => {
 
         <div className="flex justify-around mx-auto w-full max-w-sm mt-6 px-8">
           <ActionButton label={<T id="receive" />} Icon={ReceiveIcon} href="/receive" />
-          {/*{network.type !== 'test' && <ActionButton label={<T id="buyButton" />} Icon={BuyIcon} href="/buy" />}*/}
-          {/*<ActionButton*/}
-          {/*  label={<T id="swap" />}*/}
-          {/*  Icon={SwapIcon}*/}
-          {/*  href={swapLink}*/}
-          {/*  disabled={!canSend}*/}
-          {/*  tippyProps={tippyPropsMock}*/}
-          {/*/>*/}
           <ActionButton
             label={<T id="send" />}
             Icon={SendIcon}

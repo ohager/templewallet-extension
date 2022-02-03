@@ -14,7 +14,6 @@ export * from 'lib/temple/front/ready';
 export * from 'lib/temple/front/usdprice';
 export * from 'lib/temple/front/chain';
 export * from 'lib/temple/front/balance';
-export * from 'lib/temple/front/baking';
 export * from 'lib/temple/front/assets';
 export * from 'lib/temple/front/expenses';
 // TODO: clean up expenses conflicts

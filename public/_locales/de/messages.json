@@ -1,6 +1,6 @@
 {
   "appName": {
-    "message": "Temple - Tezos Wallet"
+    "message": "Signum XT Wallet"
   },
   "showIncomingTransactions": {
     "message": "Eingehende Transaktionen anzeigen"
@@ -14,12 +14,6 @@
   "importAccount": {
     "message": "Konto importieren"
   },
-  "faucetFileTitle": {
-    "message": "Faucet-Datei"
-  },
-  "faucetFile": {
-    "message": "Faucet-Datei"
-  },
   "settings": {
     "message": "Einstellungen"
   },
@@ -28,17 +22,6 @@
   },
   "maximiseView": {
     "message": "Ansicht maximieren"
-  },
-  "selectFile": {
-    "message": "Datei auswählen"
-  },
-  "selectFileOfFormat": {
-    "message": "Datei $format$ auswählen",
-    "placeholders": {
-      "format": {
-        "content": "$1"
-      }
-    }
   },
   "authorizedDApps": {
     "message": "Autorisierte DApps",
@@ -98,7 +81,7 @@
     "message": "Konten"
   },
   "lock": {
-    "message": "Block"
+    "message": "Sperren"
   },
   "importedAccount": {
     "message": "Importiert"
@@ -111,30 +94,6 @@
   },
   "addNewToken": {
     "message": "Neues Token hinzufügen"
-  },
-  "hideSomeToken": {
-    "message": "Token \"$tokenName$\" ausblenden",
-    "placeholders": {
-      "tokenName": {
-        "content": "$1"
-      }
-    }
-  },
-  "copySomeTokenAddress": {
-    "message": "Adresse \"$tokenSymbol$\" kopieren",
-    "placeholders": {
-      "tokenSymbol": {
-        "content": "$1"
-      }
-    }
-  },
-  "copySomeTokenId": {
-    "message": "ID \"$tokenSymbol$\" kopieren",
-    "placeholders": {
-      "tokenSymbol": {
-        "content": "$1"
-      }
-    }
   },
   "originLabel": {
     "message": "Ursprung: $origin$",
@@ -151,33 +110,6 @@
         "content": "$1"
       }
     }
-  },
-  "pkhLabel": {
-    "message": "Konto: $pkh$",
-    "placeholders": {
-      "pkh": {
-        "content": "$1"
-      }
-    }
-  },
-  "minDelegationAmountDescription": {
-    "message": "Ihr aktuelles Guthaben beträgt weniger als eine minimale Delegationsmenge dieses Bakers. Das heißt, solange das Guthaben weniger als $minAmount$ beträgt, gibt es keine Auszahlungen.",
-    "placeholders": {
-      "minAmount": {
-        "content": "$1"
-      }
-    }
-  },
-  "clickOnBakerPrompt": {
-    "message": "Klicken Sie auf den Baker, an den Sie Gelder delegieren möchten. Diese Liste wird unterstützt von $link$.",
-    "placeholders": {
-      "link": {
-        "content": "$1"
-      }
-    }
-  },
-  "highestIsBetter": {
-    "message": "Je höher desto besser"
   },
   "unlockWalletPrompt": {
     "message": "Wenn Sie etwas aus einer bereits vorhandenen Wallet speichern möchten - $link$ und entsperren Sie sie.",
@@ -198,24 +130,6 @@
       }
     }
   },
-  "copiedTokenAddress": {
-    "message": "Kopiert."
-  },
-  "copiedTokenId": {
-    "message": "Kopiert."
-  },
-  "delegatedTo": {
-    "message": "Delegiert an:"
-  },
-  "delegatingMotivation": {
-    "message": "Wenn Sie Ihr Geld an Bakers delegieren, können Sie Ihr Guthaben gut verzinsen"
-  },
-  "reDelegate": {
-    "message": "Erneut delegieren"
-  },
-  "delegateNow": {
-    "message": "Jetzt delegieren"
-  },
   "cancel": {
     "message": "Abbrechen"
   },
@@ -225,33 +139,11 @@
   "edit": {
     "message": "Bearbeiten"
   },
-  "useCoinSwitch": {
-    "message": "CoinSwitch verwenden",
-    "description": "CoinSwitch = https://coinswitch.co/"
-  },
-  "tezosFaucet": {
-    "message": "Tezos Faucet"
-  },
-  "tezosFaucetAlpha": {
-    "message": "Tezos Faucet (Alpha)"
-  },
-  "depositToWallet": {
-    "message": "Zahlen Sie in Ihre Wallet ein"
-  },
-  "depositToWalletDescription": {
-    "message": "Klicken Sie auf die Einzahlungsmethode, um Geld auf Ihre Wallet einzuzahlen. Verwenden Sie Faucet, um kostenlose Münzen zu erhalten!"
-  },
   "addToken": {
     "message": "Vermögenswert hinzufügen"
   },
   "addAsset": {
     "message": "Vermögenswert hinzufügen"
-  },
-  "contractNotAvailable": {
-    "message": "Der Vertrag unter dieser Adresse ist nicht verfügbar. Existiert er in diesem Netzwerk?"
-  },
-  "noTransferMethod": {
-    "message": "Keine Überweisungsmethode"
   },
   "tokenDoesNotMatchStandard": {
     "message": "Vorausgesetzter Vermögenswertvertrag entspricht nicht dem $standard$-Standard",
@@ -279,9 +171,6 @@
   "comingSoon": {
     "message": "Kommt bald"
   },
-  "comingSoonComment": {
-    "message": "(Kommt bald)"
-  },
   "soon": {
     "message": "bald"
   },
@@ -295,10 +184,10 @@
     "message": "Adresse eines bereitgestellten Vermögenswertvertrags."
   },
   "tokenContractPlaceholder": {
-    "message": "z. B. KT1v9CmPy..."
+    "message": "z.B. KT1v9CmPy..."
   },
   "lambdaContractPlaceholder": {
-    "message": "z. B. KT1v9CmPy..."
+    "message": "z.B. KT1v9CmPy..."
   },
   "tokenSymbolPatternDescription": {
     "message": "Nur a-z, A-Z, 0-9 Zeichen erlaubt, 2-5 Länge"
@@ -310,7 +199,7 @@
     "message": "Vermögenswertsymbol, wie 'USD' für US-Dollar."
   },
   "tokenSymbolInputPlaceholder": {
-    "message": "z. B. WEW, BOW, LAL etc."
+    "message": "z.B. WEW, BOW, LAL etc."
   },
   "tokenNamePatternDescription": {
     "message": "Keine Sonderzeichen, 3-50 Länge"
@@ -319,10 +208,10 @@
     "message": "Name"
   },
   "tokenNameInputDescription": {
-    "message": "Name des Vermögenswerts, z. B. 'Bitcoin' für BTC-Vermögenswert."
+    "message": "Name des Vermögenswerts, z.B. 'Bitcoin' für BTC-Vermögenswert."
   },
   "tokenNameInputPlaceholder": {
-    "message": "z. B. MySuperToken"
+    "message": "z.B. MySuperToken"
   },
   "nonNegativeIntMessage": {
     "message": "Ganzzahl, 0 oder größer"
@@ -363,9 +252,6 @@
   "invalidAddress": {
     "message": "Ungültige Adresse"
   },
-  "contractNotExistOnNetwork": {
-    "message": "Dieser Smart-Kontrakt existiert nicht im aktuellen Netzwerk"
-  },
   "onlyKTContractAddressAllowed": {
     "message": "Nur KT... Vertragsadresse erlaubt",
     "description": "KT not translated"
@@ -404,22 +290,8 @@
       }
     }
   },
-  "accountsToRemoveConstraint": {
-    "message": "Hierarchische deterministische Konten können nicht entfernt werden."
-  },
-  "doNotSharePrivateKey": {
-    "message": "<b>Teilen Sie diese Zeichensätze NICHT mit anderen</b>! Sie können verwendet werden, um Ihr aktuelles Konto zu stehlen."
-  },
   "appWouldLikeToConnectToYourWallet": {
     "message": "$origin$ möchte sich mit Ihrer Wallet verbinden",
-    "placeholders": {
-      "origin": {
-        "content": "$1"
-      }
-    }
-  },
-  "appRequestOperationToYou": {
-    "message": "$origin$ fordert Operationen an Sie an",
     "placeholders": {
       "origin": {
         "content": "$1"
@@ -433,7 +305,7 @@
     "message": "Unterschreiben"
   },
   "appRequestsToSign": {
-    "message": "$origin$ fordert Sie auf, zu unterschreiben",
+    "message": "$origin$ fordert Sie auf die Transaktion zu bestätigen",
     "placeholders": {
       "origin": {
         "content": "$1"
@@ -450,7 +322,7 @@
     "message": "Konto"
   },
   "toBeConnectedWithDApp": {
-    "message": "soll mit dApp verbunden werden."
+    "message": "soll mit DApp verbunden werden."
   },
   "atLeast8Characters": {
     "message": "Mindestens 8 Zeichen"
@@ -463,15 +335,6 @@
   },
   "atLeast1UppercaseLetter": {
     "message": "Mindestens 1 Großbuchstabe"
-  },
-  "mnemonicWordsAmountConstraint": {
-    "message": "12, 15, 18, 21 oder 24 Wörter in Englisch."
-  },
-  "mnemonicSpacingConstraint": {
-    "message": "Jedes Wort durch ein einzelnes Leerzeichen getrennt"
-  },
-  "justValidPreGeneratedMnemonic": {
-    "message": "Nur gültige vorgenerierte Gedächtnisstütze"
   },
   "oops": {
     "message": "Ups!"
@@ -490,10 +353,6 @@
   "tryAgain": {
     "message": "Erneut versuchen"
   },
-  "tezosMainnet": {
-    "message": "Tezos Mainnet",
-    "description": "Mainnet = main network"
-  },
   "templeWalletOptions": {
     "message": "Temple Wallet | Optionen"
   },
@@ -501,7 +360,7 @@
     "message": "Erweiterung zurücksetzen"
   },
   "resetExtensionConfirmation": {
-    "message": "Möchten Sie die Temple Wallet wirklich zurücksetzen?\nDadurch werden alle Ihre Daten gelöscht."
+    "message": "Möchten Sie die Temple Wallet wirklich zurücksetzen?\nDadurch werden alle Ihre Daten lokal gelöscht.\nIhre aktiven Konten können sie jederzeit wieder importieren."
   },
   "failedToResetExtension": {
     "message": "Die Erweiterung konnte nicht zurückgesetzt werden: $errorMessage$",
@@ -511,23 +370,8 @@
       }
     }
   },
-  "ledger": {
-    "message": "Ledger",
-    "description": "Ledger = https://www.ledger.com/"
-  },
   "retry": {
     "message": "Wiederholen"
-  },
-  "privateKeyCannotBeRevealed": {
-    "message": "Privater Schlüssel kann nicht preisgegeben werden"
-  },
-  "youCannotGetPrivateKeyFromThisAccountType": {
-    "message": "Sie können keinen privaten Schlüssel von $accountType$-Konten abrufen.",
-    "placeholders": {
-      "accountType": {
-        "content": "$1"
-      }
-    }
   },
   "maximalAmount": {
     "message": "Maximal: $amount$",
@@ -550,16 +394,10 @@
     "message": "Neue Wallet erstellen"
   },
   "createNewWalletDescription": {
-    "message": "Neu bei Temple Wallet? Richten wir es ein! Dadurch wird eine neue Wallet- und Seed-Phrase erstellt"
-  },
-  "delegate": {
-    "message": "Delegieren"
+    "message": "Sie sind neu bei Signum und haben noch keine Signum Wallet? Na, dann los! Lassen Sie uns eine neue Wallet erstellen"
   },
   "explore": {
     "message": "Erkunden"
-  },
-  "assetsWhileMessage": {
-    "message": "Vermögenswertdaten werden abgerufen"
   },
   "receive": {
     "message": "Empfangen"
@@ -567,62 +405,41 @@
   "send": {
     "message": "Senden"
   },
-  "baking": {
-    "message": "Baking"
-  },
   "operations": {
     "message": "Betrieb"
   },
-  "delegationInfoWhileMessage": {
-    "message": "Ihre Delegationsinformationen werden abgerufen oder verarbeitet"
-  },
   "operationHistoryWhileMessage": {
-    "message": "Betriebsverlauf wird abgerufen oder verarbeitet"
+    "message": "Aktititätsverlauf wird abgerufen oder verarbeitet"
   },
   "privateKey": {
     "message": "Privater Schlüssel"
   },
   "mnemonic": {
-    "message": "Gedächtnisstütze"
+    "message": "Mnemonic"
   },
   "fundraiser": {
     "message": "Geldbeschaffer"
   },
-  "privateKeyInputDescription": {
-    "message": "Der geheime Schlüssel des Kontos, das Sie importieren möchten."
-  },
-  "privateKeyInputPlaceholder": {
-    "message": "z. B. edsk3wfiPMu..."
-  },
   "password": {
     "message": "Passwort"
-  },
-  "isPrivateKeyEncrypted": {
-    "message": "Ist Ihr privater Schlüssel verschlüsselt?"
-  },
-  "noDerivation": {
-    "message": "Keine Ableitung"
   },
   "customDerivationPath": {
     "message": "Benutzerdefinierter Ableitungspfad"
   },
   "mnemonicInputLabel": {
-    "message": "Seed-Phrase"
+    "message": "Passphrase"
   },
   "mnemonicInputDescription": {
-    "message": "Gedächtnisstütze. Ihre geheime 12 - 24 Wörter Phrase."
+    "message": "Ihre geheime Passphrase; üblicherweise 12 Wörter."
   },
   "mnemonicInputPlaceholder": {
-    "message": "z. B. Veranstaltungsort Socke Milch Update..."
+    "message": "z.B. venue sock milk update..."
   },
   "passwordInputDescription": {
     "message": "Wird für zusätzliche Gedächtnisstützenableitung verwendet. Das ist KEIN Wallet-Passwort."
   },
   "derivation": {
     "message": "Ableitung"
-  },
-  "addDerivationPathPrompt": {
-    "message": "Standardmäßig wird keine Ableitung verwendet. Klicken Sie auf 'Benutzerdefinierter Ableitungspfad', um ihn hinzuzufügen."
   },
   "derivationPathMustStartWithM": {
     "message": "Muss mit 'm' beginnen"
@@ -635,9 +452,6 @@
   },
   "email": {
     "message": "E-Mail"
-  },
-  "unexpectedOrInvalidFile": {
-    "message": "Unerwartete oder ungültige Datei"
   },
   "requestSent": {
     "message": "$type$-Anfrage gesendet! Wird bestätigt...",
@@ -653,37 +467,11 @@
   "smthWentWrong": {
     "message": "Etwas ist schief gelaufen"
   },
-  "faucetFileInputPrompt": {
-    "message": "Ziehen Sie eine Datei per Drag & Drop oder wählen Sie sie manuell aus, indem Sie auf den unteren Bereich klicken. Sie können sie von $link$ herunterladen.",
-    "placeholders": {
-      "link": {
-        "content": "$1"
-      }
-    }
-  },
   "processing": {
     "message": "Wird verarbeitet..."
   },
   "restoreWallet": {
     "message": "Ihre Wallet wiederherstellen"
-  },
-  "errorImportingKukaiWallet": {
-    "message": "Fehler beim Importieren der Kukai-Wallet"
-  },
-  "selectedFileFormatNotSupported": {
-    "message": "Das ausgewählte Dateiformat wird nicht unterstützt"
-  },
-  "fileHasSyntaxError": {
-    "message": "Die Datei weist einen Syntaxfehler auf. Stellen Sie sicher, dass die Datei korrekt ist."
-  },
-  "entropyDecryptionError": {
-    "message": "Entropie konnte nicht entschlüsselt werden. Stellen Sie sicher, dass das Passwort korrekt ist"
-  },
-  "kukaiFileVersionError": {
-    "message": "Es können nur Dateien der Version 3 verarbeitet werden"
-  },
-  "kukaiWalletTypeError": {
-    "message": "Seed-Phrase für diesen Wallet-Typ kann nicht angezeigt werden"
   },
   "accountAddressLabel": {
     "message": "Ihre aktuelle Kontoadresse. Teilen Sie sie, um Geld zu erhalten."
@@ -697,28 +485,15 @@
   "qrCode": {
     "message": "QRCode"
   },
-  "revealPrivateKey": {
-    "message": "Privaten Schlüssel freigeben"
-  },
-  "revealPrivateKeyDescription": {
-    "message": "Auch bekannt als „Exportkonto“, zeigt den privaten Schlüssel für Ihr ausgewähltes Konto an."
-  },
-  "revealSeedPhrase": {
-    "message": "Seed-Phrase freigeben"
-  },
-  "revealSeedPhraseDescription": {
-    "message": "Auch als \"Export-Wallet\" bekannt, Sie benötigen diese Seed-Phrase möglicherweise, um auf Ihre Wallet und Konten auf anderen Geräten zuzugreifen."
-  },
   "dApps": {
     "message": "DApps",
     "description": "DApps = Decentralized Applications"
   },
   "dAppsDescription": {
-    "message": "In diesem Abschnitt können Sie die Möglichkeit zur Interaktion mit dezentralen Anwendungen aktivieren, die Temple Wallet unterstützen."
+    "message": "In diesem Abschnitt können Sie die Möglichkeit zur Interaktion mit dezentralen Anwendungen aktivieren."
   },
   "networksDescription": {
-    "message": "In diesem Abschnitt können Sie benutzerdefinierte Tezos-Netzwerke hinzufügen oder löschen.",
-    "description": "Tezos = blockchain name (https://tezos.com/)"
+    "message": "In diesem Abschnitt können Sie benutzerdefinierte Signum Nodes/Peers hinzufügen oder löschen."
   },
   "activateAccount": {
     "message": "Konto aktivieren"
@@ -730,13 +505,13 @@
     "message": "Konto entfernen"
   },
   "removeAccountDescription": {
-    "message": "Verwenden Sie diesen Abschnitt, um Ihr ausgewähltes Konto zu entfernen. Nur importierte Konten können entfernt werden."
+    "message": "Verwenden Sie diesen Abschnitt, um Ihr ausgewähltes Konto zu entfernen."
   },
   "about": {
     "message": "Über"
   },
   "aboutDescription": {
-    "message": "Verwenden Sie diesen Abschnitt, um Metainformationen zu Temple Wallet anzuzeigen."
+    "message": "Verwenden Sie diesen Abschnitt, um Informationen über diese Erweiterung anzuzeigen."
   },
   "unlockWallet": {
     "message": "Die Wallet entsperren"
@@ -751,10 +526,10 @@
     "message": "Entsperren"
   },
   "importNewAccountTitle": {
-    "message": "Konto wiederherstellen? Möchten Sie sich bei einem anderen anmelden?"
+    "message": "Konto wiederherstellen? Möchten Sie sich mit einem anderen Konto anmelden?"
   },
   "importWalletUsingSeedPhrase": {
-    "message": "Wallet mit Seed-Phrase importieren"
+    "message": "Wallet mit Passphrase importieren"
   },
   "connectLedger": {
     "message": "Ledger verbinden",
@@ -764,7 +539,7 @@
     "message": "Bestehende Wallet importieren"
   },
   "importExistingWalletDescription": {
-    "message": "Haben Sie bereits eine Wallet? Importieren Sie sie mit Ihrer Seed-Phrase oder verschlüsselten Keystore-Datei"
+    "message": "Haben Sie bereits eine Wallet? Importieren Sie sie mit Ihrer Passphrase"
   },
   "links": {
     "message": "Links"
@@ -806,7 +581,7 @@
     "message": "'Geheimnis'-Feld von Geldgeber-Konto oder Faucet"
   },
   "activateAccountSecretPlaceholder": {
-    "message": "z. B. n4hs7sd3..."
+    "message": "z.B. n4hs7sd3..."
   },
   "activate": {
     "message": "Aktivieren"
@@ -839,7 +614,7 @@
     "message": "aktivieren"
   },
   "dAppsCheckmarkPrompt": {
-    "message": "Klicken Sie auf das Häkchen für die $action$ DApps-Interaktionsfunktion",
+    "message": "Klicken Sie auf das Häkchen für um DApps-Interaktionen zu $action$",
     "description": "DApps = Decentralized Applications",
     "placeholders": {
       "action": {
@@ -884,50 +659,11 @@
   "baker": {
     "message": "Baker"
   },
-  "bakerInputDescription": {
-    "message": "Adresse eines registrierten Bakers."
-  },
-  "bakerInputDescriptionWithDomain": {
-    "message": "Adresse oder Domainname eines registrierten Bakers."
-  },
-  "bakerInputPlaceholder": {
-    "message": "z. B. tz1a9w1S7hN5s..."
-  },
-  "minDelegationAmountTitle": {
-    "message": "Minimaler Delegationsbetrag"
-  },
-  "unknownBakerTitle": {
-    "message": "Unbekannter Baker"
-  },
-  "unknownBakerDescription": {
-    "message": "Die angegebene Adresse ist uns als Baker nicht bekannt! Delegieren Sie Gelder nur auf eigenes Risiko."
-  },
-  "delegateToRecommendedBakers": {
-    "message": "Delegieren an empfohlene Baker"
-  },
   "sortBy": {
     "message": "Sortieren nach"
   },
-  "cycles_one": {
-    "message": "$amount$-Zyklus",
-    "description": "For plural forms",
-    "placeholders": {
-      "amount": {
-        "content": "$1"
-      }
-    }
-  },
-  "cycles_other": {
-    "message": "$amount$-Zyklen",
-    "description": "For plural forms",
-    "placeholders": {
-      "amount": {
-        "content": "$1"
-      }
-    }
-  },
   "notEnoughFunds": {
-    "message": "Nicht genügend Gelder"
+    "message": "Nicht genügend Guthaben"
   },
   "notEnoughCurrencyFunds": {
     "message": "Nicht genügend $currency$-Gelder",
@@ -949,34 +685,14 @@
   "minimalFeeGreaterThanBalance": {
     "message": "Die Mindestgebühr für diese Transaktion ist höher als Ihr Guthaben."
   },
-  "alreadyDelegatedFundsToBaker": {
-    "message": "Bereits Gelder an diesen Baker delegiert. Eine erneute Delegation ist nicht möglich."
-  },
-  "bakerNotRegistered": {
-    "message": "Der angegebene Baker ist nicht registriert."
-  },
-  "unableToPerformActionToBaker": {
-    "message": "$action$ für den bereitgestellten Baker kann nicht ausgeführt werden.",
-    "placeholders": {
-      "action": {
-        "content": "$1"
-      }
-    }
-  },
-  "estimateDelegation": {
-    "message": "Delegation abschätzen"
-  },
   "thisMayHappenBecause": {
     "message": "Dies kann passieren, weil:"
   },
   "minimalFeeGreaterThanBalanceVerbose": {
-    "message": "Die Mindestgebühr für diese Transaktion ist höher als Ihr Guthaben. Es kann eine hohe Gebühr anfallen, weil Sie Geld an ein leeres Manager-Konto senden. Dies erfordert eine einmalige Brenngebühr von 0,06425 ꜩ;"
+    "message": "Die Mindestgebühr für diese Transaktion ist höher als Ihr Guthaben."
   },
   "networkOrOtherIssue": {
     "message": "Netzwerk- oder anderes technisches Problem."
-  },
-  "unableToDelegateToKTAddress": {
-    "message": "Delegieren an KT... Vertragsadresse nicht möglich"
   },
   "confirmAction": {
     "message": "$action$ bestätigen",
@@ -1002,16 +718,16 @@
     "message": "Unbekannt:"
   },
   "backupNewSeedPhrase": {
-    "message": "Neue Seed-Phrase sichern"
+    "message": "Neue Passphrase sichern"
   },
   "attentionExclamation": {
     "message": "Achtung!"
   },
   "lockedWalletAlreadyExists": {
-    "message": "Gesperrte Wallet <b>ist bereits vorhanden</b>.\nDas Importieren einer neuen wird <b>die bestehende zerstören</b>."
+    "message": "Gesperrte Wallet <b>ist bereits vorhanden</b>.\nDas Importieren einer neuen wird <b>die bestehende ersetzen</b>."
   },
   "backToUnlockPage": {
-    "message": "zurück zur Seite „Entsperren“"
+    "message": "zurück zur Seite \"Entsperren\""
   },
   "mustBeEqualToPasswordAbove": {
     "message": "Muss gleich dem obigen Passwort sein"
@@ -1034,24 +750,6 @@
   "file": {
     "message": "Datei"
   },
-  "keystoreFile": {
-    "message": "Keystore-Datei"
-  },
-  "keystoreFileFieldDescription": {
-    "message": "Importieren Sie Ihre Wallet aus einer verschlüsselten Keystore-Datei (.tez)."
-  },
-  "filePassword": {
-    "message": "Dateipasswort"
-  },
-  "filePasswordInputDescription": {
-    "message": "Bitte geben Sie ein Passwort für die Keystore-Datei ein"
-  },
-  "fileInputPrompt": {
-    "message": "Wählen Sie eine Datei aus oder ziehen Sie sie hierher"
-  },
-  "useKeystorePassword": {
-    "message": "Dateipasswort als Erweiterungspasswort verwenden"
-  },
   "create": {
     "message": "Erstellen"
   },
@@ -1059,19 +757,19 @@
     "message": "Importieren"
   },
   "revealNewSeedPhrase": {
-    "message": "<b>Klicken Sie auf den unteren Bereich</b>, um Ihre neue Seed-Phrase anzuzeigen.\nSchreiben Sie diese Phrase dann auf ein Blatt Papier und <b>bewahren Sie es an einem sicheren Ort auf</b>. Oder lernen Sie sie auswendig."
+    "message": "<b>Klicken Sie auf den unteren Bereich</b>, um Ihre neue Passphrase anzuzeigen.\nSchreiben Sie diese Phrase dann auf ein Blatt Papier und-oder <b>bewahren Sie es an einem sicheren Ort auf</b>. Oder lernen Sie sie auswendig."
   },
   "doNotSharePhrase": {
-    "message": "<b>Teilen Sie</b> diese Phrase mit NIEMANDEM! Sie kann verwendet werden, um alle Ihre Konten zu stehlen."
+    "message": "<b>Teilen Sie</b> diese Phrase mit NIEMANDEM! Sie kann verwendet werden, um Ihr Guthaben zu stehlen."
   },
   "youWillNeedThisSeedPhrase": {
-    "message": "Wenn Sie jemals zwischen Browsern oder Geräten wechseln, benötigen Sie diese Seed-Phrase, um auf Ihre Konten zuzugreifen."
+    "message": "Wenn Sie jemals zwischen Browsern oder Geräten wechseln, benötigen Sie diese Passphrase, um auf Ihre Konten zuzugreifen."
   },
   "unableToContinueWithoutConfirming": {
     "message": "Fortfahren ohne Bestätigung nicht möglich"
   },
   "backupedInputLabel": {
-    "message": "Ich habe ein Seed-Phrasen-Backup erstellt"
+    "message": "Ich habe ein Passphrasen-Backup erstellt"
   },
   "backupedInputDescription": {
     "message": "Und akzeptiere die Risiken, dass wenn ich die Phrase verliere,\nkönnten meine Gelder verloren gehen."
@@ -1111,10 +809,10 @@
     }
   },
   "timedOutOperationConfirmation": {
-    "message": "Zeitüberschreitung der Betriebsbestätigung. Sie können entweder länger warten oder es später erneut versuchen."
+    "message": "Zeitüberschreitung der Bestätigung. Sie können entweder länger warten oder es später erneut versuchen."
   },
   "accountToBeRemoved": {
-    "message": "Konto muss entfernt werden."
+    "message": "Zu entfernendes Konto:"
   },
   "ifYouWantToRemoveAnotherAccount": {
     "message": "Wenn Sie ein anderes Konto entfernen möchten, wählen Sie es im Dropdown-Menü oben rechts aus."
@@ -1122,20 +820,11 @@
   "cannotBeRemoved": {
     "message": "Kann nicht entfernt werden"
   },
-  "importedPlural": {
-    "message": "importiert"
-  },
   "enterPasswordToRemoveAccount": {
     "message": "Geben Sie das Passwort ein, um das Konto zu entfernen."
   },
   "remove": {
     "message": "Entfernen"
-  },
-  "ifYouWantToRevealPrivateKeyFromOtherAccount": {
-    "message": "Wenn Sie einen privaten Schlüssel von einem anderen Konto preisgeben möchten, sollten Sie ihn oben rechts im Dropdown-Menü auswählen."
-  },
-  "privateKeyFieldDescription": {
-    "message": "Aktueller Kontoschlüssel. Halten Sie ihn geheim."
   },
   "derivationPath": {
     "message": "Ableitungspfad"
@@ -1147,28 +836,13 @@
     "message": "Die elliptische Kurve, die das Konto verwendet."
   },
   "seedPhrase": {
-    "message": "Seed-Phrase"
-  },
-  "pathForHDAccounts": {
-    "message": "für HD-Konten. Dies ist das, was Sie verwenden, um alle Ihre Konten aus Ihrer Seed-Phrase wiederherzustellen.",
-    "description": "HD = Hierarchical Deterministic"
+    "message": "Passphrase"
   },
   "derivationPathExample": {
     "message": "m/44'/1729'/<account_index>'/0'"
   },
   "derivationPathExample2": {
-    "message": "z. B. m/44'/1729'/..."
-  },
-  "keepSeedPhraseSecret": {
-    "message": "Halten Sie ihn geheim."
-  },
-  "revealSecretPasswordInputDescription": {
-    "message": "Geben Sie das Passwort ein, um $secretName$ freizugeben.",
-    "placeholders": {
-      "secretName": {
-        "content": "$1"
-      }
-    }
+    "message": "z.B. m/44'/1729'/..."
   },
   "reveal": {
     "message": "Freigeben"
@@ -1180,7 +854,7 @@
     "message": "Empfänger"
   },
   "tokensRecepientInputDescription": {
-    "message": "Adresse, an die $assetSymbol$-Gelder gesendet werden sollen.",
+    "message": "Adresse oder ID, an die $assetSymbol$ gesendet werden soll.",
     "placeholders": {
       "assetSymbol": {
         "content": "$1"
@@ -1188,7 +862,7 @@
     }
   },
   "tokensRecepientInputDescriptionWithDomain": {
-    "message": "Adresse oder Tezos-Domain, an die $assetSymbol$-Gelder gesendet werden sollen.",
+    "message": "Adresse, ID oder Alias, an die $assetSymbol$ gesendet werden soll.",
     "placeholders": {
       "assetSymbol": {
         "content": "$1"
@@ -1196,23 +870,20 @@
     }
   },
   "addressInputDescription": {
-    "message": "Adresse des Tezos-Kontos oder Smart Kontrakts."
+    "message": "Adresse oder ID des Signum Kontos"
   },
   "addressInputDescriptionWithDomain": {
-    "message": "Adresse oder Tezos-Domain des Kontos oder Smart Kontrakts."
+    "message": "Adresse, ID oder Alias des Kontos"
   },
   "recipientInputPlaceholder": {
-    "message": "z. B. tz1a9w1S7hN5s..."
+    "message": "z.B. 17332... oder S-6SJC-..."
   },
   "recipientInputPlaceholderWithDomain": {
-    "message": "z. B. alice.tez oder tz1a9w1S7hN5s...",
-    "description": "alice.tez = domain like google.com"
+    "message": "z.B. foobar, 17332... oder S-6SJC-...",
+    "description": "foobar = Signum Alias"
   },
   "tryingToTransferToYourself": {
     "message": "Sie versuchen, Geld an sich selbst zu überweisen.\nBitte stellen Sie sicher, dass es genau das ist, was Sie möchten."
-  },
-  "tryingToTransferToContract": {
-    "message": "Sie versuchen, Gelder an den Kontrakt zu überweisen.\nBitte stellen Sie sicher, dass es genau das ist, was Sie möchten."
   },
   "amount": {
     "message": "Betrag"
@@ -1232,7 +903,7 @@
     }
   },
   "amountPlaceholder": {
-    "message": "z. B. 123,45"
+    "message": "z.B. 123,45"
   },
   "sendToMyAccounts": {
     "message": "An meine Konten senden"
@@ -1241,7 +912,7 @@
     "message": "Klicken Sie auf das Konto, an das Sie Geld senden möchten."
   },
   "mainAssetBalanceIsZero": {
-    "message": "Ihr tez-Saldo (Hauptvermögenswert) ist Null. ꜩ-Gelder werden für die Gebühr benötigt."
+    "message": "Ihr Saldo ist Null. Signa wird für die Gebühr benötigt."
   },
   "unableToSendTransactionAction": {
     "message": "Die Transaktion kann nicht an den angegebenen Empfänger gesendet werden."
@@ -1249,39 +920,29 @@
   "unableToEstimateTransactionAction": {
     "message": "Die Transaktion an den angegebenen Empfänger kann nicht geschätzt werden."
   },
-  "makeSureToBackupSeedPhrase": {
-    "message": "Stellen Sie sicher, dass Sie Ihre Seed-Phrase sichern!"
-  },
-  "exploreMore": {
-    "message": "Mehr erkunden..."
-  },
-  "selfComment": {
-    "message": "(selbst)"
-  },
   "deleteNetworkConfirm": {
-    "message": "Möchten Sie dieses Netzwerk wirklich löschen?"
+    "message": "Möchten Sie diesen Node wirklich löschen?"
   },
   "networkNamePlaceholder": {
-    "message": "Mein benutzerdefiniertes Netzwerk"
+    "message": "Name des Netzwerkknoten"
   },
   "mustBeValidURL": {
     "message": "Muss eine gültige URL sein"
   },
   "rpcBaseURL": {
-    "message": "RPC-Basis-URL",
-    "description": "RPC = Remote Procedure Call (https://en.wikipedia.org/wiki/Remote_procedure_call)"
+    "message": "Netzwerkknoten-URL"
   },
   "mustBeUnique": {
     "message": "Muss einzigartig sein"
   },
   "addNetwork": {
-    "message": "Netzwerk hinzufügen"
+    "message": "Node hinzufügen"
   },
   "currentNetworks": {
-    "message": "Aktuelle Netzwerke"
+    "message": "Aktuelle Netzwerknoten"
   },
   "deleteNetworkHint": {
-    "message": "Klicken Sie auf das X-Symbol, um das Netzwerk zu löschen. Wenn Sie das Netzwerk bearbeiten möchten, löschen Sie es einfach und fügen Sie ein weiteres mit neuen Parametern hinzu."
+    "message": "Klicken Sie auf das X-Symbol, um den Knoten zu löschen. Wenn Sie ihn bearbeiten möchten, löschen Sie ihn einfach und fügen Sie erneut mit neuen Parametern hinzu."
   },
   "preview": {
     "message": "Vorschau"
@@ -1388,35 +1049,8 @@
   "transfers": {
     "message": "Überweisungen"
   },
-  "someUnknownToken": {
-    "message": "unbekannter Token $token$",
-    "placeholders": {
-      "token": {
-        "content": "$1"
-      }
-    }
-  },
   "lambdaContract": {
     "message": "Lambda View-Kontrakt"
-  },
-  "someLambda": {
-    "message": "Lambda View: $lambda$",
-    "placeholders": {
-      "lambda": {
-        "content": "$1"
-      }
-    }
-  },
-  "interactionWithSomeEntrypoint": {
-    "message": "Interaktion mit dem Einstiegspunkt '$entrypoint$' des Kontrakts $contractAddress$",
-    "placeholders": {
-      "entrypoint": {
-        "content": "$1"
-      },
-      "contractAddress": {
-        "content": "$2"
-      }
-    }
   },
   "transactionOfSomeType": {
     "message": "Transaktion vom Typ '$type$'",
@@ -1428,15 +1062,6 @@
   },
   "approveToken": {
     "message": "Token genehmigen"
-  },
-  "noLambdaWarningContent": {
-    "message": "Es wurde kein Lambda View-Kontrakt angegeben. Einige Funktionen funktionieren ohne ihn möglicherweise nicht. Klicken Sie auf die Schaltfläche 'Netzwerk hinzufügen', wenn Sie fortfahren möchten."
-  },
-  "noActiveNetLambdaWarningTitle": {
-    "message": "Es wurde kein Lambda View-Kontrakt für das aktuelle Netzwerk angegeben!"
-  },
-  "noActiveNetLambdaWarningContent": {
-    "message": "Es wurde kein Lambda View-Kontrakt für das aktuelle Netzwerk angegeben. Sie können ihn im unten stehenden Formular hinzufügen oder auf 'Neu bereitstellen' klicken, um einen neuen bereitzustellen und automatisch hinzuzufügen."
   },
   "add": {
     "message": "Hinzufügen"
@@ -1496,60 +1121,6 @@
   "activationOperationType": {
     "message": "Aktivierung"
   },
-  "youAreNotContractManager": {
-    "message": "Sie sind kein Kontraktmanager"
-  },
-  "contract": {
-    "message": "Kontrakt"
-  },
-  "contractAddressInputDescription": {
-    "message": "Adresse des zu verbindenden Kontrakts."
-  },
-  "contractAddressInputPlaceholder": {
-    "message": "z. B. KT1a9w1S7hN5s..."
-  },
-  "addKnownManagedContract": {
-    "message": "Bekannten verwalteten Kontrakt hinzufügen"
-  },
-  "clickOnContractToImport": {
-    "message": "Klicken Sie auf den Kontrakt, den Sie importieren möchten."
-  },
-  "notContractAddress": {
-    "message": "Keine Kontraktadresse"
-  },
-  "contractAlreadyImported": {
-    "message": "Dieser Kontrakt wurde bereits importiert"
-  },
-  "waitWhileContractBeingDeployed": {
-    "message": "Bitte verlassen Sie diese Seite nicht und schließen Sie das Fenster nicht, während der Kontrakt bereitgestellt wird. Dies kann eine Weile dauern. Das Formular und diese Warnung werden ausgeblendet, sobald sie erfolgreich bereitgestellt wurden."
-  },
-  "justAMinute": {
-    "message": "Nur eine Minute..."
-  },
-  "referredByTokenContactAddressInvalid": {
-    "message": "Die Kontraktadresse $address$, auf die im Token-Kontrakt verwiesen wird, ist ungültig.",
-    "placeholders": {
-      "address": {
-        "content": "$1"
-      }
-    }
-  },
-  "someNetworkIsNotCurrent": {
-    "message": "Es wurde ein $network$-Netzwerk angegeben, das nicht das aktuelle Netzwerk ist",
-    "placeholders": {
-      "network": {
-        "content": "$1"
-      }
-    }
-  },
-  "someNetworkWithChainIdIsNotCurrent": {
-    "message": "Die Ketten-ID $chainId$ wurde angegeben, die nicht die Ketten-ID des aktuellen Netzwerks ist",
-    "placeholders": {
-      "chainId": {
-        "content": "$1"
-      }
-    }
-  },
   "popupSettings": {
     "message": "Popup-Modus"
   },
@@ -1589,9 +1160,6 @@
   "analyticsConfirmationCancelButton": {
     "message": "Abbrechen"
   },
-  "managedContract": {
-    "message": "Verwalteter Kontrakt"
-  },
   "referredByTokenContractNotFound": {
     "message": "Der Kontrakt $address$, auf den der Token-Kontrakt verweist, wurde nicht gefunden.",
     "placeholders": {
@@ -1600,47 +1168,11 @@
       }
     }
   },
-  "tokenContractNotFound": {
-    "message": "Der Kontrakt wurde nicht gefunden."
-  },
   "failedToParseMetadata": {
     "message": "Fehler beim Parsen der Metadaten"
   },
   "unknownParseErrorOccurred": {
     "message": "Ein unbekannter Parsing-Fehler ist aufgetreten."
-  },
-  "errorWhileFetchingUrl": {
-    "message": "Beim Abrufen von $url$ ist ein Fehler aufgetreten",
-    "placeholders": {
-      "url": {
-        "content": "$1"
-      }
-    }
-  },
-  "invalidManagedContract": {
-    "message": "Ungültig verwalteter Kontrakt"
-  },
-  "someMethodNotDefinedInContract": {
-    "message": "Die Methode '$name$' ist im Kontrakt nicht definiert.",
-    "placeholders": {
-      "name": {
-        "content": "$1"
-      }
-    }
-  },
-  "someMethodSignatureDoesNotMatchStandard": {
-    "message": "Die Signatur der Methode '$name$' entspricht nicht dem Standard.",
-    "placeholders": {
-      "name": {
-        "content": "$1"
-      }
-    }
-  },
-  "failedToLoadChainID": {
-    "message": "Fehler beim Laden der Ketten-ID für dieses Netzwerk"
-  },
-  "makeSureTokenIdIsCorrect": {
-    "message": "Stellen Sie sicher, dass die Vermögenswert-ID korrekt ist."
   },
   "unknownErrorCheckingSomeEntrypoint": {
     "message": "Beim Überprüfen des '$name$'-Einstiegspunkts ist ein unbekannter Fehler aufgetreten.",
@@ -1694,25 +1226,6 @@
       }
     }
   },
-  "fa2TokenAlreadyExists": {
-    "message": "Token mit Adresse $address$ und ID $tokenId$ ist bereits vorhanden.",
-    "placeholders": {
-      "address": {
-        "content": "$1"
-      },
-      "tokenId": {
-        "content": "$2"
-      }
-    }
-  },
-  "nonFa2TokenAlreadyExists": {
-    "message": "Token mit Adresse $address$ ist bereits vorhanden.",
-    "placeholders": {
-      "address": {
-        "content": "$1"
-      }
-    }
-  },
   "approveForSmb": {
     "message": "für $spender$",
     "placeholders": {
@@ -1746,7 +1259,7 @@
     "message": "Aktion bestätigen"
   },
   "domainDoesntResolveToAddress": {
-    "message": "Domain \"$value$\" wird nicht in eine Adresse aufgelöst",
+    "message": "Alias \"$value$\" konnte nicht in eine Adresse aufgelöst werden",
     "placeholders": {
       "value": {
         "content": "$1"
@@ -1754,29 +1267,22 @@
     }
   },
   "invalidAddressOrDomain": {
-    "message": "Ungültige Adresse oder Domainname"
+    "message": "Ungültige Adresse oder Alias"
   },
   "resolvedAddress": {
     "message": "Aufgelöste Adresse"
   },
-  "invalidRpcCantGetChainId": {
-    "message": "Ungültiger RPC: Ketten-ID kann nicht abgerufen werden",
-    "description": "RPC = Remote Procedure Call (https://en.wikipedia.org/wiki/Remote_procedure_call)"
-  },
-  "contractNotOriginated": {
-    "message": "Kontrakt nicht zustande gekommen"
+  "cantConnectToNetwork": {
+    "message": "Kann Netzwerkknoten nicht erreichen"
   },
   "welcomeTo": {
     "message": "Willkommen bei"
-  },
-  "domain": {
-    "message": "Domain"
   },
   "hash": {
     "message": "Hash"
   },
   "defaultAccount": {
-    "message": "Standardkonto (das erste)"
+    "message": "Standardkonto"
   },
   "loadMore": {
     "message": "Mehr laden"
@@ -1784,31 +1290,11 @@
   "submit": {
     "message": "Senden"
   },
-  "invalidJsonInput": {
-    "message": "Ungültige JSON"
-  },
-  "notFaucetJson": {
-    "message": "Kein Faucet-JSON"
-  },
-  "faucetJson": {
-    "message": "Faucet-JSON"
-  },
-  "faucetJsonDescription": {
-    "message": "Sie können JSON hier einfügen, anstatt eine Datei hinzuzufügen"
-  },
-  "unknownErrorFromRPC": {
-    "message": "Fehler beim Senden der Anfrage an $url$. Ungültige Anfrage bereitgestellt oder RPC-Knoten ist vorübergehend nicht erreichbar.",
-    "placeholders": {
-      "url": {
-        "content": "$1"
-      }
-    }
-  },
   "emptyImplicitContract": {
     "message": "Ihr Konto ist leer. Zahlen Sie einen beliebigen Tez-Betrag auf dieses Konto ein, um es zu aktivieren"
   },
   "balanceTooLow": {
-    "message": "Tez-Guthaben zu niedrig"
+    "message": "Guthaben zu niedrig"
   },
   "swap": {
     "message": "Wechseln"
@@ -1818,9 +1304,6 @@
   },
   "accountNumber": {
     "message": "Kontonummer"
-  },
-  "noExchangersAvailable": {
-    "message": "Für das aktuelle Netzwerk sind leider keine Austauscher verfügbar."
   },
   "noResults": {
     "message": "Keine Ergebnisse"
@@ -1846,43 +1329,17 @@
   "priceImpact": {
     "message": "Preisauswirkung:"
   },
-  "slippageTolerance": {
-    "message": "Schlupftoleranz:"
-  },
-  "minimumReceived": {
-    "message": "Mindestens erhalten:"
-  },
-  "inputOutputAssetsCannotBeSame": {
-    "message": "Eingehende und ausgehende Vermögenswerte können nicht gleich sein"
-  },
-  "amountMustBeReservedForNetworkFees": {
-    "message": "$amount$ muss reserviert werden, um Netzwerkgebühren zu bezahlen",
-    "placeholders": {
-      "amount": {
-        "content": "$1"
-      }
-    }
-  },
   "helpAndCommunity": {
     "message": "Hilfe & Community"
   },
   "communityResourcesTitle": {
-    "message": "Sie können jederzeit zusätzliche Informationen über die Temple Wallet finden oder um Hilfe bei den nächsten Ressourcen bitten."
+    "message": "Sie können jederzeit zusätzliche Informationen über die Signum XT Wallet finden oder um Hilfe bitten:"
   },
   "helpAndCommunityDescription": {
     "message": "Verwenden Sie diesen Abschnitt, wenn Sie Teil unserer Community werden möchten oder Hilfe benötigen."
   },
   "joinPrompt": {
     "message": "Treten Sie gerne bei und stellen Sie Ihre Fragen "
-  },
-  "blockExplorer": {
-    "message": "Blockchain-Explorer"
-  },
-  "specifyTokenId": {
-    "message": "Token-ID angeben"
-  },
-  "notWhitelistedTokenWarning": {
-    "message": "Achtung! Einer der Token, die Sie austauschen möchten, steht nicht auf der Whitelist. Sie können auf eigene Gefahr mit ihnen interagieren."
   },
   "tvl": {
     "message": "TVL"
@@ -1941,87 +1398,8 @@
   "storageFee": {
     "message": "Speichergebühr"
   },
-  "templeWalletFeeWarning": {
-    "message": "Temple Wallet erhebt vorerst keine Gebühren für Börsen, kann aber in Zukunft anfallen."
-  },
-  "poolExchangeFee": {
-    "message": "Poolaustauschgebühr"
-  },
-  "PriceImpactInfo": {
-    "message": "Die Differenz zwischen dem Marktpreis und dem geschätzten Preis aufgrund der Handelsgröße"
-  },
-  "selectToken": {
-    "message": "Token auswählen"
-  },
   "viewAll": {
     "message": "Alle ansehen"
-  },
-  "rewardsForBlocks": {
-    "message": "Gebühren $reward$ für $blocksAmount$ $blocks$ $feesAmount$",
-    "placeholders": {
-      "reward": {
-        "content": "$1"
-      },
-      "blocksAmount": {
-        "content": "$2"
-      },
-      "blocks": {
-        "content": "$3"
-      },
-      "feesAmount": {
-        "content": "$4"
-      }
-    }
-  },
-  "blocks_one": {
-    "message": "$amount$-Block",
-    "description": "For plural forms",
-    "placeholders": {
-      "amount": {
-        "content": "$1"
-      }
-    }
-  },
-  "blocks_other": {
-    "message": "$amount$-Blöcke",
-    "description": "For plural forms",
-    "placeholders": {
-      "amount": {
-        "content": "$1"
-      }
-    }
-  },
-  "rewardsForSlots": {
-    "message": "$reward$ für $slotsAmount$ $slots$",
-    "placeholders": {
-      "reward": {
-        "content": "$1"
-      },
-      "slotsAmount": {
-        "content": "$2"
-      },
-      "slots": {
-        "content": "$3"
-      }
-    }
-  },
-  "slots_one": {
-    "message": "$amount$-Slot",
-    "description": "For plural forms",
-    "placeholders": {
-      "amount": {
-        "content": "$1"
-      }
-    }
-  },
-  "slots_other": {
-    "message": "$amount$-Slots",
-    "description": "For plural forms",
-    "placeholders": {
-      "amount": {
-        "content": "$1"
-      }
-    }
   },
   "storageFeeMax": {
     "message": "Speichergebühr (max.)"
@@ -2046,25 +1424,8 @@
     "message": "weniger",
     "description": "Show less"
   },
-  "recentDestinations": {
-    "message": "Letzte Ziele"
-  },
-  "unknownAccount": {
-    "message": "Unbekanntes Konto"
-  },
   "ledgerLiveBridgeGuide": {
     "message": "Um eine Verbindung zum Ledger herzustellen, aktivieren Sie bitte die Ledger-Live-Anwendung auf Ihrem Gerät, öffnen Sie die Tezos Wallet-Anwendung und erlauben Sie eine WebSocket-Verbindung zu Ihrem Temple-Konto."
-  },
-  "noExchangerFoundForToken": {
-    "message": "Für Token $symbol$ ($name$) wurde kein Austauscher gefunden.",
-    "placeholders": {
-      "symbol": {
-        "content": "$1"
-      },
-      "name": {
-        "content": "$2"
-      }
-    }
   },
   "addressBook": {
     "message": "Adressbuch"
@@ -2079,7 +1440,7 @@
     "message": "Kontakt hinzufügen"
   },
   "newContactPlaceholder": {
-    "message": "z. B. Alice Bob"
+    "message": "z.B. Alice Bob"
   },
   "contactWithTheSameAddressAlreadyExists": {
     "message": "Kontakt mit gleicher Adresse ist bereits vorhanden"
@@ -2088,22 +1449,16 @@
     "message": "Aktuelle Kontakte"
   },
   "updateContactDescription": {
-    "message": "Um einen bestehenden Kontakt zu aktualisieren, entfernen Sie ihn einfach\nund fügen Sie einen neuen hinzu."
+    "message": "Um einen bestehenden Kontakt zu aktualisieren, entfernen Sie ihn einfach\nund fügen Sie ihn erneut mit anderen Namen hinzu."
   },
   "deleteContactConfirm": {
     "message": "Möchten Sie diesen Kontakt wirklich löschen?"
   },
   "ownAccount": {
-    "message": "Besitzen"
+    "message": "Eigen"
   },
   "counterErrorDescription": {
     "message": "Sie können den Vorgang im Moment nicht durchführen!\nBitte warten Sie, wenn Ihr vorheriger Vorgang ausgeführt wurde, und versuchen Sie es erneut."
-  },
-  "swapDisclaimerTitle": {
-    "message": "Haftungsausschluss. Lesen Sie den Abschnitt SWAP, bevor Sie ihn verwenden."
-  },
-  "swapDisclaimerContent": {
-    "message": "Temple Wallet bietet nur eine Schnittstelle zur Interaktion mit den Tezos Dexes. Wir sind nicht verantwortlich für: DEX-Ausgaben, angezeigte Token, Preise, Wechselkurse und Handelsentscheidungen der Nutzer. Bevor Sie diesen Swap-Abschnitt verwenden, sollten Sie die entsprechende Dokumentation lesen, um zu verstehen, wie die DEX(AMM)-Protokolle funktionieren. Die Nutzung dieses Abschnitts liegt allein in der Verantwortung des Nutzers."
   },
   "noContactsFound": {
     "message": "Keine Kontakte gefunden"
@@ -2112,10 +1467,10 @@
     "message": "Diese Adresse zu Kontakten hinzufügen?"
   },
   "verifySeedPhrase": {
-    "message": "Seed-Phrase überprüfen"
+    "message": "Passphrase überprüfen"
   },
   "verifySeedPhraseDescription": {
-    "message": "Füllen Sie die leeren Felder mit den Wörtern aus, um Ihr Seed Phrase-Backup zu überprüfen"
+    "message": "Füllen Sie die leeren Felder mit den Wörtern aus, um Ihre Passphrase zu überprüfen"
   },
   "word": {
     "message": "Wort $number$",
@@ -2140,134 +1495,17 @@
   "totalBalance": {
     "message": "Gesamtguthaben"
   },
-  "buyButton": {
-    "message": "Kaufen"
-  },
-  "buyWithCrypto": {
-    "message": "Mit Krypto kaufen"
-  },
-  "overdueTransaction": {
-    "message": "Transaktion ist überfällig"
-  },
-  "overdueTransactionMessage": {
-    "message": "Bitte erstellen Sie eine neue Börse, es sei denn,\nSie haben das Geld überwiesen. \n Wenn das Geld überwiesen wurde, warten Sie bitte auf die Bestätigung vom System."
-  },
-  "topUpAgain": {
-    "message": "Wieder aufladen"
-  },
-  "topUp": {
-    "message": "Aufladen"
-  },
-  "newTopUp": {
-    "message": "Neue Aufladung"
-  },
-  "exchangeDetails": {
-    "message": "Austauschdetails eingeben"
-  },
-  "exchangeDetailsDescription": {
-    "message": "Laden Sie Ihr TEZ-Guthaben sofort mit 25 Kryptowährungen auf"
-  },
-  "privacyAndPolicyLinks": {
-    "message": "Indem Sie auf Aufladen klicken, stimmen Sie den \n$termsOfUse$ und $privacyPolicy$ zu",
-    "placeholders": {
-      "termsOfUse": {
-        "content": "$1"
-      },
-      "privacyPolicy": {
-        "content": "$2"
-      }
-    }
-  },
-  "depositAddressText": {
-    "message": "Zahlen Sie auf $depositAddress$ address:",
-    "placeholders": {
-      "depositAddress": {
-        "content": "$1"
-      }
-    }
-  },
-  "support": {
-    "message": "Support"
-  },
-  "deposit": {
-    "message": "Einzahlung"
-  },
-  "depositDescription": {
-    "message": "Senden Sie das Geld an die unten stehende Adresse. Sobald die Einzahlung eingegangen ist, beginnt der Austauschprozess automatisch"
-  },
-  "sendByOneTransaction": {
-    "message": "Mit einer Transaktion senden"
-  },
-  "youGet": {
-    "message": "Sie erhalten:"
-  },
-  "fixedRate": {
-    "message": "Festpreis:"
-  },
   "transactionId": {
     "message": "Transaktions-ID:"
-  },
-  "atomDepositMemo": {
-    "message": "Atom Deposit Memo"
-  },
-  "recipientAddress": {
-    "message": "Empfängeradresse:"
-  },
-  "recipientXtzAddress": {
-    "message": "Empfänger-XTZ-Adresse:"
-  },
-  "inputHash": {
-    "message": "Eingabe-Hash:"
-  },
-  "youSend": {
-    "message": "Sie senden:"
-  },
-  "sendTime": {
-    "message": "Sendezeit:"
-  },
-  "completedDescription": {
-    "message": "Bitte überprüfen Sie Ihr Guthaben in Ihrer Wallet.\nDer Austauschvorgang ist abgeschlossen."
-  },
-  "completed": {
-    "message": "Abgeschlossen"
-  },
-  "youReceive": {
-    "message": "Sie erhalten:"
-  },
-  "waitMessage": {
-    "message": "Bitte warten. Der Austauschvorgang dauert zwischen 15 Minuten und 2 Stunden."
   },
   "confirmation": {
     "message": "Bestätigung"
   },
-  "exchanging": {
-    "message": "Wird ausgetauscht"
-  },
   "step": {
     "message": "Schritt"
   },
-  "dogeNote": {
-    "message": "Hinweis für DOGE: Übertragungsnetz - MainNet DOGE. Bitte zahlen Sie nur DOGE (MainNet) ein. Andernfalls können Sie Ihr Vermögen dauerhaft verlieren."
-  },
-  "polygonNote": {
-    "message": "Hinweis für MATIC: Übertragungsnetz - Ethereum (ETH). Bitte zahlen Sie nur MATIC (ERC20) ein. Andernfalls können Sie Ihr Vermögen dauerhaft verlieren."
-  },
-  "usdtNote": {
-    "message": "Hinweis für USDT: Übertragungsnetz - Ethereum (ETH) ERC20. Bitte zahlen Sie nur USDT (ERC20) ein. Andernfalls können Sie Ihr Vermögen dauerhaft verlieren."
-  },
-  "cakeNote": {
-    "message": "Hinweis für CAKE: Übertragungsnetz - Binance Smart Chain (BSC). Bitte zahlen Sie nur CAKE (BEP20) ein. Andernfalls können Sie Ihr Vermögen dauerhaft verlieren."
-  },
   "collectibles": {
     "message": "Sammlerstücke"
-  },
-  "attentionSendAmount": {
-    "message": "Sie müssen den genauen Betrag der Kryptowährung an die Einzahlungsadresse senden. Andernfalls schlägt die Transaktion fehl und Sie müssen sich an $support$ wenden",
-    "placeholders": {
-      "support": {
-        "content": "$1"
-      }
-    }
   },
   "important": {
     "message": "Wichtig"
@@ -2290,9 +1528,6 @@
   "min": {
     "message": "Min:"
   },
-  "warningTopUpServiceMessage": {
-    "message": "Die Token-Austausch-Funktion wird von einem Drittanbieter bereitgestellt. Die Temple Wallet ist nicht für die Arbeit von Drittanbieterdiensten verantwortlich."
-  },
   "totalAmount": {
     "message": "Gesamtbetrag"
   },
@@ -2307,5 +1542,11 @@
   },
   "interactionWith": {
     "message": "Kontraktinteraktion mit"
+  },
+  "lockUpSettings": {
+    "message": "Automatische Sperre"
+  },
+  "lockUpSettingsDescription": {
+    "message": "Die Erweiterung wird automatisch nach 5 Minuten Inaktivität gesperrt."
   }
 }

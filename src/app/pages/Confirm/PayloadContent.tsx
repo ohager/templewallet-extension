@@ -8,7 +8,6 @@ import Money from 'app/atoms/Money';
 import Name from 'app/atoms/Name';
 import Balance from 'app/templates/Balance';
 import CustomSelect, { OptionRenderProps } from 'app/templates/CustomSelect';
-import { ModifyFeeAndLimit } from 'app/templates/ExpensesView';
 import SignView from 'app/templates/SignumSignView/SignView';
 import { T } from 'lib/i18n/react';
 import { SIGNA_METADATA, TempleDAppSignPayload, useRelevantAccounts } from 'lib/temple/front';

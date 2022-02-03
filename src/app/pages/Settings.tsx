@@ -45,24 +45,6 @@ const TABS = [
     descriptionI18nKey: 'addressBookDescription',
     testID: SettingsSelectors.AddressBookButton
   },
-  // {
-  //   slug: 'reveal-private-key',
-  //   titleI18nKey: 'revealPrivateKey',
-  //   Icon: KeyIcon,
-  //   Component: RevealPrivateKey,
-  //   color: '#3182CE',
-  //   descriptionI18nKey: 'revealPrivateKeyDescription',
-  //   testID: SettingsSelectors.RevealPrivateKeyButton
-  // },
-  // {
-  //   slug: 'reveal-seed-phrase',
-  //   titleI18nKey: 'revealSeedPhrase',
-  //   Icon: StickerIcon,
-  //   Component: RevealSeedPhrase,
-  //   color: '#F6AD55',
-  //   descriptionI18nKey: 'revealSeedPhraseDescription',
-  //   testID: SettingsSelectors.RevealSeedPhraseButton
-  // },
   {
     slug: 'dapps',
     titleI18nKey: 'dApps',

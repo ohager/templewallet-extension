@@ -10,13 +10,7 @@ import SubTitle from 'app/atoms/SubTitle';
 import { URL_PATTERN } from 'app/defaults';
 import { ReactComponent as CloseIcon } from 'app/icons/close.svg';
 import { T, t } from 'lib/i18n/react';
-import {
-  TempleNetwork,
-  useSettings,
-  useTempleClient,
-  validateContractAddress,
-  canConnectToNetwork
-} from 'lib/temple/front';
+import { TempleNetwork, useSettings, useTempleClient, canConnectToNetwork } from 'lib/temple/front';
 import { COLORS } from 'lib/ui/colors';
 import { useConfirm } from 'lib/ui/dialog';
 import { withErrorHumanDelay } from 'lib/ui/humanDelay';
@@ -59,7 +53,7 @@ const CustomNetworksSettings: FC = () => {
       const canConnect = await canConnectToNetwork(rpcBaseURL, type);
       if (!canConnect) {
         await withErrorHumanDelay(`cannot connect to ${rpcBaseURL}`, () =>
-          setError('rpcBaseURL', SUBMIT_ERROR_TYPE, t('invalidRpcCantGetChainId'))
+          setError('rpcBaseURL', SUBMIT_ERROR_TYPE, t('cantConnectToNetwork'))
         );
         return;
       }
@@ -278,7 +272,3 @@ const NetworksListItem: FC<NetworksListItemProps> = props => {
     </div>
   );
 };
-
-function validateLambdaContract(value: any) {
-  return value ? validateContractAddress(value) : true;
-}

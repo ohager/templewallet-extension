@@ -18,9 +18,6 @@ import BackupMnemonic from './BackupMnemonic';
 import VerifyMnemonic from './VerifyMnemonic';
 
 interface FormData {
-  keystoreFile?: FileList;
-  keystorePassword?: string;
-  shouldUseKeystorePassword: boolean;
   mnemonic?: string;
   password?: string;
   repassword?: string;

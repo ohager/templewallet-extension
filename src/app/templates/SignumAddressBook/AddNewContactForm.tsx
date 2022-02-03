@@ -32,7 +32,6 @@ const AddNewContactForm: React.FC<{ className?: string }> = ({ className }) => {
       if (!isSignumAddress(address)) {
         const accountId = await resolveAliasToAccountId(address);
         if (!accountId) {
-          // TODO: adjust the translations
           throw new Error(t('domainDoesntResolveToAddress', address));
         }
         return accountId;
