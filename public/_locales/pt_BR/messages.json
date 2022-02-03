@@ -20,7 +20,7 @@
     }
   },
   "account": {
-    "message": "conta"
+    "message": "Conta"
   },
   "accountActivated": {
     "message": "Sua conta foi ativada com sucesso!"
@@ -41,7 +41,7 @@
     "message": "1-16 caracteres, sem caracteres especiais"
   },
   "accountNumber": {
-    "message": "número de conta"
+    "message": "Número de conta"
   },
   "accountToBeActivated": {
     "message": "A conta precisa ser ativada."
@@ -50,10 +50,10 @@
     "message": "Conta para remover:"
   },
   "accounts": {
-    "message": "contas"
+    "message": "Contas"
   },
   "actionConfirmation": {
-    "message": "confirmar ação"
+    "message": "Confirmar Ação"
   },
   "activate": {
     "message": "Ativar"
@@ -65,7 +65,7 @@
     "message": "Isso pode ser necessário para contas de torneiras de ICO/fundador ou testnet."
   },
   "activateAccountSecret": {
-    "message": "segredo"
+    "message": "Segredo"
   },
   "activateAccountSecretDescription": {
     "message": "Campo 'secreto' da conta ou torneira do financiador"
@@ -74,56 +74,56 @@
     "message": "por exemplo, n4hs7sd3..."
   },
   "activationOperationType": {
-    "message": "ativação"
+    "message": "Ativação"
   },
   "activity": {
-    "message": "atividade"
+    "message": "Atividade"
   },
   "add": {
-    "message": "adicionar à"
+    "message": "Adicionar à"
   },
   "addAsset": {
-    "message": "adicionar ativo"
+    "message": "Adicionar ativo"
   },
   "addCollectible": {
     "message": "Adicionar colecionável"
   },
   "addContact": {
-    "message": "adicionar contato"
+    "message": "Adicionar Contato"
   },
   "addLedgerAccount": {
     "message": "Adicionar conta contábil",
     "description": "Razão = https://www.ledger.com/"
   },
   "addNetwork": {
-    "message": "Adicionar nó"
+    "message": "Adicionar Nó"
   },
   "addNewContact": {
-    "message": "Novo contato"
+    "message": "Novo Contato"
   },
   "addNewToken": {
-    "message": "Adicionar novo token"
+    "message": "Adicionar Novo Token"
   },
   "addThisAddressToContacts": {
     "message": "Adicionar este endereço aos contatos?"
   },
   "addToken": {
-    "message": "adicionar ativo"
+    "message": "Adicionar Ativo"
   },
   "additionalFee": {
-    "message": "Taxa adicional"
+    "message": "Taxa Adicional"
   },
   "address": {
-    "message": "Morada"
+    "message": "Endereço"
   },
   "addressBook": {
-    "message": "diretório"
+    "message": "Favoritos"
   },
   "addressBookDescription": {
     "message": "Adicione, remova e gerencie seus contatos."
   },
   "addressInputDescription": {
-    "message": "Endereço ou ID da conta de assinatura"
+    "message": "Endereço ou ID da conta Signum"
   },
   "addressInputDescriptionWithDomain": {
     "message": "Endereço, ID ou alias da conta"
@@ -140,13 +140,13 @@
     }
   },
   "alert": {
-    "message": "alarme"
+    "message": "Alerta"
   },
   "alpha": {
-    "message": "alfa"
+    "message": "Alfa"
   },
   "amount": {
-    "message": "montante"
+    "message": "Montante"
   },
   "amountMustBePositive": {
     "message": "Deve ser positivo"
@@ -155,7 +155,7 @@
     "message": "por exemplo, 123,45"
   },
   "analyticsConfirmationCancelButton": {
-    "message": "Interromper"
+    "message": "Cancelar"
   },
   "analyticsConfirmationCollect": {
     "message": "O que coletamos:"
@@ -197,7 +197,7 @@
     "message": "Carteira Signum XT"
   },
   "appRequestsToSign": {
-    "message": "$origin$ pedirá que você confirme a transação",
+    "message": "$origin$ solicita que você confirme a transação",
     "placeholders": {
       "origin": {
         "content": "$1"
@@ -224,16 +224,16 @@
     }
   },
   "approveToken": {
-    "message": "aprovar tokens"
+    "message": "Aprovar Tokens"
   },
   "asset": {
-    "message": "ativo"
+    "message": "Ativo"
   },
   "assetId": {
     "message": "ID do recurso"
   },
   "assets": {
-    "message": "ativos financeiros"
+    "message": "Ativos"
   },
   "atLeast1LowercaseLetter": {
     "message": "Pelo menos 1 letra minúscula"
@@ -1548,5 +1548,17 @@
   },
   "zeroCollectibleText": {
     "message": "Você ainda não tem colecionáveis!\nBoa hora para pegar um"
+  },
+  "addressBalanceDescription": {
+    "message": "Depois de criar uma conta, você receberá um endereço exclusivo - seu identificador pessoal no blockchain Signum. Você precisa deste endereço para receber SIGNA e executar transações, ou seja, enviar SIGNA, mensagens, interagir com Smart Contracts, emitir tokens, etc."
+  },
+  "addressBalanceHint": {
+    "message": "O endereço está sendo representado como <b>S-A1B2-...</b> para rede principal ou <b>TS-A1B2-...</b> para rede de teste. Se você adquiriu um nome de <b>alias</b> para sua conta, ele também poderá ser exibido. Depois de ter um saldo positivo, ele aparece abaixo do seu endereço."
+  },
+  "addressBalanceDetails": {
+    "message": "Seu endereço e saldo"
+  },
+  "atLeast1SpecialCharacter": {
+    "message": "Inclusão de pelo menos um caractere especial, por exemplo, ! @#? ] - (opcional, recomendado)."
   }
 }

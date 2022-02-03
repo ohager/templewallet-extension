@@ -252,7 +252,7 @@
   },
   "authorizedDApps": {
     "message": "Autorisierte DApps",
-    "description": "DApps = Decentralized Applications"
+    "description": "DApps = Dezentrale Anwendungen"
   },
   "availableToSend": {
     "message": "Verfügbar zum Senden (max.):"
@@ -1548,5 +1548,17 @@
   },
   "zeroCollectibleText": {
     "message": "Sie haben noch keine Sammlerstücke!\nGuter Zeitpunkt, um eins zu erhalten"
+  },
+  "addressBalanceDescription": {
+    "message": "Nachdem Sie ein Konto erstellt haben, erhalten Sie eine eindeutige Adresse – Ihre persönliche Kennung in der Signum-Blockchain. Sie benötigen diese Adresse, um SIGNA zu empfangen und Transaktionen auszuführen, d. h. SIGNA zu senden, Nachrichten zu senden, mit Smart Contracts zu interagieren, Token auszugeben usw."
+  },
+  "addressBalanceHint": {
+    "message": "Die Adresse wird als <b>S-A1B2-...</b> für das Hauptnetz oder <b>TS-A1B2-...</b> für das Testnetz dargestellt. Wenn Sie für Ihr Konto einen <b>Alias</b>-Namen erworben haben, wird dieser ebenfalls angezeigt. Sobald Sie ein positives Guthaben haben, wird es unter Ihrer Adresse angezeigt."
+  },
+  "addressBalanceDetails": {
+    "message": "Ihre Adresse und Guthaben"
+  },
+  "atLeast1SpecialCharacter": {
+    "message": "Aufnahme mindestens eines Sonderzeichens, z. B. ! @ # ? ] - (optional, empfohlen)."
   }
 }

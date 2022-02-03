@@ -1,15 +1,15 @@
 {
   "about": {
-    "message": "Encima"
+    "message": "Sobre"
   },
   "aboutDescription": {
     "message": "Utilice esta sección para ver información sobre esta extensión."
   },
   "acceptTerms": {
-    "message": "aceptar los terminos"
+    "message": "Aceptar los terminos"
   },
   "acceptTermsInputDescription": {
-    "message": "yo tengo\nHe leído y acepto los $termsOfUsageLink$ y $privacyPolicyLink$",
+    "message": "Yo tengo\nHe leído y acepto los $termsOfUsageLink$ y $privacyPolicyLink$",
     "placeholders": {
       "termsOfUsageLink": {
         "content": "$1"
@@ -20,7 +20,7 @@
     }
   },
   "account": {
-    "message": "cuenta"
+    "message": "Cuenta"
   },
   "accountActivated": {
     "message": "¡Su cuenta ha sido activada exitosamente!"
@@ -41,7 +41,7 @@
     "message": "1-16 caracteres, sin caracteres especiales"
   },
   "accountNumber": {
-    "message": "número de cuenta"
+    "message": "Número de cuenta"
   },
   "accountToBeActivated": {
     "message": "La cuenta necesita ser activada."
@@ -50,10 +50,10 @@
     "message": "Cuenta para eliminar:"
   },
   "accounts": {
-    "message": "cuentas"
+    "message": "Cuentas"
   },
   "actionConfirmation": {
-    "message": "confirmar acción"
+    "message": "Confirmar Acción"
   },
   "activate": {
     "message": "Activar"
@@ -65,7 +65,7 @@
     "message": "Esto puede ser necesario para las cuentas de faucet de ICO/financiador o testnet."
   },
   "activateAccountSecret": {
-    "message": "secreto"
+    "message": "Secreto"
   },
   "activateAccountSecretDescription": {
     "message": "Campo 'secreto' de la cuenta del financiador o faucet"
@@ -74,41 +74,41 @@
     "message": "por ejemplo, n4hs7sd3..."
   },
   "activationOperationType": {
-    "message": "activación"
+    "message": "Activación"
   },
   "activity": {
-    "message": "actividad"
+    "message": "Actividad"
   },
   "add": {
-    "message": "añadir"
+    "message": "Añadir"
   },
   "addAsset": {
-    "message": "añadir activo"
+    "message": "Añadir activo"
   },
   "addCollectible": {
     "message": "Añadir coleccionable"
   },
   "addContact": {
-    "message": "agregar contacto"
+    "message": "Agregar Contacto"
   },
   "addLedgerAccount": {
     "message": "Añadir cuenta contable",
     "description": "Libro mayor = https://www.ledger.com/"
   },
   "addNetwork": {
-    "message": "Agregar nodo"
+    "message": "Agregar Nodo"
   },
   "addNewContact": {
-    "message": "Nuevo contacto"
+    "message": "Nuevo Contacto"
   },
   "addNewToken": {
-    "message": "Agregar nueva ficha"
+    "message": "Agregar Nueva Ficha"
   },
   "addThisAddressToContacts": {
     "message": "¿Añadir esta dirección a los contactos?"
   },
   "addToken": {
-    "message": "añadir activo"
+    "message": "Añadir Activo"
   },
   "additionalFee": {
     "message": "Cuota Adicional"
@@ -117,7 +117,7 @@
     "message": "habla a"
   },
   "addressBook": {
-    "message": "directorio"
+    "message": "Favoritos"
   },
   "addressBookDescription": {
     "message": "Agregue, elimine y administre sus contactos."
@@ -140,22 +140,22 @@
     }
   },
   "alert": {
-    "message": "alarma"
+    "message": "Alerta"
   },
   "alpha": {
-    "message": "alfa"
+    "message": "Alfa"
   },
   "amount": {
     "message": "Monto"
   },
   "amountMustBePositive": {
-    "message": "debe ser positivo"
+    "message": "Debe ser positivo"
   },
   "amountPlaceholder": {
     "message": "por ejemplo, 123,45"
   },
   "analyticsConfirmationCancelButton": {
-    "message": "Interrumpir"
+    "message": "Cancelar"
   },
   "analyticsConfirmationCollect": {
     "message": "Lo que recopilamos:"
@@ -224,16 +224,16 @@
     }
   },
   "approveToken": {
-    "message": "aprobar fichas"
+    "message": "Aprobar Fichas"
   },
   "asset": {
-    "message": "activo"
+    "message": "Activo"
   },
   "assetId": {
     "message": "ID de activo"
   },
   "assets": {
-    "message": "activos financieros"
+    "message": "Activos"
   },
   "atLeast1LowercaseLetter": {
     "message": "Al menos 1 letra minúscula"
@@ -1548,5 +1548,17 @@
   },
   "zeroCollectibleText": {
     "message": "¡Aún no tienes ningún coleccionable!\nBuen momento para hacerte con uno"
+  },
+  "addressBalanceDescription": {
+    "message": "Después de crear una cuenta, obtendrá una dirección única: su identificador personal en la cadena de bloques de Signum. Necesita esta dirección para recibir SIGNA y ejecutar transacciones, es decir, enviar SIGNA, mensajes, interactuar con Smart Contracts, emitir tokens, etc."
+  },
+  "addressBalanceHint": {
+    "message": "La dirección se representa como <b>S-A1B2-...</b> para la red principal o <b>TS-A1B2-...</b> para la red de prueba. Si adquirió un nombre de <b>alias</b> para su cuenta, también se podrá visualizar. Una vez que tenga un saldo positivo, aparecerá debajo de su dirección."
+  },
+  "addressBalanceDetails": {
+    "message": "Tu dirección y saldo"
+  },
+  "atLeast1SpecialCharacter": {
+    "message": "Inclusión de al menos un carácter especial, por ejemplo, ! @ # ? ] - (opcional, recomendado)."
   }
 }

@@ -53,7 +53,7 @@
     "message": "Accounts"
   },
   "actionConfirmation": {
-    "message": "confirm action"
+    "message": "Confirm Action"
   },
   "activate": {
     "message": "Activate"
@@ -89,7 +89,7 @@
     "message": "Add collectible"
   },
   "addContact": {
-    "message": "Add contact"
+    "message": "Add Contact"
   },
   "addLedgerAccount": {
     "message": "Add Ledger Account",
@@ -197,7 +197,7 @@
     "message": "Signum XT Wallet"
   },
   "appRequestsToSign": {
-    "message": "$origin$ will ask you to confirm the transaction",
+    "message": "$origin$ asks you to confirm the transaction",
     "placeholders": {
       "origin": {
         "content": "$1"
@@ -1622,7 +1622,7 @@
     "message": "Your browser version is out of date, we strongly recommend updating to the newest version!"
   },
   "congratsDescription1": {
-    "message": "Great! You are onboarded \uD83C\uDFC6"
+    "message": "Great! You are onboarded 🏆"
   },
   "congratsDescription2": {
     "message": "Now you know about the basic and most important functions of the Signum XT wallet."
