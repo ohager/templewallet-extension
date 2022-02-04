@@ -22,15 +22,12 @@ import Name from 'app/atoms/Name';
 import { ReactComponent as CoffeeIcon } from 'app/icons/coffee.svg';
 import { ReactComponent as CupIcon } from 'app/icons/cup.svg';
 import { ReactComponent as RocketIcon } from 'app/icons/rocket.svg';
-import { ReactComponent as SettingsIcon } from 'app/icons/settings.svg';
 import CustomSelect, { OptionRenderProps } from 'app/templates/CustomSelect';
-import { AnalyticsEventCategory, useAnalytics } from 'lib/analytics';
 import { toLocalFixed } from 'lib/i18n/numbers';
 import { T, t } from 'lib/i18n/react';
 import { SIGNA_METADATA, useSignum } from 'lib/temple/front';
 
 import Spinner from '../atoms/Spinner';
-import { AdditionalFeeInputSelectors } from './AdditionalFeeInput.selectors';
 
 type AssetFieldProps = typeof AssetField extends ForwardRefExoticComponent<infer T> ? T : never;
 
@@ -94,7 +91,7 @@ const AdditionalFeeInput: FC<AdditionalFeeInputProps> = props => {
     }
 
     fetchFees();
-  }, []);
+  }, [signum]);
 
   const handleChange: EventFunction = event => {
     return onChange !== undefined && onChange(event);
@@ -141,18 +138,7 @@ type AdditionalFeeInputContentProps = AssetFieldProps & {
 };
 
 const AdditionalFeeInputContent: FC<AdditionalFeeInputContentProps> = props => {
-  const {
-    className,
-    containerClassName,
-    customFeeInputRef,
-    onChange,
-    assetSymbol,
-    id,
-    label,
-    labelDescription,
-    value,
-    ...restProps
-  } = props;
+  const { onChange, id, label, labelDescription, value } = props;
 
   const [selectedPreset, setSelectedPreset] = useState<FeeOption['type']>(
     feeOptions.find(({ amount }) => amount === value)?.type || 'minimal'

@@ -14,11 +14,18 @@ type ImportAccountProps = {
   tabSlug: string | null;
 };
 
-type ImportTabDescriptor = {
-  slug: string;
-  i18nKey: string;
-  ImportForm: FC<{}>;
-};
+const AllTabs = [
+  {
+    slug: 'mnemonic',
+    i18nKey: 'mnemonic',
+    ImportForm: ByMnemonicForm
+  },
+  {
+    slug: 'watch-only',
+    i18nKey: 'watchOnlyAccount',
+    ImportForm: WatchOnlyForm
+  }
+];
 
 const ImportAccount: FC<ImportAccountProps> = ({ tabSlug }) => {
   const network = useNetwork();
@@ -36,26 +43,10 @@ const ImportAccount: FC<ImportAccountProps> = ({ tabSlug }) => {
     prevAccLengthRef.current = accLength;
   }, [allAccounts, setAccountPkh]);
 
-  const allTabs = useMemo(
-    () =>
-      [
-        {
-          slug: 'mnemonic',
-          i18nKey: 'mnemonic',
-          ImportForm: ByMnemonicForm
-        },
-        {
-          slug: 'watch-only',
-          i18nKey: 'watchOnlyAccount',
-          ImportForm: WatchOnlyForm
-        }
-      ].filter((x): x is ImportTabDescriptor => !!x),
-    [network.type]
-  );
   const { slug, ImportForm } = useMemo(() => {
-    const tab = tabSlug ? allTabs.find(currentTab => currentTab.slug === tabSlug) : null;
-    return tab ?? allTabs[0];
-  }, [allTabs, tabSlug]);
+    const tab = tabSlug ? AllTabs.find(currentTab => currentTab.slug === tabSlug) : null;
+    return tab ?? AllTabs[0];
+  }, [tabSlug]);
   useEffect(() => {
     const prevNetworkType = prevNetworkRef.current.type;
     prevNetworkRef.current = network;
@@ -74,7 +65,7 @@ const ImportAccount: FC<ImportAccountProps> = ({ tabSlug }) => {
       }
     >
       <div className="py-4">
-        <TabSwitcher className="mb-4" tabs={allTabs} activeTabSlug={slug} urlPrefix="/import-account" />
+        <TabSwitcher className="mb-4" tabs={AllTabs} activeTabSlug={slug} urlPrefix="/import-account" />
         <ImportForm />
       </div>
     </PageLayout>

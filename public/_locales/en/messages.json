@@ -167,7 +167,7 @@
     "message": "Confirm"
   },
   "analyticsConfirmationDescription": {
-    "message": "We are constantly improving Temple Wallet and need your help. To better understand which section of the wallet should be updated, we collect anonymous usage data. This data is only used to improve the usability of Temple Wallet."
+    "message": "We are constantly improving  Wallet and need your help. To better understand which section of the wallet should be updated, we collect anonymous usage data. This data is only used to improve the usability of  Wallet."
   },
   "analyticsConfirmationNeverCollect": {
     "message": "We NEVER track:"
@@ -179,7 +179,7 @@
     "message": "You can disable analytics tracking at any time in your wallet settings."
   },
   "analyticsConfirmationTitle": {
-    "message": "Help us make Temple Wallet better"
+    "message": "Help us make  Wallet better"
   },
   "analyticsSettings": {
     "message": "Anonymous Analysis"
@@ -380,7 +380,7 @@
     "message": "Copy Address to Clipboard"
   },
   "copyHashToClipboard": {
-    "message": "Copy Transaction ID to Clipboard"
+    "message": "Copy to Clipboard"
   },
   "counterErrorDescription": {
     "message": "You cannot perform the operation at the moment!\nPlease wait if your previous operation has been completed and try again."
@@ -673,7 +673,7 @@
     "message": "fundraiser"
   },
   "game": {
-    "message": "game"
+    "message": "Game"
   },
   "gasFee": {
     "message": "gas fee"
@@ -790,7 +790,7 @@
     "message": "Language"
   },
   "ledgerLiveBridgeGuide": {
-    "message": "To connect to the Ledger, please activate the Ledger Live application on your device, open the Tezos Wallet application and allow a WebSocket connection to your Temple account."
+    "message": "To connect to the Ledger, please activate the Ledger Live application on your device, open the Tezos Wallet application and allow a WebSocket connection to your  account."
   },
   "ledgerLiveSettings": {
     "message": "Use Ledger Live"
@@ -889,7 +889,7 @@
     }
   },
   "min": {
-    "message": "minutes:"
+    "message": "Minimum:"
   },
   "minimalFeeDescription": {
     "message": "Minimal"
@@ -907,7 +907,7 @@
     "message": "Your secret passphrase; usually 12 words."
   },
   "mnemonicInputLabel": {
-    "message": "Seed Passphrase"
+    "message": "Passphrase"
   },
   "mnemonicInputPlaceholder": {
     "message": "e.g. venue sock milk update..."
@@ -929,7 +929,7 @@
     "message": "Must be a valid URL"
   },
   "name": {
-    "message": "Surname"
+    "message": "Name"
   },
   "network": {
     "message": "Network"
@@ -1002,7 +1002,7 @@
     "message": "OK"
   },
   "onlyHTTPS": {
-    "message": "HTTP only"
+    "message": "HTTPS only"
   },
   "onlyKTContractAddressAllowed": {
     "message": "Only KT... Contract address allowed",
@@ -1084,7 +1084,7 @@
     "message": "Pop-up mode"
   },
   "popupSettingsDescription": {
-    "message": "Here you can configure the popup that appears when clicking on the plugin's icon in the extension panel."
+    "message": "Here you can set whether the wallet should be opened in pop-up mode - i.e. at the top right of the browser - or as a whole page in the browser."
   },
   "positiveIntMessage": {
     "message": "Integer, 1 or greater"
@@ -1176,7 +1176,7 @@
     "message": "Reset Extension"
   },
   "resetExtensionConfirmation": {
-    "message": "Are you sure you want to reset the Temple wallet?\nThis will erase all your data locally.\nYou can import your active accounts again at any time."
+    "message": "Are you sure you want to reset the  wallet?\nThis will erase all your data locally.\nYou can import your active accounts again at any time."
   },
   "resetPermissionsConfirmation": {
     "message": "Do you want permissions for\nReally reset $origin$?",
@@ -1199,7 +1199,7 @@
     "message": "Reveal"
   },
   "revealNewSeedPhrase": {
-    "message": "<b>Click below</b> to view your new passphrase.\nThen, write that phrase down on a piece of paper and/or <b>keep it in a safe place</b>. Or learn them by heart."
+    "message": "<b>Click below</b> to view your new passphrase.\nThen, write that phrase down on a piece of paper and/or <b>keep it in a safe place</b>."
   },
   "rocketFeeDescription": {
     "message": "Rocket"
@@ -1208,7 +1208,7 @@
     "message": "Network Node URL"
   },
   "save": {
-    "message": "Save on computer"
+    "message": "Save"
   },
   "searchAssets": {
     "message": "Find Assets..."
@@ -1320,7 +1320,7 @@
     "message": "Confirmation timed out. You can either wait longer or try again later."
   },
   "toAsset": {
-    "message": "On"
+    "message": "To"
   },
   "toBeConnectedWithDApp": {
     "message": "should be connected with DApp."
@@ -1406,7 +1406,7 @@
     }
   },
   "transfer": {
-    "message": "Transferred"
+    "message": "Transfer"
   },
   "transferFromSmb": {
     "message": "by $sender$",
@@ -1521,7 +1521,7 @@
     "message": "View all"
   },
   "watchOnlyAccount": {
-    "message": "Watch Only"
+    "message": "Watching"
   },
   "website": {
     "message": "Site"
@@ -1601,7 +1601,7 @@
     "message": "At the top of the interface, you can see your account icon. By clicking on it, you will open a menu with further actions, e.g. settings and account management."
   },
   "profileRpcHint1": {
-    "message": "Next, you will see the “Networks” selector, which allows you to select a node to which your Temple extension will be connected.\nMain Net nodes are greenish, while Test Net Nodes have orange indicators. Test net nodes are for experimenting without using real money"
+    "message": "Next, you will see the “Networks” selector, which allows you to select a node to which your wallet will be connected.\nMain Net nodes are greenish, while Test Net Nodes have orange indicators. Test net nodes are for experimenting without using real money"
   },
   "profileRpcHint2": {
     "message": "If your balance is not displayed, try changing the node."
@@ -1628,7 +1628,7 @@
     "message": "Now you know about the basic and most important functions of the Signum XT wallet."
   },
   "congratsDescription3": {
-    "message": "You can learn all features of the Temple from our “Educational series” on YouTube."
+    "message": "You can learn all features of the Wallet from our “Educational series” on YouTube."
   },
   "congratsDescription4": {
     "message": "Also, instructions and guides are available in our knowledge base."
@@ -1647,5 +1647,71 @@
   },
   "networkIsTestnetDescription": {
     "message": "Test networks do not carry any monetary value and are only for experimenting and/or development."
+  },
+  "updateAccountInfo": {
+    "message": "Account Info Update"
+  },
+  "contractCreation": {
+    "message": "Create Contract"
+  },
+  "aliasCreation": {
+    "message": "Create Alias"
+  },
+  "aliasBuy": {
+    "message": "Buy Alias"
+  },
+  "addCommitment": {
+    "message": "Add Commitment"
+  },
+  "removeCommitment": {
+    "message": "Remove Commitment"
+  },
+  "joinPool": {
+    "message": "Join Pool"
+  },
+  "attention": {
+    "message": "Attention"
+  },
+  "attentionDescription": {
+    "message": "Never, under any circumstances, disclose your private keys and seed phrase to any third party."
+  },
+  "attentionListTitle1": {
+    "message": "Also, remember:"
+  },
+  "attentionListItem1": {
+    "message": "Your wallet can be targeted through a browser zero-day-exploit or via other malicious extension installed;"
+  },
+  "attentionListItem2": {
+    "message": "The screen can potentially be manipulated by malicious software installed in the system;"
+  },
+  "attentionListItem3": {
+    "message": "User’s host machine can be targeted by malware to steal encrypted wallet;"
+  },
+  "attentionListItem4": {
+    "message": "Choosing weak passwords can reduce the ability of a wallet to resist adversarial brute-forcing."
+  },
+  "attentionListTitle2": {
+    "message": "To keep your assets safe, we recommend:"
+  },
+  "attentionListItem5": {
+    "message": "Move your funds from “hot” wallet to “cold” as soon as possible;"
+  },
+  "attentionListItem6": {
+    "message": "Use separate browsers for web-surfing and wallet’s operating;"
+  },
+  "attentionListItem7": {
+    "message": "Use one browser’s tab at a time to make transactions;"
+  },
+  "attentionListItem8": {
+    "message": "Keep the wallet locked when it is not in usage."
+  },
+  "takeCare": {
+    "message": "Take care of your safety in the crypto world!"
+  },
+  "readMore": {
+    "message": "Read more by the "
+  },
+  "thanks": {
+    "message": "Got it!"
   }
 }

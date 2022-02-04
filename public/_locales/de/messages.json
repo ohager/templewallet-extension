@@ -167,7 +167,7 @@
     "message": "Bestätigen"
   },
   "analyticsConfirmationDescription": {
-    "message": "Wir verbessern die Temple Wallet ständig und benötigen Ihre Hilfe. Um besser zu verstehen, welcher Abschnitt der Wallet aktualisiert werden sollte, erheben wir anonyme Nutzungsdaten. Diese Daten werden nur verwendet, um die Benutzerfreundlichkeit der Temple Wallet zu verbessern."
+    "message": "Wir verbessern die Wallet ständig und benötigen Ihre Hilfe. Um besser zu verstehen, welcher Abschnitt der Wallet aktualisiert werden sollte, erheben wir anonyme Nutzungsdaten. Diese Daten werden nur verwendet, um die Benutzerfreundlichkeit der Wallet zu verbessern."
   },
   "analyticsConfirmationNeverCollect": {
     "message": "Wir verfolgen NIE:"
@@ -179,7 +179,7 @@
     "message": "Sie können die Analyse-Nachverfolgungsfunktion jederzeit in Ihren Wallet-Einstellungen deaktivieren."
   },
   "analyticsConfirmationTitle": {
-    "message": "Helfen Sie uns, die Temple Wallet besser zu machen"
+    "message": "Helfen Sie uns, die Wallet besser zu machen"
   },
   "analyticsSettings": {
     "message": "Anonyme Analyse"
@@ -479,7 +479,7 @@
     }
   },
   "defaultWatchOnlyAccountName": {
-    "message": "Nur ansehen $accountNumber$",
+    "message": "Nur zur Ansicht $accountNumber$",
     "placeholders": {
       "accountNumber": {
         "content": "$1"
@@ -551,13 +551,13 @@
     }
   },
   "disable": {
-    "message": "deaktivieren"
+    "message": "Deaktivieren"
   },
   "disabled": {
     "message": "Deaktiviert"
   },
   "disabledForWatchOnlyAccount": {
-    "message": "Deaktiviert für nur anzuzeigendes Konto"
+    "message": "Deaktiviert für Beobachter-Konto"
   },
   "doNotSharePhrase": {
     "message": "<b>Teilen Sie</b> diese Phrase mit NIEMANDEM! Sie kann verwendet werden, um Ihr Guthaben zu stehlen."
@@ -580,7 +580,7 @@
     "message": "Ihr Konto ist leer. Zahlen Sie einen beliebigen Tez-Betrag auf dieses Konto ein, um es zu aktivieren"
   },
   "enable": {
-    "message": "aktivieren"
+    "message": "Aktivieren"
   },
   "enablePopup": {
     "message": "Popup aktivieren"
@@ -667,13 +667,13 @@
     "message": "Nur .png-, .jpg-, .jpeg-, .gif-, .webp-Bilder erlaubt"
   },
   "from": {
-    "message": "Von"
+    "message": "von"
   },
   "fundraiser": {
     "message": "Geldbeschaffer"
   },
   "game": {
-    "message": "Game"
+    "message": "Spiel"
   },
   "gasFee": {
     "message": "Gasgebühr"
@@ -790,7 +790,7 @@
     "message": "Sprache"
   },
   "ledgerLiveBridgeGuide": {
-    "message": "Um eine Verbindung zum Ledger herzustellen, aktivieren Sie bitte die Ledger-Live-Anwendung auf Ihrem Gerät, öffnen Sie die Tezos Wallet-Anwendung und erlauben Sie eine WebSocket-Verbindung zu Ihrem Temple-Konto."
+    "message": "Um eine Verbindung zum Ledger herzustellen, aktivieren Sie bitte die Ledger-Live-Anwendung auf Ihrem Gerät, öffnen Sie die Tezos Wallet-Anwendung und erlauben Sie eine WebSocket-Verbindung zu Ihrem Konto."
   },
   "ledgerLiveSettings": {
     "message": "Hauptbuch-Live verwenden"
@@ -889,7 +889,7 @@
     }
   },
   "min": {
-    "message": "Min:"
+    "message": "Minimum:"
   },
   "minimalFeeDescription": {
     "message": "Minimal"
@@ -901,7 +901,7 @@
     "message": "Die Mindestgebühr für diese Transaktion ist höher als Ihr Guthaben."
   },
   "mnemonic": {
-    "message": "Mnemonic"
+    "message": "Passphrase"
   },
   "mnemonicInputDescription": {
     "message": "Ihre geheime Passphrase; üblicherweise 12 Wörter."
@@ -913,7 +913,7 @@
     "message": "z.B. venue sock milk update..."
   },
   "more": {
-    "message": "mehr",
+    "message": "Mehr",
     "description": "Show more"
   },
   "mustBeEqualToPasswordAbove": {
@@ -1069,7 +1069,7 @@
     "message": "Wird für zusätzliche Mnemonic-Ableitung verwendet. Das ist KEIN Wallet-Passwort."
   },
   "payloadToSign": {
-    "message": "Nutzlast zum Unterschreiben"
+    "message": "Nutzdaten zum Unterschreiben"
   },
   "pending": {
     "message": "Ausstehend..."
@@ -1176,7 +1176,7 @@
     "message": "Erweiterung zurücksetzen"
   },
   "resetExtensionConfirmation": {
-    "message": "Möchten Sie die Temple Wallet wirklich zurücksetzen?\nDadurch werden alle Ihre Daten lokal gelöscht.\nIhre aktiven Konten können sie jederzeit wieder importieren."
+    "message": "Möchten Sie die Wallet wirklich zurücksetzen?\nDadurch werden alle Ihre Daten lokal gelöscht.\nIhre aktiven Konten können sie jederzeit wieder importieren."
   },
   "resetPermissionsConfirmation": {
     "message": "Möchten Sie die Berechtigungen für\n$origin$ wirklich zurücksetzen?",
@@ -1199,7 +1199,7 @@
     "message": "Freigeben"
   },
   "revealNewSeedPhrase": {
-    "message": "<b>Klicken Sie auf den unteren Bereich</b>, um Ihre neue Passphrase anzuzeigen.\nSchreiben Sie diese Phrase dann auf ein Blatt Papier und-oder <b>bewahren Sie es an einem sicheren Ort auf</b>. Oder lernen Sie sie auswendig."
+    "message": "<b>Klicken Sie auf den unteren Bereich</b>, um Ihre neue Passphrase anzuzeigen.\nSchreiben Sie diese Phrase dann auf ein Blatt Papier und-oder <b>bewahren Sie es an einem sicheren Ort auf</b>."
   },
   "rocketFeeDescription": {
     "message": "Rakete"
@@ -1258,7 +1258,7 @@
     "message": "Social"
   },
   "soon": {
-    "message": "bald"
+    "message": "Bald"
   },
   "sorry": {
     "message": "Sorry!"
@@ -1288,7 +1288,7 @@
     "message": "Erfolg"
   },
   "swap": {
-    "message": "Wechseln"
+    "message": "wechseln"
   },
   "swapNoun": {
     "message": "Wechseln"
@@ -1297,7 +1297,7 @@
     "message": "Symbol"
   },
   "templeWalletOptions": {
-    "message": "Temple Wallet | Optionen"
+    "message": "XT Wallet | Optionen"
   },
   "termsOfUsage": {
     "message": "Nutzungsbedingungen"
@@ -1406,7 +1406,7 @@
     }
   },
   "transfer": {
-    "message": "Überweisen"
+    "message": "Transfer"
   },
   "transferFromSmb": {
     "message": "von $sender$",
@@ -1521,7 +1521,7 @@
     "message": "Alle ansehen"
   },
   "watchOnlyAccount": {
-    "message": "Nur ansehen"
+    "message": "Beobachten"
   },
   "website": {
     "message": "Website"
@@ -1560,5 +1560,113 @@
   },
   "atLeast1SpecialCharacter": {
     "message": "Aufnahme mindestens eines Sonderzeichens, z. B. ! @ # ? ] - (optional, empfohlen)."
+  },
+  "addCommitment": {
+    "message": "Commitment hinzufügen"
+  },
+  "aliasBuy": {
+    "message": "Alias kaufen"
+  },
+  "aliasCreation": {
+    "message": "Alias erstellen"
+  },
+  "browserVersionIsOutOfDate": {
+    "message": "Ihre Browserversion ist veraltet, wir empfehlen dringend, auf die neueste Version zu aktualisieren!"
+  },
+  "congratsDescription1": {
+    "message": "Toll! Sie sind an Bord 🏆"
+  },
+  "congratsDescription2": {
+    "message": "Jetzt kennst du die grundlegenden und wichtigsten Funktionen des Signum XT Wallets."
+  },
+  "congratsDescription3": {
+    "message": "Alle Funktionen des Tempels können Sie in unserer „Bildungsreihe“ auf YouTube kennenlernen."
+  },
+  "congratsDescription4": {
+    "message": "Außerdem sind Anleitungen und Leitfäden in unserer Wissensdatenbank verfügbar."
+  },
+  "congratsDescription5": {
+    "message": "Tritt unseren Communities auf Telegram und Discord bei."
+  },
+  "congratsDescription6": {
+    "message": "Willkommen in der Signum-Welt!"
+  },
+  "contractCreation": {
+    "message": "Kontrakt erstellen"
+  },
+  "done": {
+    "message": "Fertig!"
+  },
+  "howToStartDescription1": {
+    "message": "Um mit der Nutzung Ihres Wallets und der Interaktion mit dem Signum DApps-Ökosystem zu beginnen, muss der Kontostand positiv sein, da jede Transaktion Sie eine geringe Gebühr kostet"
+  },
+  "howToStartDescription2": {
+    "message": "Sie können SIGNA erhalten, indem Sie an einer der Börsen kaufen, mit Festplatten schürfen oder durch Community-Engagement. Komm Sie zu uns auf Discord"
+  },
+  "howToStartDetails": {
+    "message": "Wie man anfängt"
+  },
+  "howToStartHint": {
+    "message": "Außerdem können Sie Ihre Adresse kopieren und Münzen von einer anderen Brieftasche oder Börse dorthin senden. Um die Adresse zu kopieren, klicken Sie auf dem Hauptbildschirm der Brieftasche darauf oder verwenden Sie „Empfangen“."
+  },
+  "joinPool": {
+    "message": "Pool beitreten"
+  },
+  "mixtureOfLettersAndNumbers": {
+    "message": "Eine Mischung aus Buchstaben und Zahlen."
+  },
+  "mixtureOfUppercaseAndLowercaseLetters": {
+    "message": "Eine Mischung aus Groß- und Kleinbuchstaben."
+  },
+  "networkIsTestnetDescription": {
+    "message": "Testnetzwerke haben keinen Geldwert und dienen nur zum Experimentieren und/oder Entwickeln."
+  },
+  "networkIsTestnetLabel": {
+    "message": "Es ist ein Testnetzwerk"
+  },
+  "next": {
+    "message": "Weiter"
+  },
+  "onboarding": {
+    "message": "Onboarding"
+  },
+  "profileRpcDescription": {
+    "message": "Oben auf der Benutzeroberfläche sehen Sie Ihr Kontosymbol. Durch Anklicken öffnet sich ein Menü mit weiteren Aktionen, z.B. Einstellungen und Kontoverwaltung."
+  },
+  "profileRpcDetails": {
+    "message": "Profil- und Netzwerkknoten"
+  },
+  "profileRpcHint1": {
+    "message": "Als nächstes sehen Sie die Auswahl „Netzwerke“, mit der Sie einen Knoten auswählen können, mit dem Ihre Wallet verbunden wird.\nHauptnetzknoten sind grünlich, während Testnetzknoten orangefarbene Anzeigen haben. Testnetzknoten dienen zum Experimentieren, ohne echtes Geld zu verwenden"
+  },
+  "profileRpcHint2": {
+    "message": "Wenn Ihr Guthaben nicht angezeigt wird, versuchen Sie, den Knoten zu ändern."
+  },
+  "profileRpcHint3": {
+    "message": "Sie können aus einer vordefinierten Liste auswählen oder Knoten manuell im Abschnitt Einstellungen hinzufügen"
+  },
+  "removeCommitment": {
+    "message": "Commitment zurücknehmen"
+  },
+  "start": {
+    "message": "Los geht's"
+  },
+  "tokensCollectibleDescription1": {
+    "message": "Ihr Guthaben an FA1.2- und FA2-Token wird auf der Registerkarte „Tokens“ angezeigt."
+  },
+  "tokensCollectibleDescription2": {
+    "message": "Sie können Adressen von jedem Token senden, überprüfen oder Vertragsadressen prüfen, indem Sie in diesem Abschnitt darauf klicken."
+  },
+  "tokensCollectibleDetails": {
+    "message": "Token & Sammlerstück"
+  },
+  "tokensCollectibleHint": {
+    "message": "Ihre Non-Fungible Tokens (NFT) werden auf der Registerkarte „Collectibles“ angezeigt. Hier können Sie auch mit Ihren eigenen NFTs interagieren, ihre vollständige Ansicht, ID und Vertragsadresse anzeigen."
+  },
+  "updateAccountInfo": {
+    "message": "Aktualisierung der Kontoinformationen"
+  },
+  "welcomeToOnboarding": {
+    "message": "Willkommen beim Onboarding"
   }
 }

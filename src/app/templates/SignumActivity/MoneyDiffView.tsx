@@ -4,7 +4,7 @@ import classNames from 'clsx';
 
 import Money from 'app/atoms/Money';
 import { useAppEnv } from 'app/env';
-import InUSD from 'app/templates/InUSD';
+// import InUSD from 'app/templates/InUSD';
 import { getAssetSymbol, useSignumAssetMetadata } from 'lib/temple/front';
 
 type MoneyDiffViewProps = {

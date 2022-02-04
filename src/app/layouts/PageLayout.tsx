@@ -17,8 +17,6 @@ import { ReactComponent as AttentionGreyIcon } from '../icons/attentionGrey.svg'
 import { ReactComponent as AttentionRedIcon } from '../icons/attentionRed.svg';
 import { useOnboardingProgress } from '../pages/Onboarding/hooks/useOnboardingProgress.hook';
 import { PageLayoutSelectors } from './PageLayout.selectors';
-import AnalyticsConfirmationOverlay from './PageLayout/AnalyticsConfirmationOverlay';
-import ConfirmationOverlay from './PageLayout/ConfirmationOverlay';
 import Header from './PageLayout/Header';
 
 type PageLayoutProps = ToolbarProps;

@@ -69,7 +69,7 @@ type ExpenseViewItemProps = {
 };
 
 const ExpenseViewItem: FC<ExpenseViewItemProps> = ({ expense, last, mainnet = false, type, isSelf }) => {
-  const operationTypeLabel = useMemo(() => `${type.textIcon} ${t(type.i18nKey)}`, [expense]);
+  const operationTypeLabel = useMemo(() => `${type.textIcon} ${t(type.i18nKey)}`, [type.textIcon, type.i18nKey]);
 
   return (
     <div className={classNames('pt-3 pb-2 px-2 flex justify-start items-center', !last && 'border-b border-gray-200')}>

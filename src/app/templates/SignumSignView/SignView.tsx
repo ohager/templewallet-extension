@@ -50,7 +50,7 @@ const SignView: FC<OperationViewProps> = ({ payload }) => {
           setError(t('failedToParseTransactionData'));
         });
       });
-  }, [payload]);
+  }, [payload, signum]);
 
   const handleErrorAlertClose = useCallback(() => setError(''), [setError]);
 

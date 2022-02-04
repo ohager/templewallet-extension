@@ -28,17 +28,15 @@ const ActivityItem = memo<ActivityItemProps>(({ accountId, transaction, classNam
 
   const moneyDiff = useMemo(() => parseAmountDiffs(transaction, accountId)[0], [transaction, accountId]);
 
-  const feeAmount = useMemo(() => Amount.fromPlanck(transaction.feeNQT!).getSigna(), [accountId]);
+  const feeAmount = useMemo(() => Amount.fromPlanck(transaction.feeNQT!).getSigna(), [transaction.feeNQT]);
   const txStack = useMemo(() => parseTxStack(transaction, accountId), [transaction, accountId]);
   const isPending = transaction.blockTimestamp === undefined;
   const transactionStatus = useMemo(() => {
     const content = isPending ? 'pending' : 'applied';
     return (
-      <span className={classNames(isPending ? 'text-gray-600' : 'text-green-600', 'capitalize')}>
-        {t(content) || content}
-      </span>
+      <span className={classNames(isPending ? 'text-gray-600' : 'text-green-600', 'capitalize')}>{t(content)}</span>
     );
-  }, [transaction]);
+  }, [isPending]);
 
   return (
     <div className={classNames('my-3', className)}>

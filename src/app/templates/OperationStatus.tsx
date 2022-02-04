@@ -41,7 +41,7 @@ const OperationStatus: FC<OperationStatusProps> = ({ typeTitle, operation, class
           return TxStatus.Confirmed;
       }
     },
-    [operation, signum]
+    [signum]
   );
 
   const { data: txStatus, error } = useRetryableSWR(

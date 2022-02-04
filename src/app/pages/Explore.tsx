@@ -10,11 +10,10 @@ import { ReactComponent as ChevronRightIcon } from 'app/icons/chevron-right.svg'
 import { ReactComponent as ExploreIcon } from 'app/icons/explore.svg';
 import { ReactComponent as ReceiveIcon } from 'app/icons/receive.svg';
 import { ReactComponent as SendIcon } from 'app/icons/send-alt.svg';
-import { ReactComponent as SwapVerticalIcon } from 'app/icons/swap-vertical.svg';
 import PageLayout from 'app/layouts/PageLayout';
 import Activity from 'app/templates/SignumActivity/Activity';
 import { T, t } from 'lib/i18n/react';
-import { getAssetSymbol, TempleAccountType, useAccount, useNetwork, useSignumAssetMetadata } from 'lib/temple/front';
+import { getAssetSymbol, TempleAccountType, useAccount, useSignumAssetMetadata } from 'lib/temple/front';
 import useTippy from 'lib/ui/useTippy';
 import { HistoryAction, Link, navigate, useLocation } from 'lib/woozie';
 
@@ -41,7 +40,6 @@ const Explore: FC<ExploreProps> = ({ assetSlug }) => {
   const { onboardingCompleted } = useOnboardingProgress();
   const account = useAccount();
   const { search } = useLocation();
-  const network = useNetwork();
 
   const assetMetadata = useSignumAssetMetadata(assetSlug || 'signa');
 
@@ -110,10 +108,6 @@ const Explore: FC<ExploreProps> = ({ assetSlug }) => {
 };
 
 export default Explore;
-
-const SwapIcon: FunctionComponent<SVGProps<SVGSVGElement>> = ({ className, ...restProps }) => {
-  return <SwapVerticalIcon className={classNames(className, 'transform rotate-90')} {...restProps} />;
-};
 
 type ActionButtonProps = {
   label: React.ReactNode;

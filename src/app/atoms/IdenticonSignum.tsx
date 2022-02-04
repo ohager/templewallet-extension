@@ -1,5 +1,4 @@
-// @ts-ignore
-import React, { createRef, FC, HTMLAttributes, useEffect, useMemo } from 'react';
+import React, { FC, HTMLAttributes, useMemo } from 'react';
 
 import classNames from 'clsx';
 // @ts-ignore
@@ -14,7 +13,7 @@ const IdenticonSignum: FC<IdenticonProps> = ({ accountId, size = 100, className,
   const iconSrc = useMemo(() => {
     if (!accountId) return '';
     return hashicon(accountId, { size: size - 8 }).toDataURL();
-  }, [accountId]);
+  }, [accountId, size]);
 
   return (
     <div

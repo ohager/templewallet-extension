@@ -1,5 +1,3 @@
-import { useCallback } from 'react';
-
 import { Amount } from '@signumjs/util';
 import BigNumber from 'bignumber.js';
 

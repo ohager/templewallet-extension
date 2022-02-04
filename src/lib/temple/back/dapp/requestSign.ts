@@ -1,10 +1,5 @@
 import { composeApi, Transaction } from '@signumjs/core';
-import {
-  TempleDAppErrorType,
-  TempleDAppMessageType,
-  TempleDAppSignRequest,
-  TempleDAppSignResponse
-} from '@temple-wallet/dapp/dist/types';
+import { TempleDAppErrorType } from '@temple-wallet/dapp/dist/types';
 import { v4 as uuid } from 'uuid';
 
 import { isSignumAddress } from '../../helpers';

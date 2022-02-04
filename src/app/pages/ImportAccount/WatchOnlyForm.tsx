@@ -88,7 +88,7 @@ export const WatchOnlyForm: FC = () => {
         setError(err.message);
       });
     }
-  }, [importWatchOnlyAccount, formState.isSubmitting, setError, addressValue]);
+  }, [importWatchOnlyAccount, formState.isSubmitting, setError, addressValue, resolveAlias]);
 
   return (
     <form className="w-full max-w-sm mx-auto my-8" onSubmit={handleSubmit(onSubmit)}>

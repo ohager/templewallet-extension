@@ -26,7 +26,7 @@ const HashChip: FC<HashChipProps> = ({
   const address = useMemo(() => {
     if (!isAccount) return hash;
     return Address.fromNumericId(hash, prefix).getReedSolomonAddress();
-  }, [hash, isAccount]);
+  }, [hash, isAccount, prefix]);
   return (
     <CopyButton text={address} type={type} {...rest}>
       <HashShortView

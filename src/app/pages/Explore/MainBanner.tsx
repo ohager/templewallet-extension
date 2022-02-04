@@ -5,7 +5,7 @@ import classNames from 'clsx';
 import Money from 'app/atoms/Money';
 import { ReactComponent as DollarIcon } from 'app/icons/dollar.svg';
 import { T } from 'lib/i18n/react';
-import { useBalance } from 'lib/temple/front';
+// import { useBalance } from 'lib/temple/front';
 
 import AssetBanner from '../../templates/AssetBanner';
 import BannerLayout from '../../templates/BannerLayout';
@@ -32,10 +32,8 @@ type MainnetVolumeBannerProps = {
 };
 
 const MainnetVolumeBanner: FC<MainnetVolumeBannerProps> = ({ accountPkh }) => {
-  // TODO: Consider Signum Tokens
-  // const { data: tokens } = useDisplayedFungibleTokens(chainId, accountPkh);
-  const { data: balancePlanck } = useBalance('signa', accountPkh);
   // TODO: get USD price
+  // const { data: balancePlanck } = useBalance('signa', accountPkh);
   const volumeInUSD = null;
 
   return (

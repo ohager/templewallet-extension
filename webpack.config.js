@@ -400,8 +400,8 @@ module.exports = {
     ]),
 
     new WebpackBar({
-      name: 'Temple Wallet',
-      color: '#ed8936'
+      name: 'Signum XT Wallet',
+      color: '#80caff'
     }),
 
     // plugin to enable browser reloading in development mode

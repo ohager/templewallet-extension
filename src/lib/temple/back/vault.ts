@@ -26,7 +26,6 @@ import {
   fetchAndDecryptOneLegacy,
   getPlain,
   isStored,
-  isStoredLegacy,
   removeMany,
   removeManyLegacy,
   savePlain
@@ -68,7 +67,6 @@ const accPrivKeyStrgKey = createDynamicStorageKey(StorageEntity.AccPrivKey);
 const accPubKeyStrgKey = createDynamicStorageKey(StorageEntity.AccPubKey);
 const accountsStrgKey = createStorageKey(StorageEntity.Accounts);
 const settingsStrgKey = createStorageKey(StorageEntity.Settings);
-const legacyMigrationLevelStrgKey = createStorageKey(StorageEntity.LegacyMigrationLevel);
 
 export class Vault {
   static async isExist() {

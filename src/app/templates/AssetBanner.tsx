@@ -1,6 +1,4 @@
-import React, { FC, ReactNode } from 'react';
-
-import classNames from 'clsx';
+import React, { FC } from 'react';
 
 import Money from 'app/atoms/Money';
 import Name from 'app/atoms/Name';

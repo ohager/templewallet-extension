@@ -114,7 +114,7 @@
     "message": "Cuota Adicional"
   },
   "address": {
-    "message": "habla a"
+    "message": "Habla a"
   },
   "addressBook": {
     "message": "Favoritos"
@@ -258,13 +258,13 @@
     "message": "Disponible para enviar (máx.):"
   },
   "back": {
-    "message": "atrás"
+    "message": "Volver"
   },
   "backToUnlockPage": {
-    "message": "volver a la página de desbloqueo"
+    "message": "Volver a la página de desbloqueo"
   },
   "backtracked": {
-    "message": "remontado"
+    "message": "Remontado"
   },
   "backupNewSeedPhrase": {
     "message": "Guardar nueva frase de contraseña"
@@ -279,7 +279,7 @@
     "message": "panadero"
   },
   "balance": {
-    "message": "Equilibrio:"
+    "message": "Saldo:"
   },
   "balanceTooLow": {
     "message": "Crédito demasiado bajo"
@@ -296,7 +296,7 @@
     "message": "bytes"
   },
   "cancel": {
-    "message": "Interrumpir"
+    "message": "Cancelar"
   },
   "cannotBeRemoved": {
     "message": "no se puede quitar"
@@ -320,7 +320,7 @@
     "message": "Haga clic aquí para ver o editar este campo"
   },
   "collectibles": {
-    "message": "coleccionables"
+    "message": "Coleccionables"
   },
   "comingSoon": {
     "message": "Próximamente"
@@ -346,7 +346,7 @@
     "message": "No se puede continuar sin aceptar los Términos de servicio"
   },
   "confirmation": {
-    "message": "confirmación"
+    "message": "Confirmación"
   },
   "connect": {
     "message": "Conectar"
@@ -356,7 +356,7 @@
     "description": "Libro mayor = https://www.ledger.com/"
   },
   "connection": {
-    "message": "conexión"
+    "message": "Conexión"
   },
   "connectionUnavailable": {
     "message": "No disponible"
@@ -371,10 +371,10 @@
     "message": "Continuar"
   },
   "copiedAddress": {
-    "message": "copiado."
+    "message": "Copiado."
   },
   "copiedHash": {
-    "message": "copiado."
+    "message": "Copiado."
   },
   "copyAddressToClipboard": {
     "message": "Copiar al portapapeles"
@@ -389,7 +389,7 @@
     "message": "Crear"
   },
   "createAccount": {
-    "message": "crear una cuenta"
+    "message": "Crear una cuenta"
   },
   "createNewWallet": {
     "message": "Crear nueva billetera"
@@ -410,7 +410,7 @@
     "message": "Personalizado"
   },
   "dApps": {
-    "message": "Dapps",
+    "message": "DApps",
     "description": "DApps = Aplicaciones descentralizadas"
   },
   "dAppsCheckmarkPrompt": {
@@ -433,7 +433,7 @@
     "message": "total bloqueado. El valor en tez es la cantidad total de tez bloqueada en dApps. El valor en USD es la cantidad total de tez y tokens bloqueados allí."
   },
   "decimals": {
-    "message": "decimales"
+    "message": "Decimales"
   },
   "decimalsInputDescription": {
     "message": "Un número de lugares decimales después del punto. Por ejemplo: 8 para BTC, 2 para USD."
@@ -442,7 +442,7 @@
     "message": "Rechazar"
   },
   "defaultAccount": {
-    "message": "cuenta predeterminada"
+    "message": "Cuenta predeterminada"
   },
   "defaultAccountName": {
     "message": "Cuenta $accountNumber$",
@@ -487,7 +487,7 @@
     }
   },
   "delegation": {
-    "message": "delegación"
+    "message": "Delegación"
   },
   "delegationToSmb": {
     "message": "a $delegate$",
@@ -551,7 +551,7 @@
     }
   },
   "disable": {
-    "message": "desactivar"
+    "message": "Desactivar"
   },
   "disabled": {
     "message": "Discapacitado"
@@ -580,19 +580,19 @@
     "message": "Su cuenta está vacía. Deposite cualquier cantidad de Tez en esta cuenta para activarla"
   },
   "enable": {
-    "message": "activar"
+    "message": "Activar"
   },
   "enablePopup": {
     "message": "Habilitar ventana emergente"
   },
   "enabled": {
-    "message": "activado"
+    "message": "Activado"
   },
   "enterPasswordToRemoveAccount": {
     "message": "Introduzca la contraseña para eliminar la cuenta."
   },
   "error": {
-    "message": "error"
+    "message": "Error"
   },
   "errorChangingAccountName": {
     "message": "Ocurrió un error al cambiar el nombre de la cuenta"
@@ -604,7 +604,7 @@
     "message": "Explorar"
   },
   "failed": {
-    "message": "fallido"
+    "message": "Fallido"
   },
   "failedToParseMetadata": {
     "message": "Error al analizar los metadatos"
@@ -618,7 +618,7 @@
     }
   },
   "failureSecretMayBeInvalid": {
-    "message": "fallido. Esto puede suceder porque el secreto especificado no es válido"
+    "message": "Fallido. Esto puede suceder porque el secreto especificado no es válido"
   },
   "farming": {
     "message": "agricultura"
@@ -627,7 +627,7 @@
     "message": "Rápido"
   },
   "fee": {
-    "message": "tarifa"
+    "message": "Tarifa"
   },
   "feeInputDescription": {
     "message": "La tarifa básica para este proceso es: $fee$\nAdemás - acelera la confirmación",
@@ -647,7 +647,7 @@
     "message": "Fin"
   },
   "firefoxLedgerConnectionError": {
-    "message": "$content$ La conexión al $device$ a través del $browser$ está $unavailable$ temporalmente.",
+    "message": "$sorry$ La conexión al $device$ a través del $browser$ está $unavailable$ temporalmente.",
     "placeholders": {
       "sorry": {
         "content": "$1"
@@ -673,7 +673,7 @@
     "message": "recaudación de fondos"
   },
   "game": {
-    "message": "juego"
+    "message": "Juego"
   },
   "gasFee": {
     "message": "tarifa de gas"
@@ -685,7 +685,7 @@
     "message": "Aquí puede administrar la configuración de idioma y el modo de visualización."
   },
   "hash": {
-    "message": "Picadillo"
+    "message": "Hash"
   },
   "helpAndCommunity": {
     "message": "Ayuda y comunidad"
@@ -700,7 +700,7 @@
     "message": "URL de la imagen del logotipo del recurso."
   },
   "id": {
-    "message": "IDENTIFICACIÓN"
+    "message": "ID"
   },
   "ifYouDontSeeYourAsset": {
     "message": "Si no ve sus activos,\nintenta hacer clic en $toClick$.",
@@ -720,7 +720,7 @@
     "message": "Importar"
   },
   "importAccount": {
-    "message": "Importar cuenta"
+    "message": "Importar Cuenta"
   },
   "importExistingWallet": {
     "message": "Importar billetera existente"
@@ -758,7 +758,7 @@
     "message": "Interacción"
   },
   "interactionWith": {
-    "message": "interacción del contrato con"
+    "message": "Interacción del contrato con"
   },
   "interactionWithContract": {
     "message": "con $contract$",
@@ -787,7 +787,7 @@
     "message": "por ejemplo, KT1v9CmPy..."
   },
   "languageAndCountry": {
-    "message": "idioma"
+    "message": "Idioma"
   },
   "ledgerLiveBridgeGuide": {
     "message": "Para conectarse a Ledger, active la aplicación Ledger en vivo en su dispositivo, abra la aplicación de billetera Tezos y permita una conexión WebSocket a su cuenta de Temple."
@@ -814,10 +814,10 @@
     "description": "Muestra menos"
   },
   "links": {
-    "message": "Izquierda"
+    "message": "Links"
   },
   "loadMore": {
-    "message": "carga más"
+    "message": "Carga más"
   },
   "lock": {
     "message": "Cerrar con llave"
@@ -852,13 +852,13 @@
     "message": "Administrar coleccionables"
   },
   "manageTokens": {
-    "message": "administrar fichas"
+    "message": "Administrar fichas"
   },
   "managedKTAccount": {
     "message": "KT gestionado"
   },
   "marketplace": {
-    "message": "mercado"
+    "message": "Mercado"
   },
   "max": {
     "message": "máx."
@@ -872,7 +872,7 @@
     }
   },
   "maximiseView": {
-    "message": "maximizar la vista"
+    "message": "Maximizar la vista"
   },
   "mayHappenBecauseYouAreOffline": {
     "message": "Esto puede suceder porque actualmente está desconectado"
@@ -881,7 +881,7 @@
     "message": "Mensaje para"
   },
   "millionFormat": {
-    "message": "$million$ millones",
+    "message": "$million$ M",
     "placeholders": {
       "million": {
         "content": "$1"
@@ -889,7 +889,7 @@
     }
   },
   "min": {
-    "message": "minutos:"
+    "message": "Mínimo:"
   },
   "minimalFeeDescription": {
     "message": "Mínimo"
@@ -901,19 +901,19 @@
     "message": "La tarifa mínima para esta transacción es más alta que su saldo."
   },
   "mnemonic": {
-    "message": "mnemotécnico"
+    "message": "Mnemotécnico"
   },
   "mnemonicInputDescription": {
-    "message": "su contraseña secreta; generalmente 12 palabras."
+    "message": "Su contraseña secreta; generalmente 12 palabras."
   },
   "mnemonicInputLabel": {
-    "message": "frase de contraseña"
+    "message": "Frase de contraseña"
   },
   "mnemonicInputPlaceholder": {
-    "message": "por ejemplo, actualización de la leche de calcetín del lugar..."
+    "message": "por ejemplo, venue sock milk update..."
   },
   "more": {
-    "message": "más",
+    "message": "Más",
     "description": "mostrar más"
   },
   "mustBeEqualToPasswordAbove": {
@@ -929,10 +929,10 @@
     "message": "Debe ser una URL válida"
   },
   "name": {
-    "message": "Apellido"
+    "message": "Nome"
   },
   "network": {
-    "message": "red"
+    "message": "Red"
   },
   "networkLabel": {
     "message": "Red: $network$",
@@ -949,7 +949,7 @@
     "message": "Red u otro problema técnico."
   },
   "networks": {
-    "message": "redes"
+    "message": "Redes"
   },
   "networksDescription": {
     "message": "En esta sección puede agregar o eliminar nodos/pares de Signum personalizados."
@@ -1002,7 +1002,7 @@
     "message": "OK"
   },
   "onlyHTTPS": {
-    "message": "solo HTTP"
+    "message": "solo HTTPS"
   },
   "onlyKTContractAddressAllowed": {
     "message": "Solo KT... Dirección de contrato permitida",
@@ -1015,7 +1015,7 @@
     "message": "Abrir nueva pestaña"
   },
   "operationHash": {
-    "message": "operación hash"
+    "message": "Operación hash"
   },
   "operationHistoryWhileMessage": {
     "message": "El historial de actividades se recupera o procesa"
@@ -1040,7 +1040,7 @@
     "message": "operación"
   },
   "optionalComment": {
-    "message": "(Opcional)"
+    "message": "(opcional)"
   },
   "orIPFSImageURL": {
     "message": "O URL de imagen IPFS"
@@ -1054,7 +1054,7 @@
     }
   },
   "origination": {
-    "message": "aparición"
+    "message": "Aparición"
   },
   "other": {
     "message": "Otro"
@@ -1063,7 +1063,7 @@
     "message": "Propio"
   },
   "password": {
-    "message": "contraseña"
+    "message": "Contraseña"
   },
   "passwordInputDescription": {
     "message": "Se utiliza para la derivación mnemotécnica adicional. Esta NO es una contraseña de billetera."
@@ -1078,13 +1078,13 @@
     "message": "Discapacitado"
   },
   "popupEnabled": {
-    "message": "activado"
+    "message": "Activado"
   },
   "popupSettings": {
-    "message": "modo emergente"
+    "message": "Modo pop-up"
   },
   "popupSettingsDescription": {
-    "message": "Aquí puede configurar la ventana emergente que aparece al hacer clic en el icono del complemento en el panel de extensión."
+    "message": "Aquí puede establecer si la billetera debe abrirse en modo emergente, es decir, en la parte superior derecha del navegador, o como una página completa en el navegador."
   },
   "positiveIntMessage": {
     "message": "Entero, 1 o mayor"
@@ -1105,7 +1105,7 @@
     "message": "Está siendo procesado..."
   },
   "promoted": {
-    "message": "patrocinado"
+    "message": "Patrocinado"
   },
   "protectedFormField": {
     "message": "Protegido"
@@ -1114,7 +1114,7 @@
     "message": "Código QR"
   },
   "rank": {
-    "message": "rango"
+    "message": "Rango"
   },
   "raw": {
     "message": "Crudo"
@@ -1123,13 +1123,13 @@
     "message": "Recibir"
   },
   "recipient": {
-    "message": "recipiente"
+    "message": "Recipiente"
   },
   "recipientInputPlaceholder": {
     "message": "por ejemplo, S-6SJC-... o 17332..."
   },
   "recipientInputPlaceholderWithDomain": {
-    "message": "por ejemplo, S-6SJC-..., 17332... o peter",
+    "message": "por ejemplo, S-6SJC-..., 17332... o juan",
     "description": "foobar = alias de signum"
   },
   "referredByTokenContractNotFound": {
@@ -1147,19 +1147,19 @@
     "message": "Eliminar"
   },
   "removeAccount": {
-    "message": "eliminar cuenta"
+    "message": "Eliminar cuenta"
   },
   "removeAccountDescription": {
     "message": "Utilice esta sección para eliminar su cuenta seleccionada."
   },
   "repeatPassword": {
-    "message": "repite la contraseña"
+    "message": "Repite la contraseña"
   },
   "repeatPasswordInputDescription": {
     "message": "Vuelva a introducir la contraseña."
   },
   "repo": {
-    "message": "repositorio"
+    "message": "Repositorio"
   },
   "requestSent": {
     "message": "¡Solicitud de $type$ enviada! Sera confirmado...",
@@ -1173,7 +1173,7 @@
     "message": "Necesario"
   },
   "resetExtension": {
-    "message": "restablecer extensión"
+    "message": "Restablecer extensión"
   },
   "resetExtensionConfirmation": {
     "message": "¿Está seguro de que desea restablecer la billetera del templo?\nEsto borrará todos sus datos localmente.\nPuede volver a importar sus cuentas activas en cualquier momento."
@@ -1196,19 +1196,19 @@
     "message": "Repetir"
   },
   "reveal": {
-    "message": "liberar"
+    "message": "Revelar"
   },
   "revealNewSeedPhrase": {
-    "message": "<b>Haga clic a continuación</b> para ver su nueva frase de contraseña.\nLuego, escribe esa frase en una hoja de papel y/o <b>guárdala en un lugar seguro</b>. O aprenderlos de memoria."
+    "message": "<b>Haga clic a continuación</b> para ver su nueva frase de contraseña.\nLuego, escribe esa frase en una hoja de papel y/o <b>guárdala en un lugar seguro</b>. "
   },
   "rocketFeeDescription": {
-    "message": "cohete"
+    "message": "Cohete"
   },
   "rpcBaseURL": {
     "message": "URL del nodo de red"
   },
   "save": {
-    "message": "Guardar en la computadora"
+    "message": "Guardar"
   },
   "searchAssets": {
     "message": "Buscar activos..."
@@ -1220,7 +1220,7 @@
     "message": "Explorar DApps"
   },
   "seedPhrase": {
-    "message": "frase de contraseña"
+    "message": "Frase de Contraseña"
   },
   "selectAnotherAssetPrompt": {
     "message": "Haga clic en el área para seleccionar un activo o token diferente."
@@ -1232,7 +1232,7 @@
     "message": "enviar a mis cuentas"
   },
   "settings": {
-    "message": "ideas"
+    "message": "Configuraciones"
   },
   "showIncomingTransactions": {
     "message": "Ver transacciones entrantes"
@@ -1241,7 +1241,7 @@
     "message": "Firmar"
   },
   "skipped": {
-    "message": "omitido"
+    "message": "Omitido"
   },
   "smthWentWrong": {
     "message": "Algo salió mal"
@@ -1255,22 +1255,22 @@
     }
   },
   "social": {
-    "message": "social"
+    "message": "Social"
   },
   "soon": {
-    "message": "pronto"
+    "message": "Pronto"
   },
   "sorry": {
     "message": "¡Lo siento!"
   },
   "sortBy": {
-    "message": "ordenar por"
+    "message": "Ordenar por"
   },
   "space": {
     "message": "Capacidad libre"
   },
   "step": {
-    "message": "paso"
+    "message": "Paso"
   },
   "storageFee": {
     "message": "couta de almacenamiento"
@@ -1285,19 +1285,19 @@
     "message": "Enviar"
   },
   "success": {
-    "message": "éxito"
+    "message": "Éxito"
   },
   "swap": {
-    "message": "Cambiar"
+    "message": "cambiar"
   },
   "swapNoun": {
     "message": "Cambiar"
   },
   "symbol": {
-    "message": "símbolo"
+    "message": "Símbolo"
   },
   "templeWalletOptions": {
-    "message": "Monedero del templo | opciones"
+    "message": "XT Wallet | opciones"
   },
   "termsOfUsage": {
     "message": "Términos de Uso"
@@ -1320,7 +1320,7 @@
     "message": "Se agotó el tiempo de confirmación. Puede esperar más tiempo o volver a intentarlo más tarde."
   },
   "toAsset": {
-    "message": "Sobre"
+    "message": "A"
   },
   "toBeConnectedWithDApp": {
     "message": "debe estar conectado con DApp."
@@ -1364,10 +1364,10 @@
     "message": "Solo a-z, A-Z, 0-9 caracteres permitidos, 2-5 de longitud"
   },
   "tokenType": {
-    "message": "tipo de token"
+    "message": "Tipo de token"
   },
   "tokens": {
-    "message": "fichas"
+    "message": "Fichas"
   },
   "tokensRecepientInputDescription": {
     "message": "Dirección o ID para enviar $assetSymbol$ a.",
@@ -1386,13 +1386,13 @@
     }
   },
   "totalAmount": {
-    "message": "cantidad total"
+    "message": "Cantidad Total"
   },
   "totalBalance": {
-    "message": "balance total"
+    "message": "Balance Total"
   },
   "transaction": {
-    "message": "transacción"
+    "message": "Transacción"
   },
   "transactionId": {
     "message": "ID de transacción:"
@@ -1406,7 +1406,7 @@
     }
   },
   "transfer": {
-    "message": "transferido"
+    "message": "Transferir"
   },
   "transferFromSmb": {
     "message": "por $sender$",
@@ -1428,7 +1428,7 @@
     }
   },
   "transfers": {
-    "message": "transferencias"
+    "message": "Transferencias"
   },
   "tryAgain": {
     "message": "Intentar otra vez"
@@ -1469,7 +1469,7 @@
     "message": "Se ha producido un error de análisis desconocido."
   },
   "unlock": {
-    "message": "desbloquear"
+    "message": "Desbloquear"
   },
   "unlockPasswordInputDescription": {
     "message": "Se utiliza una contraseña para proteger la billetera."
@@ -1489,7 +1489,7 @@
     "message": "Para actualizar un contacto existente, simplemente elimínelo\ny agregarlo de nuevo con diferentes nombres."
   },
   "upload": {
-    "message": "subir"
+    "message": "Subir"
   },
   "usePhoenixWallet": {
     "message": "Use Phoenix Mobile Wallet para procesar el código"
@@ -1512,7 +1512,7 @@
     }
   },
   "via": {
-    "message": "Encima"
+    "message": "Via"
   },
   "viewAccountAddressWarning": {
     "message": "Este sitio web solicita acceso para ver la dirección de su cuenta. Siempre asegúrese de confiar en los sitios web con los que interactúa."
@@ -1521,7 +1521,7 @@
     "message": "Ver todo"
   },
   "watchOnlyAccount": {
-    "message": "sólo mira"
+    "message": "Observando"
   },
   "website": {
     "message": "sitio"
@@ -1530,7 +1530,7 @@
     "message": "Bienvenido a"
   },
   "word": {
-    "message": "palabra $number$",
+    "message": "Palabra $number$",
     "placeholders": {
       "number": {
         "content": "$1"
@@ -1538,7 +1538,7 @@
     }
   },
   "yes": {
-    "message": "sí"
+    "message": "Sí"
   },
   "youWillNeedThisSeedPhrase": {
     "message": "Si alguna vez cambia de navegador o dispositivo, necesitará esta frase de contraseña para acceder a sus cuentas."
@@ -1560,5 +1560,113 @@
   },
   "atLeast1SpecialCharacter": {
     "message": "Inclusión de al menos un carácter especial, por ejemplo, ! @ # ? ] - (opcional, recomendado)."
+  },
+  "addCommitment": {
+    "message": "Añadir compromiso"
+  },
+  "aliasBuy": {
+    "message": "Comprar alias"
+  },
+  "aliasCreation": {
+    "message": "Crear alias"
+  },
+  "browserVersionIsOutOfDate": {
+    "message": "La versión de su navegador está desactualizada, ¡le recomendamos encarecidamente que actualice a la versión más reciente!"
+  },
+  "congratsDescription1": {
+    "message": "¡Estupendo! Estás a bordo 🏆"
+  },
+  "congratsDescription2": {
+    "message": "Ahora conoce las funciones básicas y más importantes de la billetera Signum XT."
+  },
+  "congratsDescription3": {
+    "message": "Puede aprender todas las características del Templo de nuestra \"Serie educativa\" en YouTube."
+  },
+  "congratsDescription4": {
+    "message": "Además, las instrucciones y guías están disponibles en nuestra base de conocimientos."
+  },
+  "congratsDescription5": {
+    "message": "Únete a nuestras comunidades en Telegram y Discord."
+  },
+  "congratsDescription6": {
+    "message": "¡Bienvenido al mundo Signum!"
+  },
+  "contractCreation": {
+    "message": "Crear contrato"
+  },
+  "done": {
+    "message": "¡Hecho!"
+  },
+  "howToStartDescription1": {
+    "message": "Para comenzar a usar su billetera e interactuar con el ecosistema Signum DApps, el saldo de la cuenta debe ser positivo, ya que cada transacción le cuesta una tarifa baja"
+  },
+  "howToStartDescription2": {
+    "message": "Puede obtener SIGNA comprando en uno de los intercambios, minando con discos duros o participando en la comunidad. Únete a nosotros en Discord"
+  },
+  "howToStartDetails": {
+    "message": "Cómo empezar"
+  },
+  "howToStartHint": {
+    "message": "Además, puede copiar su dirección y enviarle monedas desde otra billetera o Exchange. Para copiar la dirección, haga clic en ella en la pantalla principal de la billetera o use \"Recibir\"."
+  },
+  "joinPool": {
+    "message": "Unirse a la piscina"
+  },
+  "mixtureOfLettersAndNumbers": {
+    "message": "Una mezcla de letras y números."
+  },
+  "mixtureOfUppercaseAndLowercaseLetters": {
+    "message": "Una mezcla de letras mayúsculas y minúsculas."
+  },
+  "networkIsTestnetDescription": {
+    "message": "Las redes de prueba no tienen ningún valor monetario y son solo para experimentación y/o desarrollo."
+  },
+  "networkIsTestnetLabel": {
+    "message": "es una red de prueba"
+  },
+  "next": {
+    "message": "Próximo"
+  },
+  "onboarding": {
+    "message": "Inducción"
+  },
+  "profileRpcDescription": {
+    "message": "En la parte superior de la interfaz, puede ver el icono de su cuenta. Al hacer clic en él, abrirá un menú con más acciones, p. Configuración y gestión de cuentas."
+  },
+  "profileRpcDetails": {
+    "message": "Perfil y nodos de red"
+  },
+  "profileRpcHint1": {
+    "message": "A continuación, verá el selector de “Redes”, que le permite seleccionar un nodo al que se conectará su billetera.\nLos nodos de red principal son verdosos, mientras que los nodos de red de prueba tienen indicadores naranjas. Los nodos de red de prueba son para experimentar sin usar dinero real"
+  },
+  "profileRpcHint2": {
+    "message": "Si no se muestra su saldo, intente cambiar el nodo."
+  },
+  "profileRpcHint3": {
+    "message": "Puede elegir de una lista predefinida o agregar nodos manualmente en la sección Configuración"
+  },
+  "removeCommitment": {
+    "message": "Eliminar compromiso"
+  },
+  "start": {
+    "message": "Vamos"
+  },
+  "tokensCollectibleDescription1": {
+    "message": "Sus saldos de tokens FA1.2 y FA2 se muestran en la pestaña \"Tokens\"."
+  },
+  "tokensCollectibleDescription2": {
+    "message": "Puedes enviar, consultar saldos o contratar direcciones de cualquier token haciendo clic sobre él en esta sección."
+  },
+  "tokensCollectibleDetails": {
+    "message": "Fichas y coleccionables"
+  },
+  "tokensCollectibleHint": {
+    "message": "Sus tokens no fungibles (NFT) se muestran en la pestaña \"Coleccionables\". Aquí también puede interactuar con sus propios NFT, ver su vista completa, ID y dirección de contrato."
+  },
+  "updateAccountInfo": {
+    "message": "Actualización de la información de la cuenta"
+  },
+  "welcomeToOnboarding": {
+    "message": "Bienvenido a Incorporación"
   }
 }

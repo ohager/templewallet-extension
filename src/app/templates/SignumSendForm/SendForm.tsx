@@ -154,7 +154,7 @@ export const SendForm: FC<FormProps> = ({ setOperation, onAddContactRequested })
         return t('error'); // WHAT MESSAGE?
       }
     },
-    [maxAmount, toValue]
+    [maxAmount]
   );
 
   const maxAmountStr = maxAmount?.toString();
@@ -224,13 +224,13 @@ export const SendForm: FC<FormProps> = ({ setOperation, onAddContactRequested })
       }
     },
     [
+      client,
+      signum.transaction,
       acc,
       formState.isSubmitting,
-      assetMetadata,
       setSubmitError,
       setOperation,
       reset,
-      accountPkh,
       toResolved,
       formAnalytics
     ]

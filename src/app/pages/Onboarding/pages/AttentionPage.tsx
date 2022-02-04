@@ -68,18 +68,6 @@ const AttentionPage: FC = () => {
         <p className={styles['description']} style={{ marginTop: 24, marginBottom: 24 }}>
           <T id={'takeCare'} />
         </p>
-        <p className={styles['description']} style={{ marginTop: 0, marginBottom: 0, color: '#3182CE' }}>
-          <T id={'readMore'} />
-          <a
-            href={'https://madfish.crunch.help/temple-wallet/a-note-on-security'}
-            target="_blank"
-            rel="noreferrer"
-            className={styles['link']}
-            style={{ fontSize: 12 }}
-          >
-            link
-          </a>
-        </p>
         <Button
           className="w-full justify-center border-none"
           style={{
