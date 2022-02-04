@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
 
+import { Button } from 'app/atoms/Button';
+import Stamp from 'app/atoms/Stamp';
+
 import { t, T } from '../../../../lib/i18n/react';
-import { Button } from '../../../atoms/Button';
 import ProfileRpcImg from '../assets/profile-rpc.png';
 import styles from '../Onboarding.module.css';
-import Stamp from '../../../atoms/Stamp';
 
 interface Props {
   nextStep: () => void;

@@ -59,8 +59,8 @@ const Explore: FC<ExploreProps> = ({ assetSlug }) => {
   // const swapLink = assetSlug ? `/swap/${assetSlug}` : '/swap';
   const sendLink = assetSlug ? `/send/${assetSlug}` : '/send';
 
-  // return onboardingCompleted ? (
-  return false ? (
+  // return false ? (
+  return onboardingCompleted ? (
     <PageLayout
       pageTitle={
         <>
