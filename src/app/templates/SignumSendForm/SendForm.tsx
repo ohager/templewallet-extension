@@ -29,8 +29,8 @@ import { withErrorHumanDelay } from 'lib/ui/humanDelay';
 import useSafeState from 'lib/ui/useSafeState';
 
 import { useAppEnv } from '../../env';
-import AdditionalFeeInput from '../AdditionalFeeInput';
 import ContactsDropdown from './ContactsDropdown';
+import FeeInput from './FeeInput';
 import FilledContact from './FilledContact';
 import SendErrorAlert from './SendErrorAlert';
 
@@ -138,8 +138,8 @@ export const SendForm: FC<FormProps> = ({ setOperation, onAddContactRequested })
   }, [balance, feeValue]);
 
   const totalAmount = useMemo(() => {
-    if (!(feeValue && amountValue)) return;
-    return Amount.fromSigna(amountValue).add(Amount.fromSigna(feeValue));
+    if (!amountValue) return;
+    return Amount.fromSigna(amountValue).add(Amount.fromSigna(feeValue || MinimumFee));
   }, [amountValue, feeValue]);
 
   const validateAmount = useCallback(
@@ -384,7 +384,7 @@ export const SendForm: FC<FormProps> = ({ setOperation, onAddContactRequested })
             return null;
           })()}
 
-          <AdditionalFeeInput
+          <FeeInput
             name="fee"
             control={control}
             assetSymbol={assetSymbol}

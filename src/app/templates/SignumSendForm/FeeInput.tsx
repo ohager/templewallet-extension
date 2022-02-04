@@ -19,6 +19,7 @@ import { Controller, ControllerProps, EventFunction, FieldError } from 'react-ho
 import AssetField from 'app/atoms/AssetField';
 import Money from 'app/atoms/Money';
 import Name from 'app/atoms/Name';
+import Spinner from 'app/atoms/Spinner';
 import { ReactComponent as CoffeeIcon } from 'app/icons/coffee.svg';
 import { ReactComponent as CupIcon } from 'app/icons/cup.svg';
 import { ReactComponent as RocketIcon } from 'app/icons/rocket.svg';
@@ -26,8 +27,6 @@ import CustomSelect, { OptionRenderProps } from 'app/templates/CustomSelect';
 import { toLocalFixed } from 'lib/i18n/numbers';
 import { T, t } from 'lib/i18n/react';
 import { SIGNA_METADATA, useSignum } from 'lib/temple/front';
-
-import Spinner from '../atoms/Spinner';
 
 type AssetFieldProps = typeof AssetField extends ForwardRefExoticComponent<infer T> ? T : never;
 
@@ -67,7 +66,7 @@ const feeOptions: FeeOption[] = [
 
 const getFeeOptionId = (option: FeeOption) => option.type;
 
-const AdditionalFeeInput: FC<AdditionalFeeInputProps> = props => {
+const FeeInput: FC<AdditionalFeeInputProps> = props => {
   const { assetSymbol, control, id, name, onChange } = props;
   const [isFetchingFees, setIsFetchingFees] = useState<boolean>(true);
   // const { trackEvent } = useAnalytics();
@@ -131,7 +130,7 @@ const AdditionalFeeInput: FC<AdditionalFeeInputProps> = props => {
   );
 };
 
-export default AdditionalFeeInput;
+export default FeeInput;
 
 type AdditionalFeeInputContentProps = AssetFieldProps & {
   customFeeInputRef: MutableRefObject<HTMLInputElement | null>;

@@ -630,7 +630,7 @@
     "message": "Tarifa"
   },
   "feeInputDescription": {
-    "message": "La tarifa básica para este proceso es: $fee$\nAdemás - acelera la confirmación",
+    "message": "La tarifa mínima para esta operación es: $fee$\nLas tarifas más altas pueden acelerar la confirmación.",
     "placeholders": {
       "fee": {
         "content": "$1"
@@ -1668,5 +1668,50 @@
   },
   "welcomeToOnboarding": {
     "message": "Bienvenido a Incorporación"
+  },
+  "attention": {
+    "message": "Atención"
+  },
+  "attentionDescription": {
+    "message": "Nunca, bajo ninguna circunstancia, divulgue sus claves privadas y su frase inicial a terceros."
+  },
+  "attentionListItem1": {
+    "message": "Su billetera puede ser atacada a través de un exploit de día cero del navegador o a través de otra extensión maliciosa instalada;"
+  },
+  "attentionListItem2": {
+    "message": "La pantalla puede ser potencialmente manipulada por software malicioso instalado en el sistema;"
+  },
+  "attentionListItem3": {
+    "message": "La máquina host del usuario puede ser atacada por malware para robar la billetera cifrada;"
+  },
+  "attentionListItem4": {
+    "message": "Elegir contraseñas débiles puede reducir la capacidad de una billetera para resistir la fuerza bruta del adversario."
+  },
+  "attentionListItem5": {
+    "message": "Mueva sus fondos de la billetera \"caliente\" a la \"fría\" lo antes posible;"
+  },
+  "attentionListItem6": {
+    "message": "Use navegadores separados para la navegación web y el funcionamiento de la billetera;"
+  },
+  "attentionListItem7": {
+    "message": "Use la pestaña de un navegador a la vez para realizar transacciones;"
+  },
+  "attentionListItem8": {
+    "message": "Mantenga la billetera bloqueada cuando no esté en uso."
+  },
+  "attentionListTitle1": {
+    "message": "Además, recuerda:"
+  },
+  "attentionListTitle2": {
+    "message": "Para mantener sus activos seguros, le recomendamos:"
+  },
+  "readMore": {
+    "message": "Leer más por el"
+  },
+  "takeCare": {
+    "message": "¡Cuida tu seguridad en el mundo de las criptomonedas!"
+  },
+  "thanks": {
+    "message": "¡Entendido!"
   }
 }

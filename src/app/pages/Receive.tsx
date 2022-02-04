@@ -65,7 +65,7 @@ const Receive: FC = () => {
             type="button"
             className={classNames(
               'mx-auto mb-6',
-              'py-1 px-2 w-40',
+              'py-1 px-2',
               'bg-primary-orange rounded',
               'border border-primary-orange',
               'flex items-center justify-center',

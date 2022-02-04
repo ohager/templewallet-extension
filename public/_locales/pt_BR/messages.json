@@ -630,7 +630,7 @@
     "message": "Taxa"
   },
   "feeInputDescription": {
-    "message": "A taxa básica para este processo é: $fee$\nAlém disso - acelera a confirmação",
+    "message": "A taxa mínima para esta operação é: $fee$\nTaxas mais altas podem acelerar a confirmação.",
     "placeholders": {
       "fee": {
         "content": "$1"
@@ -1668,5 +1668,50 @@
   },
   "welcomeToOnboarding": {
     "message": "Bem-vindo ao Onboarding"
+  },
+  "attention": {
+    "message": "Atenção"
+  },
+  "attentionDescription": {
+    "message": "Nunca, sob nenhuma circunstância, divulgue suas chaves privadas e frases secretas para terceiros."
+  },
+  "attentionListItem1": {
+    "message": "Sua carteira pode ser direcionada por meio de uma exploração de dia zero do navegador ou por meio de outra extensão maliciosa instalada;"
+  },
+  "attentionListItem2": {
+    "message": "A tela pode ser potencialmente manipulada por software malicioso instalado no sistema;"
+  },
+  "attentionListItem3": {
+    "message": "A máquina host do usuário pode ser alvo de malware para roubar carteira criptografada;"
+  },
+  "attentionListItem4": {
+    "message": "Escolher senhas fracas pode reduzir a capacidade de uma carteira de resistir à força bruta adversária."
+  },
+  "attentionListItem5": {
+    "message": "Mova seus fundos da carteira “quente” para “fria” o mais rápido possível;"
+  },
+  "attentionListItem6": {
+    "message": "Use navegadores separados para navegação na web e operação da carteira;"
+  },
+  "attentionListItem7": {
+    "message": "Use uma só guia do navegador por vez para fazer transações;"
+  },
+  "attentionListItem8": {
+    "message": "Mantenha a carteira bloqueada quando não estiver em uso."
+  },
+  "attentionListTitle1": {
+    "message": "Além disso, lembre-se:"
+  },
+  "attentionListTitle2": {
+    "message": "Para manter seus ativos seguros, recomendamos:"
+  },
+  "readMore": {
+    "message": "Leia mais pelo"
+  },
+  "takeCare": {
+    "message": "Cuide da sua segurança no mundo das criptomoedas!"
+  },
+  "thanks": {
+    "message": "Entendi!"
   }
 }

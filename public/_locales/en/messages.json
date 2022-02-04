@@ -111,7 +111,7 @@
     "message": "Add Asset"
   },
   "additionalFee": {
-    "message": "Additional Fee"
+    "message": "Fee Selection"
   },
   "address": {
     "message": "Address"
@@ -630,7 +630,7 @@
     "message": "Fee"
   },
   "feeInputDescription": {
-    "message": "The basic fee for this process is: $fee$\nAdditionally - speeds up the confirmation",
+    "message": "The minimum fee for this operation is: $fee$\nHigher fees may speed up the confirmation.",
     "placeholders": {
       "fee": {
         "content": "$1"

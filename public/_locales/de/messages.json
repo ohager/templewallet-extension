@@ -630,7 +630,7 @@
     "message": "Gebühr"
   },
   "feeInputDescription": {
-    "message": "Die Grundgebühr für diesen Vorgang beträgt: $fee$\nZusätzlich - beschleunigt die Bestätigung",
+    "message": "Die Mindestgebühr für diesen Vorgang beträgt: $fee$\nHöhere Gebühren können die Bestätigung beschleunigen.",
     "placeholders": {
       "fee": {
         "content": "$1"
@@ -1668,5 +1668,50 @@
   },
   "welcomeToOnboarding": {
     "message": "Willkommen beim Onboarding"
+  },
+  "attention": {
+    "message": "Achtung"
+  },
+  "attentionDescription": {
+    "message": "Geben Sie niemals und unter keinen Umständen Ihre privaten Schlüssel und Seed-Phrase an Dritte weiter."
+  },
+  "attentionListItem1": {
+    "message": "Ihre Wallet kann über einen Browser-Zero-Day-Exploit oder über eine andere installierte schädliche Erweiterung angegriffen werden;"
+  },
+  "attentionListItem2": {
+    "message": "Der Bildschirm kann möglicherweise durch im System installierte Schadsoftware manipuliert werden;"
+  },
+  "attentionListItem3": {
+    "message": "Der Host-Computer des Benutzers kann von Malware angegriffen werden, um verschlüsselte Wallets zu stehlen;"
+  },
+  "attentionListItem4": {
+    "message": "Die Wahl schwacher Passwörter kann die Fähigkeit einer Wallet verringern, gegnerischem Brute-Forcing zu widerstehen."
+  },
+  "attentionListItem5": {
+    "message": "Verschieben Sie Ihr Geld so schnell wie möglich von der „heißen“ Wallets in die „kalte“;"
+  },
+  "attentionListItem6": {
+    "message": "Verwenden Sie separate Browser für das Surfen im Internet und den Betrieb von Brieftaschen."
+  },
+  "attentionListItem7": {
+    "message": "Verwenden Sie jeweils nur eine Registerkarte eines Browsers, um Transaktionen durchzuführen;"
+  },
+  "attentionListItem8": {
+    "message": "Halten Sie die Wallet geblockt, wenn sie nicht verwendet wird."
+  },
+  "attentionListTitle1": {
+    "message": "Denken Sie auch daran:"
+  },
+  "attentionListTitle2": {
+    "message": "Um Ihr Guthaben zu schützen, empfehlen wir:"
+  },
+  "readMore": {
+    "message": "Lesen Sie mehr von der"
+  },
+  "takeCare": {
+    "message": "Seien Sie aufmerksam in der Kryptowelt!"
+  },
+  "thanks": {
+    "message": "Ok!"
   }
 }
