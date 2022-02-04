@@ -1,7 +1,9 @@
 import React, { FC } from 'react';
 
-import { T } from '../../../../lib/i18n/react';
-import { Button } from '../../../atoms/Button';
+import { Button } from 'app/atoms/Button';
+import Stamp from 'app/atoms/Stamp';
+
+import { T, t } from '../../../../lib/i18n/react';
 import AddressBalanceImg from '../assets/address-balance.png';
 import styles from '../Onboarding.module.css';
 
@@ -18,7 +20,10 @@ const FirstStep: FC<Props> = ({ nextStep }) => {
       <p className={styles['description']}>
         <T id={'addressBalanceDescription'} />
       </p>
-      <img src={AddressBalanceImg} alt="AddressBalanceImg" />
+      <div className={'relative'}>
+        <Stamp label={t('example')} className={'top-1/2 right-3 opacity-25'} />
+        <img src={AddressBalanceImg} alt="AddressBalanceImg" />
+      </div>
       <p className={styles['description']} style={{ marginBottom: 0 }}>
         <T id={'addressBalanceHint'} />
       </p>

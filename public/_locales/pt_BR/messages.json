@@ -1637,7 +1637,7 @@
     "message": "Perfile e Nós de Rede"
   },
   "profileRpcHint1": {
-    "message": "Em seguida, você verá o seletor “Redes”, que permite selecionar um nó ao qual sua carteira será conectada.\nOs nós da rede principal são esverdeados, enquanto os nós da rede de teste têm indicadores laranja. Nós de rede de teste são para experimentar sem usar dinheiro real"
+    "message": "Abaixo do nome da sua conta, você pode ver o seletor “Redes”, que permite selecionar um nó ao qual sua carteira será conectada.\nOs nós da rede principal são esverdeados, enquanto os nós da rede de teste têm indicadores laranja. Nós de rede de teste são para experimentar sem usar dinheiro real"
   },
   "profileRpcHint2": {
     "message": "Se seu saldo não for exibido, tente alterar o nó."
@@ -1713,5 +1713,8 @@
   },
   "thanks": {
     "message": "Entendi!"
+  },
+  "example": {
+    "message": "Exemplo"
   }
 }

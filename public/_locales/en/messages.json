@@ -1601,7 +1601,7 @@
     "message": "At the top of the interface, you can see your account icon. By clicking on it, you will open a menu with further actions, e.g. settings and account management."
   },
   "profileRpcHint1": {
-    "message": "Next, you will see the “Networks” selector, which allows you to select a node to which your wallet will be connected.\nMain Net nodes are greenish, while Test Net Nodes have orange indicators. Test net nodes are for experimenting without using real money"
+    "message": "Below your account name, you can see the “Networks” selector, which allows you to select a node to which your wallet will be connected.\nMain Net nodes are greenish, while Test Net Nodes have orange indicators. Test net nodes are for experimenting without using real money"
   },
   "profileRpcHint2": {
     "message": "If your balance is not displayed, try changing the node."
@@ -1713,5 +1713,8 @@
   },
   "thanks": {
     "message": "Got it!"
+  },
+  "example": {
+    "message": "Example"
   }
 }

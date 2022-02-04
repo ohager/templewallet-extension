@@ -1637,7 +1637,7 @@
     "message": "Perfil y nodos de red"
   },
   "profileRpcHint1": {
-    "message": "A continuación, verá el selector de “Redes”, que le permite seleccionar un nodo al que se conectará su billetera.\nLos nodos de red principal son verdosos, mientras que los nodos de red de prueba tienen indicadores naranjas. Los nodos de red de prueba son para experimentar sin usar dinero real"
+    "message": "Debajo de su nombre de cuenta, puede ver el selector de \"Redes\", que le permite seleccionar un nodo al que se conectará su billetera.\nLos nodos de red principal son verdosos, mientras que los nodos de red de prueba tienen indicadores naranjas. Los nodos de red de prueba son para experimentar sin usar dinero real"
   },
   "profileRpcHint2": {
     "message": "Si no se muestra su saldo, intente cambiar el nodo."
@@ -1713,5 +1713,8 @@
   },
   "thanks": {
     "message": "¡Entendido!"
+  },
+  "example": {
+    "message": "Ejemplo"
   }
 }

@@ -1637,7 +1637,7 @@
     "message": "Profil- und Netzwerkknoten"
   },
   "profileRpcHint1": {
-    "message": "Als nächstes sehen Sie die Auswahl „Netzwerke“, mit der Sie einen Knoten auswählen können, mit dem Ihre Wallet verbunden wird.\nHauptnetzknoten sind grünlich, während Testnetzknoten orangefarbene Anzeigen haben. Testnetzknoten dienen zum Experimentieren, ohne echtes Geld zu verwenden"
+    "message": "Unter Ihrem Kontonamen sehen Sie die Auswahl „Netzwerke“, mit der Sie einen Knoten auswählen können, mit dem Ihre Wallet verbunden wird.\nHauptnetzknoten sind grünlich, während Testnetzknoten orangefarbene Anzeigen haben. Testnetzknoten dienen zum Experimentieren, ohne echtes Geld zu verwenden"
   },
   "profileRpcHint2": {
     "message": "Wenn Ihr Guthaben nicht angezeigt wird, versuchen Sie, den Knoten zu ändern."
@@ -1713,5 +1713,8 @@
   },
   "thanks": {
     "message": "Ok!"
+  },
+  "example": {
+    "message": "Beispiel"
   }
 }
