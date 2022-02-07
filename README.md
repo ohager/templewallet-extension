@@ -3,7 +3,8 @@
 Cryptocurrency wallet for [Signum blockchain platform](https://signum.network) as Web Extension for your Browser.<br>
 Providing ability to manage Signa and interact with DApps.
 
-![Temple Wallet](https://user-images.githubusercontent.com/11996139/108867944-64e7fc00-75fe-11eb-975e-87c0fda9bfbe.png)
+![xt-wallet](https://user-images.githubusercontent.com/3920663/152850875-7b6b099a-c574-458d-95d4-4f83daa6279a.jpg)
+
 
 <hr />
 
@@ -23,7 +24,6 @@ You can install the wallet through the Chrome Web Store or via Mozilla Add-Ons r
 
 Ensure you have:
 
--
 - [Node.js](https://nodejs.org) 12 or later installed
 - [Yarn](https://yarnpkg.com) installed (npm might work also, but this project uses yarn)
 
