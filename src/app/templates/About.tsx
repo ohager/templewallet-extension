@@ -34,7 +34,7 @@ const About: FC = () => (
         },
         {
           key: 'repo',
-          link: 'https://github.com/madfish-solutions/templewallet-extension'
+          link: 'https://github.com/signum-network/signum-xt-wallet'
         },
         {
           key: 'privacyPolicy',

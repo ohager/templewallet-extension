@@ -18,7 +18,7 @@ const links = [
   // },
   {
     name: 'Feature Request or Bug Report',
-    href: 'https://madfish.canny.io/feature-requests',
+    href: 'https://github.com/signum-network/signum-xt-wallet/issues/new/choose',
     Icon: GithubIcon
   },
   {
