@@ -714,7 +714,7 @@
     "message": "Si desea activar una cuenta diferente, selecciónela en la lista desplegable superior derecha."
   },
   "ifYouWantToRemoveAnotherAccount": {
-    "message": "Si desea eliminar otra cuenta, selecciónela en el menú desplegable en la parte superior derecha."
+    "message": "Si desea eliminar otra cuenta, selecciónela en el menú desplegable en la parte superior derecha. Siempre puede volver a importar la cuenta. No se pierde ningún dato."
   },
   "import": {
     "message": "Importar"
@@ -973,7 +973,7 @@
     "message": "No se encontraron dApps coincidentes"
   },
   "noOperationsFound": {
-    "message": "No se encontraron eventos"
+    "message": "No se encontraron transacciones"
   },
   "noResults": {
     "message": "No hay resultados"
@@ -1716,5 +1716,14 @@
   },
   "example": {
     "message": "Ejemplo"
+  },
+  "createWalletDescription": {
+    "message": "Cree una cuenta de billetera Signum y podrá:"
+  },
+  "createWalletDescriptionOption1": {
+    "message": "enviar y recibir Signa."
+  },
+  "createWalletDescriptionOption2": {
+    "message": "conectarse e interactuar con Signum DApps."
   }
 }

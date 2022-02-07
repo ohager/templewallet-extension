@@ -12,7 +12,6 @@ import FormSubmitButton from 'app/atoms/FormSubmitButton';
 import Money from 'app/atoms/Money';
 import NoSpaceField from 'app/atoms/NoSpaceField';
 import { useFormAnalytics } from 'lib/analytics';
-import { toLocalFixed } from 'lib/i18n/numbers';
 import { T, t } from 'lib/i18n/react';
 import {
   isSignumAddress,
@@ -28,6 +27,7 @@ import { useFilteredContacts } from 'lib/temple/front/use-filtered-contacts.hook
 import { withErrorHumanDelay } from 'lib/ui/humanDelay';
 import useSafeState from 'lib/ui/useSafeState';
 
+import { toLocalFixed } from '../../../lib/i18n/numbers';
 import { useAppEnv } from '../../env';
 import ContactsDropdown from './ContactsDropdown';
 import FeeInput from './FeeInput';
@@ -148,8 +148,9 @@ export const SendForm: FC<FormProps> = ({ setOperation, onAddContactRequested })
       if (v < 0) return t('amountMustBePositive');
       if (!maxAmount) return true;
       try {
-        const amount = Amount.fromSigna(v);
-        return amount.lessOrEqual(maxAmount) || t('maximalAmount', toLocalFixed(maxAmount.getRaw()));
+        return Amount.fromSigna(v).lessOrEqual(maxAmount)
+          ? true
+          : t('maximalAmount', toLocalFixed(maxAmount.getSigna()));
       } catch (e) {
         return t('error'); // WHAT MESSAGE?
       }
@@ -193,7 +194,7 @@ export const SendForm: FC<FormProps> = ({ setOperation, onAddContactRequested })
   );
 
   const onSubmit = useCallback(
-    async ({ amount, fee, to }: FormData) => {
+    async ({ amount, fee }: FormData) => {
       if (formState.isSubmitting) return;
       setSubmitError(null);
       setOperation(null);
@@ -393,7 +394,7 @@ export const SendForm: FC<FormProps> = ({ setOperation, onAddContactRequested })
             id="send-fee"
           />
 
-          {totalAmount && (
+          {totalAmount && errors.amount === undefined && (
             <div className={'flex flex-row items-center justify-center'}>
               <T id="send">
                 {message => <FormSubmitButton loading={formState.isSubmitting}>{message}</FormSubmitButton>}

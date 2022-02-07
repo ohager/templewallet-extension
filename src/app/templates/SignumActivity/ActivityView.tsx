@@ -50,9 +50,11 @@ const ActivityView = memo<ActivityViewProps>(
           <ActivitySpinner />
         ) : (
           <div className="w-full flex justify-center mt-5 mb-3">
-            <FormSecondaryButton disabled={!loadMoreDisplayed} onClick={loadMore} small>
-              <T id="loadMore" />
-            </FormSecondaryButton>
+            {loadMoreDisplayed && (
+              <FormSecondaryButton onClick={loadMore} small>
+                <T id="loadMore" />
+              </FormSecondaryButton>
+            )}
           </div>
         )}
       </>

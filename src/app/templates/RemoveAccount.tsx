@@ -54,13 +54,8 @@ const RemoveAccount: FC = () => {
     <div className="w-full max-w-sm p-2 mx-auto">
       <AccountBanner
         account={account}
-        labelDescription={
-          <>
-            <T id="accountToBeRemoved" />
-            <br />
-            <T id="ifYouWantToRemoveAnotherAccount" />
-          </>
-        }
+        label={t('accountToBeRemoved')}
+        labelDescription={t('ifYouWantToRemoveAnotherAccount')}
         className="mb-6"
       />
 

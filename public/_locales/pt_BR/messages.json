@@ -714,7 +714,7 @@
     "message": "Se você deseja ativar uma conta diferente, selecione-a na lista suspensa no canto superior direito."
   },
   "ifYouWantToRemoveAnotherAccount": {
-    "message": "Se você deseja remover outra conta, selecione-a no menu suspenso no canto superior direito."
+    "message": "Se você deseja remover outra conta, selecione-a no menu suspenso no canto superior direito. Você sempre pode reimportar a conta. Nenhum dado é perdido."
   },
   "import": {
     "message": "Importar"
@@ -973,7 +973,7 @@
     "message": "Nenhum dApp correspondente foi encontrado"
   },
   "noOperationsFound": {
-    "message": "Nenhum evento encontrado"
+    "message": "Nenhuma transação encontrada"
   },
   "noResults": {
     "message": "Sem resultados"
@@ -1716,5 +1716,14 @@
   },
   "example": {
     "message": "Exemplo"
+  },
+  "createWalletDescription": {
+    "message": "Crie uma conta de carteira Signum e você pode:"
+  },
+  "createWalletDescriptionOption1": {
+    "message": "enviar e receber Signa."
+  },
+  "createWalletDescriptionOption2": {
+    "message": "conectar e interagir com Signum DApps."
   }
 }

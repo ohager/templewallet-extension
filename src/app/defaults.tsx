@@ -1,4 +1,3 @@
-export const ACTIVITY_PAGE_SIZE = 50;
 export const OP_STACK_PREVIEW_SIZE = 2;
 
 export class ArtificialError extends Error {}

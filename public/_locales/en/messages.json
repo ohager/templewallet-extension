@@ -714,7 +714,7 @@
     "message": "If you want to activate a different account, please select it in the top right drop-down list."
   },
   "ifYouWantToRemoveAnotherAccount": {
-    "message": "If you want to remove another account, select it from the drop-down menu in the top right."
+    "message": "If you want to remove another account, select it from the drop-down menu in the top right. You can always re-import the account. No data is lost."
   },
   "import": {
     "message": "Import"
@@ -973,7 +973,7 @@
     "message": "No matching dApps were found"
   },
   "noOperationsFound": {
-    "message": "No events found"
+    "message": "No transactions found"
   },
   "noResults": {
     "message": "No results"
@@ -1716,5 +1716,14 @@
   },
   "example": {
     "message": "Example"
+  },
+  "createWalletDescription": {
+    "message": "Create a Signum wallet account and you may:"
+  },
+  "createWalletDescriptionOption1": {
+    "message": "send and receive Signa."
+  },
+  "createWalletDescriptionOption2": {
+    "message": "connect and interact with Signum DApps."
   }
 }

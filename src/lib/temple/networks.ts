@@ -1,11 +1,4 @@
-import { TempleChainId, TempleNetwork } from 'lib/temple/types';
-
-export const KNOWN_LAMBDA_CONTRACTS = new Map([
-  [TempleChainId.Mainnet, 'KT1CPuTzwC7h7uLXd5WQmpMFso1HxrLBUtpE'],
-  [TempleChainId.Granadanet, 'KT1VhtTGAyh7AVVwyH2ExNhaXvQq2rAJ6DNs'],
-  [TempleChainId.Hangzhounet, 'KT19ewhnhaCcCuoF1Ly2pxXAFRiF3UtgaY9U'],
-  [TempleChainId.Idiazabalnet, 'KT1VCXUAQC6bky8LKjSaTvM9wwTXe9YQ7N4s']
-]);
+import { TempleNetwork } from 'lib/temple/types';
 
 export const NETWORKS: TempleNetwork[] = [
   {
@@ -45,6 +38,15 @@ export const NETWORKS: TempleNetwork[] = [
     disabled: false
   },
   {
+    id: 'signum-us-east',
+    name: 'US East',
+    description: 'Featured Node from the US',
+    type: 'main',
+    rpcBaseURL: 'https://us-east.signum.network',
+    color: '#00A0A0',
+    disabled: false
+  },
+  {
     id: 'signum-canada',
     name: 'Canada',
     description: 'Featured Node from Canada',
@@ -62,15 +64,15 @@ export const NETWORKS: TempleNetwork[] = [
     color: '#00B7AE',
     disabled: false
   },
-  // {
-  //   id: 'signum-brazil',
-  //   name: 'Latin America BR',
-  //   description: 'Featured Node from South America',
-  //   type: 'main',
-  //   rpcBaseURL: 'https://brazil.signum.network',
-  //   color: '#0090A2',
-  //   disabled: false
-  // },
+  {
+    id: 'signum-brazil',
+    name: 'Latin America BR',
+    description: 'Featured Node from South America',
+    type: 'main',
+    rpcBaseURL: 'https://brazil.signum.network',
+    color: '#0090A2',
+    disabled: false
+  },
   {
     id: 'signum-australia',
     name: 'Australia',

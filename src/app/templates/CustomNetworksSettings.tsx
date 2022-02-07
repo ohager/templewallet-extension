@@ -25,6 +25,11 @@ interface NetworkFormData {
 
 const SUBMIT_ERROR_TYPE = 'submit-error';
 
+function getRandomInt(min: number, max: number) {
+  // min inclusive, max exclusive!
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
 const CustomNetworksSettings: FC = () => {
   const { updateSettings, defaultNetworks } = useTempleClient();
   const { customNetworks = [] } = useSettings();
@@ -67,7 +72,7 @@ const CustomNetworksSettings: FC = () => {
               description: name,
               type,
               disabled: false,
-              color: COLORS[Math.floor(Math.random() * COLORS.length)],
+              color: COLORS[getRandomInt(74, COLORS.length)], // something violet or pink
               id: rpcBaseURL
             }
           ]

@@ -1,8 +1,8 @@
 import React, { FC, SVGProps } from 'react';
 
-import { ReactComponent as CannyIcon } from 'app/icons/canny.svg';
 import { ReactComponent as DiscordIcon } from 'app/icons/discord.svg';
-import { ReactComponent as HelpCrunchIcon } from 'app/icons/helpcrunch.svg';
+// import { ReactComponent as HelpCrunchIcon } from 'app/icons/helpcrunch.svg';
+import { ReactComponent as GithubIcon } from 'app/icons/github.svg';
 import { ReactComponent as RedditIcon } from 'app/icons/reddit.svg';
 import { ReactComponent as TelegramIcon } from 'app/icons/telegram.svg';
 import { ReactComponent as TwitterIcon } from 'app/icons/twitter.svg';
@@ -10,44 +10,44 @@ import { ReactComponent as YoutubeIcon } from 'app/icons/youtube.svg';
 import { T } from 'lib/i18n/react';
 
 const links = [
+  // {
+  //   name: 'Knowledge Base',
+  //   href: 'https://madfish.crunch.help/temple-wallet',
+  //   background: '#2182f7',
+  //   Icon: HelpCrunchIcon
+  // },
   {
-    name: 'Knowledge Base',
-    href: 'https://madfish.crunch.help/temple-wallet',
-    background: '#2182f7',
-    Icon: HelpCrunchIcon
-  },
-  {
-    name: 'Feature Request',
+    name: 'Feature Request or Bug Report',
     href: 'https://madfish.canny.io/feature-requests',
-    Icon: CannyIcon
+    Icon: GithubIcon
   },
   {
     name: 'Twitter',
-    href: 'https://twitter.com/madfishofficial',
+    href: 'https://twitter.com/signum_official',
     background: '#1DA1F2',
     Icon: TwitterIcon
   },
   {
     name: 'Telegram',
-    href: 'https://t.me/MadFishCommunity',
+    href: 'https://t.me/signumnetwork',
     background: '#26A5E4',
     Icon: TelegramIcon
   },
   {
     name: 'Discord',
-    href: 'https://www.madfish.solutions/discord',
+    href: 'https://discord.gg/QHZkF4KHDS',
     background: '#7289DA',
     Icon: DiscordIcon
   },
   {
     name: 'Reddit',
-    href: 'https://www.reddit.com/r/MadFishCommunity',
+    href: 'https://www.reddit.com/r/Signum/',
     background: '#FF4500',
     Icon: RedditIcon
   },
   {
     name: 'Youtube',
-    href: 'https://www.youtube.com/channel/UCUp80EXfJEigks3xU5hiwyA',
+    href: 'https://www.youtube.com/c/SignumNetwork',
     background: '#FF0000',
     Icon: YoutubeIcon
   }

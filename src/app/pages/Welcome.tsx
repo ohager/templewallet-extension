@@ -104,12 +104,16 @@ const Welcome: FC = () => {
       </div>
 
       <div className="mt-12 mb-4 text-base text-gray-600 font-light">
-        <p className="mb-2 text-lg">Create a Signum wallet account and you may:</p>
-        <p className="mb-1 flex items-center">
-          <span className="text-lg pr-2">•</span>send and receive any Signa
+        <p className="mb-2 text-lg">
+          <T id="createWalletDescription" />
         </p>
         <p className="mb-1 flex items-center">
-          <span className="text-lg pr-2">•</span>connect and interact with Signum dApps
+          <span className="text-lg pr-2">•</span>
+          <T id="createWalletDescriptionOption1" />
+        </p>
+        <p className="mb-1 flex items-center">
+          <span className="text-lg pr-2">•</span>
+          <T id="createWalletDescriptionOption2" />
         </p>
       </div>
     </div>

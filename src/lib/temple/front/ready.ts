@@ -64,11 +64,22 @@ function useReadyTemple() {
    */
 
   const defaultNet = allNetworks[0];
-  const [networkId, setNetworkId] = usePassiveStorage('network_id', defaultNet.id);
+  const [networkId, setNetworkId] = usePassiveStorage('network_id', '');
 
   useEffect(() => {
-    if (allNetworks.every(a => a.id !== networkId)) {
-      setNetworkId(defaultNet.id);
+    async function getBestNetwork() {
+      const allMainNets = allNetworks.filter(n => n.type === 'main');
+      const client = LedgerClientFactory.createClient({
+        nodeHost: allMainNets[0].rpcBaseURL,
+        reliableNodeHosts: allMainNets.map(n => n.rpcBaseURL)
+      });
+      const hostUrl = await client.service.selectBestHost(false);
+      const found = allNetworks.find(n => n.rpcBaseURL === hostUrl);
+      setNetworkId(found?.id || allMainNets[0].id);
+    }
+
+    if (!networkId) {
+      getBestNetwork();
     }
   }, [allNetworks, networkId, setNetworkId, defaultNet]);
 
@@ -127,7 +138,6 @@ function useReadyTemple() {
   }, [tezos]);
 
   const signum = useMemo(() => {
-    console.log('network changed', network);
     return LedgerClientFactory.createClient({
       nodeHost: network.rpcBaseURL
     });
