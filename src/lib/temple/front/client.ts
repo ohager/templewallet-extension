@@ -11,7 +11,7 @@ import {
 } from '@taquito/taquito';
 import { buf2hex } from '@taquito/utils';
 import constate from 'constate';
-import { nanoid } from 'nanoid';
+import { v4 as uuid } from 'uuid';
 
 import { IntercomClient } from 'lib/intercom';
 import { useRetryableSWR } from 'lib/swr';
@@ -91,31 +91,8 @@ export const [TempleClientProvider, useTempleClient] = constate(() => {
   const locked = status === TempleStatus.Locked;
   const ready = status === TempleStatus.Ready;
 
-  const customNetworks = useMemo(() => {
-    const customNetworksWithoutLambdaContracts = settings?.customNetworks ?? [];
-    return customNetworksWithoutLambdaContracts.map(network =>
-      network.lambdaContract
-        ? network
-        : {
-            ...network,
-            lambdaContract: settings?.lambdaContracts?.[network.id]
-          }
-    );
-  }, [settings]);
-  const defaultNetworksWithLambdaContracts = useMemo(() => {
-    return defaultNetworks.map(network =>
-      network.lambdaContract
-        ? network
-        : {
-            ...network,
-            lambdaContract: settings?.lambdaContracts?.[network.id]
-          }
-    );
-  }, [settings, defaultNetworks]);
-  const networks = useMemo(
-    () => [...defaultNetworksWithLambdaContracts, ...customNetworks],
-    [defaultNetworksWithLambdaContracts, customNetworks]
-  );
+  const customNetworks = useMemo(() => settings?.customNetworks ?? [], [settings]);
+  const networks = useMemo(() => [...defaultNetworks, ...customNetworks], [defaultNetworks, customNetworks]);
 
   /**
    * Actions
@@ -145,6 +122,7 @@ export const [TempleClientProvider, useTempleClient] = constate(() => {
     assertResponse(res.type === TempleMessageType.LockResponse);
   }, []);
 
+  // TODO: not needed - we can use import Mnemonic Account
   const createAccount = useCallback(async (name?: string) => {
     const res = await request({
       type: TempleMessageType.CreateAccountRequest,
@@ -153,6 +131,7 @@ export const [TempleClientProvider, useTempleClient] = constate(() => {
     assertResponse(res.type === TempleMessageType.CreateAccountResponse);
   }, []);
 
+  // TODO: remove not used
   const revealPrivateKey = useCallback(async (accountPublicKeyHash: string, password: string) => {
     const res = await request({
       type: TempleMessageType.RevealPrivateKeyRequest,
@@ -163,6 +142,19 @@ export const [TempleClientProvider, useTempleClient] = constate(() => {
     return res.privateKey;
   }, []);
 
+  const getSignumTransactionKeyPair = useCallback(async (accountPublicKeyHash: string) => {
+    const res = await request({
+      type: TempleMessageType.GetSignumTxKeysRequest,
+      accountPublicKeyHash
+    });
+    assertResponse(res.type === TempleMessageType.GetSignumTxKeysResponse);
+    return {
+      publicKey: res.publicKey,
+      signingKey: res.signingKey
+    };
+  }, []);
+
+  // TODO: remove not used
   const revealMnemonic = useCallback(async (password: string) => {
     const res = await request({
       type: TempleMessageType.RevealMnemonicRequest,
@@ -199,12 +191,11 @@ export const [TempleClientProvider, useTempleClient] = constate(() => {
     assertResponse(res.type === TempleMessageType.ImportAccountResponse);
   }, []);
 
-  const importMnemonicAccount = useCallback(async (mnemonic: string, password?: string, derivationPath?: string) => {
+  const importMnemonicAccount = useCallback(async (mnemonic: string, name?) => {
     const res = await request({
       type: TempleMessageType.ImportMnemonicAccountRequest,
       mnemonic,
-      password,
-      derivationPath
+      name
     });
     assertResponse(res.type === TempleMessageType.ImportMnemonicAccountResponse);
   }, []);
@@ -293,20 +284,6 @@ export const [TempleClientProvider, useTempleClient] = constate(() => {
     assertResponse(res.type === TempleMessageType.DAppPermConfirmationResponse);
   }, []);
 
-  const confirmDAppOperation = useCallback(
-    async (id: string, confirmed: boolean, modifiedTotalFee?: number, modifiedStorageLimit?: number) => {
-      const res = await request({
-        type: TempleMessageType.DAppOpsConfirmationRequest,
-        id,
-        confirmed,
-        modifiedTotalFee,
-        modifiedStorageLimit
-      });
-      assertResponse(res.type === TempleMessageType.DAppOpsConfirmationResponse);
-    },
-    []
-  );
-
   const confirmDAppSign = useCallback(async (id: string, confirmed: boolean) => {
     const res = await request({
       type: TempleMessageType.DAppSignConfirmationRequest,
@@ -357,7 +334,7 @@ export const [TempleClientProvider, useTempleClient] = constate(() => {
     // Aliases
     status,
     defaultNetworks,
-    customNetworks: defaultNetworksWithLambdaContracts,
+    customNetworks,
     networks,
     accounts,
     settings,
@@ -388,12 +365,12 @@ export const [TempleClientProvider, useTempleClient] = constate(() => {
     confirmInternal,
     getDAppPayload,
     confirmDAppPermission,
-    confirmDAppOperation,
     confirmDAppSign,
     createTaquitoWallet,
     createTaquitoSigner,
     getAllDAppSessions,
-    removeDAppSession
+    removeDAppSession,
+    getSignumTransactionKeyPair
   };
 });
 
@@ -424,7 +401,7 @@ class TaquitoWallet implements WalletProvider {
   }
 
   async sendOperations(opParams: any[]) {
-    const id = nanoid();
+    const id = uuid();
     if (this.opts.onBeforeSend) {
       this.opts.onBeforeSend(id);
     }
@@ -456,7 +433,7 @@ class TempleSigner {
   }
 
   async sign(bytes: string, watermark?: Uint8Array) {
-    const id = nanoid();
+    const id = uuid();
     if (this.onBeforeSign) {
       this.onBeforeSign(id);
     }
@@ -510,7 +487,7 @@ async function request<T extends TempleRequest>(req: T) {
 
 function assertResponse(condition: any): asserts condition {
   if (!condition) {
-    throw new Error('Invalid response recieved');
+    throw new Error('Invalid response received');
   }
 }
 

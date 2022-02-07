@@ -22,68 +22,26 @@ type LocaleOption = {
 
 const localeOptions: LocaleOption[] = [
   {
-    code: 'en',
-    flagName: 'us',
-    label: 'English',
-    disabled: false
-  },
-  {
-    code: 'en_GB',
-    flagName: 'gb',
-    label: 'English ‒ United Kingdom',
-    disabled: false
-  },
-  {
-    code: 'fr',
-    flagName: 'fr',
-    label: 'French (Français)',
-    disabled: false
-  },
-  {
     code: 'de',
     flagName: 'de',
     label: 'German (Deutsch)',
     disabled: false
   },
   {
-    code: 'zh_CN',
-    flagName: 'cn',
-    label: 'Chinese ‒ Simplified (简体中文)',
+    code: 'en',
+    flagName: 'us',
+    label: 'English',
     disabled: false
   },
   {
-    code: 'zh_TW',
-    flagName: 'tw',
-    label: 'Chinese ‒ Traditional (繁體中文)',
+    code: 'es',
+    flagName: 'es',
+    label: 'Spanish (Español)',
     disabled: false
   },
   {
-    code: 'ja',
-    flagName: 'jp',
-    label: 'Japanese (日本語)',
-    disabled: false
-  },
-  {
-    code: 'ko',
-    flagName: 'kr',
-    label: 'Korean',
-    disabled: false
-  },
-  {
-    code: 'uk',
-    flagName: 'ua',
-    label: 'Ukrainian (Українська)',
-    disabled: false
-  },
-  {
-    code: 'tr',
-    flagName: 'tr',
-    label: 'Turkish (Türk)',
-    disabled: false
-  },
-  {
-    code: 'pt',
-    flagName: 'pt',
+    code: 'pt_BR',
+    flagName: 'br',
     label: 'Portuguese (Português)',
     disabled: false
   },
@@ -96,7 +54,7 @@ const localeOptions: LocaleOption[] = [
   }
 ];
 
-const localeIsDisabled = ({ disabled }: LocaleOption) => !!disabled;
+const localeIsDisabled = ({ disabled }: LocaleOption) => disabled;
 
 const getLocaleCode = ({ code }: LocaleOption) => code;
 

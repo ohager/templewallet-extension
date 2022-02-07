@@ -1,120 +1,121 @@
-import { getMessage } from 'lib/i18n';
-import { TempleChainId, TempleNetwork } from 'lib/temple/types';
-
-export const KNOWN_LAMBDA_CONTRACTS = new Map([
-  [TempleChainId.Mainnet, 'KT1CPuTzwC7h7uLXd5WQmpMFso1HxrLBUtpE'],
-  [TempleChainId.Granadanet, 'KT1VhtTGAyh7AVVwyH2ExNhaXvQq2rAJ6DNs'],
-  [TempleChainId.Hangzhounet, 'KT19ewhnhaCcCuoF1Ly2pxXAFRiF3UtgaY9U'],
-  [TempleChainId.Idiazabalnet, 'KT1VCXUAQC6bky8LKjSaTvM9wwTXe9YQ7N4s']
-]);
-
-export const NETWORK_IDS = new Map<string, string>([
-  [TempleChainId.Mainnet, 'mainnet'],
-  [TempleChainId.Granadanet, 'granadanet'],
-  [TempleChainId.Hangzhounet, 'hangzhounet'],
-  [TempleChainId.Idiazabalnet, 'idiazabalnet']
-]);
+import { TempleNetwork } from 'lib/temple/types';
 
 export const NETWORKS: TempleNetwork[] = [
   {
-    id: 'mainnet',
-    name: getMessage('tezosMainnet'),
-    nameI18nKey: 'tezosMainnet',
-    description: 'Tezos mainnet',
-    lambdaContract: 'KT1CPuTzwC7h7uLXd5WQmpMFso1HxrLBUtpE',
+    id: 'signum-europe',
+    name: 'Europe 1',
+    description: 'Featured Node from Europe',
     type: 'main',
-    rpcBaseURL: 'https://mainnet-node.madfish.solutions',
-    color: '#83b300',
+    rpcBaseURL: 'https://europe.signum.network',
+    color: '#00FF88',
     disabled: false
   },
   {
-    id: 'giganode-mainnet',
-    name: 'Mainnet @giganode.io',
-    description: 'Highly available Tezos Mainnet nodes operated by Giganode',
-    lambdaContract: 'KT1CPuTzwC7h7uLXd5WQmpMFso1HxrLBUtpE',
+    id: 'signum-europe-1',
+    name: 'Europe 2',
+    description: 'Another Featured Node from Europe',
     type: 'main',
-    rpcBaseURL: 'https://mainnet-tezos.giganode.io',
-    color: '#059669',
+    rpcBaseURL: 'https://europe1.signum.network',
+    color: '#00DCA4',
     disabled: false
   },
   {
-    id: 'smartpy-mainnet',
-    name: 'Mainnet @smartpy.io',
-    description: 'SmartPy Mainnet',
-    lambdaContract: 'KT1CPuTzwC7h7uLXd5WQmpMFso1HxrLBUtpE',
+    id: 'signum-europe-2',
+    name: 'Europe 3',
+    description: 'Another Featured Node from Europe',
     type: 'main',
-    rpcBaseURL: 'https://mainnet.smartpy.io',
-    color: '#34D399',
+    rpcBaseURL: 'https://europe2.signum.network',
+    color: '#00C88A',
     disabled: false
   },
   {
-    id: 'tzbeta-mainnet',
-    name: 'Mainnet @tzbeta.net',
-    description: 'Highly available Tezos Mainnet nodes operated by Blockscale',
-    lambdaContract: 'KT1CPuTzwC7h7uLXd5WQmpMFso1HxrLBUtpE',
+    id: 'signum-uk',
+    name: 'United Kingdom',
+    description: 'Featured Node from the UK',
     type: 'main',
-    rpcBaseURL: 'https://rpc.tzbeta.net',
-    color: '#10B981',
+    rpcBaseURL: 'https://uk.signum.network',
+    color: '#00AD89',
     disabled: false
   },
   {
-    id: 'tezie-mainnet',
-    name: 'Mainnet @api.tez.ie',
-    description: 'Highly available Tezos Mainnet nodes operated by ECAD Labs',
-    lambdaContract: 'KT1CPuTzwC7h7uLXd5WQmpMFso1HxrLBUtpE',
+    id: 'signum-us-east',
+    name: 'US East',
+    description: 'Featured Node from the US',
     type: 'main',
-    rpcBaseURL: 'https://mainnet.api.tez.ie',
-    color: '#047857',
+    rpcBaseURL: 'https://us-east.signum.network',
+    color: '#00A0A0',
     disabled: false
   },
   {
-    id: 'granadanet',
-    name: 'Granada Testnet',
-    description: 'Granada testnet',
-    lambdaContract: 'KT1VhtTGAyh7AVVwyH2ExNhaXvQq2rAJ6DNs',
-    type: 'test',
-    rpcBaseURL: 'https://granadanet.smartpy.io',
-    color: '#667eea',
+    id: 'signum-canada',
+    name: 'Canada',
+    description: 'Featured Node from Canada',
+    type: 'main',
+    rpcBaseURL: 'https://canada.signum.network',
+    color: '#009186',
     disabled: false
   },
   {
-    id: 'hangzhounet',
-    name: 'Hangzhounet Testnet',
-    description: 'Hangzhounet testnet',
-    lambdaContract: 'KT19ewhnhaCcCuoF1Ly2pxXAFRiF3UtgaY9U',
-    type: 'test',
-    rpcBaseURL: 'https://hangzhounet.smartpy.io',
-    color: '#b83280',
+    id: 'signum-latam',
+    name: 'Latin America US',
+    description: 'Featured Node from Latin America',
+    type: 'main',
+    rpcBaseURL: 'https://latam.signum.network',
+    color: '#00B7AE',
     disabled: false
   },
   {
-    id: 'idiazabalnet',
-    name: 'Idiazabalnet Testnet',
-    description: 'Idiazabalnet testnet',
-    lambdaContract: 'KT1VCXUAQC6bky8LKjSaTvM9wwTXe9YQ7N4s',
-    type: 'test',
-    rpcBaseURL: 'https://rpc.tzkt.io/idiazabalnet',
-    color: '#131380',
+    id: 'signum-brazil',
+    name: 'Latin America BR',
+    description: 'Featured Node from South America',
+    type: 'main',
+    rpcBaseURL: 'https://brazil.signum.network',
+    color: '#0090A2',
     disabled: false
   },
   {
-    id: 'sandbox',
-    name: 'localhost:8732',
-    description: 'Local Sandbox',
-    type: 'test',
-    rpcBaseURL: 'http://localhost:8732',
-    color: '#e9e1cc',
+    id: 'signum-australia',
+    name: 'Australia',
+    description: 'Featured Node from Australia',
+    type: 'main',
+    rpcBaseURL: 'https://australia.signum.network',
+    color: '#001b69',
     disabled: false
   },
-  // Hidden
   {
-    id: 'tzbeta-rpczero',
-    name: 'Edo Testnet @rpczero.tzbeta.net',
-    description: 'Highly available Edo Testnet nodes operated by Blockscale',
+    id: 'signum-singapore',
+    name: 'Asia SG',
+    description: 'Featured Node from Singapore',
+    type: 'main',
+    rpcBaseURL: 'https://singapore.signum.network',
+    color: '#001b69',
+    disabled: false
+  },
+  {
+    id: 'signum-mainnet-local',
+    name: 'Local Mainnet',
+    description: 'For those who run a local main net node on standard port 8125',
+    type: 'main',
+    rpcBaseURL: 'http://localhost:8125',
+    color: '#2F4858',
+    disabled: false
+  },
+  {
+    id: 'signum-testnet-europe',
+    name: 'Europe Testnet ',
+    description: 'Public Testnet Node Europe',
     type: 'test',
-    rpcBaseURL: 'https://rpczero.tzbeta.net',
-    color: '#FBBF24',
-    disabled: false,
-    hidden: true
+    rpcBaseURL: 'https://europe3.testnet.signum.network/',
+    color: '#FFBB00',
+    disabled: false
+  },
+  {
+    id: 'signum-testnet-local',
+    name: 'Local Testnet',
+    description: 'For those hackers who run a local test net node on standard port 6876',
+    type: 'test',
+    rpcBaseURL: 'http://localhost:6876',
+    color: '#CD9000',
+    disabled: false
   }
 ];

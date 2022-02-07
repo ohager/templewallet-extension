@@ -1,24 +1,9 @@
 import { DerivationType } from '@taquito/ledger-signer';
 import { TezosOperationError } from '@taquito/taquito';
-import {
-  TempleDAppMessageType,
-  TempleDAppErrorType,
-  TempleDAppRequest,
-  TempleDAppResponse
-} from '@temple-wallet/dapp/dist/types';
 import { browser, Runtime } from 'webextension-polyfill-ts';
 
 import { createQueue } from 'lib/queue';
 import { addLocalOperation } from 'lib/temple/activity';
-import {
-  getCurrentPermission,
-  requestPermission,
-  requestOperation,
-  requestSign,
-  requestBroadcast,
-  getAllDApps,
-  removeDApp
-} from 'lib/temple/back/dapp';
 import { intercom } from 'lib/temple/back/defaults';
 import { buildFinalOpParmas, dryRunOpParams } from 'lib/temple/back/dryrun';
 import {
@@ -33,7 +18,6 @@ import {
   withUnlocked
 } from 'lib/temple/back/store';
 import { Vault } from 'lib/temple/back/vault';
-import * as Beacon from 'lib/temple/beacon';
 import { loadChainId } from 'lib/temple/helpers';
 import {
   TempleState,
@@ -43,9 +27,11 @@ import {
   TempleSharedStorageKey
 } from 'lib/temple/types';
 
+import { getCurrentPermission, requestPermission, requestSign, getAllDApps, removeDApp } from './dapp';
+import { ExtensionMessageType, ExtensionRequest, ExtensionResponse } from './dapp/typings';
+
 const ACCOUNT_NAME_PATTERN = /^.{0,16}$/;
 const AUTODECLINE_AFTER = 60_000;
-const BEACON_ID = `temple_wallet_${browser.runtime.id}`;
 
 const enqueueDApp = createQueue();
 const enqueueUnlock = createQueue();
@@ -80,7 +66,7 @@ export async function isDAppEnabled() {
 
 export function registerNewWallet(password: string, mnemonic?: string) {
   return withInited(async () => {
-    await Vault.spawn(password, mnemonic);
+    await Vault.registerNewWallet(password, mnemonic);
     await unlock(password);
   });
 }
@@ -102,7 +88,7 @@ export function unlock(password: string) {
   );
 }
 
-export function createHDAccount(name?: string) {
+export function createAccount(name?: string) {
   return withUnlocked(async ({ vault }) => {
     if (name) {
       name = name.trim();
@@ -111,8 +97,9 @@ export function createHDAccount(name?: string) {
       }
     }
 
-    const updatedAccounts = await vault.createHDAccount(name);
+    const [mnemonic, updatedAccounts] = await vault.createSignumAccount(name);
     accountsUpdated(updatedAccounts);
+    return mnemonic;
   });
 }
 
@@ -154,9 +141,9 @@ export function importAccount(privateKey: string, encPassword?: string) {
   });
 }
 
-export function importMnemonicAccount(mnemonic: string, password?: string, derivationPath?: string) {
+export function importMnemonicAccount(mnemonic: string, name?: string) {
   return withUnlocked(async ({ vault }) => {
-    const updatedAccounts = await vault.importMnemonicAccount(mnemonic, password, derivationPath);
+    const updatedAccounts = await vault.importMnemonicAccount(mnemonic, name);
     accountsUpdated(updatedAccounts);
   });
 }
@@ -204,6 +191,12 @@ export function getAllDAppSessions() {
 export function removeDAppSession(origin: string) {
   return removeDApp(origin);
 }
+
+export function getSignumTxKeys(accPublicKeyHash: string) {
+  return withUnlocked(({ vault }) => vault.getSignumTxKeys(accPublicKeyHash));
+}
+
+// ---------------------------------------------------------
 
 export function sendOperations(
   port: Runtime.Port,
@@ -376,223 +369,25 @@ export function sign(port: Runtime.Port, id: string, sourcePkh: string, bytes: s
   );
 }
 
-export async function processDApp(origin: string, req: TempleDAppRequest): Promise<TempleDAppResponse | void> {
+export async function processDApp(origin: string, req: ExtensionRequest): Promise<ExtensionResponse | void> {
   switch (req?.type) {
-    case TempleDAppMessageType.GetCurrentPermissionRequest:
+    case ExtensionMessageType.GetCurrentPermissionRequest:
       return withInited(() => getCurrentPermission(origin));
 
-    case TempleDAppMessageType.PermissionRequest:
+    case ExtensionMessageType.PermissionRequest:
       return withInited(() => enqueueDApp(() => requestPermission(origin, req)));
 
-    case TempleDAppMessageType.OperationRequest:
-      return withInited(() => enqueueDApp(() => requestOperation(origin, req)));
+    // TODO: seems that signum does not need this
+    // case TempleDAppMessageType.OperationRequest:
+    //   return withInited(() => enqueueDApp(() => requestOperation(origin, req)));
 
-    case TempleDAppMessageType.SignRequest:
+    case ExtensionMessageType.SignRequest:
       return withInited(() => enqueueDApp(() => requestSign(origin, req)));
 
-    case TempleDAppMessageType.BroadcastRequest:
-      return withInited(() => requestBroadcast(origin, req));
+    // TODO: seems that signum does not need this
+    // case TempleDAppMessageType.BroadcastRequest:
+    //   return withInited(() => requestBroadcast(origin, req));
   }
-}
-
-export async function processBeacon(origin: string, msg: string, encrypted = false) {
-  let recipientPubKey: string | null = null;
-
-  if (encrypted) {
-    try {
-      recipientPubKey = await Beacon.getDAppPublicKey(origin);
-      if (!recipientPubKey) throw new Error('<stub>');
-
-      try {
-        msg = await Beacon.decryptMessage(msg, recipientPubKey);
-      } catch (err: any) {
-        await Beacon.removeDAppPublicKey(origin);
-        throw err;
-      }
-    } catch {
-      return {
-        payload: Beacon.encodeMessage<Beacon.Response>({
-          version: '2',
-          senderId: await Beacon.getSenderId(),
-          id: 'stub',
-          type: Beacon.MessageType.Disconnect
-        })
-      };
-    }
-  }
-
-  let req: Beacon.Request;
-  try {
-    req = Beacon.decodeMessage<Beacon.Request>(msg);
-  } catch {
-    return;
-  }
-
-  // Process Disconnect
-  if (req.type === Beacon.MessageType.Disconnect) {
-    await removeDApp(origin);
-    return;
-  }
-
-  const resBase = {
-    version: req.version,
-    id: req.id,
-    ...(req.beaconId ? { beaconId: BEACON_ID } : { senderId: await Beacon.getSenderId() })
-  };
-
-  // Process handshake
-  if (req.type === Beacon.MessageType.HandshakeRequest) {
-    await Beacon.saveDAppPublicKey(origin, req.publicKey);
-    const keyPair = await Beacon.getOrCreateKeyPair();
-    return {
-      payload: await Beacon.sealCryptobox(
-        JSON.stringify({
-          ...resBase,
-          ...Beacon.PAIRING_RESPONSE_BASE,
-          publicKey: Beacon.toHex(keyPair.publicKey)
-        }),
-        Beacon.fromHex(req.publicKey)
-      )
-    };
-  }
-
-  const res = await (async (): Promise<Beacon.Response> => {
-    try {
-      try {
-        const templeReq = ((): TempleDAppRequest | void => {
-          switch (req.type) {
-            case Beacon.MessageType.PermissionRequest:
-              const network =
-                req.network.type === 'custom'
-                  ? {
-                      name: req.network.name!,
-                      rpc: req.network.rpcUrl!
-                    }
-                  : req.network.type;
-
-              return {
-                type: TempleDAppMessageType.PermissionRequest,
-                network: network as any,
-                appMeta: req.appMetadata,
-                force: true
-              };
-
-            case Beacon.MessageType.OperationRequest:
-              return {
-                type: TempleDAppMessageType.OperationRequest,
-                sourcePkh: req.sourceAddress,
-                opParams: req.operationDetails.map(Beacon.formatOpParams)
-              };
-
-            case Beacon.MessageType.SignPayloadRequest:
-              return {
-                type: TempleDAppMessageType.SignRequest,
-                sourcePkh: req.sourceAddress,
-                payload:
-                  req.signingType === Beacon.SigningType.RAW
-                    ? Buffer.from(req.payload, 'utf8').toString('hex')
-                    : req.payload
-              };
-
-            case Beacon.MessageType.BroadcastRequest:
-              return {
-                type: TempleDAppMessageType.BroadcastRequest,
-                signedOpBytes: req.signedTransaction
-              };
-          }
-        })();
-
-        if (templeReq) {
-          const templeRes = await processDApp(origin, templeReq);
-
-          if (templeRes) {
-            // Map Temple DApp response to Beacon response
-            switch (templeRes.type) {
-              case TempleDAppMessageType.PermissionResponse:
-                return {
-                  ...resBase,
-                  type: Beacon.MessageType.PermissionResponse,
-                  publicKey: (templeRes as any).publicKey,
-                  network: (req as Beacon.PermissionRequest).network,
-                  scopes: [Beacon.PermissionScope.OPERATION_REQUEST, Beacon.PermissionScope.SIGN]
-                };
-
-              case TempleDAppMessageType.OperationResponse:
-                return {
-                  ...resBase,
-                  type: Beacon.MessageType.OperationResponse,
-                  transactionHash: templeRes.opHash
-                };
-
-              case TempleDAppMessageType.SignResponse:
-                return {
-                  ...resBase,
-                  type: Beacon.MessageType.SignPayloadResponse,
-                  signature: templeRes.signature
-                };
-
-              case TempleDAppMessageType.BroadcastResponse:
-                return {
-                  ...resBase,
-                  type: Beacon.MessageType.BroadcastResponse,
-                  transactionHash: templeRes.opHash
-                };
-            }
-          }
-        }
-
-        throw new Error(Beacon.ErrorType.UNKNOWN_ERROR);
-      } catch (err: any) {
-        if (err instanceof TezosOperationError) {
-          throw err;
-        }
-
-        // Map Temple DApp error to Beacon error
-        const beaconErrorType = (() => {
-          switch (err?.message) {
-            case TempleDAppErrorType.InvalidParams:
-              return Beacon.ErrorType.PARAMETERS_INVALID_ERROR;
-
-            case TempleDAppErrorType.NotFound:
-            case TempleDAppErrorType.NotGranted:
-              return req.beaconId ? Beacon.ErrorType.NOT_GRANTED_ERROR : Beacon.ErrorType.ABORTED_ERROR;
-
-            default:
-              return err?.message;
-          }
-        })();
-
-        throw new Error(beaconErrorType);
-      }
-    } catch (err: any) {
-      return {
-        ...resBase,
-        type: Beacon.MessageType.Error,
-        errorType: (() => {
-          switch (true) {
-            case err instanceof TezosOperationError:
-              return Beacon.ErrorType.TRANSACTION_INVALID_ERROR;
-
-            case err?.message in Beacon.ErrorType:
-              return err.message;
-
-            default:
-              return Beacon.ErrorType.UNKNOWN_ERROR;
-          }
-        })(),
-        errorData: getErrorData(err)
-      };
-    }
-  })();
-
-  const resMsg = Beacon.encodeMessage<Beacon.Response>(res);
-  if (encrypted && recipientPubKey) {
-    return {
-      payload: await Beacon.encryptMessage(resMsg, recipientPubKey),
-      encrypted: true
-    };
-  }
-  return { payload: resMsg };
 }
 
 async function createCustomNetworksSnapshot(settings: TempleSettings) {
@@ -603,8 +398,4 @@ async function createCustomNetworksSnapshot(settings: TempleSettings) {
       });
     }
   } catch {}
-}
-
-function getErrorData(err: any) {
-  return err instanceof TezosOperationError ? err.errors.map(({ contract_code, ...rest }: any) => rest) : undefined;
 }

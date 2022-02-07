@@ -1,3 +1,11 @@
+import { Address } from '@signumjs/core';
+import {
+  generateMasterKeys,
+  generateSignature,
+  generateSignedTransactionBytes,
+  Keys,
+  verifySignature
+} from '@signumjs/crypto';
 import { HttpResponseError } from '@taquito/http-utils';
 import { DerivationType } from '@taquito/ledger-signer';
 import { localForger } from '@taquito/local-forging';
@@ -18,7 +26,6 @@ import {
   fetchAndDecryptOneLegacy,
   getPlain,
   isStored,
-  isStoredLegacy,
   removeMany,
   removeManyLegacy,
   savePlain
@@ -34,6 +41,8 @@ import * as Passworder from 'lib/temple/passworder';
 import { clearStorage } from 'lib/temple/reset';
 import { TempleAccount, TempleAccountType, TempleContact, TempleSettings } from 'lib/temple/types';
 
+import { generateSignumMnemonic } from '../front';
+
 const TEZOS_BIP44_COINTYPE = 1729;
 const STORAGE_KEY_PREFIX = 'vault';
 const DEFAULT_SETTINGS: TempleSettings = {};
@@ -43,6 +52,7 @@ enum StorageEntity {
   MigrationLevel = 'migration',
   Mnemonic = 'mnemonic',
   AccPrivKey = 'accprivkey',
+  AccPrivP2PKey = 'accprivp2pkey',
   AccPubKey = 'accpubkey',
   Accounts = 'accounts',
   Settings = 'settings',
@@ -52,57 +62,45 @@ enum StorageEntity {
 const checkStrgKey = createStorageKey(StorageEntity.Check);
 const migrationLevelStrgKey = createStorageKey(StorageEntity.MigrationLevel);
 const mnemonicStrgKey = createStorageKey(StorageEntity.Mnemonic);
+const accPrivP2PStrgKey = createDynamicStorageKey(StorageEntity.AccPrivP2PKey);
 const accPrivKeyStrgKey = createDynamicStorageKey(StorageEntity.AccPrivKey);
 const accPubKeyStrgKey = createDynamicStorageKey(StorageEntity.AccPubKey);
 const accountsStrgKey = createStorageKey(StorageEntity.Accounts);
 const settingsStrgKey = createStorageKey(StorageEntity.Settings);
-const legacyMigrationLevelStrgKey = createStorageKey(StorageEntity.LegacyMigrationLevel);
 
 export class Vault {
   static async isExist() {
-    const stored = await isStored(checkStrgKey);
-    if (stored) return stored;
-
-    return isStoredLegacy(checkStrgKey);
+    return await isStored(checkStrgKey);
   }
 
   static async setup(password: string) {
     return withError('Failed to unlock wallet', async () => {
-      await Vault.runMigrations(password);
-
       const passKey = await Vault.toValidPassKey(password);
       return new Vault(passKey);
     });
   }
 
-  static async spawn(password: string, mnemonic?: string) {
+  static async registerNewWallet(password: string, mnemonic?: string) {
     return withError('Failed to create wallet', async () => {
       if (!mnemonic) {
-        mnemonic = Bip39.generateMnemonic(128);
+        mnemonic = await generateSignumMnemonic();
       }
-      const seed = Bip39.mnemonicToSeedSync(mnemonic);
-
-      const hdAccIndex = 0;
-      const accPrivateKey = seedToHDPrivateKey(seed, hdAccIndex);
-      const [accPublicKey, accPublicKeyHash] = await getPublicKeyAndHash(accPrivateKey);
-
+      const keys = generateMasterKeys(mnemonic);
+      const accountId = Address.fromPublicKey(keys.publicKey).getNumericId();
       const initialAccount: TempleAccount = {
-        type: TempleAccountType.HD,
+        type: TempleAccountType.Imported,
         name: 'Account 1',
-        publicKeyHash: accPublicKeyHash,
-        hdIndex: hdAccIndex
+        publicKeyHash: accountId
       };
       const newAccounts = [initialAccount];
-
       const passKey = await Passworder.generateKey(password);
-
       await clearStorage();
       await encryptAndSaveMany(
         [
           [checkStrgKey, generateCheck()],
-          [mnemonicStrgKey, mnemonic],
-          [accPrivKeyStrgKey(accPublicKeyHash), accPrivateKey],
-          [accPubKeyStrgKey(accPublicKeyHash), accPublicKey],
+          [accPrivP2PStrgKey(accountId), keys.agreementPrivateKey],
+          [accPrivKeyStrgKey(accountId), keys.signPrivateKey],
+          [accPubKeyStrgKey(accountId), keys.publicKey],
           [accountsStrgKey, newAccounts]
         ],
         passKey
@@ -111,73 +109,13 @@ export class Vault {
     });
   }
 
-  static async runMigrations(password: string) {
-    await Vault.assertValidPassword(password);
-
-    let migrationLevel: number;
-
-    const legacyMigrationLevelStored = await isStoredLegacy(legacyMigrationLevelStrgKey);
-
-    if (legacyMigrationLevelStored) {
-      migrationLevel = await withError('Invalid password', async () => {
-        const legacyPassKey = await Passworder.generateKeyLegacy(password);
-        return fetchAndDecryptOneLegacy<number>(legacyMigrationLevelStrgKey, legacyPassKey);
-      });
-    } else {
-      const saved = await getPlain<number>(migrationLevelStrgKey);
-
-      migrationLevel = saved ?? 0;
-
-      /**
-       * The code below is a fix for production issue that occurred
-       * due to an incorrect migration to the new migration type.
-       *
-       * The essence of the problem:
-       * if you enter the password incorrectly after the upgrade,
-       * the migration will not work (as it should),
-       * but it will save that it passed.
-       * And the next unlock attempt will go on a new path.
-       *
-       * Solution:
-       * Check if there is an legacy version of checkStrgKey field in storage
-       * and if there is both it and new migration record,
-       * then overwrite migration level.
-       */
-
-      const legacyCheckStored = await isStoredLegacy(checkStrgKey);
-
-      if (saved !== undefined && legacyCheckStored) {
-        // Override migration level, force
-        migrationLevel = 3;
-      }
-    }
-
-    try {
-      const migrationsToRun = MIGRATIONS.filter((_m, i) => i >= migrationLevel);
-
-      if (migrationsToRun.length === 0) {
-        return;
-      }
-
-      for (const migrate of migrationsToRun) {
-        await migrate(password);
-      }
-    } catch (err: any) {
-      console.error(err);
-    } finally {
-      if (legacyMigrationLevelStored) {
-        await removeManyLegacy([legacyMigrationLevelStrgKey]);
-      }
-
-      await savePlain(migrationLevelStrgKey, MIGRATIONS.length);
-    }
-  }
-
+  // TODO: remove not used
   static async revealMnemonic(password: string) {
     const passKey = await Vault.toValidPassKey(password);
     return withError('Failed to reveal seed phrase', () => fetchAndDecryptOne<string>(mnemonicStrgKey, passKey));
   }
 
+  // TODO: remove not used
   static async revealPrivateKey(accPublicKeyHash: string, password: string) {
     const passKey = await Vault.toValidPassKey(password);
     return withError('Failed to reveal private key', async () => {
@@ -218,19 +156,6 @@ export class Vault {
     });
   }
 
-  private static assertValidPassword(password: string) {
-    return withError('Invalid password', async () => {
-      const legacyCheckStored = await isStoredLegacy(checkStrgKey);
-      if (legacyCheckStored) {
-        const legacyPassKey = await Passworder.generateKeyLegacy(password);
-        await fetchAndDecryptOneLegacy<any>(checkStrgKey, legacyPassKey);
-      } else {
-        const passKey = await Passworder.generateKey(password);
-        await fetchAndDecryptOne<any>(checkStrgKey, passKey);
-      }
-    });
-  }
-
   constructor(private passKey: CryptoKey) {}
 
   revealPublicKey(accPublicKeyHash: string) {
@@ -251,6 +176,7 @@ export class Vault {
     return saved ? { ...DEFAULT_SETTINGS, ...saved } : DEFAULT_SETTINGS;
   }
 
+  // TODO: remove as not used
   async createHDAccount(name?: string, hdAccIndex?: number): Promise<TempleAccount[]> {
     return withError('Failed to create account', async () => {
       const [mnemonic, allAccounts] = await Promise.all([
@@ -294,6 +220,34 @@ export class Vault {
     });
   }
 
+  async createSignumAccount(name?: string, hdAccIndex?: number): Promise<[string, TempleAccount[]]> {
+    return withError('Failed to create account', async () => {
+      const allAccounts = await this.fetchAccounts();
+      const mnemonic = await generateSignumMnemonic();
+      const keys = generateMasterKeys(mnemonic);
+      const accountId = Address.fromPublicKey(keys.publicKey).getNumericId();
+      const accName = name || getNewAccountName(allAccounts);
+      const newAccount: TempleAccount = {
+        type: TempleAccountType.Imported,
+        name: accName,
+        publicKeyHash: accountId
+      };
+      const newAllAccounts = concatAccount(allAccounts, newAccount);
+
+      await encryptAndSaveMany(
+        [
+          [accPrivP2PStrgKey(accountId), keys.agreementPrivateKey],
+          [accPrivKeyStrgKey(accountId), keys.signPrivateKey],
+          [accPubKeyStrgKey(accountId), keys.publicKey],
+          [accountsStrgKey, newAllAccounts]
+        ],
+        this.passKey
+      );
+
+      return [mnemonic, newAllAccounts];
+    });
+  }
+
   async importAccount(accPrivateKey: string, encPassword?: string) {
     const errMessage = 'Failed to import account.\nThis may happen because provided Key is invalid';
 
@@ -326,24 +280,46 @@ export class Vault {
     });
   }
 
-  async importMnemonicAccount(mnemonic: string, password?: string, derivationPath?: string) {
-    return withError('Failed to import account', async () => {
-      let seed;
-      try {
-        seed = Bip39.mnemonicToSeedSync(mnemonic, password);
-      } catch (_err) {
-        throw new PublicError('Invalid Mnemonic or Password');
-      }
+  async importAccountSignum(keys: Keys, name?: string): Promise<TempleAccount[]> {
+    const errMessage = 'Failed to import account.\nThis may happen because provided Key is invalid';
 
-      if (derivationPath) {
-        seed = deriveSeed(seed, derivationPath);
-      }
+    return withError(errMessage, async () => {
+      const allAccounts = await this.fetchAccounts();
+      const accountId = Address.fromPublicKey(keys.publicKey).getNumericId();
+      const newAccount: TempleAccount = {
+        type: TempleAccountType.Imported,
+        name: name || getNewAccountName(allAccounts),
+        publicKeyHash: accountId
+      };
 
-      const privateKey = seedToPrivateKey(seed);
-      return this.importAccount(privateKey);
+      const newAllAcounts = concatAccount(allAccounts, newAccount);
+
+      await encryptAndSaveMany(
+        [
+          [accPrivP2PStrgKey(accountId), keys.agreementPrivateKey],
+          [accPrivKeyStrgKey(accountId), keys.signPrivateKey],
+          [accPubKeyStrgKey(accountId), keys.publicKey],
+          [accountsStrgKey, newAllAcounts]
+        ],
+        this.passKey
+      );
+
+      return newAllAcounts;
     });
   }
 
+  async importMnemonicAccount(passphrase: string, name?: string) {
+    return withError('Failed to import account', async () => {
+      try {
+        const keys = generateMasterKeys(passphrase);
+        return this.importAccountSignum(keys, name);
+      } catch (_err) {
+        throw new PublicError('Invalid Mnemonic or Password');
+      }
+    });
+  }
+
+  // TODO: remove, we dont have it
   async importFundraiserAccount(email: string, password: string, mnemonic: string) {
     return withError('Failed to import fundraiser account', async () => {
       const seed = Bip39.mnemonicToSeedSync(mnemonic, `${email}${password}`);
@@ -352,6 +328,7 @@ export class Vault {
     });
   }
 
+  // TODO: remove we don't have it
   async importManagedKTAccount(accPublicKeyHash: string, chainId: string, owner: string) {
     return withError('Failed to import Managed KT account', async () => {
       const allAccounts = await this.fetchAccounts();
@@ -455,6 +432,17 @@ export class Vault {
     });
   }
 
+  async signumSign(accPublicKeyHash: string, unsignedTransactionBytes: string) {
+    return withError('Failed to sign', async () => {
+      const { publicKey, signingKey } = await this.getSignumTxKeys(accPublicKeyHash);
+      const signature = generateSignature(unsignedTransactionBytes, signingKey);
+      if (!verifySignature(signature, unsignedTransactionBytes, publicKey)) {
+        throw new Error('The signed message could not be verified');
+      }
+      return generateSignedTransactionBytes(unsignedTransactionBytes, signature);
+    });
+  }
+
   async sign(accPublicKeyHash: string, bytes: string, watermark?: string) {
     return withError('Failed to sign', () =>
       this.withSigner(accPublicKeyHash, async signer => {
@@ -491,6 +479,19 @@ export class Vault {
             throw new Error(`Failed to send operations. ${err.message}`);
         }
       }
+    });
+  }
+
+  async getSignumTxKeys(accPublicKeyHash: string) {
+    return withError('Failed to fetch Signum transaction keys', async () => {
+      const [signingKey, publicKey] = await Promise.all([
+        fetchAndDecryptOne<string>(accPrivKeyStrgKey(accPublicKeyHash), this.passKey),
+        fetchAndDecryptOne<string>(accPubKeyStrgKey(accPublicKeyHash), this.passKey)
+      ]);
+      return {
+        signingKey,
+        publicKey
+      };
     });
   }
 

@@ -1,9 +1,3 @@
-import React from 'react';
-
-import { T, t } from 'lib/i18n/react';
-import { TempleAccount, TempleAccountType } from 'lib/temple/types';
-
-export const ACTIVITY_PAGE_SIZE = 50;
 export const OP_STACK_PREVIEW_SIZE = 2;
 
 export class ArtificialError extends Error {}
@@ -11,6 +5,7 @@ export class NotEnoughFundsError extends ArtificialError {}
 export class ZeroBalanceError extends NotEnoughFundsError {}
 export class ZeroTEZBalanceError extends NotEnoughFundsError {}
 
+// TODO: Adjust pattern for Signum
 export const ACCOUNT_NAME_PATTERN = /[^\s-].{0,16}$/;
 
 export const PASSWORD_PATTERN = new RegExp(
@@ -30,33 +25,6 @@ export const specialCharacterRegx = /[!@#$%^&*()_+\-=\]{};':"\\|,.<>?]/;
 export const URL_PATTERN =
   /^((?:https:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+)|(http(s)?:\/\/localhost:[0-9]+)$/;
 
-export const MNEMONIC_ERROR_CAPTION = (
-  <ul className="list-disc list-inside">
-    <T id="mnemonicWordsAmountConstraint">{message => <li>{message}</li>}</T>
-    <T id="mnemonicSpacingConstraint">{message => <li>{message}</li>}</T>
-    <T id="justValidPreGeneratedMnemonic">{message => <li>{message}</li>}</T>
-  </ul>
-);
-
 export function formatMnemonic(m: string) {
   return m.replace(/\n/g, ' ').trim();
-}
-
-export function getAccountBadgeTitle(account: Pick<TempleAccount, 'type'>) {
-  switch (account.type) {
-    case TempleAccountType.Imported:
-      return t('importedAccount');
-
-    case TempleAccountType.Ledger:
-      return t('ledger');
-
-    case TempleAccountType.ManagedKT:
-      return t('managedKTAccount');
-
-    case TempleAccountType.WatchOnly:
-      return t('watchOnlyAccount');
-
-    default:
-      return null;
-  }
 }

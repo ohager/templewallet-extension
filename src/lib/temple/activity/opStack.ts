@@ -5,6 +5,7 @@ import * as Repo from 'lib/temple/repo';
 import { isPositiveNumber, tryParseTokenTransfers } from './helpers';
 import { OpStackItem, OpStackItemType } from './types';
 
+// FIXME: obsolete in Signum
 export function parseOpStack(operation: Repo.IOperation, address: string) {
   const { localGroup, tzktGroup, bcdTokenTransfers } = operation.data;
 

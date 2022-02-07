@@ -16,6 +16,7 @@ import {
   fetchTokenMetadata,
   PRESERVED_TOKEN_METADATA,
   TEZOS_METADATA,
+  SIGNA_METADATA,
   fetchDisplayedFungibleTokens,
   fetchFungibleTokens,
   fetchAllKnownFungibleTokenSlugs,
@@ -83,6 +84,11 @@ export function useAllKnownCollectibleTokenSlugs(chainId: string) {
 
 const enqueueAutoFetchMetadata = createQueue();
 const autoFetchMetadataFails = new Set<string>();
+
+export function useSignumAssetMetadata(slug?: string): AssetMetadata {
+  // TODO: add more token support in the future
+  return SIGNA_METADATA;
+}
 
 export function useAssetMetadata(slug: string) {
   const tezos = useTezos();

@@ -12,7 +12,6 @@ import { T } from 'lib/i18n/react';
 import {
   useDisplayedFungibleTokens,
   useAccount,
-  useChainId,
   useAssetMetadata,
   getAssetName,
   getAssetSymbol,
@@ -32,7 +31,7 @@ type IAsset = Repo.IAccountToken | 'tez';
 const getSlug = (asset: IAsset) => (asset === 'tez' ? asset : asset.tokenSlug);
 
 const AssetSelect: FC<AssetSelectProps> = ({ value, onChange, className }) => {
-  const chainId = useChainId(true)!;
+  const chainId = '';
   const account = useAccount();
   const address = account.publicKeyHash;
 
@@ -105,7 +104,7 @@ const AssetInMenuContent: FC<AssetSelectOptionRenderProps> = ({ option: asset })
 
       <span className={classNames('text-gray-600', 'text-sm leading-none')}>
         {asset === 'tez' ? (
-          <Balance assetSlug={assetSlug} address={account.publicKeyHash}>
+          <Balance assetSlug={assetSlug} accountId={account.publicKeyHash}>
             {balance => (
               <>
                 <Money>{balance}</Money>{' '}
@@ -129,7 +128,7 @@ const AssetSelectedContent: FC<AssetSelectOptionRenderProps> = ({ option }) => {
   const metadata = useAssetMetadata(assetSlug);
 
   return (
-    <Balance assetSlug={assetSlug} address={account.publicKeyHash}>
+    <Balance assetSlug={assetSlug} accountId={account.publicKeyHash}>
       {balance => (
         <div className="flex flex-col items-start">
           <span className="text-xl text-gray-800">

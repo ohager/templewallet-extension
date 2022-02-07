@@ -24,34 +24,13 @@ const About: FC = () => (
       </div>
     </div>
 
-    <T
-      id="madeWithLove"
-      substitutions={[
-        <span role="img" aria-label="love" key="heart">
-          ❤️
-        </span>,
-        <a
-          href="https://madfish.solutions"
-          key="link"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-normal hover:underline"
-          style={{ color: '#98c630' }}
-        >
-          Madfish.Solutions
-        </a>
-      ]}
-    >
-      {message => <p className="mt-6 text-base font-light text-gray-600">{message}</p>}
-    </T>
-
     <T id="links">{message => <SubTitle className="mt-10 mb-2">{message}</SubTitle>}</T>
 
     <div className="text-center">
       {[
         {
           key: 'website',
-          link: 'https://templewallet.com'
+          link: 'https://signum.network/wallet.html'
         },
         {
           key: 'repo',
@@ -59,15 +38,15 @@ const About: FC = () => (
         },
         {
           key: 'privacyPolicy',
-          link: 'https://templewallet.com/privacy'
+          link: 'https://signum.network/xtprivacypolicy.html'
         },
         {
           key: 'termsOfUse',
-          link: 'https://templewallet.com/terms'
+          link: 'https://www.signum.network/xtterms.html'
         },
         {
           key: 'contact',
-          link: 'https://templewallet.com/contact'
+          link: 'mailto:development@signum.network'
         }
       ].map(({ key, link }) => (
         <T id={key} key={key}>

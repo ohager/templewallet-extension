@@ -146,11 +146,17 @@ module.exports = {
        */
       const brandColors = {
         'primary-white': '#fcfaf7',
-        'primary-orange': baseColors.orange[500],
+        'primary-orange': '#0099ff',
         'primary-orange-light': baseColors.orange[300],
         'primary-orange-dark': baseColors.orange[700],
         'primary-orange-lighter': baseColors.orange[100],
-        'primary-orange-darker': baseColors.orange[900]
+        'primary-orange-darker': baseColors.orange[900],
+        'primary-blue': '#0099ff',
+        'primary-blue-dark': '#0066ff',
+        'primary-green-light': '#00FF88',
+        'secondary-acqua': '#E8F3FF',
+        'secondary-light-acqua': '#EAF0F6',
+        'secondary-midnight-blue': '#021851'
       };
 
       return {

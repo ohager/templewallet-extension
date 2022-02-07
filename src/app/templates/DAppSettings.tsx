@@ -7,12 +7,13 @@ import Name from 'app/atoms/Name';
 import { ReactComponent as CloseIcon } from 'app/icons/close.svg';
 import CustomSelect, { OptionRenderProps } from 'app/templates/CustomSelect';
 import DAppLogo from 'app/templates/DAppLogo';
-import HashChip from 'app/templates/HashChip';
 import { T, t } from 'lib/i18n/react';
 import { useRetryableSWR } from 'lib/swr';
 import { useStorage, TempleSharedStorageKey, useTempleClient } from 'lib/temple/front';
 import { TempleDAppSession, TempleDAppSessions } from 'lib/temple/types';
 import { useConfirm } from 'lib/ui/dialog';
+
+import HashShortView from '../atoms/HashShortView';
 
 type DAppEntry = [string, TempleDAppSession];
 type DAppActions = {
@@ -152,6 +153,11 @@ const DAppDescription: FC<OptionRenderProps<DAppEntry, string, DAppActions>> = p
   const dAppAttributes = useMemo(
     () => [
       {
+        key: '',
+        value: <HashShortView hash={pkh} isAccount />,
+        Component: 'span'
+      },
+      {
         key: 'originLabel',
         value: origin,
         Component: ({ className, ...rest }: ComponentProps<typeof Name>) => (
@@ -170,11 +176,6 @@ const DAppDescription: FC<OptionRenderProps<DAppEntry, string, DAppActions>> = p
         value: typeof network === 'string' ? network : network.name || network.rpc,
         valueClassName: (typeof network === 'string' || network.name) && 'capitalize',
         Component: Name
-      },
-      {
-        key: 'pkhLabel',
-        value: <HashChip hash={pkh} type="link" small />,
-        Component: 'span'
       }
     ],
     [origin, network, pkh]
@@ -194,8 +195,8 @@ const DAppDescription: FC<OptionRenderProps<DAppEntry, string, DAppActions>> = p
               substitutions={[
                 <Component
                   key={key}
-                  className={classNames('font-normal text-sm inline-flex', valueClassName)}
-                  style={{ maxWidth: '10rem' }}
+                  className={classNames('font-normal text-xs inline-flex', valueClassName)}
+                  style={{ maxWidth: '12rem' }}
                 >
                   {value}
                 </Component>

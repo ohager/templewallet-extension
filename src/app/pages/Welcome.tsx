@@ -5,7 +5,6 @@ import classNames from 'clsx';
 import Logo from 'app/atoms/Logo';
 import { ReactComponent as EntranceIcon } from 'app/icons/entrance.svg';
 import { ReactComponent as FolderAddIcon } from 'app/icons/folder-add.svg';
-import { ReactComponent as LedgerNanoIcon } from 'app/misc/ledger.svg';
 import { T } from 'lib/i18n/react';
 import { Link } from 'lib/woozie';
 
@@ -105,17 +104,16 @@ const Welcome: FC = () => {
       </div>
 
       <div className="mt-12 mb-4 text-base text-gray-600 font-light">
-        <p className="mb-2 text-lg">Create the Temple wallet account and you may:</p>
-
-        <p className="mb-1 flex items-center">
-          <span className="text-lg pr-2">•</span>work with your{' '}
-          <LedgerNanoIcon className="ml-2 mr-1" style={{ width: 'auto', height: '0.5rem' }} /> Ledger device
+        <p className="mb-2 text-lg">
+          <T id="createWalletDescription" />
         </p>
         <p className="mb-1 flex items-center">
-          <span className="text-lg pr-2">•</span>send and receive any Tezos based tokens
+          <span className="text-lg pr-2">•</span>
+          <T id="createWalletDescriptionOption1" />
         </p>
         <p className="mb-1 flex items-center">
-          <span className="text-lg pr-2">•</span>connect and interact with Tezos dApps
+          <span className="text-lg pr-2">•</span>
+          <T id="createWalletDescriptionOption2" />
         </p>
       </div>
     </div>

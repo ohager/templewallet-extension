@@ -2,8 +2,9 @@ import React, { memo } from 'react';
 
 import classNames from 'clsx';
 
-import { getAccountBadgeTitle } from 'app/defaults';
-import { TempleAccount } from 'lib/temple/front';
+import { TempleAccount, TempleAccountType } from 'lib/temple/front';
+
+import { t } from '../../lib/i18n/react';
 
 type AccountTypeBadgeProps = {
   account: Pick<TempleAccount, 'type'>;
@@ -11,11 +12,13 @@ type AccountTypeBadgeProps = {
 };
 
 const AccountTypeBadge = memo<AccountTypeBadgeProps>(({ account, darkTheme = false }) => {
-  const title = getAccountBadgeTitle(account);
+  if (account.type !== TempleAccountType.WatchOnly) return null;
+
+  const title = t('watchOnlyAccount');
 
   const textAndBorderStyle = darkTheme ? 'border-white text-white' : 'border-black text-black';
 
-  return title ? (
+  return (
     <span
       className={classNames(
         'ml-2',
@@ -30,7 +33,7 @@ const AccountTypeBadge = memo<AccountTypeBadgeProps>(({ account, darkTheme = fal
     >
       {title}
     </span>
-  ) : null;
+  );
 });
 
 export default AccountTypeBadge;

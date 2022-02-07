@@ -1,7 +1,12 @@
 import React, { memo } from 'react';
 
+import { Address } from '@signumjs/core';
+
+import { useSignumAccountPrefix } from 'lib/temple/front';
+
 type HashShortViewProps = {
   hash: string;
+  isAccount?: boolean;
   trim?: boolean;
   trimAfter?: number;
   firstCharsCount?: number;
@@ -9,21 +14,27 @@ type HashShortViewProps = {
 };
 
 const HashShortView = memo<HashShortViewProps>(
-  ({ hash, trim = true, trimAfter = 20, firstCharsCount = 7, lastCharsCount = 4 }) => {
+  ({ hash, isAccount = false, trim = true, trimAfter = 20, firstCharsCount = 7, lastCharsCount = 4 }) => {
+    const prefix = useSignumAccountPrefix();
     if (!hash) return null;
 
     const trimmedHash = (() => {
-      if (!trim) return hash;
-
+      let address = hash;
+      try {
+        address = isAccount ? Address.create(hash, prefix).getReedSolomonAddress() : hash;
+      } catch (e) {
+        // no op as no valid Signum Address
+      }
+      if (!trim) return address;
       const ln = hash.length;
       return ln > trimAfter ? (
         <>
-          {hash.slice(0, firstCharsCount)}
+          {address.slice(0, firstCharsCount)}
           <span className="opacity-75">...</span>
-          {hash.slice(ln - lastCharsCount, ln)}
+          {address.slice(ln - lastCharsCount, ln)}
         </>
       ) : (
-        hash
+        address
       );
     })();
 

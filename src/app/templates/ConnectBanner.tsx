@@ -48,7 +48,7 @@ const ConnectBanner: FC<ConnectBannerProps> = ({ type, origin, appMeta, classNam
       <div className={classNames('w-32', 'border border-gray-200 rounded', 'flex flex-col items-center', 'p-2')}>
         <Logo className="mb-1" style={{ height: 32, margin: 'auto' }} />
 
-        <span className="text-xs font-semibold text-gray-700">Temple</span>
+        <span className="text-xs font-semibold text-gray-700">Signum</span>
       </div>
     </div>
   );

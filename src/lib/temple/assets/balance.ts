@@ -10,6 +10,7 @@ export function fetchTezosBalance(tezos: TezosToolkit, account: string) {
   return fetchBalance(tezos, 'tez', TEZOS_METADATA, account);
 }
 
+// TODO: prune and remove tezos
 export async function fetchBalance(
   tezos: TezosToolkit,
   assetSlug: string,

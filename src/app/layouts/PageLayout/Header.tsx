@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import classNames from 'clsx';
 
 import { Button } from 'app/atoms/Button';
-import Identicon from 'app/atoms/Identicon';
+import IdenticonSignum from 'app/atoms/IdenticonSignum';
 import Logo from 'app/atoms/Logo';
 import Name from 'app/atoms/Name';
 import { useAppEnv } from 'app/env';
@@ -79,7 +79,7 @@ const Control: FC = () => {
             onClick={toggleOpened}
             testID={HeaderSelectors.AccountIcon}
           >
-            <Identicon type="bottts" hash={account.publicKeyHash} size={48} />
+            <IdenticonSignum accountId={account.publicKeyHash} size={48} />
           </Button>
         )}
       </Popper>

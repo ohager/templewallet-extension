@@ -1,5 +1,6 @@
 import { Estimate } from '@taquito/taquito/dist/types/contract/estimate';
-import { TempleDAppMetadata, TempleDAppNetwork } from '@temple-wallet/dapp/dist/types';
+
+import { ExtensionDAppMetadata, ExtensionNetwork } from './back/dapp/typings';
 
 type NonEmptyArray<T> = [T, ...T[]];
 
@@ -11,8 +12,8 @@ export interface ReadyTempleState extends TempleState {
 }
 
 export interface TempleDAppSession {
-  network: TempleDAppNetwork;
-  appMeta: TempleDAppMetadata;
+  network: ExtensionNetwork;
+  appMeta: ExtensionDAppMetadata;
   pkh: string;
   publicKey: string;
 }
@@ -102,7 +103,6 @@ export interface TempleNetwork {
   nameI18nKey?: string;
   description: string;
   descriptionI18nKey?: string;
-  lambdaContract?: string;
   type: TempleNetworkType;
   rpcBaseURL: string;
   color: string;
@@ -168,13 +168,14 @@ export interface TempleDAppPayloadBase {
   type: string;
   origin: string;
   networkRpc: string;
-  appMeta: TempleDAppMetadata;
+  appMeta: ExtensionDAppMetadata;
 }
 
 export interface TempleDAppConnectPayload extends TempleDAppPayloadBase {
   type: 'connect';
 }
 
+// TODO: do we need this?
 export interface TempleDAppOperationsPayload extends TempleDAppPayloadBase {
   type: 'confirm_operations';
   sourcePkh: string;
@@ -189,10 +190,10 @@ export interface TempleDAppSignPayload extends TempleDAppPayloadBase {
   type: 'sign';
   sourcePkh: string;
   payload: string;
-  preview: any;
+  preview: string;
 }
 
-export type TempleDAppPayload = TempleDAppConnectPayload | TempleDAppOperationsPayload | TempleDAppSignPayload;
+export type TempleDAppPayload = TempleDAppConnectPayload | TempleDAppSignPayload;
 
 /**
  * Messages
@@ -206,6 +207,8 @@ export enum TempleMessageType {
   // Request-Response pairs
   GetStateRequest = 'TEMPLE_GET_STATE_REQUEST',
   GetStateResponse = 'TEMPLE_GET_STATE_RESPONSE',
+  GetSignumTxKeysRequest = 'TEMPLE_GET_SIGNUM_TX_KEYS_REQUEST',
+  GetSignumTxKeysResponse = 'TEMPLE_GET_SIGNUM_TX_KEYS_RESPONSE',
   NewWalletRequest = 'TEMPLE_NEW_WALLET_REQUEST',
   NewWalletResponse = 'TEMPLE_NEW_WALLET_RESPONSE',
   UnlockRequest = 'TEMPLE_UNLOCK_REQUEST',
@@ -244,8 +247,8 @@ export enum TempleMessageType {
   SignResponse = 'TEMPLE_SIGN_RESPONSE',
   ConfirmationRequest = 'TEMPLE_CONFIRMATION_REQUEST',
   ConfirmationResponse = 'TEMPLE_CONFIRMATION_RESPONSE',
-  PageRequest = 'TEMPLE_PAGE_REQUEST',
-  PageResponse = 'TEMPLE_PAGE_RESPONSE',
+  PageRequest = 'PAGE_REQUEST',
+  PageResponse = 'PAGE_RESPONSE',
   DAppGetPayloadRequest = 'TEMPLE_DAPP_GET_PAYLOAD_REQUEST',
   DAppGetPayloadResponse = 'TEMPLE_DAPP_GET_PAYLOAD_RESPONSE',
   DAppPermConfirmationRequest = 'TEMPLE_DAPP_PERM_CONFIRMATION_REQUEST',
@@ -264,6 +267,7 @@ export type TempleNotification = TempleStateUpdated | TempleConfirmationRequeste
 
 export type TempleRequest =
   | TempleGetStateRequest
+  | TempleGetSignumTxKeysRequest
   | TempleNewWalletRequest
   | TempleUnlockRequest
   | TempleLockRequest
@@ -293,6 +297,7 @@ export type TempleRequest =
 
 export type TempleResponse =
   | TempleGetStateResponse
+  | TempleGetSignumTxKeysResponse
   | TempleNewWalletResponse
   | TempleUnlockResponse
   | TempleLockResponse
@@ -348,6 +353,17 @@ export interface TempleGetStateResponse extends TempleMessageBase {
   state: TempleState;
 }
 
+export interface TempleGetSignumTxKeysRequest extends TempleMessageBase {
+  type: TempleMessageType.GetSignumTxKeysRequest;
+  accountPublicKeyHash: string;
+}
+
+export interface TempleGetSignumTxKeysResponse extends TempleMessageBase {
+  type: TempleMessageType.GetSignumTxKeysResponse;
+  publicKey: string;
+  signingKey: string;
+}
+
 export interface TempleNewWalletRequest extends TempleMessageBase {
   type: TempleMessageType.NewWalletRequest;
   password: string;
@@ -382,6 +398,7 @@ export interface TempleCreateAccountRequest extends TempleMessageBase {
 
 export interface TempleCreateAccountResponse extends TempleMessageBase {
   type: TempleMessageType.CreateAccountResponse;
+  mnemonic: string;
 }
 
 export interface TempleRevealPublicKeyRequest extends TempleMessageBase {
@@ -448,8 +465,7 @@ export interface TempleImportAccountResponse extends TempleMessageBase {
 export interface TempleImportMnemonicAccountRequest extends TempleMessageBase {
   type: TempleMessageType.ImportMnemonicAccountRequest;
   mnemonic: string;
-  password?: string;
-  derivationPath?: string;
+  name?: string;
 }
 
 export interface TempleImportMnemonicAccountResponse extends TempleMessageBase {

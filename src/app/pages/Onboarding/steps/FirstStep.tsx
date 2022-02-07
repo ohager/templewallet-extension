@@ -1,15 +1,17 @@
 import React, { FC } from 'react';
 
-import { T } from '../../../../lib/i18n/react';
-import { Button } from '../../../atoms/Button';
+import { Button } from 'app/atoms/Button';
+import Stamp from 'app/atoms/Stamp';
+
+import { T, t } from '../../../../lib/i18n/react';
 import AddressBalanceImg from '../assets/address-balance.png';
 import styles from '../Onboarding.module.css';
 
 interface Props {
-  setStep: (step: number) => void;
+  nextStep: () => void;
 }
 
-const FirstStep: FC<Props> = ({ setStep }) => {
+const FirstStep: FC<Props> = ({ nextStep }) => {
   return (
     <>
       <p className={styles['title']}>
@@ -18,7 +20,10 @@ const FirstStep: FC<Props> = ({ setStep }) => {
       <p className={styles['description']}>
         <T id={'addressBalanceDescription'} />
       </p>
-      <img src={AddressBalanceImg} alt="AddressBalanceImg" />
+      <div className={'relative'}>
+        <Stamp label={t('example')} className={'top-1/2 right-3 opacity-25'} />
+        <img src={AddressBalanceImg} alt="AddressBalanceImg" />
+      </div>
       <p className={styles['description']} style={{ marginBottom: 0 }}>
         <T id={'addressBalanceHint'} />
       </p>
@@ -31,7 +36,7 @@ const FirstStep: FC<Props> = ({ setStep }) => {
           marginTop: '40px',
           borderRadius: 4
         }}
-        onClick={() => setStep(1)}
+        onClick={nextStep}
       >
         <T id={'next'} />
       </Button>

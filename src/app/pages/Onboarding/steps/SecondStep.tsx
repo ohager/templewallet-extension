@@ -1,15 +1,17 @@
 import React, { FC } from 'react';
 
-import { T } from '../../../../lib/i18n/react';
-import { Button } from '../../../atoms/Button';
+import { Button } from 'app/atoms/Button';
+import Stamp from 'app/atoms/Stamp';
+
+import { t, T } from '../../../../lib/i18n/react';
 import ExploreButtonsImg from '../assets/explore-buttons.png';
 import styles from '../Onboarding.module.css';
 
 interface Props {
-  setStep: (step: number) => void;
+  nextStep: () => void;
 }
 
-const SecondStep: FC<Props> = ({ setStep }) => {
+const SecondStep: FC<Props> = ({ nextStep }) => {
   return (
     <>
       <p className={styles['title']}>
@@ -21,7 +23,11 @@ const SecondStep: FC<Props> = ({ setStep }) => {
       <p className={styles['description']} style={{ marginTop: 20 }}>
         <T id={'howToStartDescription2'} />
       </p>
-      <img src={ExploreButtonsImg} alt="ExploreButtonsImg" />
+      <div className={'relative'}>
+        <Stamp label={t('example')} className={'top-1/2 right-3 opacity-25'} />
+        <img src={ExploreButtonsImg} alt="ExploreButtonsImg" />
+      </div>
+
       <p className={styles['description']} style={{ marginBottom: 0 }}>
         <T id={'howToStartHint'} />
       </p>
@@ -34,7 +40,7 @@ const SecondStep: FC<Props> = ({ setStep }) => {
           marginTop: '40px',
           borderRadius: 4
         }}
-        onClick={() => setStep(2)}
+        onClick={nextStep}
       >
         <T id={'next'} />
       </Button>

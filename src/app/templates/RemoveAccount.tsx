@@ -2,12 +2,11 @@ import React, { FC, useCallback, useEffect, useRef } from 'react';
 
 import { useForm } from 'react-hook-form';
 
-import Alert from 'app/atoms/Alert';
 import FormField from 'app/atoms/FormField';
 import FormSubmitButton from 'app/atoms/FormSubmitButton';
 import AccountBanner from 'app/templates/AccountBanner';
 import { T, t } from 'lib/i18n/react';
-import { TempleAccountType, useTempleClient, useRelevantAccounts, useAccount } from 'lib/temple/front';
+import { useTempleClient, useRelevantAccounts, useAccount } from 'lib/temple/front';
 import { navigate } from 'lib/woozie';
 
 const SUBMIT_ERROR_TYPE = 'submit-error';
@@ -55,49 +54,32 @@ const RemoveAccount: FC = () => {
     <div className="w-full max-w-sm p-2 mx-auto">
       <AccountBanner
         account={account}
-        labelDescription={
-          <>
-            <T id="accountToBeRemoved" />
-            <br />
-            <T id="ifYouWantToRemoveAnotherAccount" />
-          </>
-        }
+        label={t('accountToBeRemoved')}
+        labelDescription={t('ifYouWantToRemoveAnotherAccount')}
         className="mb-6"
       />
 
-      {account.type === TempleAccountType.HD ? (
-        <Alert
-          title={t('cannotBeRemoved')}
-          description={
-            <p>
-              <T id="accountsToRemoveConstraint" />
-            </p>
-          }
-          className="my-4"
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <FormField
+          ref={register({ required: t('required') })}
+          label={t('password')}
+          labelDescription={t('enterPasswordToRemoveAccount')}
+          id="removeacc-secret-password"
+          type="password"
+          name="password"
+          placeholder="********"
+          errorCaption={errors.password?.message}
+          containerClassName="mb-4"
         />
-      ) : (
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <FormField
-            ref={register({ required: t('required') })}
-            label={t('password')}
-            labelDescription={t('enterPasswordToRemoveAccount')}
-            id="removeacc-secret-password"
-            type="password"
-            name="password"
-            placeholder="********"
-            errorCaption={errors.password?.message}
-            containerClassName="mb-4"
-          />
 
-          <T id="remove">
-            {message => (
-              <FormSubmitButton loading={submitting} disabled={submitting}>
-                {message}
-              </FormSubmitButton>
-            )}
-          </T>
-        </form>
-      )}
+        <T id="remove">
+          {message => (
+            <FormSubmitButton loading={submitting} disabled={submitting}>
+              {message}
+            </FormSubmitButton>
+          )}
+        </T>
+      </form>
     </div>
   );
 };

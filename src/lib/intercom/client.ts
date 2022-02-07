@@ -1,6 +1,6 @@
 import { Runtime, browser } from 'webextension-polyfill-ts';
 
-import { deserealizeError } from './helpers';
+import { deserializeError } from './helpers';
 import { MessageType, RequestMessage } from './types';
 
 export class IntercomClient {
@@ -31,7 +31,7 @@ export class IntercomClient {
             break;
 
           case msg?.type === MessageType.Err:
-            reject(deserealizeError(msg.data));
+            reject(deserializeError(msg.data));
             break;
         }
 

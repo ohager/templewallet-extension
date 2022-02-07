@@ -23,7 +23,13 @@ async function processRequest(req: TempleRequest, port: Runtime.Port): Promise<T
         type: TempleMessageType.GetStateResponse,
         state
       };
-
+    case TempleMessageType.GetSignumTxKeysRequest:
+      const { signingKey, publicKey: pk } = await Actions.getSignumTxKeys(req.accountPublicKeyHash);
+      return {
+        type: TempleMessageType.GetSignumTxKeysResponse,
+        signingKey,
+        publicKey: pk
+      };
     case TempleMessageType.NewWalletRequest:
       await Actions.registerNewWallet(req.password, req.mnemonic);
       return { type: TempleMessageType.NewWalletResponse };
@@ -36,9 +42,13 @@ async function processRequest(req: TempleRequest, port: Runtime.Port): Promise<T
       await Actions.lock();
       return { type: TempleMessageType.LockResponse };
 
-    case TempleMessageType.CreateAccountRequest:
-      await Actions.createHDAccount(req.name);
-      return { type: TempleMessageType.CreateAccountResponse };
+    case TempleMessageType.CreateAccountRequest: {
+      const mnemonic = await Actions.createAccount(req.name);
+      return {
+        type: TempleMessageType.CreateAccountResponse,
+        mnemonic
+      };
+    }
 
     case TempleMessageType.RevealPublicKeyRequest:
       const publicKey = await Actions.revealPublicKey(req.accountPublicKeyHash);
@@ -80,7 +90,7 @@ async function processRequest(req: TempleRequest, port: Runtime.Port): Promise<T
       };
 
     case TempleMessageType.ImportMnemonicAccountRequest:
-      await Actions.importMnemonicAccount(req.mnemonic, req.password, req.derivationPath);
+      await Actions.importMnemonicAccount(req.mnemonic, req.name);
       return {
         type: TempleMessageType.ImportMnemonicAccountResponse
       };
@@ -151,27 +161,12 @@ async function processRequest(req: TempleRequest, port: Runtime.Port): Promise<T
             type: TempleMessageType.PageResponse,
             payload: 'PONG'
           };
-        } else if (req.beacon && req.payload === 'ping') {
-          return {
-            type: TempleMessageType.PageResponse,
-            payload: 'pong'
-          };
         }
-
-        if (!req.beacon) {
-          const resPayload = await Actions.processDApp(req.origin, req.payload);
-          return {
-            type: TempleMessageType.PageResponse,
-            payload: resPayload ?? null
-          };
-        } else {
-          const res = await Actions.processBeacon(req.origin, req.payload, req.encrypted);
-          return {
-            type: TempleMessageType.PageResponse,
-            payload: res?.payload ?? null,
-            encrypted: res?.encrypted
-          };
-        }
+        const resPayload = await Actions.processDApp(req.origin, req.payload);
+        return {
+          type: TempleMessageType.PageResponse,
+          payload: resPayload ?? null
+        };
       }
       break;
   }

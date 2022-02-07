@@ -3,12 +3,14 @@ import React, { HTMLAttributes, memo, ReactNode } from 'react';
 import classNames from 'clsx';
 
 import AccountTypeBadge from 'app/atoms/AccountTypeBadge';
-import Identicon from 'app/atoms/Identicon';
 import Money from 'app/atoms/Money';
 import Name from 'app/atoms/Name';
 import Balance from 'app/templates/Balance';
 import { t } from 'lib/i18n/react';
-import { TempleAccount, TEZOS_METADATA } from 'lib/temple/front';
+import { SIGNA_METADATA, TempleAccount } from 'lib/temple/front';
+
+import HashShortView from '../atoms/HashShortView';
+import IdenticonSignum from '../atoms/IdenticonSignum';
 
 type AccountBannerProps = HTMLAttributes<HTMLDivElement> & {
   account: TempleAccount;
@@ -38,7 +40,7 @@ const AccountBanner = memo<AccountBannerProps>(
         )}
 
         <div className={classNames('w-full', 'border rounded-md', 'p-2', 'flex items-center')}>
-          <Identicon type="bottts" hash={account.publicKeyHash} size={32} className="flex-shrink-0 shadow-xs" />
+          <IdenticonSignum accountId={account.publicKeyHash} size={32} className="flex-shrink-0 shadow-xs" />
 
           <div className="flex flex-col items-start ml-2">
             <div className="flex flex-wrap items-center">
@@ -49,24 +51,14 @@ const AccountBanner = memo<AccountBannerProps>(
 
             <div className="flex flex-wrap items-center mt-1">
               <div className={classNames('text-xs leading-none', 'text-gray-700')}>
-                {(() => {
-                  const val = account.publicKeyHash;
-                  const ln = val.length;
-                  return (
-                    <>
-                      {val.slice(0, 7)}
-                      <span className="opacity-75">...</span>
-                      {val.slice(ln - 4, ln)}
-                    </>
-                  );
-                })()}
+                <HashShortView hash={account.publicKeyHash} isAccount />
               </div>
 
               {displayBalance && (
-                <Balance address={account.publicKeyHash} networkRpc={networkRpc}>
+                <Balance accountId={account.publicKeyHash} networkRpc={networkRpc}>
                   {bal => (
                     <div className={classNames('ml-2', 'text-xs leading-none', 'text-gray-600')}>
-                      <Money>{bal}</Money> <span style={{ fontSize: '0.75em' }}>{TEZOS_METADATA.symbol}</span>
+                      <Money>{bal}</Money> <span style={{ fontSize: '0.75em' }}>{SIGNA_METADATA.symbol}</span>
                     </div>
                   )}
                 </Balance>

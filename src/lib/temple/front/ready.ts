@@ -1,22 +1,21 @@
-import { useCallback, useEffect, useLayoutEffect, useMemo } from 'react';
+import { useEffect, useLayoutEffect, useMemo } from 'react';
 
+import { LedgerClientFactory } from '@signumjs/core';
 import { RpcClient } from '@taquito/rpc';
 import { TezosToolkit } from '@taquito/taquito';
 import { Tzip16Module } from '@taquito/tzip16';
 import constate from 'constate';
 
 import { IS_DEV_ENV } from 'app/env';
-import { useRetryableSWR } from 'lib/swr';
 import {
+  loadFastRpcClient,
+  michelEncoder,
   ReadyTempleState,
   TempleAccountType,
-  TempleStatus,
   TempleState,
+  TempleStatus,
   usePassiveStorage,
-  useTempleClient,
-  loadChainId,
-  michelEncoder,
-  loadFastRpcClient
+  useTempleClient
 } from 'lib/temple/front';
 
 export enum ActivationStatus {
@@ -33,7 +32,8 @@ export const [
   useSetAccountPkh,
   useAccount,
   useSettings,
-  useTezos
+  useTezos,
+  useSignum
 ] = constate(
   useReadyTemple,
   v => v.allNetworks,
@@ -43,7 +43,8 @@ export const [
   v => v.setAccountPkh,
   v => v.account,
   v => v.settings,
-  v => v.tezos
+  v => v.tezos,
+  v => v.signum
 );
 
 function useReadyTemple() {
@@ -63,11 +64,22 @@ function useReadyTemple() {
    */
 
   const defaultNet = allNetworks[0];
-  const [networkId, setNetworkId] = usePassiveStorage('network_id', defaultNet.id);
+  const [networkId, setNetworkId] = usePassiveStorage('network_id', '');
 
   useEffect(() => {
-    if (allNetworks.every(a => a.id !== networkId)) {
-      setNetworkId(defaultNet.id);
+    async function getBestNetwork() {
+      const allMainNets = allNetworks.filter(n => n.type === 'main');
+      const client = LedgerClientFactory.createClient({
+        nodeHost: allMainNets[0].rpcBaseURL,
+        reliableNodeHosts: allMainNets.map(n => n.rpcBaseURL)
+      });
+      const hostUrl = await client.service.selectBestHost(false);
+      const found = allNetworks.find(n => n.rpcBaseURL === hostUrl);
+      setNetworkId(found?.id || allMainNets[0].id);
+    }
+
+    if (!networkId) {
+      getBestNetwork();
     }
   }, [allNetworks, networkId, setNetworkId, defaultNet]);
 
@@ -105,14 +117,14 @@ function useReadyTemple() {
 
   /**
    * tezos = TezosToolkit instance
+   * TODO: remove that
    */
-
   const tezos = useMemo(() => {
     const checksum = [network.id, account.publicKeyHash].join('_');
     const rpc = network.rpcBaseURL;
     const pkh = account.type === TempleAccountType.ManagedKT ? account.owner : account.publicKeyHash;
 
-    const t = new ReactiveTezosToolkit(loadFastRpcClient(rpc), checksum, network.lambdaContract);
+    const t = new ReactiveTezosToolkit(loadFastRpcClient(rpc), checksum);
     t.setSignerProvider(createTaquitoSigner(pkh));
     t.setWalletProvider(createTaquitoWallet(pkh, rpc));
     t.setPackerProvider(michelEncoder);
@@ -124,6 +136,12 @@ function useReadyTemple() {
       (window as any).tezos = tezos;
     }
   }, [tezos]);
+
+  const signum = useMemo(() => {
+    return LedgerClientFactory.createClient({
+      nodeHost: network.rpcBaseURL
+    });
+  }, [network]);
 
   return {
     allNetworks,
@@ -137,59 +155,41 @@ function useReadyTemple() {
     setAccountPkh,
 
     settings,
-    tezos
+    tezos, // TODO: remove tezos
+    signum
   };
 }
 
-export function useChainId(suspense?: boolean) {
-  const tezos = useTezos();
-  const rpcUrl = useMemo(() => tezos.rpc.getRpcUrl(), [tezos]);
-  return useCustomChainId(rpcUrl, suspense);
-}
-
-export function useCustomChainId(rpcUrl: string, suspense?: boolean) {
-  const fetchChainId = useCallback(async () => {
-    try {
-      return await loadChainId(rpcUrl);
-    } catch (_err) {
-      return null;
-    }
-  }, [rpcUrl]);
-
-  const { data: chainId } = useRetryableSWR(['chain-id', rpcUrl], fetchChainId, { suspense, revalidateOnFocus: false });
-  return chainId;
-}
+// export function useChainId(suspense?: boolean) {
+//   const tezos = useTezos();
+//   const rpcUrl = useMemo(() => tezos.rpc.getRpcUrl(), [tezos]);
+//   return useCustomChainId(rpcUrl, suspense);
+// }
+//
+// export function useCustomChainId(rpcUrl: string, suspense?: boolean) {
+//   const fetchChainId = useCallback(async () => {
+//     try {
+//       return await loadChainId(rpcUrl);
+//     } catch (_err) {
+//       return null;
+//     }
+//   }, [rpcUrl]);
+//
+//   const { data: chainId } = useRetryableSWR(['chain-id', rpcUrl], fetchChainId, { suspense, revalidateOnFocus: false });
+//   return chainId;
+// }
 
 export function useRelevantAccounts(withExtraTypes = true) {
   const allAccounts = useAllAccounts();
   const account = useAccount();
   const setAccountPkh = useSetAccountPkh();
-  const lazyChainId = useChainId();
-
-  const relevantAccounts = useMemo(
-    () =>
-      allAccounts.filter(acc => {
-        switch (acc.type) {
-          case TempleAccountType.ManagedKT:
-            return withExtraTypes && acc.chainId === lazyChainId;
-
-          case TempleAccountType.WatchOnly:
-            return withExtraTypes && (!acc.chainId || acc.chainId === lazyChainId);
-
-          default:
-            return true;
-        }
-      }),
-    [allAccounts, lazyChainId, withExtraTypes]
-  );
-
   useEffect(() => {
-    if (relevantAccounts.every(a => a.publicKeyHash !== account.publicKeyHash) && lazyChainId) {
-      setAccountPkh(relevantAccounts[0].publicKeyHash);
+    if (allAccounts.every(a => a.publicKeyHash !== account.publicKeyHash)) {
+      setAccountPkh(allAccounts[0].publicKeyHash);
     }
-  }, [relevantAccounts, account, setAccountPkh, lazyChainId]);
+  }, [allAccounts, account, setAccountPkh]);
 
-  return useMemo(() => relevantAccounts, [relevantAccounts]);
+  return useMemo(() => allAccounts, [allAccounts]);
 }
 
 export class ReactiveTezosToolkit extends TezosToolkit {

@@ -5,6 +5,7 @@ import PageLayout from 'app/layouts/PageLayout';
 import DAppsList from 'app/templates/DAppsList';
 import { t } from 'lib/i18n/react';
 
+// TODO: Support for other DApps
 const DApps: FC = () => (
   <PageLayout
     pageTitle={

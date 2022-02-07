@@ -8,6 +8,7 @@ export type FetchOperationsParams = {
   limit?: number;
 };
 
+// FIXME: obsolete
 export async function fetchOperations({ chainId, address, assetIds, offset, limit }: FetchOperationsParams) {
   // Base
   let query = Repo.operations.where('[chainId+addedAt]').between([chainId, 0], [chainId, Date.now()]).reverse();

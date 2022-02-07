@@ -17,7 +17,6 @@ import { T } from 'lib/i18n/react';
 import {
   useAccount,
   useBalanceSWRKey,
-  useChainId,
   useDisplayedFungibleTokens,
   useAssetMetadata,
   getAssetSymbol,
@@ -31,7 +30,7 @@ import { AssetsSelectors } from './Assets.selectors';
 import styles from './Tokens.module.css';
 
 const Tokens: FC = () => {
-  const chainId = useChainId(true)!;
+  const chainId = '';
   const account = useAccount();
   const address = account.publicKeyHash;
 
@@ -286,7 +285,7 @@ const ListItem = memo<ListItemProps>(({ assetSlug, last, active, accountPkh }) =
               <div className={classNames('ml-1 px-2 py-1', styles['apyBadge'])}>{<T id="tezosApy" />}</div>
             )}
           </div>
-          <Balance address={accountPkh} assetSlug={assetSlug} displayed={displayed}>
+          <Balance accountId={accountPkh} assetSlug={assetSlug} displayed={displayed}>
             {renderBalancInToken}
           </Balance>
         </div>
@@ -294,7 +293,7 @@ const ListItem = memo<ListItemProps>(({ assetSlug, last, active, accountPkh }) =
           <div className={classNames('text-xs font-normal text-gray-700 truncate w-auto flex-1')}>
             {getAssetName(metadata)}
           </div>
-          <Balance address={accountPkh} assetSlug={assetSlug} displayed={displayed}>
+          <Balance accountId={accountPkh} assetSlug={assetSlug} displayed={displayed}>
             {renderBalanceInUSD}
           </Balance>
         </div>

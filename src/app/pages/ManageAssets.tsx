@@ -15,7 +15,6 @@ import SearchAssetField from 'app/templates/SearchAssetField';
 import { T, t } from 'lib/i18n/react';
 import { AssetTypesEnum } from 'lib/temple/assets/types';
 import {
-  useChainId,
   useAllKnownFungibleTokenSlugs,
   useAllTokensBaseMetadata,
   useFungibleTokens,
@@ -56,7 +55,7 @@ export type TokenStatuses = Record<string, { displayed: boolean; removed: boolea
 
 const ManageAssetsContent: FC<Props> = ({ assetType }) => {
   const isCollectibles = assetType === AssetTypesEnum.Collectibles;
-  const chainId = useChainId(true)!;
+  const chainId = '';
   const account = useAccount();
   const address = account.publicKeyHash;
 

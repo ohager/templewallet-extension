@@ -5,14 +5,12 @@ import classNames from 'clsx';
 import AccountTypeBadge from 'app/atoms/AccountTypeBadge';
 import { Button } from 'app/atoms/Button';
 import DropdownWrapper from 'app/atoms/DropdownWrapper';
-import Identicon from 'app/atoms/Identicon';
+import IdenticonSignum from 'app/atoms/IdenticonSignum';
 import Money from 'app/atoms/Money';
 import Name from 'app/atoms/Name';
 import { openInFullPage, useAppEnv } from 'app/env';
 import { ReactComponent as AddIcon } from 'app/icons/add.svg';
-import { ReactComponent as DAppsIcon } from 'app/icons/apps-alt.svg';
 import { ReactComponent as DownloadIcon } from 'app/icons/download.svg';
-import { ReactComponent as LinkIcon } from 'app/icons/link.svg';
 import { ReactComponent as MaximiseIcon } from 'app/icons/maximise.svg';
 import { ReactComponent as PeopleIcon } from 'app/icons/people.svg';
 import { ReactComponent as SettingsIcon } from 'app/icons/settings.svg';
@@ -20,7 +18,13 @@ import Balance from 'app/templates/Balance';
 import SearchField from 'app/templates/SearchField';
 import { AnalyticsEventCategory, useAnalytics } from 'lib/analytics';
 import { t, T } from 'lib/i18n/react';
-import { useAccount, useRelevantAccounts, useSetAccountPkh, useTempleClient } from 'lib/temple/front';
+import {
+  useAccount,
+  useRelevantAccounts,
+  useSetAccountPkh,
+  useSignumAssetMetadata,
+  useTempleClient
+} from 'lib/temple/front';
 import { PopperRenderProps } from 'lib/ui/Popper';
 import { Link } from 'lib/woozie';
 
@@ -35,6 +39,7 @@ const AccountDropdown: FC<AccountDropdownProps> = ({ opened, setOpened }) => {
   const { trackEvent } = useAnalytics();
   const allAccounts = useRelevantAccounts();
   const account = useAccount();
+  const metadata = useSignumAssetMetadata();
   const setAccountPkh = useSetAccountPkh();
   const [searchValue, setSearchValue] = useState('');
 
@@ -84,20 +89,20 @@ const AccountDropdown: FC<AccountDropdownProps> = ({ opened, setOpened }) => {
           linkTo: '/import-account',
           onClick: closeDropdown
         },
-        {
-          key: 'connect-ledger',
-          Icon: LinkIcon,
-          i18nKey: 'connectLedger',
-          linkTo: '/connect-ledger',
-          onClick: closeDropdown
-        },
-        {
-          key: 'dapps',
-          Icon: DAppsIcon,
-          i18nKey: 'dapps',
-          linkTo: '/dApps',
-          onClick: closeDropdown
-        },
+        // {
+        //   key: 'connect-ledger',
+        //   Icon: LinkIcon,
+        //   i18nKey: 'connectLedger',
+        //   linkTo: '/connect-ledger',
+        //   onClick: closeDropdown
+        // },
+        // {
+        //   key: 'dapps',
+        //   Icon: DAppsIcon,
+        //   i18nKey: 'dapps',
+        //   linkTo: '/dApps',
+        //   onClick: closeDropdown
+        // },
         {
           key: 'settings',
           Icon: SettingsIcon,
@@ -126,8 +131,8 @@ const AccountDropdown: FC<AccountDropdownProps> = ({ opened, setOpened }) => {
     >
       <div className="flex items-end mb-2">
         <h3 className={classNames('mx-1', 'flex items-center', 'text-sm text-white text-opacity-90')}>
+          <PeopleIcon className="mr-1 h-6 w-auto stroke-current" />
           <T id="accounts" />
-          <PeopleIcon className="ml-1 h-6 w-auto stroke-current" />
         </h3>
 
         <div className="flex-1" />
@@ -215,9 +220,8 @@ const AccountDropdown: FC<AccountDropdownProps> = ({ opened, setOpened }) => {
                     onClick={handleAccountClick}
                     testID={AccountDropdownSelectors.AccountItemButton}
                   >
-                    <Identicon
-                      type="bottts"
-                      hash={acc.publicKeyHash}
+                    <IdenticonSignum
+                      accountId={acc.publicKeyHash}
                       size={32}
                       className="flex-shrink-0 shadow-xs-white"
                     />
@@ -228,10 +232,11 @@ const AccountDropdown: FC<AccountDropdownProps> = ({ opened, setOpened }) => {
                       </Name>
 
                       <div className="flex flex-wrap items-center">
-                        <Balance address={acc.publicKeyHash}>
+                        <Balance accountId={acc.publicKeyHash}>
                           {bal => (
                             <span className={classNames('text-xs leading-tight', 'text-white text-opacity-75')}>
-                              <Money tooltip={false}>{bal}</Money> <span style={{ fontSize: '0.5rem' }}>tez</span>
+                              <Money tooltip={false}>{bal}</Money>{' '}
+                              <span style={{ fontSize: '0.5rem' }}>{metadata.symbol}</span>
                             </span>
                           )}
                         </Balance>

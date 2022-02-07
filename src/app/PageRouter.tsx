@@ -1,22 +1,14 @@
 import React, { FC, useLayoutEffect, useMemo } from 'react';
 
 import { OpenInFullPage, useAppEnv } from 'app/env';
-import AddAsset from 'app/pages/AddAsset';
-import BuyCrypto from 'app/pages/BuyCrypto/BuyCrypto';
-import CollectiblePage from 'app/pages/Collectibles/CollectiblePage';
-import ConnectLedger from 'app/pages/ConnectLedger';
 import CreateAccount from 'app/pages/CreateAccount';
 import CreateWallet from 'app/pages/CreateWallet';
-import DApps from 'app/pages/DApps';
-import Delegate from 'app/pages/Delegate';
 import Explore from 'app/pages/Explore';
 import ImportAccount from 'app/pages/ImportAccount';
 import ImportWallet from 'app/pages/ImportWallet';
-import ManageAssets from 'app/pages/ManageAssets';
 import Receive from 'app/pages/Receive';
 import Send from 'app/pages/Send';
 import Settings from 'app/pages/Settings';
-import Swap from 'app/pages/Swap';
 import Unlock from 'app/pages/Unlock';
 import Welcome from 'app/pages/Welcome';
 import { usePageRouterAnalytics } from 'lib/analytics';
@@ -36,7 +28,7 @@ type RouteFactory = Woozie.Router.ResolveResult<RouteContext>;
 
 const ROUTE_MAP = Woozie.Router.createMap<RouteContext>([
   [
-    '/import-wallet/:tabSlug?',
+    '/import-wallet',
     (p, ctx) => {
       switch (true) {
         case ctx.ready:
@@ -46,7 +38,7 @@ const ROUTE_MAP = Woozie.Router.createMap<RouteContext>([
           return <OpenInFullPage />;
 
         default:
-          return <ImportWallet key={p.tabSlug ?? ''} tabSlug={p.tabSlug} />;
+          return <ImportWallet />;
       }
     }
   ],
@@ -70,17 +62,16 @@ const ROUTE_MAP = Woozie.Router.createMap<RouteContext>([
   ['/create-wallet', onlyNotReady(() => <CreateWallet />)],
   ['/create-account', onlyReady(() => <CreateAccount />)],
   ['/import-account/:tabSlug?', onlyReady(({ tabSlug }) => <ImportAccount tabSlug={tabSlug} />)],
-  ['/connect-ledger', onlyReady(onlyInFullPage(() => <ConnectLedger />))],
+  // ['/connect-ledger', onlyReady(onlyInFullPage(() => <ConnectLedger />))],
   ['/receive', onlyReady(() => <Receive />)],
   ['/send/:assetSlug?', onlyReady(({ assetSlug }) => <Send assetSlug={assetSlug} />)],
-  ['/swap/:assetSlug?', onlyReady(({ assetSlug }) => <Swap assetSlug={assetSlug} />)],
-  ['/delegate', onlyReady(() => <Delegate />)],
-  ['/dapps', onlyReady(() => <DApps />)],
-  ['/manage-assets/:assetType?', onlyReady(({ assetType }) => <ManageAssets assetType={assetType!} />)],
-  ['/collectible/:assetSlug?', onlyReady(({ assetSlug }) => <CollectiblePage assetSlug={assetSlug!} />)],
-  ['/add-asset', onlyReady(onlyInFullPage(() => <AddAsset />))],
+  // ['/dapps', onlyReady(() => <DApps />)],
+  // ['/swap/:assetSlug?', onlyReady(({ assetSlug }) => <Swap assetSlug={assetSlug} />)],
+  // ['/delegate', onlyReady(() => <Delegate />)],
+  // ['/manage-assets/:assetType?', onlyReady(({ assetType }) => <ManageAssets assetType={assetType!} />)],
+  // ['/collectible/:assetSlug?', onlyReady(({ assetSlug }) => <CollectiblePage assetSlug={assetSlug!} />)],
+  // ['/add-asset', onlyReady(onlyInFullPage(() => <AddAsset />))],
   ['/settings/:tabSlug?', onlyReady(({ tabSlug }) => <Settings tabSlug={tabSlug} />)],
-  ['/buy', onlyReady(onlyInFullPage(() => <BuyCrypto />))],
   ['/attention', onlyReady(onlyInFullPage(() => <AttentionPage />))],
   ['*', () => <Woozie.Redirect to="/" />]
 ]);

@@ -6,34 +6,21 @@ import { Props as TippyProps } from 'tippy.js';
 import Spinner from 'app/atoms/Spinner';
 import { useAppEnv } from 'app/env';
 import ErrorBoundary from 'app/ErrorBoundary';
-import { ReactComponent as BuyIcon } from 'app/icons/buy.svg';
 import { ReactComponent as ChevronRightIcon } from 'app/icons/chevron-right.svg';
 import { ReactComponent as ExploreIcon } from 'app/icons/explore.svg';
 import { ReactComponent as ReceiveIcon } from 'app/icons/receive.svg';
 import { ReactComponent as SendIcon } from 'app/icons/send-alt.svg';
-import { ReactComponent as SwapVerticalIcon } from 'app/icons/swap-vertical.svg';
 import PageLayout from 'app/layouts/PageLayout';
-import Activity from 'app/templates/activity/Activity';
-import AssetInfo from 'app/templates/AssetInfo';
+import Activity from 'app/templates/SignumActivity/Activity';
 import { T, t } from 'lib/i18n/react';
-import {
-  getAssetSymbol,
-  isTezAsset,
-  TempleAccountType,
-  useAccount,
-  useAssetMetadata,
-  useNetwork
-} from 'lib/temple/front';
+import { getAssetSymbol, TempleAccountType, useAccount, useSignumAssetMetadata } from 'lib/temple/front';
 import useTippy from 'lib/ui/useTippy';
 import { HistoryAction, Link, navigate, useLocation } from 'lib/woozie';
 
-import CollectiblesList from './Collectibles/CollectiblesList';
 import { ExploreSelectors } from './Explore.selectors';
 import AddressChip from './Explore/AddressChip';
-import BakingSection from './Explore/BakingSection';
 import EditableTitle from './Explore/EditableTitle';
 import MainBanner from './Explore/MainBanner';
-import Tokens from './Explore/Tokens';
 import { useOnboardingProgress } from './Onboarding/hooks/useOnboardingProgress.hook';
 import Onboarding from './Onboarding/Onboarding';
 
@@ -53,9 +40,8 @@ const Explore: FC<ExploreProps> = ({ assetSlug }) => {
   const { onboardingCompleted } = useOnboardingProgress();
   const account = useAccount();
   const { search } = useLocation();
-  const network = useNetwork();
 
-  const assetMetadata = useAssetMetadata(assetSlug ?? 'tez');
+  const assetMetadata = useSignumAssetMetadata(assetSlug || 'signa');
 
   useLayoutEffect(() => {
     const usp = new URLSearchParams(search);
@@ -67,12 +53,13 @@ const Explore: FC<ExploreProps> = ({ assetSlug }) => {
     return undefined;
   }, [registerBackHandler, assetSlug, search]);
 
-  const accountPkh = account.publicKeyHash;
+  const accountId = account.publicKeyHash;
   const canSend = account.type !== TempleAccountType.WatchOnly;
   const fullpageClassName = fullPage ? 'mb-10' : 'mb-6';
-  const swapLink = assetSlug ? `/swap/${assetSlug}` : '/swap';
+  // const swapLink = assetSlug ? `/swap/${assetSlug}` : '/swap';
   const sendLink = assetSlug ? `/send/${assetSlug}` : '/send';
 
+  // return false ? (
   return onboardingCompleted ? (
     <PageLayout
       pageTitle={
@@ -97,21 +84,12 @@ const Explore: FC<ExploreProps> = ({ assetSlug }) => {
       )}
 
       <div className={classNames('flex flex-col items-center', fullpageClassName)}>
-        <AddressChip pkh={accountPkh} className="mb-6" />
+        <AddressChip accountId={accountId} className="mb-6" />
 
-        <MainBanner accountPkh={accountPkh} assetSlug={assetSlug} />
+        <MainBanner accountId={accountId} assetSlug={assetSlug} />
 
-        <div className="flex justify-between mx-auto w-full max-w-sm mt-6 px-8">
+        <div className="flex justify-around mx-auto w-full max-w-sm mt-6 px-8">
           <ActionButton label={<T id="receive" />} Icon={ReceiveIcon} href="/receive" />
-          {network.type !== 'test' && <ActionButton label={<T id="buyButton" />} Icon={BuyIcon} href="/buy" />}
-
-          <ActionButton
-            label={<T id="swap" />}
-            Icon={SwapIcon}
-            href={swapLink}
-            disabled={!canSend}
-            tippyProps={tippyPropsMock}
-          />
           <ActionButton
             label={<T id="send" />}
             Icon={SendIcon}
@@ -130,10 +108,6 @@ const Explore: FC<ExploreProps> = ({ assetSlug }) => {
 };
 
 export default Explore;
-
-const SwapIcon: FunctionComponent<SVGProps<SVGSVGElement>> = ({ className, ...restProps }) => {
-  return <SwapVerticalIcon className={classNames(className, 'transform rotate-90')} {...restProps} />;
-};
 
 type ActionButtonProps = {
   label: React.ReactNode;
@@ -171,12 +145,6 @@ const ActionButton: FC<ActionButtonProps> = ({ label, Icon, href, disabled, tipp
   return disabled ? <button ref={buttonRef} {...commonButtonProps} /> : <Link to={href} {...commonButtonProps} />;
 };
 
-const Delegation: FC = () => (
-  <SuspenseContainer whileMessage={t('delegationInfoWhileMessage')}>
-    <BakingSection />
-  </SuspenseContainer>
-);
-
 type ActivityTabProps = {
   assetSlug?: string;
 };
@@ -186,7 +154,7 @@ const ActivityTab: FC<ActivityTabProps> = ({ assetSlug }) => {
 
   return (
     <SuspenseContainer whileMessage={t('operationHistoryWhileMessage')}>
-      <Activity address={account.publicKeyHash} assetSlug={assetSlug} />
+      <Activity accountId={account.publicKeyHash} />
     </SuspenseContainer>
   );
 };
@@ -219,18 +187,18 @@ const SecondarySection: FC<SecondarySectionProps> = ({ assetSlug, className }) =
   >(() => {
     if (!assetSlug) {
       return [
-        {
-          slug: 'tokens',
-          title: t('tokens'),
-          Component: Tokens,
-          testID: ExploreSelectors.AssetsTab
-        },
-        {
-          slug: 'collectibles',
-          title: t('collectibles'),
-          Component: CollectiblesList,
-          testID: ExploreSelectors.CollectiblesTab
-        },
+        // {
+        //   slug: 'tokens',
+        //   title: t('tokens'),
+        //   Component: Tokens,
+        //   testID: ExploreSelectors.AssetsTab
+        // },
+        // {
+        //   slug: 'collectibles',
+        //   title: t('collectibles'),
+        //   Component: CollectiblesList,
+        //   testID: ExploreSelectors.CollectiblesTab
+        // },
         {
           slug: 'activity',
           title: t('activity'),
@@ -247,26 +215,14 @@ const SecondarySection: FC<SecondarySectionProps> = ({ assetSlug, className }) =
       testID: ExploreSelectors.ActivityTab
     };
 
-    const info = {
-      slug: 'info',
-      title: t('info'),
-      Component: () => <AssetInfo assetSlug={assetSlug} />,
-      testID: ExploreSelectors.AboutTab
-    };
+    // const info = {
+    //   slug: 'info',
+    //   title: t('info'),
+    //   Component: () => <AssetInfo assetSlug={assetSlug} />,
+    //   testID: ExploreSelectors.AboutTab
+    // };
 
-    if (isTezAsset(assetSlug)) {
-      return [
-        activity,
-        {
-          slug: 'delegation',
-          title: t('delegate'),
-          Component: Delegation,
-          testID: ExploreSelectors.DelegationTab
-        }
-      ];
-    }
-
-    return [activity, info];
+    return [activity];
   }, [assetSlug]);
 
   const { slug, Component } = useMemo(() => {
