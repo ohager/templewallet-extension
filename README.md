@@ -1,7 +1,7 @@
-# Temple - Tezos Wallet (ex. Thanos)
+# Signum XT Wallet
 
-Cryptocurrency wallet for [Tezos blockchain](https://tezos.com) as Web Extension for your Browser.<br>
-Providing ability to manage NFT, tez tokens and interact with dApps.
+Cryptocurrency wallet for [Signum blockchain platform](https://signum.network) as Web Extension for your Browser.<br>
+Providing ability to manage Signa and interact with DApps.
 
 ![Temple Wallet](https://user-images.githubusercontent.com/11996139/108867944-64e7fc00-75fe-11eb-975e-87c0fda9bfbe.png)
 
@@ -9,7 +9,9 @@ Providing ability to manage NFT, tez tokens and interact with dApps.
 
 ## ▶️ Install
 
-You can install Temple Wallet right now: https://templewallet.com/download.
+You can install the wallet through the Chrome Web Store or via Mozilla Add-Ons respectively.
+
+> TODO: link to the distributables
 
 ## Browser Support
 
@@ -17,30 +19,42 @@ You can install Temple Wallet right now: https://templewallet.com/download.
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | 49 & later ✔                                                                                                                                                                                     | 52 & later ✔                                                                                                                                                 | Latest ✔                                                                                                                                                                                      | 36 & later ✔                                                                                                                                                                                  | 79 & later ✔                                                                                                                                                                               |
 
-## 🚀 Quick Start
+## Development
 
 Ensure you have:
 
-- [Node.js](https://nodejs.org) 10 or later installed
-- [Yarn](https://yarnpkg.com) v1 or v2 installed
+-
+- [Node.js](https://nodejs.org) 12 or later installed
+- [Yarn](https://yarnpkg.com) installed (npm might work also, but this project uses yarn)
 
-Then run the following:
-
-### 1) Clone the repository
-
-```bash
-git clone https://github.com/madfish-solutions/templewallet-extension && cd templewallet-extension
-```
-
-### 2) Install dependencies
+Just clone the code base and install the dependencies
 
 ```bash
+git clone https://github.com/signum-network/signum-xt-wallet.git && cd signum-xt-wallet
 yarn
 ```
 
-### 3) Build
+### Run during development
 
-Builds the extension for production to the `dist` folder.<br>
+Runs the extension in the development mode for Chrome target.<br>
+It's recommended to use Chrome for development.
+
+```bash
+yarn start
+```
+
+> The project comes with a reload feature that recompiles and reload automatically on changes
+
+#### Load the extension for development
+
+1. Enter `chrome://extensions/` as URL to open the Extension Manager.
+2. Activate `Development Mode`.
+3. Hit the `Load Unpacked` button and navigate to `<...>/signum-xt-wallet/dist`, select `chrome_unpacked` and open it.
+4. Voilà!
+
+### Build a distributable
+
+For deployment in the Chrome Web Store, Firefox Add-Ons, or Opera Extensions Store you need to builds the extension for production.
 It correctly bundles in production mode and optimizes the build for the best performance.
 
 ```bash
@@ -61,16 +75,3 @@ yarn build:opera
 # for all at once
 yarn build-all
 ```
-
-### 4) Load extension to your Browser
-
-![TempleWallet_Load](https://user-images.githubusercontent.com/11996139/73763346-f8435a80-4779-11ea-9e9d-4c1db9560f64.gif)
-
-## 🧱 Development
-
-```bash
-yarn start
-```
-
-Runs the extension in the development mode for Chrome target.<br>
-It's recommended to use Chrome for developing.
