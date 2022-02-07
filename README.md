@@ -5,10 +5,9 @@ Providing ability to manage Signa and interact with DApps.
 
 ![xt-wallet](https://user-images.githubusercontent.com/3920663/152850875-7b6b099a-c574-458d-95d4-4f83daa6279a.jpg)
 
-
 <hr />
 
-## ▶️ Install
+## 🌻 Install
 
 You can install the wallet through the Chrome Web Store or via Mozilla Add-Ons respectively.
 
@@ -20,7 +19,7 @@ You can install the wallet through the Chrome Web Store or via Mozilla Add-Ons r
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | 49 & later ✔                                                                                                                                                                                     | 52 & later ✔                                                                                                                                                 | Latest ✔                                                                                                                                                                                      | 36 & later ✔                                                                                                                                                                                  | 79 & later ✔                                                                                                                                                                               |
 
-## Development
+## 🧑‍🌾 Development
 
 Ensure you have:
 
@@ -34,7 +33,7 @@ git clone https://github.com/signum-network/signum-xt-wallet.git && cd signum-xt
 yarn
 ```
 
-### Run during development
+### ♻️ Run during development
 
 Runs the extension in the development mode for Chrome target.<br>
 It's recommended to use Chrome for development.
@@ -45,14 +44,14 @@ yarn start
 
 > The project comes with a reload feature that recompiles and reload automatically on changes
 
-#### Load the extension for development
+#### 🦄 Load the extension for development
 
 1. Enter `chrome://extensions/` as URL to open the Extension Manager.
 2. Activate `Development Mode`.
 3. Hit the `Load Unpacked` button and navigate to `<...>/signum-xt-wallet/dist`, select `chrome_unpacked` and open it.
 4. Voilà!
 
-### Build a distributable
+### 🌄 Build a distributable
 
 For deployment in the Chrome Web Store, Firefox Add-Ons, or Opera Extensions Store you need to builds the extension for production.
 It correctly bundles in production mode and optimizes the build for the best performance.
