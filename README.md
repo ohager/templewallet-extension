@@ -29,7 +29,8 @@ Ensure you have:
 Just clone the code base and install the dependencies
 
 ```bash
-git clone https://github.com/signum-network/signum-xt-wallet.git && cd signum-xt-wallet
+git clone https://github.com/signum-network/signum-xt-wallet.git
+cd signum-xt-wallet
 yarn
 ```
 
