@@ -430,7 +430,7 @@ export class Vault {
         throw new PublicError('Account not found');
       }
       const newAllAccounts = allAccounts.map(acc =>
-        acc.publicKeyHash === accPublicKeyHash ? { ...acc, isActive: true } : acc
+        acc.publicKeyHash === accPublicKeyHash ? { ...acc, isActivated: true } : acc
       );
       await encryptAndSaveMany([[accountsStrgKey, newAllAccounts]], this.passKey);
 

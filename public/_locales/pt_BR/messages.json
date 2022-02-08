@@ -1072,7 +1072,7 @@
     "message": "Carga para assinar"
   },
   "pending": {
-    "message": "Pendente..."
+    "message": "Confirmando..."
   },
   "popupDisabled": {
     "message": "Desativado"
@@ -1725,5 +1725,17 @@
   },
   "createWalletDescriptionOption2": {
     "message": "conectar e interagir com Signum DApps."
+  },
+  "accountActivationAlertDescription": {
+    "message": "Esta conta ainda não está totalmente registrada no blockchain. Ative sua conta para garantir sua segurança e torná-la totalmente utilizável para todos os serviços, incluindo os câmbios."
+  },
+  "accountActivationAlertTitle": {
+    "message": "Conta não ativada"
+  },
+  "activationFailed": {
+    "message": "Oh não, a ativação falhou."
+  },
+  "cantConnectToNetworkHint": {
+    "message": "Tente selecionar outro nó ou verifique sua conexão com a Internet."
   }
 }

@@ -1727,9 +1727,15 @@
     "message": "Verbinden und interagieren Sie mit Signum DApps."
   },
   "accountActivationAlertTitle": {
-    "message": "Account not activated"
+    "message": "Konto nicht aktiviert"
   },
   "accountActivationAlertDescription": {
-    "message": "This account is not fully registered on the blockchain yet. Please, activate your account to guarantee its security and being fully usable by all services including exchanges."
+    "message": "Dieses Konto ist noch nicht vollständig in der Blockchain registriert. Bitte aktivieren Sie Ihr Konto, um seine Sicherheit zu gewährleisten und es für alle Dienste, einschließlich Börsen, vollständig nutzbar zu machen."
+  },
+  "activationFailed": {
+    "message": "Oh nein, die Aktivierung ist fehlgeschlagen."
+  },
+  "cantConnectToNetworkHint": {
+    "message": "Versuchen Sie, einen anderen Knoten auszuwählen, oder überprüfen Sie Ihre Internetverbindung."
   }
 }

@@ -1725,5 +1725,17 @@
   },
   "createWalletDescriptionOption2": {
     "message": "conectarse e interactuar con Signum DApps."
+  },
+  "accountActivationAlertDescription": {
+    "message": "Esta cuenta aún no está completamente registrada en la cadena de bloques. Active su cuenta para garantizar su seguridad y hacerla completamente utilizable para todos los servicios, incluidos los intercambios."
+  },
+  "accountActivationAlertTitle": {
+    "message": "Cuenta no activada"
+  },
+  "activationFailed": {
+    "message": "Oh no, la activación falló."
+  },
+  "cantConnectToNetworkHint": {
+    "message": "Intente seleccionar otro nodo o verifique su conexión a Internet."
   }
 }

@@ -305,7 +305,7 @@
     "message": "Cannot reach network node"
   },
   "cantConnectToNetworkHint": {
-    "message": "Try selecting another node or check your internet connection"
+    "message": "Try selecting another node or check your internet connection."
   },
   "clean": {
     "message": "Clean"
@@ -1075,7 +1075,7 @@
     "message": "Payload to sign"
   },
   "pending": {
-    "message": "Pending..."
+    "message": "Confirming..."
   },
   "popupDisabled": {
     "message": "Disabled"
@@ -1412,7 +1412,7 @@
     "message": "Transfer"
   },
   "transferFromSmb": {
-    "message": "by $sender$",
+    "message": "from $sender$",
     "placeholders": {
       "sender": {
         "content": "$1"
@@ -1734,5 +1734,8 @@
   },
   "accountActivationAlertDescription": {
     "message": "This account is not yet fully registered on the blockchain. Please activate your account to ensure its security and make it fully usable for all services, including exchanges."
+  },
+  "activationFailed": {
+    "message": "Oh no, the activation failed."
   }
 }

@@ -1,14 +1,14 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 
 import { Address } from '@signumjs/core';
-import { HttpClientFactory } from '@signumjs/http';
+import { HttpClientFactory, HttpError } from '@signumjs/http';
+import useSWR from 'swr';
 
 import Alert from 'app/atoms/Alert';
 import { Button } from 'app/atoms/Button';
 import Spinner from 'app/atoms/Spinner';
 
 import { T, t } from '../../../lib/i18n/react';
-import { useRetryableSWR } from '../../../lib/swr';
 import { useAccount, useNetwork, useSignum, useTempleClient } from '../../../lib/temple/front';
 
 async function activateAccount(isTestnet: boolean, publicKey: string): Promise<void> {
@@ -35,10 +35,15 @@ export const ActivationSection: FC = () => {
   const signum = useSignum();
   const network = useNetwork();
   const [isActivating, setIsActivating] = useState(false);
+  const [activationError, setActivationError] = useState('');
 
-  const { data: isActivatedAccount } = useRetryableSWR(
+  const { data: isActivatedAccount } = useSWR(
     ['getAccountActivationStatus', account.publicKeyHash, account.isActivated, signum],
     async () => {
+      if (account.isActivated) {
+        return true;
+      }
+
       try {
         const acc = await signum.account.getAccount({
           accountId: account.publicKeyHash,
@@ -54,16 +59,9 @@ export const ActivationSection: FC = () => {
     },
     {
       revalidateOnMount: true,
-      refreshInterval: 10_000,
       dedupingInterval: 10_000
     }
   );
-
-  useEffect(() => {
-    if (isActivatedAccount && !account.isActivated) {
-      console.log('activating account state...');
-    }
-  }, [account.isActivated, isActivatedAccount, setAccountActivated, network]);
 
   const handleActivate = async () => {
     setIsActivating(true);
@@ -72,36 +70,43 @@ export const ActivationSection: FC = () => {
       await activateAccount(network.type === 'test', publicKey);
       await setAccountActivated(account.publicKeyHash);
     } catch (e) {
-      console.error(e);
-      // setError(`Account Activation failed`);
+      if (e instanceof HttpError) {
+        setActivationError(e.data.message || e.message);
+      } else {
+        setActivationError(t('smthWentWrong'));
+      }
     } finally {
       setIsActivating(false);
     }
   };
 
-  return account.isActivated ? null : (
+  return isActivatedAccount === false ? (
     <div className="w-full flex flex-col justify-center items-center p-4 mb-4 border rounded-md mt-4 mx-auto max-w-sm">
       <Alert
         type="warn"
         title={t('accountActivationAlertTitle')}
         description={t('accountActivationAlertDescription')}
       />
-      {isActivating ? (
-        <Spinner theme="gray" className="w-20" />
-      ) : (
-        <Button
-          className="mt-4 w-1/2 justify-center border-none"
-          style={{
-            padding: '10px 2rem',
-            background: '#4198e0',
-            color: '#ffffff',
-            borderRadius: 4
-          }}
-          onClick={handleActivate}
-        >
-          <T id={'activateAccount'} />
-        </Button>
+      {activationError && (
+        <div className="text-center mt-2 text-red-700 text-xs">{`${t('activationFailed')}: ${activationError}`}</div>
       )}
+      <Button
+        className="mt-4 w-1/2 justify-center text-center border-none h-10"
+        style={{
+          padding: '10px 2rem',
+          background: '#4198e0',
+          color: '#ffffff',
+          borderRadius: 4
+        }}
+        onClick={handleActivate}
+        disabled={isActivating}
+      >
+        {isActivating ? (
+          <Spinner theme="gray" className="mx-auto" style={{ width: '48px' }} />
+        ) : (
+          <T id={'activateAccount'} />
+        )}
+      </Button>
     </div>
-  );
+  ) : null;
 };

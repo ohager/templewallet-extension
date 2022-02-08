@@ -21,8 +21,9 @@ const Activity = memo<ActivityProps>(({ accountId, className }) => {
   const safeStateKey = useMemo(() => accountId, [accountId]);
   const [restTransactions, setRestTransactions] = useSafeState<Transaction[]>([], safeStateKey);
   const [loadingMore, setLoadingMore] = useSafeState(false, safeStateKey);
+  const [isInitialLoading, setInitialLoading] = useSafeState(true, safeStateKey);
 
-  const { data: latestTransactions, isValidating: fetching } = useRetryableSWR(
+  const { data: latestTransactions } = useRetryableSWR(
     ['getAccountTransactions', accountId, signum.account],
     async () => {
       const transactionList = await signum.account.getAccountTransactions({
@@ -33,23 +34,27 @@ const Activity = memo<ActivityProps>(({ accountId, className }) => {
       });
 
       hasMoreRef.current = transactionList.transactions.length === ACTIVITY_PAGE_SIZE;
-
+      setInitialLoading(false);
       return transactionList;
     },
     {
       revalidateOnMount: true,
       refreshInterval: 30_000,
-      dedupingInterval: 10_000
+      dedupingInterval: 5_000
     }
   );
 
-  const { data: unconfirmedTransactions, isValidating: fetchingUnconfirmed } = useRetryableSWR(
+  const { data: unconfirmedTransactions } = useRetryableSWR(
     ['getUnconfirmedAccountTransactions', accountId, signum.account],
-    () => signum.account.getUnconfirmedAccountTransactions(accountId, true),
+    async () => {
+      const response = await signum.account.getUnconfirmedAccountTransactions(accountId, true);
+      setInitialLoading(false);
+      return response;
+    },
     {
       revalidateOnMount: true,
-      refreshInterval: 10_000,
-      dedupingInterval: 10_000
+      refreshInterval: 30_000,
+      dedupingInterval: 5_000
     }
   );
 
@@ -84,12 +89,11 @@ const Activity = memo<ActivityProps>(({ accountId, className }) => {
     setLoadingMore(false);
   }, [setLoadingMore, setRestTransactions, accountId, transactions, signum.account]);
 
-  const initialLoading = fetching || fetchingUnconfirmed;
   return (
     <ActivityView
       accountId={accountId}
       transactions={transactions}
-      initialLoading={initialLoading}
+      initialLoading={isInitialLoading}
       loadingMore={loadingMore}
       loadMoreDisplayed={hasMoreRef.current}
       loadMore={handleLoadMore}
