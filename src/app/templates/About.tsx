@@ -6,8 +6,8 @@ import { T } from 'lib/i18n/react';
 
 const About: FC = () => (
   <div className="flex flex-col items-center my-8">
-    <div className="flex items-center justify-center">
-      <Logo style={{ height: 60 }} />
+    <div className="flex flex-col items-center justify-center">
+      <Logo style={{ height: 60 }} xt />
 
       <div className="ml-4">
         <T id="appName">{message => <h4 className="text-xl font-semibold text-gray-700">{message}</h4>}</T>
