@@ -122,7 +122,7 @@ export function removeAccount(accPublicKeyHash: string, password: string) {
   });
 }
 
-export function editAccount(accPublicKeyHash: string, name: string) {
+export function editAccountName(accPublicKeyHash: string, name: string) {
   return withUnlocked(async ({ vault }) => {
     name = name.trim();
     if (!ACCOUNT_NAME_PATTERN.test(name)) {
@@ -130,6 +130,13 @@ export function editAccount(accPublicKeyHash: string, name: string) {
     }
 
     const updatedAccounts = await vault.editAccountName(accPublicKeyHash, name);
+    accountsUpdated(updatedAccounts);
+  });
+}
+
+export function setAccountActivated(accPublicKeyHash: string) {
+  return withUnlocked(async ({ vault }) => {
+    const updatedAccounts = await vault.setAccountIsActivated(accPublicKeyHash);
     accountsUpdated(updatedAccounts);
   });
 }

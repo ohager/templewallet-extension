@@ -52,7 +52,7 @@ dotenvFiles.forEach(dotenvFile => {
 
 // Grab NODE_ENV and TEMPLE_WALLET_* environment variables and prepare them to be
 // injected into the application via DefinePlugin in Webpack configuration.
-const TEMPLE_WALLET = /^TEMPLE_WALLET_/i;
+const XT_WALLET_ENV = /^XT_WALLET_/i;
 const {
   TARGET_BROWSER = 'chrome',
   SOURCE_MAP: SOURCE_MAP_ENV,
@@ -329,7 +329,7 @@ module.exports = {
       ...(() => {
         const appEnvs = {};
         for (const k of Object.keys(process.env)) {
-          if (TEMPLE_WALLET.test(k)) {
+          if (XT_WALLET_ENV.test(k)) {
             appEnvs[`process.env.${k}`] = JSON.stringify(process.env[k]);
           }
         }

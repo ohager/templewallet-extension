@@ -84,6 +84,7 @@ export interface TempleAccountBase {
   type: TempleAccountType;
   name: string;
   publicKeyHash: string;
+  isActivated?: boolean;
   hdIndex?: number;
   derivationPath?: string;
   derivationType?: DerivationType;
@@ -225,6 +226,8 @@ export enum TempleMessageType {
   RevealMnemonicResponse = 'TEMPLE_REVEAL_MNEMONIC_RESPONSE',
   RemoveAccountRequest = 'TEMPLE_REMOVE_ACCOUNT_REQUEST',
   RemoveAccountResponse = 'TEMPLE_REMOVE_ACCOUNT_RESPONSE',
+  ActivateAccountRequest = 'TEMPLE_SET_ACCOUNT_ACTIVATED_REQUEST',
+  ActivateAccountResponse = 'TEMPLE_SET_ACCOUNT_ACTIVATED_RESPONSE',
   EditAccountRequest = 'TEMPLE_EDIT_ACCOUNT_REQUEST',
   EditAccountResponse = 'TEMPLE_EDIT_ACCOUNT_RESPONSE',
   ImportAccountRequest = 'TEMPLE_IMPORT_ACCOUNT_REQUEST',
@@ -275,6 +278,7 @@ export type TempleRequest =
   | TempleRevealPublicKeyRequest
   | TempleRevealPrivateKeyRequest
   | TempleRevealMnemonicRequest
+  | TempleActivateAccountRequest
   | TempleEditAccountRequest
   | TempleImportAccountRequest
   | TempleImportMnemonicAccountRequest
@@ -305,6 +309,7 @@ export type TempleResponse =
   | TempleRevealPublicKeyResponse
   | TempleRevealPrivateKeyResponse
   | TempleRevealMnemonicResponse
+  | TempleActivateAccountResponse
   | TempleEditAccountResponse
   | TempleImportAccountResponse
   | TempleImportMnemonicAccountResponse
@@ -440,6 +445,15 @@ export interface TempleRemoveAccountRequest extends TempleMessageBase {
 
 export interface TempleRemoveAccountResponse extends TempleMessageBase {
   type: TempleMessageType.RemoveAccountResponse;
+}
+
+export interface TempleActivateAccountRequest extends TempleMessageBase {
+  type: TempleMessageType.ActivateAccountRequest;
+  accountPublicKeyHash: string;
+}
+
+export interface TempleActivateAccountResponse extends TempleMessageBase {
+  type: TempleMessageType.ActivateAccountResponse;
 }
 
 export interface TempleEditAccountRequest extends TempleMessageBase {

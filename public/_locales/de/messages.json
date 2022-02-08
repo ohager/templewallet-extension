@@ -1725,5 +1725,11 @@
   },
   "createWalletDescriptionOption2": {
     "message": "Verbinden und interagieren Sie mit Signum DApps."
+  },
+  "accountActivationAlertTitle": {
+    "message": "Account not activated"
+  },
+  "accountActivationAlertDescription": {
+    "message": "This account is not fully registered on the blockchain yet. Please, activate your account to guarantee its security and being fully usable by all services including exchanges."
   }
 }

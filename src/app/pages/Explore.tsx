@@ -17,7 +17,10 @@ import { getAssetSymbol, TempleAccountType, useAccount, useSignumAssetMetadata }
 import useTippy from 'lib/ui/useTippy';
 import { HistoryAction, Link, navigate, useLocation } from 'lib/woozie';
 
+import { useNetworkIsReachable } from '../../lib/ui/useNetworkIsReachable';
+import Alert from '../atoms/Alert';
 import { ExploreSelectors } from './Explore.selectors';
+import { ActivationSection } from './Explore/ActivationSection';
 import AddressChip from './Explore/AddressChip';
 import EditableTitle from './Explore/EditableTitle';
 import MainBanner from './Explore/MainBanner';
@@ -38,9 +41,9 @@ const tippyPropsMock = {
 const Explore: FC<ExploreProps> = ({ assetSlug }) => {
   const { fullPage, registerBackHandler } = useAppEnv();
   const { onboardingCompleted } = useOnboardingProgress();
+  const networkIsReachable = useNetworkIsReachable();
   const account = useAccount();
   const { search } = useLocation();
-
   const assetMetadata = useSignumAssetMetadata(assetSlug || 'signa');
 
   useLayoutEffect(() => {
@@ -84,6 +87,11 @@ const Explore: FC<ExploreProps> = ({ assetSlug }) => {
       )}
 
       <div className={classNames('flex flex-col items-center', fullpageClassName)}>
+        {!networkIsReachable && (
+          <div className="w-full justify-center items-center mb-4 mx-auto max-w-sm">
+            <Alert type="error" title={t('cantConnectToNetwork')} description={t('cantConnectToNetworkHint')} />
+          </div>
+        )}
         <AddressChip accountId={accountId} className="mb-6" />
 
         <MainBanner accountId={accountId} assetSlug={assetSlug} />
@@ -98,6 +106,8 @@ const Explore: FC<ExploreProps> = ({ assetSlug }) => {
             tippyProps={tippyPropsMock}
           />
         </div>
+
+        {!account.isActivated && <ActivationSection />}
       </div>
 
       <SecondarySection assetSlug={assetSlug} />

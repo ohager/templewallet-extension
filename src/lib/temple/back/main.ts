@@ -78,9 +78,15 @@ async function processRequest(req: TempleRequest, port: Runtime.Port): Promise<T
       };
 
     case TempleMessageType.EditAccountRequest:
-      await Actions.editAccount(req.accountPublicKeyHash, req.name);
+      await Actions.editAccountName(req.accountPublicKeyHash, req.name);
       return {
         type: TempleMessageType.EditAccountResponse
+      };
+
+    case TempleMessageType.ActivateAccountRequest:
+      await Actions.setAccountActivated(req.accountPublicKeyHash);
+      return {
+        type: TempleMessageType.ActivateAccountResponse
       };
 
     case TempleMessageType.ImportAccountRequest:

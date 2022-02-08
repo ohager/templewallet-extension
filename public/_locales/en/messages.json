@@ -304,6 +304,9 @@
   "cantConnectToNetwork": {
     "message": "Cannot reach network node"
   },
+  "cantConnectToNetworkHint": {
+    "message": "Try selecting another node or check your internet connection"
+  },
   "clean": {
     "message": "Clean"
   },
@@ -1725,5 +1728,11 @@
   },
   "createWalletDescriptionOption2": {
     "message": "connect and interact with Signum DApps."
+  },
+  "accountActivationAlertTitle": {
+    "message": "Account not activated"
+  },
+  "accountActivationAlertDescription": {
+    "message": "This account is not yet fully registered on the blockchain. Please activate your account to ensure its security and make it fully usable for all services, including exchanges."
   }
 }

@@ -35,12 +35,12 @@ export async function loadContractForCallLambdaView(tezos: TezosToolkit, contrac
 }
 
 class LambdaViewSigner {
-  async publicKeyHash() {
-    return process.env.TEMPLE_WALLET_LV_ACCOUNT_PKH!;
+  async publicKeyHash(): Promise<string> {
+    throw new Error('Removed');
   }
 
-  async publicKey() {
-    return process.env.TEMPLE_WALLET_LV_ACCOUNT_PUBLIC_KEY!;
+  async publicKey(): Promise<string> {
+    throw new Error('Removed');
   }
 
   async secretKey(): Promise<string> {
@@ -57,11 +57,11 @@ class LambdaViewSigner {
   }
 }
 
-if (!process.env.TEMPLE_WALLET_LV_ACCOUNT_PKH || !process.env.TEMPLE_WALLET_LV_ACCOUNT_PUBLIC_KEY) {
-  throw new Error(
-    "Require a 'TEMPLE_WALLET_LV_ACCOUNT_PKH' and " +
-      "'TEMPLE_WALLET_LV_ACCOUNT_PUBLIC_KEY' environment variable to be set"
-  );
-}
+// if (!process.env.TEMPLE_WALLET_LV_ACCOUNT_PKH || !process.env.TEMPLE_WALLET_LV_ACCOUNT_PUBLIC_KEY) {
+//   throw new Error(
+//     "Require a 'TEMPLE_WALLET_LV_ACCOUNT_PKH' and " +
+//       "'TEMPLE_WALLET_LV_ACCOUNT_PUBLIC_KEY' environment variable to be set"
+//   );
+// }
 
 const lambdaSigner = new LambdaViewSigner();

@@ -182,6 +182,14 @@ export const [TempleClientProvider, useTempleClient] = constate(() => {
     assertResponse(res.type === TempleMessageType.EditAccountResponse);
   }, []);
 
+  const setAccountActivated = useCallback(async (accountPublicKeyHash: string) => {
+    const res = await request({
+      type: TempleMessageType.ActivateAccountRequest,
+      accountPublicKeyHash
+    });
+    assertResponse(res.type === TempleMessageType.ActivateAccountResponse);
+  }, []);
+
   const importAccount = useCallback(async (privateKey: string, encPassword?: string) => {
     const res = await request({
       type: TempleMessageType.ImportAccountRequest,
@@ -355,6 +363,7 @@ export const [TempleClientProvider, useTempleClient] = constate(() => {
     revealMnemonic,
     removeAccount,
     editAccountName,
+    setAccountActivated,
     importAccount,
     importMnemonicAccount,
     importFundraiserAccount,

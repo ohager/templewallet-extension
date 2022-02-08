@@ -423,6 +423,21 @@ export class Vault {
     });
   }
 
+  async setAccountIsActivated(accPublicKeyHash: string) {
+    return withError('Failed to update account', async () => {
+      const allAccounts = await this.fetchAccounts();
+      if (!allAccounts.some(acc => acc.publicKeyHash === accPublicKeyHash)) {
+        throw new PublicError('Account not found');
+      }
+      const newAllAccounts = allAccounts.map(acc =>
+        acc.publicKeyHash === accPublicKeyHash ? { ...acc, isActive: true } : acc
+      );
+      await encryptAndSaveMany([[accountsStrgKey, newAllAccounts]], this.passKey);
+
+      return newAllAccounts;
+    });
+  }
+
   async updateSettings(settings: Partial<TempleSettings>) {
     return withError('Failed to update settings', async () => {
       const current = await this.fetchSettings();
@@ -695,9 +710,9 @@ async function createLedgerSigner(
   if (!transport || ledgerLiveEnabled !== transport.ledgerLiveUsed) {
     await transport?.close();
 
-    const bridgeUrl = process.env.TEMPLE_WALLET_LEDGER_BRIDGE_URL;
+    const bridgeUrl = process.env.XT_WALLET_LEDGER_BRIDGE_URL;
     if (!bridgeUrl) {
-      throw new Error("Require a 'TEMPLE_WALLET_LEDGER_BRIDGE_URL' environment variable to be set");
+      throw new Error("Require a 'XT_WALLET_LEDGER_BRIDGE_URL' environment variable to be set");
     }
 
     transport = await LedgerTempleBridgeTransport.open(bridgeUrl);

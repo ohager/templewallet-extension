@@ -24,10 +24,12 @@ const ActivityView = memo<ActivityViewProps>(
   ({ accountId, transactions, initialLoading, loadingMore, loadMoreDisplayed, loadMore, className }) => {
     const noTransactions = transactions.length === 0;
 
+    if (initialLoading) {
+      return <ActivitySpinner />;
+    }
+
     if (noTransactions) {
-      return initialLoading ? (
-        <ActivitySpinner />
-      ) : (
+      return (
         <div className={classNames('mt-4 mb-12', 'flex flex-col items-center justify-center', 'text-gray-500')}>
           <LayersIcon className="w-16 h-auto mb-2 stroke-current" />
 
