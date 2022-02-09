@@ -1,4 +1,4 @@
-import { browser, Runtime } from 'webextension-polyfill-ts';
+import browser, { Runtime } from 'webextension-polyfill';
 
 import { TempleDAppPayload, TempleMessageType, TempleRequest } from '../../types';
 import { intercom } from '../defaults';

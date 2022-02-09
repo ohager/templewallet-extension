@@ -1,4 +1,4 @@
-import { browser } from 'webextension-polyfill-ts';
+import browser from 'webextension-polyfill';
 
 import { loadChainId } from 'lib/temple/helpers';
 import { NETWORKS } from 'lib/temple/networks';

@@ -1,5 +1,5 @@
 import { CurrencySymbol } from '@signumjs/util';
-import { browser } from 'webextension-polyfill-ts';
+import browser from 'webextension-polyfill';
 
 import { browserInfo } from '../../browser-info';
 import { AssetMetadata } from './types';

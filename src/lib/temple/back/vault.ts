@@ -1,4 +1,4 @@
-import { Address } from '@signumjs/core';
+// import { Address } from '@signumjs/core/';
 import {
   generateMasterKeys,
   generateSignature,
@@ -16,7 +16,6 @@ import { LedgerTempleBridgeTransport } from '@temple-wallet/ledger-bridge';
 import * as Bip39 from 'bip39';
 import * as Ed25519 from 'ed25519-hd-key';
 
-import { getMessage } from 'lib/i18n';
 import { PublicError } from 'lib/temple/back/defaults';
 import { TempleLedgerSigner } from 'lib/temple/back/ledger-signer';
 import {
@@ -86,7 +85,7 @@ export class Vault {
         mnemonic = await generateSignumMnemonic();
       }
       const keys = generateMasterKeys(mnemonic);
-      const accountId = Address.fromPublicKey(keys.publicKey).getNumericId();
+      const accountId = keys.publicKey; //Address.fromPublicKey(keys.publicKey).getNumericId();
       const initialAccount: TempleAccount = {
         type: TempleAccountType.Imported,
         name: 'Account 1',
@@ -225,7 +224,7 @@ export class Vault {
       const allAccounts = await this.fetchAccounts();
       const mnemonic = await generateSignumMnemonic();
       const keys = generateMasterKeys(mnemonic);
-      const accountId = Address.fromPublicKey(keys.publicKey).getNumericId();
+      const accountId = keys.publicKey; //Converter.Address.fromPublicKey(keys.publicKey).getNumericId();
       const accName = name || getNewAccountName(allAccounts);
       const newAccount: TempleAccount = {
         type: TempleAccountType.Imported,
@@ -285,7 +284,7 @@ export class Vault {
 
     return withError(errMessage, async () => {
       const allAccounts = await this.fetchAccounts();
-      const accountId = Address.fromPublicKey(keys.publicKey).getNumericId();
+      const accountId = keys.publicKey; //Address.fromPublicKey(keys.publicKey).getNumericId();
       const newAccount: TempleAccount = {
         type: TempleAccountType.Imported,
         name: name || getNewAccountName(allAccounts),
@@ -685,7 +684,7 @@ function concatAccount(current: TempleAccount[], newOne: TempleAccount) {
 }
 
 function getNewAccountName(allAccounts: TempleAccount[], templateI18nKey = 'defaultAccountName') {
-  return getMessage(templateI18nKey, String(allAccounts.length + 1));
+  return `Account ${allAccounts.length + 1}`;
 }
 
 async function getPublicKeyAndHash(privateKey: string) {

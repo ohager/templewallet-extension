@@ -14,7 +14,6 @@ const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeM
 const resolve = require('resolve');
 const TerserPlugin = require('terser-webpack-plugin');
 const webpack = require('webpack');
-const ExtensionReloader = require('webpack-extension-reloader');
 const WebpackBar = require('webpackbar');
 const ZipPlugin = require('zip-webpack-plugin');
 
@@ -98,6 +97,12 @@ const HTML_TEMPLATES = [
     chunks: ['options']
   }
 ];
+
+// FIXME: make HMR work for MV3
+// function getHotReloadableEntry(name) {
+//   return [path.join(SOURCE_PATH, name), ...(NODE_ENV === 'development' ? [`mv3-hot-reload/${name}`] : [])];
+// }
+
 const ENTRIES = {
   popup: path.join(SOURCE_PATH, 'popup.tsx'),
   fullpage: path.join(SOURCE_PATH, 'fullpage.tsx'),
@@ -105,6 +110,9 @@ const ENTRIES = {
   options: path.join(SOURCE_PATH, 'options.tsx'),
   background: path.join(SOURCE_PATH, 'background.ts'),
   contentScript: path.join(SOURCE_PATH, 'contentScript.ts')
+  // FIXME: make HMR work for MV3
+  // background: getHotReloadableEntry('background.ts'),
+  // contentScript: getHotReloadableEntry('contentScript.ts')
 };
 
 const EXTENSION_ENTRIES = {
@@ -402,16 +410,7 @@ module.exports = {
     new WebpackBar({
       name: 'Signum XT Wallet',
       color: '#80caff'
-    }),
-
-    // plugin to enable browser reloading in development mode
-    NODE_ENV === 'development' &&
-      new ExtensionReloader({
-        port: 9090,
-        reloadPage: true,
-        // manifest: path.join(OUTPUT_PATH, "manifest.json"),
-        entries: EXTENSION_ENTRIES
-      })
+    })
   ].filter(Boolean),
 
   optimization: {

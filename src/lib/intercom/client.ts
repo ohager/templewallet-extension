@@ -1,4 +1,4 @@
-import { Runtime, browser } from 'webextension-polyfill-ts';
+import browser, { Runtime } from 'webextension-polyfill';
 
 import { deserializeError } from './helpers';
 import { MessageType, RequestMessage } from './types';

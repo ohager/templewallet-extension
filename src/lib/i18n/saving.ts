@@ -1,9 +1,11 @@
+import { storage } from 'webextension-polyfill';
+
 export const STORAGE_KEY = 'locale';
 
 export function getSavedLocale() {
-  return localStorage.getItem(STORAGE_KEY);
+  return storage.local.get(STORAGE_KEY);
 }
 
 export function saveLocale(locale: string) {
-  return localStorage.setItem(STORAGE_KEY, locale);
+  return storage.local.set({ [STORAGE_KEY]: locale });
 }

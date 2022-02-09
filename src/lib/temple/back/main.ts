@@ -1,4 +1,4 @@
-import { Runtime } from 'webextension-polyfill-ts';
+import { Runtime } from 'webextension-polyfill';
 
 import * as Actions from 'lib/temple/back/actions';
 import { intercom } from 'lib/temple/back/defaults';

@@ -1,5 +1,5 @@
 import { enUS, enGB, fr, zhCN, zhTW, ja, ko, uk, ru } from 'date-fns/locale';
-import { browser } from 'webextension-polyfill-ts';
+import browser from 'webextension-polyfill';
 
 import cldrjsLocales from './cldrjs-locales.json';
 import { areLocalesEqual, processTemplate, toList } from './helpers';
@@ -61,7 +61,8 @@ export function getMessage(messageName: string, substitutions?: Substitutions) {
   const val = fetchedLocaleMessages.target?.[messageName] ?? fetchedLocaleMessages.fallback?.[messageName];
 
   if (!val) {
-    return browser.i18n.getMessage(messageName, substitutions);
+    return '';
+    // return browser.i18n.getMessage(messageName, substitutions);
   }
 
   try {

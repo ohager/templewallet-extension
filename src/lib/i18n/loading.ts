@@ -1,4 +1,4 @@
-import { browser } from 'webextension-polyfill-ts';
+import { runtime } from 'webextension-polyfill';
 
 import { init } from './core';
 import { saveLocale } from './saving';
@@ -7,7 +7,7 @@ export const REFRESH_MSGTYPE = 'TEMPLE_I18N_REFRESH';
 
 const initPromise = init();
 
-browser.runtime.onMessage.addListener(msg => {
+runtime.onMessage.addListener(msg => {
   if (msg?.type === REFRESH_MSGTYPE) {
     refresh();
   }
@@ -18,27 +18,17 @@ export function onInited(callback: () => void) {
 }
 
 export function updateLocale(locale: string) {
-  saveLocale(locale);
-  notifyOthers();
-  refresh();
+  saveLocale(locale).then(() => {
+    notifyOthers();
+    refresh();
+  });
 }
 
 function notifyOthers() {
-  browser.runtime.sendMessage({ type: REFRESH_MSGTYPE });
+  runtime.sendMessage({ type: REFRESH_MSGTYPE });
 }
 
-async function refresh() {
-  if (await isBackgroundScript()) {
-    init();
-  } else {
-    window.location.reload();
-  }
-}
-
-async function isBackgroundScript() {
-  let backgroundWindow;
-  try {
-    backgroundWindow = await browser.runtime.getBackgroundPage();
-  } catch {}
-  return window === backgroundWindow;
+function refresh() {
+  console.log('refresh', window);
+  window.location.reload();
 }

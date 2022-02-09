@@ -1,22 +1,23 @@
-import { browser } from 'webextension-polyfill-ts';
+import './xhr-shim';
+import { tabs, runtime } from 'webextension-polyfill';
 
 import { lock } from 'lib/temple/back/actions';
 import { start } from 'lib/temple/back/main';
 import { isLockUpEnabled } from 'lib/ui/useLockUp';
 
-browser.runtime.onInstalled.addListener(({ reason }) => (reason === 'install' ? openFullPage() : null));
+runtime.onInstalled.addListener(({ reason }) => (reason === 'install' ? openFullPage() : null));
 
 start();
 
-if (process.env.TARGET_BROWSER === 'safari') {
-  browser.browserAction.onClicked.addListener(() => {
-    openFullPage();
-  });
-}
+// if (process.env.TARGET_BROWSER === 'safari') {
+//   browser.browserAction.onClicked.addListener(() => {
+//     openFullPage();
+//   });
+// }
 
 function openFullPage() {
-  browser.tabs.create({
-    url: browser.runtime.getURL('fullpage.html')
+  tabs.create({
+    url: runtime.getURL('fullpage.html')
   });
 }
 
@@ -24,7 +25,7 @@ const LOCK_TIME = 5 * 60_000;
 let disconnectTimestamp = 0;
 let connectionsCount = 0;
 
-browser.runtime.onConnect.addListener(externalPort => {
+runtime.onConnect.addListener(externalPort => {
   connectionsCount++;
   const lockUpEnabled = isLockUpEnabled();
   if (
