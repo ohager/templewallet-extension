@@ -20,6 +20,7 @@ import AddressBook from 'app/templates/SignumAddressBook';
 import { T } from 'lib/i18n/react';
 import { Link } from 'lib/woozie';
 
+import { useRelevantAccounts } from '../../lib/temple/front';
 import { SettingsSelectors } from './Settings.selectors';
 
 type SettingsProps = {
@@ -102,6 +103,12 @@ const TABS = [
 
 const Settings: FC<SettingsProps> = ({ tabSlug }) => {
   const activeTab = useMemo(() => TABS.find(t => t.slug === tabSlug) || null, [tabSlug]);
+  const accounts = useRelevantAccounts();
+
+  const relevantTabs = useMemo(
+    () => TABS.filter(({ slug }) => !(accounts.length === 1 && slug === 'remove-account')),
+    [accounts]
+  );
 
   return (
     <PageLayout
@@ -146,10 +153,9 @@ const Settings: FC<SettingsProps> = ({ tabSlug }) => {
             <activeTab.Component />
           ) : (
             <ul className="md:grid md:grid-cols-2 md:col-gap-8 md:row-gap-10">
-              {TABS.map(({ slug, titleI18nKey, descriptionI18nKey, Icon, color, testID }, i) => {
+              {relevantTabs.map(({ slug, titleI18nKey, descriptionI18nKey, Icon, color, testID }, i) => {
                 const first = i === 0;
                 const linkTo = `/settings/${slug}`;
-
                 return (
                   <li key={slug} className={classNames(!first && 'mt-10 md:mt-0')}>
                     <div className="flex">

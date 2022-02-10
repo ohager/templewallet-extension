@@ -14,7 +14,13 @@ import ConnectBanner from 'app/templates/ConnectBanner';
 import { CustomRpsContext } from 'lib/analytics';
 import { T, t } from 'lib/i18n/react';
 import { useRetryableSWR } from 'lib/swr';
-import { TempleDAppPayload, useAccount, useRelevantAccounts, useTempleClient } from 'lib/temple/front';
+import {
+  TempleAccountType,
+  TempleDAppPayload,
+  useAccount,
+  useRelevantAccounts,
+  useTempleClient
+} from 'lib/temple/front';
 import useSafeState from 'lib/ui/useSafeState';
 import { useLocation } from 'lib/woozie';
 
@@ -24,7 +30,7 @@ import PayloadContent from './PayloadContent';
 
 const ConfirmDAppForm: FC = () => {
   const { getDAppPayload, confirmDAppPermission, confirmDAppSign } = useTempleClient();
-  const allAccounts = useRelevantAccounts(false);
+  const relevantAccounts = useRelevantAccounts(false);
   const account = useAccount();
 
   const [accountPkhToConnect, setAccountPkhToConnect] = useState(account.publicKeyHash);
@@ -46,6 +52,10 @@ const ConfirmDAppForm: FC = () => {
     revalidateOnReconnect: false
   });
   const payload = data!;
+  const allAccounts = useMemo(
+    () => relevantAccounts.filter(({ type }) => type !== TempleAccountType.WatchOnly),
+    [relevantAccounts]
+  );
 
   const connectedAccount = useMemo(
     () =>

@@ -22,6 +22,7 @@ const Alert: FC<AlertProps> = ({
   className,
   closable,
   onClose,
+  children,
   ...rest
 }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -69,6 +70,7 @@ const Alert: FC<AlertProps> = ({
           <CloseIcon className="w-auto h-5 stroke-current" style={{ strokeWidth: 2 }} />
         </button>
       )}
+      {children}
     </div>
   );
 };
