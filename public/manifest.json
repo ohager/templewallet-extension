@@ -14,16 +14,17 @@
   "__chrome|firefox|opera__homepage_url": "https://github.com/ohager/templewallet-extension",
   "short_name": "Signum XT Wallet",
 
-  "permissions": ["storage", "clipboardWrite", "activeTab"],
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "permissions": ["storage", "clipboardWrite"],
 
   "__chrome|firefox__author": "https://signum.network",
   "__opera__developer": {
     "name": "https://signum.network"
   },
 
-  "__firefox__applications": {
-    "gecko": { "id": "{34ac229e-1cf5-4e4c-8a77-988155c4360f}" }
+  "applications": {
+    "gecko": {
+      "id": "{c36fdfa0-e64e-45fe-803e-21efa7e0c23a}"
+    }
   },
 
   "__chrome__minimum_chrome_version": "49",
