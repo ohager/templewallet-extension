@@ -16,12 +16,14 @@
 
   "permissions": ["storage", "clipboardWrite"],
 
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+
   "__chrome|firefox__author": "https://signum.network",
   "__opera__developer": {
     "name": "https://signum.network"
   },
 
-  "browser_specific_settings": {
+  "__firefox__browser_specific_settings": {
     "gecko": {
       "id": "signum-xt-wallet@signum.network"
     }
