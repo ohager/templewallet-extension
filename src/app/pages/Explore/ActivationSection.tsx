@@ -91,7 +91,7 @@ export const ActivationSection: FC = () => {
         <div className="text-center mt-2 text-red-700 text-xs">{`${t('activationFailed')}: ${activationError}`}</div>
       )}
       <Button
-        className="mt-4 w-1/2 justify-center text-center border-none h-10"
+        className="mt-4 w-1/2 justify-center text-center border-none h-auto"
         style={{
           padding: '10px 2rem',
           background: '#4198e0',

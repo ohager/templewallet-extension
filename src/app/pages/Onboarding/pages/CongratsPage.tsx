@@ -74,7 +74,7 @@ const CongratsPage: FC = () => {
       </p>
       <div className={styles['linksList']}>
         {links.map(({ href, background, Icon }) => (
-          <a href={href} target="_blank" rel="noopener noreferrer" className="py-1">
+          <a key={href} href={href} target="_blank" rel="noopener noreferrer" className="py-1">
             <div className="w-8 h-8 rounded-md" style={{ background, padding: background ? '0.375rem' : 0 }}>
               <Icon className="h-full w-auto" />
             </div>

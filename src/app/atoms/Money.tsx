@@ -97,7 +97,7 @@ interface JustMoneyProps {
 
 const JustMoney: FC<JustMoneyProps> = ({ tooltip, bn, className, result, onClick = () => {} }) => (
   <FullAmountTippy enabled={tooltip} fullAmount={bn} className={className} onClick={onClick}>
-    {result}
+    {result || '0'}
   </FullAmountTippy>
 );
 
