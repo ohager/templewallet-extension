@@ -12,7 +12,7 @@ import { localForger } from '@taquito/local-forging';
 import { InMemorySigner } from '@taquito/signer';
 import { CompositeForger, RpcForger, Signer, TezosOperationError, TezosToolkit } from '@taquito/taquito';
 import * as TaquitoUtils from '@taquito/utils';
-import { LedgerTempleBridgeTransport } from '@temple-wallet/ledger-bridge';
+// import { LedgerTempleBridgeTransport } from '@temple-wallet/ledger-bridge';
 import * as Bip39 from 'bip39';
 import * as Ed25519 from 'ed25519-hd-key';
 
@@ -369,40 +369,40 @@ export class Vault {
     });
   }
 
-  async createLedgerAccount(name: string, derivationPath?: string, derivationType?: DerivationType) {
-    return withError('Failed to connect Ledger account', async () => {
-      if (!derivationPath) derivationPath = getMainDerivationPath(0);
-
-      const { signer, cleanup } = await createLedgerSigner(derivationPath, derivationType);
-
-      try {
-        const accPublicKey = await signer.publicKey();
-        const accPublicKeyHash = await signer.publicKeyHash();
-
-        const newAccount: TempleAccount = {
-          type: TempleAccountType.Ledger,
-          name,
-          publicKeyHash: accPublicKeyHash,
-          derivationPath,
-          derivationType
-        };
-        const allAccounts = await this.fetchAccounts();
-        const newAllAcounts = concatAccount(allAccounts, newAccount);
-
-        await encryptAndSaveMany(
-          [
-            [accPubKeyStrgKey(accPublicKeyHash), accPublicKey],
-            [accountsStrgKey, newAllAcounts]
-          ],
-          this.passKey
-        );
-
-        return newAllAcounts;
-      } finally {
-        cleanup();
-      }
-    });
-  }
+  // async createLedgerAccount(name: string, derivationPath?: string, derivationType?: DerivationType) {
+  //   return withError('Failed to connect Ledger account', async () => {
+  //     if (!derivationPath) derivationPath = getMainDerivationPath(0);
+  //
+  //     const { signer, cleanup } = await createLedgerSigner(derivationPath, derivationType);
+  //
+  //     try {
+  //       const accPublicKey = await signer.publicKey();
+  //       const accPublicKeyHash = await signer.publicKeyHash();
+  //
+  //       const newAccount: TempleAccount = {
+  //         type: TempleAccountType.Ledger,
+  //         name,
+  //         publicKeyHash: accPublicKeyHash,
+  //         derivationPath,
+  //         derivationType
+  //       };
+  //       const allAccounts = await this.fetchAccounts();
+  //       const newAllAcounts = concatAccount(allAccounts, newAccount);
+  //
+  //       await encryptAndSaveMany(
+  //         [
+  //           [accPubKeyStrgKey(accPublicKeyHash), accPublicKey],
+  //           [accountsStrgKey, newAllAcounts]
+  //         ],
+  //         this.passKey
+  //       );
+  //
+  //       return newAllAcounts;
+  //     } finally {
+  //       cleanup();
+  //     }
+  //   });
+  // }
 
   async editAccountName(accPublicKeyHash: string, name: string) {
     return withError('Failed to edit account name', async () => {
@@ -525,21 +525,27 @@ export class Vault {
       throw new PublicError('Account not found');
     }
 
-    switch (acc.type) {
-      case TempleAccountType.Ledger:
-        const publicKey = await this.revealPublicKey(accPublicKeyHash);
-        return createLedgerSigner(acc.derivationPath, acc.derivationType, publicKey, accPublicKeyHash);
+    const privateKey = await fetchAndDecryptOne<string>(accPrivKeyStrgKey(accPublicKeyHash), this.passKey);
+    return createMemorySigner(privateKey).then(signer => ({
+      signer,
+      cleanup: () => {}
+    }));
 
-      case TempleAccountType.WatchOnly:
-        throw new PublicError('Cannot sign Watch-only account');
-
-      default:
-        const privateKey = await fetchAndDecryptOne<string>(accPrivKeyStrgKey(accPublicKeyHash), this.passKey);
-        return createMemorySigner(privateKey).then(signer => ({
-          signer,
-          cleanup: () => {}
-        }));
-    }
+    // switch (acc.type) {
+    //   case TempleAccountType.Ledger:
+    //     const publicKey = await this.revealPublicKey(accPublicKeyHash);
+    //     return createLedgerSigner(acc.derivationPath, acc.derivationType, publicKey, accPublicKeyHash);
+    //
+    //   case TempleAccountType.WatchOnly:
+    //     throw new PublicError('Cannot sign Watch-only account');
+    //
+    //   default:
+    //     const privateKey = await fetchAndDecryptOne<string>(accPrivKeyStrgKey(accPublicKeyHash), this.passKey);
+    //     return createMemorySigner(privateKey).then(signer => ({
+    //       signer,
+    //       cleanup: () => {}
+    //     }));
+    // }
   }
 }
 
@@ -696,8 +702,8 @@ async function createMemorySigner(privateKey: string, encPassword?: string) {
   return InMemorySigner.fromSecretKey(privateKey, encPassword);
 }
 
-let transport: LedgerTempleBridgeTransport;
-
+// let transport: LedgerTempleBridgeTransport;
+/*
 async function createLedgerSigner(
   derivationPath: string,
   derivationType?: DerivationType,
@@ -735,6 +741,7 @@ async function createLedgerSigner(
 
   return { signer, cleanup };
 }
+*/
 
 function seedToHDPrivateKey(seed: Buffer, hdAccIndex: number) {
   return seedToPrivateKey(deriveSeed(seed, getMainDerivationPath(hdAccIndex)));

@@ -73,25 +73,25 @@ export class FastRpcClient extends RpcClient {
     maxAge: this.memoizeMaxAge
   });
 
-  async getEntrypoints(contract: string, opts?: RPCOptions) {
-    const cacheKey = `${this.getRpcUrl()}_${contract}`;
-    try {
-      const cached = localStorage.getItem(cacheKey);
-      if (cached) {
-        return JSON.parse(cached);
-      }
-    } catch (_err) {}
-
-    opts = await this.loadLatestBlock(opts);
-    const result = await this.getEntrypointsMemo(contract, opts);
-    localStorage.setItem(cacheKey, JSON.stringify(result));
-    return result;
-  }
-
-  getEntrypointsMemo = memoize(super.getEntrypoints.bind(this), {
-    cacheKey: ([contract, opts]) => [contract, toOptsKey(opts)].join(''),
-    maxAge: this.memoizeMaxAge
-  });
+  // async getEntrypoints(contract: string, opts?: RPCOptions) {
+  //   const cacheKey = `${this.getRpcUrl()}_${contract}`;
+  //   try {
+  //     const cached = localStorage.getItem(cacheKey);
+  //     if (cached) {
+  //       return JSON.parse(cached);
+  //     }
+  //   } catch (_err) {}
+  //
+  //   opts = await this.loadLatestBlock(opts);
+  //   const result = await this.getEntrypointsMemo(contract, opts);
+  //   localStorage.setItem(cacheKey, JSON.stringify(result));
+  //   return result;
+  // }
+  //
+  // getEntrypointsMemo = memoize(super.getEntrypoints.bind(this), {
+  //   cacheKey: ([contract, opts]) => [contract, toOptsKey(opts)].join(''),
+  //   maxAge: this.memoizeMaxAge
+  // });
 
   async getManagerKey(address: string, opts?: RPCOptions) {
     opts = await this.loadLatestBlock(opts);

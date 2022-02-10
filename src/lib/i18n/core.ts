@@ -1,4 +1,4 @@
-import { enUS, enGB, fr, zhCN, zhTW, ja, ko, uk, ru } from 'date-fns/locale';
+import { enUS, enGB, fr, zhCN, zhTW, ja, ko, uk, ru, es, ptBR } from 'date-fns/locale';
 import browser from 'webextension-polyfill';
 
 import cldrjsLocales from './cldrjs-locales.json';
@@ -15,7 +15,9 @@ const dateFnsLocales: Record<string, Locale> = {
   ja,
   ko,
   uk,
-  ru
+  ru,
+  es,
+  pt_BR: ptBR
 };
 
 let fetchedLocaleMessages: FetchedLocaleMessages = {
@@ -61,7 +63,7 @@ export function getMessage(messageName: string, substitutions?: Substitutions) {
   const val = fetchedLocaleMessages.target?.[messageName] ?? fetchedLocaleMessages.fallback?.[messageName];
 
   if (!val) {
-    return '';
+    return 'some text';
     // return browser.i18n.getMessage(messageName, substitutions);
   }
 
@@ -105,7 +107,7 @@ export function getNativeLocale() {
 
 export function getDefaultLocale(): string {
   const manifest = browser.runtime.getManifest();
-  return (manifest as any).default_locale || 'en';
+  return manifest.default_locale || 'en';
 }
 
 export async function fetchLocaleMessages(locale: string) {
@@ -115,7 +117,7 @@ export async function fetchLocaleMessages(locale: string) {
   try {
     const res = await fetch(url);
     const messages: LocaleMessages = await res.json();
-
+    console.log('messages', messages);
     appendPlaceholderLists(messages);
     return messages;
   } catch (err: any) {

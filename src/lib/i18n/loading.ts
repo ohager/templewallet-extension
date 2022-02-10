@@ -18,10 +18,9 @@ export function onInited(callback: () => void) {
 }
 
 export function updateLocale(locale: string) {
-  saveLocale(locale).then(() => {
-    notifyOthers();
-    refresh();
-  });
+  saveLocale(locale);
+  notifyOthers();
+  refresh();
 }
 
 function notifyOthers() {

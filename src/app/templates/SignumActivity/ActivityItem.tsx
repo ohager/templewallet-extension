@@ -27,7 +27,9 @@ const ActivityItem = memo<ActivityItemProps>(({ accountId, transaction, classNam
   const { transaction: txId, timestamp } = transaction;
 
   const moneyDiff = useMemo(() => parseAmountDiffs(transaction, accountId)[0], [transaction, accountId]);
-
+  // const dateFnsLocale = useMemo( async () => {
+  //   return (await getDateFnsLocale())
+  // }, [getDateFnsLocale] )
   const feeAmount = useMemo(() => Amount.fromPlanck(transaction.feeNQT!).getSigna(), [transaction.feeNQT]);
   const txStack = useMemo(() => parseTxStack(transaction, accountId), [transaction, accountId]);
   const isPending = transaction.blockTimestamp === undefined;
@@ -57,8 +59,7 @@ const ActivityItem = memo<ActivityItemProps>(({ accountId, transaction, classNam
               <span className="text-xs font-light text-gray-500">
                 {formatDistanceToNow(ChainTime.fromChainTimestamp(timestamp!).getDate(), {
                   includeSeconds: true,
-                  addSuffix: true,
-                  locale: getDateFnsLocale()
+                  addSuffix: true
                 })}
               </span>
             )}

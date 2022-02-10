@@ -6,7 +6,6 @@ import { validateAddress, ValidationResult } from '@taquito/utils';
 import BigNumber from 'bignumber.js';
 import memoize from 'micro-memoize';
 
-import { getMessage } from 'lib/i18n';
 import { IntercomError } from 'lib/intercom/helpers';
 import { FastRpcClient } from 'lib/taquito-fast-rpc';
 
@@ -82,12 +81,13 @@ export function isKTAddress(address: string) {
   return address?.startsWith('KT');
 }
 
+// TODO: obsolete, remove
 export function validateDerivationPath(p: string) {
   if (!p.startsWith('m')) {
-    return getMessage('derivationPathMustStartWithM');
+    return 'derivationPathMustStartWithM';
   }
   if (p.length > 1 && p[1] !== '/') {
-    return getMessage('derivationSeparatorMustBeSlash');
+    return 'derivationSeparatorMustBeSlash';
   }
 
   const parts = p.replace('m', '').split('/').filter(Boolean);
@@ -97,19 +97,20 @@ export function validateDerivationPath(p: string) {
       return Number.isSafeInteger(pNum) && pNum >= 0;
     })
   ) {
-    return getMessage('invalidPath');
+    return 'invalidPath';
   }
 
   return true;
 }
 
+// TODO: obsolete, remove me
 export function validateContractAddress(value: any) {
   switch (false) {
     case isAddressValid(value):
-      return getMessage('invalidAddress');
+      return 'invalidAddress';
 
     case isKTAddress(value):
-      return getMessage('onlyKTContractAddressAllowed');
+      return 'onlyKTContractAddressAllowed';
 
     default:
       return true;
@@ -127,12 +128,13 @@ export function formatOpParamsBeforeSend(params: any) {
   return params;
 }
 
+// TODO: obsolete
 export function transformHttpResponseError(err: HttpResponseError) {
   let parsedBody: any;
   try {
     parsedBody = JSON.parse(err.body);
   } catch {
-    throw new Error(getMessage('unknownErrorFromRPC', err.url));
+    throw new Error('unknownErrorFromRPC');
   }
 
   try {
@@ -142,7 +144,7 @@ export function transformHttpResponseError(err: HttpResponseError) {
 
     // Parse special error with Counter Already Used
     if (typeof firstTezError.msg === 'string' && /Counter.*already used for contract/.test(firstTezError.msg)) {
-      message = getMessage('counterErrorDescription');
+      message = 'counterErrorDescription';
     } else {
       const matchingPostfix = Object.keys(KNOWN_TEZ_ERRORS).find(idPostfix => firstTezError?.id?.endsWith(idPostfix));
       message = matchingPostfix ? KNOWN_TEZ_ERRORS[matchingPostfix] : err.message;
@@ -155,6 +157,6 @@ export function transformHttpResponseError(err: HttpResponseError) {
 }
 
 const KNOWN_TEZ_ERRORS: Record<string, string> = {
-  'implicit.empty_implicit_contract': getMessage('emptyImplicitContract'),
-  'contract.balance_too_low': getMessage('balanceTooLow')
+  'implicit.empty_implicit_contract': 'emptyImplicitContract',
+  'contract.balance_too_low': 'balanceTooLow'
 };

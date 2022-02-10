@@ -5,11 +5,10 @@ import { intercom } from 'lib/temple/back/defaults';
 import { store, toFront } from 'lib/temple/back/store';
 import { TempleMessageType, TempleRequest, TempleResponse } from 'lib/temple/types';
 
-const frontStore = store.map(toFront);
-
 export async function start() {
   intercom.onRequest(processRequest);
   await Actions.init();
+  const frontStore = store.map(toFront);
   frontStore.watch(() => {
     intercom.broadcast({ type: TempleMessageType.StateUpdated });
   });
@@ -119,11 +118,11 @@ async function processRequest(req: TempleRequest, port: Runtime.Port): Promise<T
         type: TempleMessageType.ImportWatchOnlyAccountResponse
       };
 
-    case TempleMessageType.CreateLedgerAccountRequest:
-      await Actions.craeteLedgerAccount(req.name, req.derivationPath, req.derivationType);
-      return {
-        type: TempleMessageType.CreateLedgerAccountResponse
-      };
+    // case TempleMessageType.CreateLedgerAccountRequest:
+    //   await Actions.craeteLedgerAccount(req.name, req.derivationPath, req.derivationType);
+    //   return {
+    //     type: TempleMessageType.CreateLedgerAccountResponse
+    //   };
 
     case TempleMessageType.UpdateSettingsRequest:
       await Actions.updateSettings(req.settings);

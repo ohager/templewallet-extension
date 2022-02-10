@@ -121,6 +121,7 @@ const EXTENSION_ENTRIES = {
   extensionPage: ['commons', 'popup', 'fullpage', 'confirm', 'options']
 };
 const SEPARATED_CHUNKS = new Set(['background', 'contentScript']);
+// const SEPARATED_CHUNKS = new Set(['background']);
 const MANIFEST_PATH = path.join(PUBLIC_PATH, 'manifest.json');
 const MODULE_FILE_EXTENSIONS = ['.js', '.mjs', '.jsx', '.ts', '.tsx', '.json'];
 const ADDITIONAL_MODULE_PATHS = [
@@ -217,7 +218,6 @@ module.exports = {
           // The preset includes JSX, Flow, TypeScript, and some ESnext features.
           {
             test: /\.(js|mjs|jsx|ts|tsx)$/,
-            include: SOURCE_PATH,
             loader: require.resolve('babel-loader'),
             options: {
               customize: require.resolve('babel-preset-react-app/webpack-overrides'),

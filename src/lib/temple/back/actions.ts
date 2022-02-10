@@ -175,13 +175,13 @@ export function importWatchOnlyAccount(address: string, chainId?: string) {
     accountsUpdated(updatedAccounts);
   });
 }
-
-export function craeteLedgerAccount(name: string, derivationPath?: string, derivationType?: DerivationType) {
-  return withUnlocked(async ({ vault }) => {
-    const updatedAccounts = await vault.createLedgerAccount(name, derivationPath, derivationType);
-    accountsUpdated(updatedAccounts);
-  });
-}
+//
+// export function craeteLedgerAccount(name: string, derivationPath?: string, derivationType?: DerivationType) {
+//   return withUnlocked(async ({ vault }) => {
+//     const updatedAccounts = await vault.createLedgerAccount(name, derivationPath, derivationType);
+//     accountsUpdated(updatedAccounts);
+//   });
+// }
 
 export function updateSettings(settings: Partial<TempleSettings>) {
   return withUnlocked(async ({ vault }) => {
