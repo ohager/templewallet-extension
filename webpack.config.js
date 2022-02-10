@@ -18,6 +18,8 @@ const ExtensionReloader = require('webpack-extension-reloader');
 const WebpackBar = require('webpackbar');
 const ZipPlugin = require('zip-webpack-plugin');
 
+// TODO: review this slightly outdated webpack bundler...
+
 const pkg = require('./package.json');
 const tsConfig = require('./tsconfig.json');
 
@@ -493,10 +495,7 @@ module.exports = {
     tls: 'empty',
     child_process: 'empty',
     global: false
-  },
-  // Turn off performance processing because we utilize
-  // our own hints via the FileSizeReporter
-  performance: false
+  }
 };
 
 function getStyleLoaders(cssOptions = {}) {

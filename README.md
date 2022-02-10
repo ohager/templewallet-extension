@@ -75,3 +75,5 @@ yarn build:opera
 # for all at once
 yarn build-all
 ```
+
+> The compiled code is available under `./dist`

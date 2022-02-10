@@ -11,7 +11,7 @@
   },
 
   "description": "__MSG_appDesc__",
-  "__chrome|firefox|opera__homepage_url": "https://github.com/ohager/templewallet-extension",
+  "__chrome|firefox|opera__homepage_url": "https://github.com/signum-network/signum-xt-wallet",
   "short_name": "Signum XT Wallet",
 
   "permissions": ["storage", "clipboardWrite"],
@@ -21,9 +21,9 @@
     "name": "https://signum.network"
   },
 
-  "applications": {
+  "browser_specific_settings": {
     "gecko": {
-      "id": "{c36fdfa0-e64e-45fe-803e-21efa7e0c23a}"
+      "id": "signum-xt-wallet@signum.network"
     }
   },
 
