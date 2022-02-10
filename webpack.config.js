@@ -312,7 +312,9 @@ module.exports = {
 
   plugins: [
     new webpack.IgnorePlugin(/^\.\/wordlists\/(?!english)/, /bip39\/src$/),
-
+    new webpack.DefinePlugin({
+      global: 'window' // Placeholder for global used in any node_modules
+    }),
     new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: [OUTPUT_PATH, OUTPUT_PACKED_PATH],
       cleanStaleWebpackAssets: false,
@@ -489,7 +491,8 @@ module.exports = {
     http2: 'empty',
     net: 'empty',
     tls: 'empty',
-    child_process: 'empty'
+    child_process: 'empty',
+    global: false
   },
   // Turn off performance processing because we utilize
   // our own hints via the FileSizeReporter

@@ -160,7 +160,7 @@ const CustomNetworksSettings: FC = () => {
       </div>
 
       <SubTitle>
-        <T id="AddNetwork" />
+        <T id="addNetwork" />
       </SubTitle>
 
       <form onSubmit={handleSubmit(onNetworkFormSubmit)}>

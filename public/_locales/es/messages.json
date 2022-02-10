@@ -96,7 +96,7 @@
     "description": "Ledger = https://www.ledger.com/"
   },
   "addNetwork": {
-    "message": "Agregar Nodo"
+    "message": "Añadir Nodo"
   },
   "addNewContact": {
     "message": "Nuevo Contacto"
@@ -453,7 +453,7 @@
     }
   },
   "defaultDerivationPathLabel": {
-    "message": "Por defecto, se utiliza la derivación $ruta$.",
+    "message": "Por defecto, se utiliza la derivación $path$.",
     "placeholders": {
       "path": {
         "content": "$1"
@@ -470,7 +470,7 @@
     }
   },
   "defaultManagedKTAccountName": {
-    "message": "KT administrado $número de cuenta$",
+    "message": "KT administrado $accountNumber$",
     "description": "KT no traducido",
     "placeholders": {
       "accountNumber": {
@@ -1247,7 +1247,7 @@
     "message": "Algo salió mal"
   },
   "smthWentWrongWhile": {
-    "message": "Se ha producido un error con $acción$",
+    "message": "Se ha producido un error con $action$",
     "placeholders": {
       "action": {
         "content": "$1"

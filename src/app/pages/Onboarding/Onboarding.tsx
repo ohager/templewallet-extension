@@ -9,11 +9,10 @@ import FirstStep from './steps/FirstStep';
 import FourthStep from './steps/FourthStep';
 import SecondStep from './steps/SecondStep';
 
-const steps = [`${t('step')} 1`, `${t('step')} 2`, `${t('step')} 3`];
-
 const Onboarding: FC = () => {
   const [step, setStep] = useStorage<number>(`onboarding_step_state`, 0);
-  const MaxSteps = steps.length;
+  const Steps = [`${t('step')} 1`, `${t('step')} 2`, `${t('step')} 3`];
+  const MaxSteps = Steps.length;
 
   const nextStep = () => {
     setStep(Math.min(MaxSteps, step + 1));
@@ -30,7 +29,7 @@ const Onboarding: FC = () => {
       skip={step < MaxSteps}
     >
       <div style={{ maxWidth: '360px', margin: 'auto' }} className="pb-8 text-justify">
-        {step < MaxSteps && <Stepper style={{ marginTop: '40px' }} steps={steps} currentStep={step} />}
+        {step < MaxSteps && <Stepper style={{ marginTop: '40px' }} steps={Steps} currentStep={step} />}
         {step === 0 && <FirstStep nextStep={nextStep} />}
         {step === 1 && <SecondStep nextStep={nextStep} />}
         {/*{step === 2 && <ThirdStep setStep={setStep} />}*/}

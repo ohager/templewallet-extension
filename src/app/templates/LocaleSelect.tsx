@@ -45,12 +45,11 @@ const localeOptions: LocaleOption[] = [
     label: 'Portuguese (Português)',
     disabled: false
   },
-  // Disabled
   {
     code: 'ru',
     flagName: 'ru',
     label: 'Russian (Русский)',
-    disabled: true
+    disabled: false
   }
 ];
 
