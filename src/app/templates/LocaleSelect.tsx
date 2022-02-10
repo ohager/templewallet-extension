@@ -37,7 +37,7 @@ const localeOptions: LocaleOption[] = [
     code: 'es',
     flagName: 'es',
     label: 'Spanish (Español)',
-    disabled: true
+    disabled: false
   },
   {
     code: 'pt_BR',
