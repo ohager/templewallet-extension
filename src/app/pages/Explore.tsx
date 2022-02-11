@@ -104,8 +104,7 @@ const Explore: FC<ExploreProps> = ({ assetSlug }) => {
             }}
           />
         </div>
-
-        {!account.isActivated && <ActivationSection />}
+        <ActivationSection />
       </div>
 
       <SecondarySection assetSlug={assetSlug} />

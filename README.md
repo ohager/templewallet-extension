@@ -11,7 +11,11 @@ Providing ability to manage Signa and interact with DApps.
 
 You can install the wallet through the Chrome Web Store or via Mozilla Add-Ons respectively.
 
-> TODO: link to the distributables
+-------------
+
+> NOTE: At this moment, the extension submission is in review. Due to the forced migration from Manifest V2 to V3 by Google, we were not able to submit the extension yet, as this is far more complicated than expected. We are working hard on this. We apologize for this inconvenience. If you cannot wait to use the wallet in Chrome and its derivates, follow the manual installation instructions: https://github.com/signum-network/signum-xt-wallet/releases/tag/1.0.0
+
+-------------
 
 ## Browser Support
 
