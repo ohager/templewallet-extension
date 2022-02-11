@@ -1737,5 +1737,11 @@
   },
   "activationFailed": {
     "message": "Oh no, the activation failed."
+  },
+  "accountActivationSuccessTitle": {
+    "message": "Account successfully activated"
+  },
+  "accountActivationSuccessDescription": {
+    "message": "Welcome to Signum! If not already visible, you'll get an incoming activation transaction in a few moments."
   }
 }
