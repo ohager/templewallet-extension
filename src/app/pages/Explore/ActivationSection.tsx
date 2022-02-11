@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 import { Address } from '@signumjs/core';
 import { HttpClientFactory, HttpError } from '@signumjs/http';
@@ -36,8 +36,9 @@ export const ActivationSection: FC = () => {
   const network = useNetwork();
   const [isActivating, setIsActivating] = useState(false);
   const [activationError, setActivationError] = useState('');
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
-  const { data: isActivatedAccount } = useSWR(
+  const { data: isActivatedOnChain } = useSWR(
     ['getAccountActivationStatus', account.publicKeyHash, account.isActivated, signum],
     async () => {
       if (account.isActivated) {
@@ -53,7 +54,6 @@ export const ActivationSection: FC = () => {
         // @ts-ignore
         return !!acc.publicKey;
       } catch (e) {
-        console.log('acc', e);
         return false;
       }
     },
@@ -63,12 +63,23 @@ export const ActivationSection: FC = () => {
     }
   );
 
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+    if (showSuccessMessage) {
+      timeout = setTimeout(() => setShowSuccessMessage(false), 5_000);
+    }
+    return () => {
+      timeout && clearTimeout(timeout);
+    };
+  }, [showSuccessMessage]);
+
   const handleActivate = async () => {
     setIsActivating(true);
     try {
       const { publicKey } = await getSignumTransactionKeyPair(account.publicKeyHash);
       await activateAccount(network.type === 'test', publicKey);
-      await setAccountActivated(account.publicKeyHash);
+      await setAccountActivated(account.publicKeyHash); // persistent
+      setShowSuccessMessage(true); // transient
     } catch (e) {
       if (e instanceof HttpError) {
         setActivationError(e.data.message || e.message);
@@ -80,7 +91,19 @@ export const ActivationSection: FC = () => {
     }
   };
 
-  return isActivatedAccount === false ? (
+  if (showSuccessMessage) {
+    return (
+      <div className="w-full flex flex-col justify-center items-center p-4 mb-4 border rounded-md mt-4 mx-auto max-w-sm ">
+        <Alert
+          type="success"
+          title={t('accountActivationSuccessTitle')}
+          description={t('accountActivationSuccessDescription')}
+        />
+      </div>
+    );
+  }
+
+  return isActivatedOnChain === false && !account.isActivated ? (
     <div className="w-full flex flex-col justify-center items-center p-4 mb-4 border rounded-md mt-4 mx-auto max-w-sm">
       <Alert
         type="warn"

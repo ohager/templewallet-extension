@@ -1237,7 +1237,7 @@
   "showIncomingTransactions": {
     "message": "Ver las transacciones entrantes"
   },
-  "Signaction": {
+  "signAction": {
     "message": "Firmar"
   },
   "skipped": {
@@ -1580,7 +1580,7 @@
     "message": "Ahora ya puedes conocer las funciones básicas y más importantes de la billetera Signum XT."
   },
   "congratsDescription3": {
-    "message": "Puede aprender todas las características del Templo de nuestra \"Serie educativa\" en YouTube."
+    "message": "Puede aprender todas las características del XT de nuestra \"Serie educativa\" en YouTube."
   },
   "congratsDescription4": {
     "message": "Además, las instrucciones y guías están disponibles en nuestra base de conocimientos."
@@ -1737,5 +1737,11 @@
   },
   "cantConnectToNetworkHint": {
     "message": "Intente seleccionar otro nodo o verifique su conexión a Internet."
+  },
+  "accountActivationSuccessDescription": {
+    "message": "¡Bienvenido a Signum! Si aún no está visible, recibirá una transacción de activación entrante en unos momentos."
+  },
+  "accountActivationSuccessTitle": {
+    "message": "Cuenta activada con éxito"
   }
 }
