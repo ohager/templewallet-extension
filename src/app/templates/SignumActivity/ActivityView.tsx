@@ -43,8 +43,13 @@ const ActivityView = memo<ActivityViewProps>(
     return (
       <>
         <div className={classNames('w-full max-w-md mx-auto', 'flex flex-col', className)}>
-          {transactions?.map(tx => (
-            <ActivityItem key={tx.transaction} accountId={accountId} transaction={tx} className={className} />
+          {transactions?.map((tx, id) => (
+            <ActivityItem
+              key={`${tx.transaction}-${id}}`}
+              accountId={accountId}
+              transaction={tx}
+              className={className}
+            />
           ))}
         </div>
 
