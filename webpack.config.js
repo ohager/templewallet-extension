@@ -493,8 +493,7 @@ module.exports = {
     http2: 'empty',
     net: 'empty',
     tls: 'empty',
-    child_process: 'empty',
-    global: false
+    child_process: 'empty'
   }
 };
 
