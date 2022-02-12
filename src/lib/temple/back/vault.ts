@@ -40,7 +40,7 @@ import * as Passworder from 'lib/temple/passworder';
 import { clearStorage } from 'lib/temple/reset';
 import { TempleAccount, TempleAccountType, TempleContact, TempleSettings } from 'lib/temple/types';
 
-import { generateSignumMnemonic } from '../front';
+import { generateSignumMnemonic } from '../signumMnemonic';
 
 const TEZOS_BIP44_COINTYPE = 1729;
 const STORAGE_KEY_PREFIX = 'vault';

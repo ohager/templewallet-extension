@@ -7,13 +7,8 @@ import { ACCOUNT_NAME_PATTERN } from 'app/defaults';
 import { ReactComponent as AddIcon } from 'app/icons/add.svg';
 import PageLayout from 'app/layouts/PageLayout';
 import { T, t } from 'lib/i18n/react';
-import {
-  TempleAccountType,
-  useTempleClient,
-  useAllAccounts,
-  useSetAccountPkh,
-  generateSignumMnemonic
-} from 'lib/temple/front';
+import { TempleAccountType, useTempleClient, useAllAccounts, useSetAccountPkh } from 'lib/temple/front';
+import { generateSignumMnemonic } from 'lib/temple/signumMnemonic';
 import { navigate } from 'lib/woozie';
 
 import { withErrorHumanDelay } from '../../lib/ui/humanDelay';
