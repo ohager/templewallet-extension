@@ -34,7 +34,7 @@ const SendFormLayout: FC<SendFormProps> = ({ assetSlug }) => {
   return (
     <>
       {operation && <OperationStatus typeTitle={t('transaction')} operation={operation} />}
-      <AssetBanner assetSlug="signa" accountId={account.publicKeyHash} />.
+      <AssetBanner assetSlug="signa" accountId={account.publicKeyHash} />
       <Suspense fallback={<SpinnerSection />}>
         <SendForm setOperation={setOperation} onAddContactRequested={handleAddContactRequested} />
       </Suspense>
