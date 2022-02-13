@@ -65,7 +65,7 @@ const Activity = memo<ActivityProps>(({ accountId, className }) => {
   }, [unconfirmedTransactions, latestTransactions, restTransactions]);
 
   useLayoutEffect(() => {
-    hasMoreRef.current = true;
+    hasMoreRef.current = false;
   }, [safeStateKey]);
 
   const handleLoadMore = useCallback(async () => {
