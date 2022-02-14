@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "incremental": true,
     "baseUrl": "src",
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
@@ -17,7 +18,11 @@
     "jsx": "react",
     "noImplicitReturns": true,
     "noImplicitAny": true,
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "paths": {
+      "app/*": ["app/*"],
+      "lib/*": ["lib/*"]
+    }
   },
   "include": ["src"]
 }
