@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.0.2
+
+### Bugfixes
+
+- Fixes property issue in portuguese translation
+- Fixes Multi Out value (#19)
+- Minor "Korrektur" in german translation (#26)
+- Fixed layout issues (#16, #22)
+- Updated Terms and Conditions Links (#15)
+-
+
 ## 1.0.1
 
 ### Bugfixes
