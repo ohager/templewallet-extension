@@ -1406,7 +1406,7 @@
     }
   },
   "transfer": {
-    "message": "Transferir"
+    "message": "Transferência"
   },
   "transferFromSmb": {
     "message": "de $sender$",

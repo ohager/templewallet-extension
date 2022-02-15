@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useMemo, useRef, useLayoutEffect } from 'react';
+import React, { memo, useCallback, useMemo, useRef } from 'react';
 
 import { Transaction } from '@signumjs/core';
 
