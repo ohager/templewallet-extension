@@ -2,14 +2,14 @@
 
 ## 1.0.2
 
-### Bugfixes
+### Improvements and Bugfixes
 
-- Fixes property issue in portuguese translation
+- Fixes property issue in Portuguese translation
+- Updated Russian Translation
 - Fixes Multi Out value (#19)
-- Minor "Korrektur" in german translation (#26)
+- Minor "Korrektur" in German translation (#26)
 - Fixed layout issues (#16, #22)
 - Updated Terms and Conditions Links (#15)
--
 
 ## 1.0.1
 
