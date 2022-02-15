@@ -1046,7 +1046,7 @@
     "message": "Ou URL da imagem IPFS"
   },
   "originLabel": {
-    "message": "Origem: $origen$",
+    "message": "Origem: $origin$",
     "placeholders": {
       "origin": {
         "content": "$1"
