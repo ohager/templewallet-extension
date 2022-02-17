@@ -1182,7 +1182,7 @@
     "message": "Are you sure you want to reset the wallet?\nThis will erase all your data locally.\nYou can import your active accounts again at any time."
   },
   "resetPermissionsConfirmation": {
-    "message": "Do you want permissions for\nReally reset $origin$?",
+    "message": "Do you want to reset permissions for $origin$?",
     "placeholders": {
       "origin": {
         "content": "$1"
