@@ -38,18 +38,7 @@ const NetworkBanner: FC<NetworkBannerProps> = ({ rpc, narrow = false }) => {
             <span className="text-gray-700 text-sm">{knownNetwork.name}</span>
           </div>
         ) : (
-          <div className={classNames('w-full mb-1', 'flex items-center')}>
-            <div
-              className={classNames(
-                'flex-shrink-0',
-                'mr-1 w-3 h-3',
-                'bg-red-500',
-                'border border-primary-white',
-                'rounded-full',
-                'shadow-xs'
-              )}
-            />
-
+          <div className={classNames('w-full mb-1', 'flex flex-col')}>
             <T id="unknownNetwork">
               {message => (
                 <>
@@ -57,7 +46,7 @@ const NetworkBanner: FC<NetworkBannerProps> = ({ rpc, narrow = false }) => {
                     {message}
                   </span>
 
-                  <Name className="text-xs font-mono italic text-gray-900" style={{ maxWidth: '15rem' }}>
+                  <Name className="text-xs font-mono italic text-gray-900" style={{ maxWidth: '20rem' }}>
                     {rpc}
                   </Name>
                 </>
