@@ -2,12 +2,13 @@ import { enUS, enGB, fr, zhCN, zhTW, ja, ko, uk, ru, es, ptBR } from 'date-fns/l
 import browser from 'webextension-polyfill';
 
 import cldrjsLocales from './cldrjs-locales.json';
-import { areLocalesEqual, processTemplate, toList } from './helpers';
+import { processTemplate, toList } from './helpers';
 import { getSavedLocale } from './saving';
 import { FetchedLocaleMessages, LocaleMessages, Substitutions } from './types';
 
 const dateFnsLocales: Record<string, Locale> = {
   en: enUS,
+  en_US: enUS,
   en_GB: enGB,
   fr,
   zh_CN: zhCN,
@@ -26,40 +27,6 @@ let fetchedLocaleMessages: FetchedLocaleMessages = {
 };
 
 let cldrLocale = cldrjsLocales.en;
-
-// export async function init() {
-//
-//   const refetched: FetchedLocaleMessages = {
-//     target: null,
-//     fallback: null
-//   };
-//
-//   const saved = getSavedLocale();
-//
-//   console.log('init', saved)
-//   if (saved) {
-//     const native = getNativeLocale();
-//
-//     await Promise.all([
-//       // Fetch target locale messages if needed
-//       (async () => {
-//         if (!areLocalesEqual(saved, native)) {
-//           refetched.target = await fetchLocaleMessages(saved);
-//         }
-//       })(),
-//       // Fetch fallback locale messages if needed
-//       (async () => {
-//         const deflt = getDefaultLocale();
-//         if (!areLocalesEqual(deflt, native) && !areLocalesEqual(deflt, saved)) {
-//           refetched.fallback = await fetchLocaleMessages(deflt);
-//         }
-//       })()
-//     ]);
-//   }
-//
-//   fetchedLocaleMessages = refetched;
-//   cldrLocale = (cldrjsLocales as Record<string, any>)[getCurrentLocale()] || cldrjsLocales.en;
-// }
 
 export async function init() {
   const refetched: FetchedLocaleMessages = {
@@ -134,14 +101,12 @@ export function getDefaultLocale(): string {
 }
 
 export async function fetchLocaleMessages(locale: string) {
-  console.log('fetching local messages');
   const dirName = locale.replace('-', '_');
   const url = browser.runtime.getURL(`_locales/${dirName}/messages.json`);
 
   try {
     const res = await fetch(url);
     const messages: LocaleMessages = await res.json();
-    console.log('messages', messages);
     appendPlaceholderLists(messages);
     return messages;
   } catch (err: any) {

@@ -1,4 +1,3 @@
-// import { Address } from '@signumjs/core/';
 import {
   generateMasterKeys,
   generateSignature,
@@ -6,18 +5,13 @@ import {
   Keys,
   verifySignature
 } from '@signumjs/crypto';
-import { HttpResponseError } from '@taquito/http-utils';
-import { DerivationType } from '@taquito/ledger-signer';
-import { localForger } from '@taquito/local-forging';
 import { InMemorySigner } from '@taquito/signer';
-import { CompositeForger, RpcForger, Signer, TezosOperationError, TezosToolkit } from '@taquito/taquito';
+import { Signer } from '@taquito/taquito';
 import * as TaquitoUtils from '@taquito/utils';
-// import { LedgerTempleBridgeTransport } from '@temple-wallet/ledger-bridge';
 import * as Bip39 from 'bip39';
 import * as Ed25519 from 'ed25519-hd-key';
 
 import { PublicError } from 'lib/temple/back/defaults';
-import { TempleLedgerSigner } from 'lib/temple/back/ledger-signer';
 import {
   encryptAndSaveMany,
   encryptAndSaveManyLegacy,
@@ -29,13 +23,6 @@ import {
   removeManyLegacy,
   savePlain
 } from 'lib/temple/back/safe-storage';
-import {
-  formatOpParamsBeforeSend,
-  loadFastRpcClient,
-  michelEncoder,
-  transformHttpResponseError
-} from 'lib/temple/helpers';
-import { isLedgerLiveEnabled } from 'lib/temple/ledger-live';
 import * as Passworder from 'lib/temple/passworder';
 import { clearStorage } from 'lib/temple/reset';
 import { TempleAccount, TempleAccountType, TempleContact, TempleSettings } from 'lib/temple/types';
@@ -466,34 +453,9 @@ export class Vault {
     );
   }
 
+  // TODO: Remove this obsolete method
   async sendOperations(accPublicKeyHash: string, rpc: string, opParams: any[]) {
-    return this.withSigner(accPublicKeyHash, async signer => {
-      const batch = await withError('Failed to send operations', async () => {
-        const tezos = new TezosToolkit(loadFastRpcClient(rpc));
-        tezos.setSignerProvider(signer);
-        tezos.setForgerProvider(new CompositeForger([tezos.getFactory(RpcForger)(), localForger]));
-        tezos.setPackerProvider(michelEncoder);
-        return tezos.contract.batch(opParams.map(formatOpParamsBeforeSend));
-      });
-
-      try {
-        return await batch.send();
-      } catch (err: any) {
-        console.error(err);
-
-        switch (true) {
-          case err instanceof PublicError:
-          case err instanceof TezosOperationError:
-            throw err;
-
-          case err instanceof HttpResponseError:
-            throw transformHttpResponseError(err);
-
-          default:
-            throw new Error(`Failed to send operations. ${err.message}`);
-        }
-      }
-    });
+    return Promise.reject('Method not supported');
   }
 
   async getSignumTxKeys(accPublicKeyHash: string) {
@@ -701,47 +663,6 @@ async function getPublicKeyAndHash(privateKey: string) {
 async function createMemorySigner(privateKey: string, encPassword?: string) {
   return InMemorySigner.fromSecretKey(privateKey, encPassword);
 }
-
-// let transport: LedgerTempleBridgeTransport;
-/*
-async function createLedgerSigner(
-  derivationPath: string,
-  derivationType?: DerivationType,
-  publicKey?: string,
-  publicKeyHash?: string
-) {
-  const ledgerLiveEnabled = await isLedgerLiveEnabled();
-
-  if (!transport || ledgerLiveEnabled !== transport.ledgerLiveUsed) {
-    await transport?.close();
-
-    const bridgeUrl = process.env.XT_WALLET_LEDGER_BRIDGE_URL;
-    if (!bridgeUrl) {
-      throw new Error("Require a 'XT_WALLET_LEDGER_BRIDGE_URL' environment variable to be set");
-    }
-
-    transport = await LedgerTempleBridgeTransport.open(bridgeUrl);
-    if (ledgerLiveEnabled) {
-      transport.useLedgerLive();
-    }
-  }
-
-  // After Ledger Live bridge was setuped, we don't close transport
-  // Probably we do not need to close it
-  // But if we need, we can close it after not use timeout
-  const cleanup = () => {}; // transport.close();
-  const signer = new TempleLedgerSigner(
-    transport,
-    removeMFromDerivationPath(derivationPath),
-    true,
-    derivationType,
-    publicKey,
-    publicKeyHash
-  );
-
-  return { signer, cleanup };
-}
-*/
 
 function seedToHDPrivateKey(seed: Buffer, hdAccIndex: number) {
   return seedToPrivateKey(deriveSeed(seed, getMainDerivationPath(hdAccIndex)));

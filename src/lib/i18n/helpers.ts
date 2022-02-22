@@ -12,10 +12,6 @@ export function processTemplate(str: string, mix: any) {
   });
 }
 
-export function areLocalesEqual(a: string, b: string) {
-  return a === b || a === b.split('-')[0];
-}
-
 export function toList<T, U>(term: T | U[]): (T | U)[] {
   return Array.isArray(term) ? term : [term];
 }

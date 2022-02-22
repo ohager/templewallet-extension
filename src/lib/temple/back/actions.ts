@@ -1,4 +1,3 @@
-import { DerivationType } from '@taquito/ledger-signer';
 import { TezosOperationError } from '@taquito/taquito';
 import browser, { Runtime } from 'webextension-polyfill';
 
