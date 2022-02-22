@@ -351,7 +351,7 @@ export function sign(port: Runtime.Port, id: string, sourcePkh: string, bytes: s
         const stopRequestListening = intercom.onRequest(async (req: TempleRequest, reqPort) => {
           if (reqPort === port && req?.type === TempleMessageType.ConfirmationRequest && req?.id === id) {
             if (req.confirmed) {
-              const result = await withUnlocked(({ vault }) => vault.sign(sourcePkh, bytes, watermark));
+              const result = await withUnlocked(({ vault }) => vault.signumSign(sourcePkh, bytes));
               resolve(result);
             } else {
               decline();

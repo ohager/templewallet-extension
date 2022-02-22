@@ -15,7 +15,8 @@ const publicAssetsPlugin = require('./webpack.public.config');
 process.env.VERSION = pkg.version;
 const { TARGET_BROWSER = 'chrome' } = process.env;
 
-const MANIFEST = process.env.MANIFEST_VERSION === '3' ? 'manifest.json' : 'manifest.v2.json';
+// const MANIFEST = process.env.MANIFEST_VERSION === '3' ? 'manifest.json' : 'manifest.v2.json';
+const MANIFEST = 'manifest.json';
 
 const DIST_PATH = path.join(__dirname, 'dist');
 const PUBLIC_PATH = path.join(__dirname, 'public');
@@ -34,7 +35,7 @@ const fileFormat = '[name].[hash][ext]';
 
 module.exports = {
   mode: process.env.NODE_ENV,
-  devtool: process.env.SOURCE_MAP ? 'inline-source-map' : false,
+  devtool: process.env.NODE_ENV === 'development' ? 'inline-source-map' : false,
   cache: {
     type: 'filesystem',
     allowCollectingMemory: true

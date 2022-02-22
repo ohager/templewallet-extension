@@ -3,7 +3,7 @@ import { tabs, runtime } from 'webextension-polyfill';
 
 import { lock } from 'lib/temple/back/actions';
 import { start } from 'lib/temple/back/main';
-import { isLockUpEnabled } from 'lib/ui/useLockUp';
+// import { isLockUpEnabled } from 'lib/ui/useLockUp';
 
 runtime.onInstalled.addListener(({ reason }) => (reason === 'install' ? openFullPage() : null));
 
@@ -27,12 +27,12 @@ let connectionsCount = 0;
 
 runtime.onConnect.addListener(externalPort => {
   connectionsCount++;
-  const lockUpEnabled = isLockUpEnabled();
+  // const lockUpEnabled = isLockUpEnabled();
   if (
     connectionsCount === 1 &&
     Date.now() - disconnectTimestamp >= LOCK_TIME &&
-    disconnectTimestamp !== 0 &&
-    lockUpEnabled
+    disconnectTimestamp !== 0
+    // lockUpEnabled
   ) {
     lock();
   }

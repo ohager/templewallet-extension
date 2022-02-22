@@ -33,7 +33,6 @@ export async function requestSign(origin: string, req: ExtensionSignRequest): Pr
   return new Promise(async (resolve, reject) => {
     const id = uuid();
     const networkRpc = await getNetworkRPC(dApp.network);
-    // TODO: use the newest "parseTransaction" method from rc.9
     const ledger = composeApi({ nodeHost: networkRpc });
     let preview: any;
     try {
