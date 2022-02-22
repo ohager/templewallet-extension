@@ -23,12 +23,9 @@ const App: FC<AppProps> = ({ env }) => (
     <DialogsProvider>
       <Suspense fallback={<RootSuspenseFallback />}>
         <AppProvider env={env}>
-          <Dialogs />
-
-          <DisableOutlinesForClick />
-
           <AwaitI18N />
-
+          <Dialogs />
+          <DisableOutlinesForClick />
           <AwaitFonts name="Inter" weights={[300, 400, 500, 600]} className="antialiased font-inter">
             <BootAnimation>{env.confirmWindow ? <ConfirmPage /> : <PageRouter />}</BootAnimation>
           </AwaitFonts>

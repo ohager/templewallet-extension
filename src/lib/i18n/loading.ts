@@ -5,8 +5,6 @@ import { saveLocale } from './saving';
 
 export const REFRESH_MSGTYPE = 'TEMPLE_I18N_REFRESH';
 
-const initPromise = init();
-
 runtime.onMessage.addListener(msg => {
   if (msg?.type === REFRESH_MSGTYPE) {
     refresh();
@@ -14,7 +12,7 @@ runtime.onMessage.addListener(msg => {
 });
 
 export function onInited(callback: () => void) {
-  initPromise.then(callback);
+  init().then(callback);
 }
 
 export function updateLocale(locale: string) {

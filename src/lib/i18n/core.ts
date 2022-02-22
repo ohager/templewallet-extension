@@ -27,6 +27,40 @@ let fetchedLocaleMessages: FetchedLocaleMessages = {
 
 let cldrLocale = cldrjsLocales.en;
 
+// export async function init() {
+//
+//   const refetched: FetchedLocaleMessages = {
+//     target: null,
+//     fallback: null
+//   };
+//
+//   const saved = getSavedLocale();
+//
+//   console.log('init', saved)
+//   if (saved) {
+//     const native = getNativeLocale();
+//
+//     await Promise.all([
+//       // Fetch target locale messages if needed
+//       (async () => {
+//         if (!areLocalesEqual(saved, native)) {
+//           refetched.target = await fetchLocaleMessages(saved);
+//         }
+//       })(),
+//       // Fetch fallback locale messages if needed
+//       (async () => {
+//         const deflt = getDefaultLocale();
+//         if (!areLocalesEqual(deflt, native) && !areLocalesEqual(deflt, saved)) {
+//           refetched.fallback = await fetchLocaleMessages(deflt);
+//         }
+//       })()
+//     ]);
+//   }
+//
+//   fetchedLocaleMessages = refetched;
+//   cldrLocale = (cldrjsLocales as Record<string, any>)[getCurrentLocale()] || cldrjsLocales.en;
+// }
+
 export async function init() {
   const refetched: FetchedLocaleMessages = {
     target: null,
@@ -34,26 +68,16 @@ export async function init() {
   };
 
   const saved = getSavedLocale();
-
-  if (saved) {
-    const native = getNativeLocale();
-
-    await Promise.all([
-      // Fetch target locale messages if needed
-      (async () => {
-        if (!areLocalesEqual(saved, native)) {
-          refetched.target = await fetchLocaleMessages(saved);
-        }
-      })(),
-      // Fetch fallback locale messages if needed
-      (async () => {
-        const deflt = getDefaultLocale();
-        if (!areLocalesEqual(deflt, native) && !areLocalesEqual(deflt, saved)) {
-          refetched.fallback = await fetchLocaleMessages(deflt);
-        }
-      })()
-    ]);
-  }
+  const native = getNativeLocale();
+  const def = getDefaultLocale();
+  await Promise.all([
+    (async () => {
+      refetched.target = await fetchLocaleMessages(saved || native);
+    })(),
+    (async () => {
+      refetched.fallback = await fetchLocaleMessages(def);
+    })()
+  ]);
 
   fetchedLocaleMessages = refetched;
   cldrLocale = (cldrjsLocales as Record<string, any>)[getCurrentLocale()] || cldrjsLocales.en;
@@ -63,8 +87,7 @@ export function getMessage(messageName: string, substitutions?: Substitutions) {
   const val = fetchedLocaleMessages.target?.[messageName] ?? fetchedLocaleMessages.fallback?.[messageName];
 
   if (!val) {
-    return 'some text';
-    // return browser.i18n.getMessage(messageName, substitutions);
+    return '';
   }
 
   try {
@@ -111,6 +134,7 @@ export function getDefaultLocale(): string {
 }
 
 export async function fetchLocaleMessages(locale: string) {
+  console.log('fetching local messages');
   const dirName = locale.replace('-', '_');
   const url = browser.runtime.getURL(`_locales/${dirName}/messages.json`);
 
@@ -121,8 +145,6 @@ export async function fetchLocaleMessages(locale: string) {
     appendPlaceholderLists(messages);
     return messages;
   } catch (err: any) {
-    console.error(err);
-
     return null;
   }
 }
