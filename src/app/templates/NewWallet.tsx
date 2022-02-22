@@ -209,7 +209,7 @@ const NewWallet: FC<NewWalletProps> = ({ ownMnemonic = false, title }) => {
                 <T id="termsOfUsage" key="termsLink">
                   {message => (
                     <a
-                      href="https://templewallet.com/terms"
+                      href="https://www.signum.network/xtterms.html"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="underline text-secondary"
@@ -221,7 +221,7 @@ const NewWallet: FC<NewWalletProps> = ({ ownMnemonic = false, title }) => {
                 <T id="privacyPolicy" key="privacyPolicyLink">
                   {message => (
                     <a
-                      href="https://templewallet.com/privacy"
+                      href="https://signum.network/xtprivacypolicy.html"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="underline text-secondary"

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Signum XT Wallet",
-  "version": "1.0.0",
+  "version": "1.0.2",
 
   "icons": {
     "16": "misc/signum-icon-16.png",
@@ -21,8 +21,10 @@
     "name": "https://signum.network"
   },
 
-  "__firefox__applications": {
-    "gecko": { "id": "{34ac229e-1cf5-4e4c-8a77-988155c4360f}" }
+  "__firefox__browser_specific_settings": {
+    "gecko": {
+      "id": "signum-xt-wallet@signum.network"
+    }
   },
 
   "__chrome__minimum_chrome_version": "49",

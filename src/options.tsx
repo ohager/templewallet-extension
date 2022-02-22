@@ -1,29 +1,43 @@
 import './main.css';
 
-import React, { FC, useCallback } from 'react';
+import React, { FC, Suspense, useCallback, useEffect, useState } from 'react';
 
 import classNames from 'clsx';
 import * as ReactDOM from 'react-dom';
 import browser from 'webextension-polyfill';
 
 import DisableOutlinesForClick from 'app/a11y/DisableOutlinesForClick';
+import RootSuspenseFallback from 'app/a11y/RootSuspenseFallback';
+import ErrorBoundary from 'app/ErrorBoundary';
 import Dialogs from 'app/layouts/Dialogs';
-import { getMessage } from 'lib/i18n';
+import { getMessage, onInited } from 'lib/i18n';
 import { T } from 'lib/i18n/react';
 import { clearStorage } from 'lib/temple/reset';
 import { AlertFn, ConfirmFn, DialogsProvider, useAlert, useConfirm } from 'lib/ui/dialog';
 
 const OptionsWrapper: FC = () => (
-  <DialogsProvider>
-    <Options />
-    <Dialogs />
-    <DisableOutlinesForClick />
-  </DialogsProvider>
+  <ErrorBoundary whileMessage="opening options" className="min-h-screen">
+    <DialogsProvider>
+      <Suspense fallback={<RootSuspenseFallback />}>
+        <Dialogs />
+        <DisableOutlinesForClick />
+        <Options />
+      </Suspense>
+    </DialogsProvider>
+  </ErrorBoundary>
 );
 
 const Options: FC = () => {
   const alert = useAlert();
   const confirm = useConfirm();
+  const [_, setI18nInitialized] = useState(false);
+
+  useEffect(() => {
+    // forces a re-render after i18n file was loaded
+    onInited(() => {
+      setI18nInitialized(true);
+    });
+  }, []);
 
   const internalHandleReset = useCallback(() => {
     handleReset(alert, confirm);
@@ -59,6 +73,7 @@ const Options: FC = () => {
 ReactDOM.render(<OptionsWrapper />, document.getElementById('root'));
 
 let resetting = false;
+
 async function handleReset(alert: AlertFn, confirm: ConfirmFn) {
   if (resetting) return;
   resetting = true;

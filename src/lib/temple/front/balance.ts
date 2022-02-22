@@ -18,8 +18,12 @@ export function useBalance(assetSlug: string, accountId: string, opts: UseBalanc
   return useRetryableSWR(
     displayed ? [`balance-${accountId}`, signum] : null,
     async () => {
-      const { balanceNQT } = await signum.account.getAccountBalance(accountId);
-      return new BigNumber(Amount.fromPlanck(balanceNQT).getSigna());
+      try {
+        const { balanceNQT } = await signum.account.getAccountBalance(accountId);
+        return new BigNumber(Amount.fromPlanck(balanceNQT).getSigna());
+      } catch (e) {
+        return new BigNumber(0);
+      }
     },
     {
       suspense: opts.suspense ?? true,

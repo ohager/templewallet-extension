@@ -36,7 +36,6 @@ export const WatchOnlyForm: FC = () => {
       if (!isSignumAddress(address)) {
         const accountId = await resolveAliasToAccountId(address);
         if (!accountId) {
-          // TODO: adjust the translations
           throw new Error(t('domainDoesntResolveToAddress', address));
         }
         return accountId;
@@ -58,8 +57,8 @@ export const WatchOnlyForm: FC = () => {
   }, [addressValue, resolveAlias]);
 
   const cleanToField = useCallback(() => {
-    setValue('to', '');
-    triggerValidation('to');
+    setValue('address', '');
+    triggerValidation('address');
   }, [setValue, triggerValidation]);
 
   const validateAddressField = useCallback(
@@ -99,7 +98,7 @@ export const WatchOnlyForm: FC = () => {
         as={<NoSpaceField ref={addressFieldRef} />}
         control={control}
         rules={{
-          required: 'Required',
+          required: t('required'),
           validate: validateAddressField
         }}
         onChange={([v]) => v}

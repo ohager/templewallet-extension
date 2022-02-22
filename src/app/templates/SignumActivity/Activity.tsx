@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useMemo, useRef, useLayoutEffect } from 'react';
+import React, { memo, useCallback, useMemo, useRef } from 'react';
 
 import { Transaction } from '@signumjs/core';
 
@@ -63,10 +63,6 @@ const Activity = memo<ActivityProps>(({ accountId, className }) => {
     const confirmedTransactions = mergeTransactions(latestTransactions?.transactions, restTransactions);
     return [...pendingTransactions, ...confirmedTransactions];
   }, [unconfirmedTransactions, latestTransactions, restTransactions]);
-
-  useLayoutEffect(() => {
-    hasMoreRef.current = true;
-  }, [safeStateKey]);
 
   const handleLoadMore = useCallback(async () => {
     setLoadingMore(true);

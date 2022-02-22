@@ -1,7 +1,7 @@
 import React, { ComponentProps, FC, Suspense } from 'react';
 
 import AwaitFonts from 'app/a11y/AwaitFonts';
-import AwaitI18N from 'app/a11y/AwaitI18N';
+import AwaitI18N from 'app/a11y/InitI18n';
 import BootAnimation from 'app/a11y/BootAnimation';
 import DisableOutlinesForClick from 'app/a11y/DisableOutlinesForClick';
 import RootSuspenseFallback from 'app/a11y/RootSuspenseFallback';

@@ -1,5 +1,5 @@
-import { enUS, enGB, fr, zhCN, zhTW, ja, ko, uk, ru, es, ptBR } from 'date-fns/locale';
-import browser from 'webextension-polyfill';
+import { enUS, de, ru, es, ptBR } from 'date-fns/locale';
+import { browser } from 'webextension-polyfill-ts';
 
 import cldrjsLocales from './cldrjs-locales.json';
 import { processTemplate, toList } from './helpers';
@@ -8,14 +8,7 @@ import { FetchedLocaleMessages, LocaleMessages, Substitutions } from './types';
 
 const dateFnsLocales: Record<string, Locale> = {
   en: enUS,
-  en_US: enUS,
-  en_GB: enGB,
-  fr,
-  zh_CN: zhCN,
-  zh_TW: zhTW,
-  ja,
-  ko,
-  uk,
+  de,
   ru,
   es,
   pt_BR: ptBR
@@ -97,6 +90,7 @@ export function getNativeLocale() {
 
 export function getDefaultLocale(): string {
   const manifest = browser.runtime.getManifest();
+  // @ts-ignore
   return manifest.default_locale || 'en';
 }
 

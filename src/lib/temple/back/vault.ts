@@ -115,6 +115,9 @@ export class Vault {
     const passKey = await Vault.toValidPassKey(password);
     return withError('Failed to remove account', async doThrow => {
       const allAccounts = await fetchAndDecryptOne<TempleAccount[]>(accountsStrgKey, passKey);
+      if (allAccounts.length === 1) {
+        doThrow();
+      }
       const acc = allAccounts.find(a => a.publicKeyHash === accPublicKeyHash);
       if (!acc || acc.type === TempleAccountType.HD) {
         doThrow();

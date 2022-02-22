@@ -1117,7 +1117,7 @@
     "message": "Rang"
   },
   "raw": {
-    "message": "Roh"
+    "message": "Json"
   },
   "receive": {
     "message": "Empfangen"
@@ -1737,5 +1737,11 @@
   },
   "cantConnectToNetworkHint": {
     "message": "Versuchen Sie, einen anderen Knoten auszuwählen, oder überprüfen Sie Ihre Internetverbindung."
+  },
+  "accountActivationSuccessDescription": {
+    "message": "Willkommen bei Signum! Falls noch nicht sichtbar, erhalten Sie in wenigen Augenblicken eine eingehende Aktivierungstransaktion."
+  },
+  "accountActivationSuccessTitle": {
+    "message": "Konto erfolgreich aktiviert"
   }
 }

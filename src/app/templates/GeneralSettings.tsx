@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import LocaleSelect from 'app/templates/LocaleSelect';
 import LockUpSettings from 'app/templates/LockUpSettings';
 import PopupSettings from 'app/templates/PopupSettings';
+import ResetSettings from 'app/templates/ResetSettings';
 
 const GeneralSettings: FC = () => {
   return (
@@ -12,6 +13,8 @@ const GeneralSettings: FC = () => {
       <PopupSettings />
 
       <LockUpSettings />
+
+      <ResetSettings />
 
       {/*<AnalyticsSettings />*/}
 

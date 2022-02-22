@@ -5,7 +5,7 @@ import useSWR from 'swr';
 import { onInited } from 'lib/i18n';
 
 const AwaitI18N: FC = () => {
-  useSWR('i18n', awaitI18n, {
+  useSWR('i18n', initI18n, {
     suspense: true,
     shouldRetryOnError: false,
     revalidateOnFocus: false,
@@ -17,7 +17,7 @@ const AwaitI18N: FC = () => {
 
 export default AwaitI18N;
 
-async function awaitI18n() {
+export async function initI18n() {
   try {
     await Promise.race([new Promise(r => onInited(() => r(null))), new Promise(r => setTimeout(r, 3_000))]);
   } catch (err: any) {

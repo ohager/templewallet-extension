@@ -167,7 +167,7 @@
     "message": "Confirm"
   },
   "analyticsConfirmationDescription": {
-    "message": "We are constantly improving  Wallet and need your help. To better understand which section of the wallet should be updated, we collect anonymous usage data. This data is only used to improve the usability of  Wallet."
+    "message": "We are constantly improving Wallet and need your help. To better understand which section of the wallet should be updated, we collect anonymous usage data. This data is only used to improve the usability of  Wallet."
   },
   "analyticsConfirmationNeverCollect": {
     "message": "We NEVER track:"
@@ -433,7 +433,7 @@
     "description": "DApps = Decentralized Applications"
   },
   "dAppsListTvlDescription": {
-    "message": "Total locked. The value in tez is the total amount of tez locked in dApps. The value in USD is the total amount of tez and tokens locked there."
+    "message": "Total locked. The value in SIGNA is the total amount of SIGNA locked in dApps. The value in USD is the total amount of SIGNA and tokens locked there."
   },
   "decimals": {
     "message": "Decimals"
@@ -1179,10 +1179,10 @@
     "message": "Reset Extension"
   },
   "resetExtensionConfirmation": {
-    "message": "Are you sure you want to reset the  wallet?\nThis will erase all your data locally.\nYou can import your active accounts again at any time."
+    "message": "Are you sure you want to reset the wallet?\nThis will erase all your data locally.\nYou can import your active accounts again at any time."
   },
   "resetPermissionsConfirmation": {
-    "message": "Do you want permissions for\nReally reset $origin$?",
+    "message": "Do you want to reset permissions for $origin$?",
     "placeholders": {
       "origin": {
         "content": "$1"
@@ -1737,5 +1737,11 @@
   },
   "activationFailed": {
     "message": "Oh no, the activation failed."
+  },
+  "accountActivationSuccessTitle": {
+    "message": "Account successfully activated"
+  },
+  "accountActivationSuccessDescription": {
+    "message": "Welcome to Signum! If not already visible, you'll get an incoming activation transaction in a few moments."
   }
 }

@@ -167,7 +167,7 @@
     "message": "confirme"
   },
   "analyticsConfirmationDescription": {
-    "message": "Estamos constantemente melhorando a Carteira do Templo e precisamos da sua ajuda. Para entender melhor qual seção da carteira deve ser atualizada, coletamos dados de uso anônimos. Esses dados são usados apenas para melhorar a usabilidade do Temple Wallet."
+    "message": "Estamos constantemente melhorando a Carteira XT e precisamos da sua ajuda. Para entender melhor qual seção da carteira deve ser atualizada, coletamos dados de uso anônimos. Esses dados são usados apenas para melhorar a usabilidade do XT Wallet."
   },
   "analyticsConfirmationNeverCollect": {
     "message": "NUNCA rastreamos:"
@@ -179,7 +179,7 @@
     "message": "Você pode desativar o rastreamento de análises a qualquer momento nas configurações da sua carteira."
   },
   "analyticsConfirmationTitle": {
-    "message": "Ajude-nos a melhorar a Carteira do Templo"
+    "message": "Ajude-nos a melhorar a Carteira XT"
   },
   "analyticsSettings": {
     "message": "Análise anônima"
@@ -790,7 +790,7 @@
     "message": "Idioma"
   },
   "ledgerLiveBridgeGuide": {
-    "message": "Para se conectar ao Ledger, ative o aplicativo Ledger ao vivo em seu dispositivo, abra o aplicativo de carteira Tezos e permita uma conexão WebSocket à sua conta do Temple."
+    "message": "Para se conectar ao Ledger, ative o aplicativo Ledger ao vivo em seu dispositivo, abra o aplicativo de carteira Tezos e permita uma conexão WebSocket à sua conta."
   },
   "ledgerLiveSettings": {
     "message": "Use o Ledger ao vivo"
@@ -1046,7 +1046,7 @@
     "message": "Ou URL da imagem IPFS"
   },
   "originLabel": {
-    "message": "Origem: $origen$",
+    "message": "Origem: $origin$",
     "placeholders": {
       "origin": {
         "content": "$1"
@@ -1176,7 +1176,7 @@
     "message": "Redefinir extensão"
   },
   "resetExtensionConfirmation": {
-    "message": "Tem certeza de que deseja redefinir a Carteira do Templo?\nIsso apagará todos os seus dados localmente.\nVocê pode importar suas contas ativas novamente a qualquer momento."
+    "message": "Tem certeza de que deseja redefinir a Carteira XT?\nIsso apagará todos os seus dados localmente.\nVocê pode importar suas contas ativas novamente a qualquer momento."
   },
   "resetPermissionsConfirmation": {
     "message": "Você quer permissões para\nRealmente redefinir $origin$?",
@@ -1406,7 +1406,7 @@
     }
   },
   "transfer": {
-    "message": "Transferir"
+    "message": "Transferência"
   },
   "transferFromSmb": {
     "message": "de $sender$",
@@ -1580,7 +1580,7 @@
     "message": "Agora você conhece as funções básicas e mais importantes da carteira Signum XT."
   },
   "congratsDescription3": {
-    "message": "Você pode aprender todos os recursos do Templo em nossa “Série Educacional” no YouTube."
+    "message": "Você pode aprender todos os recursos do XT em nossa “Série Educacional” no YouTube."
   },
   "congratsDescription4": {
     "message": "Além disso, instruções e guias estão disponíveis em nossa base de conhecimento."
@@ -1737,5 +1737,11 @@
   },
   "cantConnectToNetworkHint": {
     "message": "Tente selecionar outro nó ou verifique sua conexão com a Internet."
+  },
+  "accountActivationSuccessDescription": {
+    "message": "Bem-vindo ao Signum! Se ainda não estiver visível, você receberá uma transação de ativação em alguns instantes."
+  },
+  "accountActivationSuccessTitle": {
+    "message": "Conta ativada com sucesso"
   }
 }

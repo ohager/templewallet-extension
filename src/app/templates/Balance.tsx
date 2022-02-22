@@ -38,7 +38,7 @@ const Balance = memo<BalanceProps>(({ accountId, children, assetSlug = 'tez', ne
         }}
       >
         {cloneElement(childNode, {
-          className: classNames(childNode.props.className, !exist && 'invisible')
+          className: classNames(childNode.props.className)
         })}
       </CSSTransition>
     );

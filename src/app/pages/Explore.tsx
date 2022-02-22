@@ -31,13 +31,6 @@ type ExploreProps = {
   assetSlug?: string | null;
 };
 
-const tippyPropsMock = {
-  trigger: 'mouseenter',
-  hideOnClick: false,
-  content: t('disabledForWatchOnlyAccount'),
-  animation: 'shift-away-subtle'
-};
-
 const Explore: FC<ExploreProps> = ({ assetSlug }) => {
   const { fullPage, registerBackHandler } = useAppEnv();
   const { onboardingCompleted } = useOnboardingProgress();
@@ -103,11 +96,15 @@ const Explore: FC<ExploreProps> = ({ assetSlug }) => {
             Icon={SendIcon}
             href={sendLink}
             disabled={!canSend}
-            tippyProps={tippyPropsMock}
+            tippyProps={{
+              trigger: 'mouseenter',
+              hideOnClick: false,
+              content: t('disabledForWatchOnlyAccount'),
+              animation: 'shift-away-subtle'
+            }}
           />
         </div>
-
-        {!account.isActivated && <ActivationSection />}
+        <ActivationSection />
       </div>
 
       <SecondarySection assetSlug={assetSlug} />

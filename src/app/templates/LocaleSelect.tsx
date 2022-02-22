@@ -22,22 +22,22 @@ type LocaleOption = {
 
 const localeOptions: LocaleOption[] = [
   {
-    code: 'de',
-    flagName: 'de',
-    label: 'German (Deutsch)',
-    disabled: false
-  },
-  {
     code: 'en',
     flagName: 'us',
     label: 'English',
     disabled: false
   },
   {
+    code: 'de',
+    flagName: 'de',
+    label: 'German (Deutsch)',
+    disabled: false
+  },
+  {
     code: 'es',
     flagName: 'es',
     label: 'Spanish (Español)',
-    disabled: true
+    disabled: false
   },
   {
     code: 'pt_BR',
@@ -45,12 +45,11 @@ const localeOptions: LocaleOption[] = [
     label: 'Portuguese (Português)',
     disabled: false
   },
-  // Disabled
   {
     code: 'ru',
     flagName: 'ru',
     label: 'Russian (Русский)',
-    disabled: true
+    disabled: false
   }
 ];
 
@@ -61,6 +60,8 @@ const getLocaleCode = ({ code }: LocaleOption) => code;
 const LocaleSelect: FC<LocaleSelectProps> = ({ className }) => {
   const selectedLocale = getCurrentLocale();
   const { trackEvent } = useAnalytics();
+
+  console.log('locale', selectedLocale);
 
   const value = useMemo(
     () => localeOptions.find(({ code }) => code === selectedLocale) || localeOptions[0],

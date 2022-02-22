@@ -305,7 +305,7 @@ export const SendForm: FC<FormProps> = ({ setOperation, onAddContactRequested })
         style={{
           resize: 'none'
         }}
-        containerClassName="mb-4"
+        containerClassName="mb-4 mt-3"
       />
 
       {toResolved && (
