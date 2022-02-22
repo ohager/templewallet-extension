@@ -16,6 +16,7 @@ export function onInited(callback: () => void) {
 }
 
 export function updateLocale(locale: string) {
+  console.log('save locale', locale);
   saveLocale(locale);
   notifyOthers();
   refresh();
@@ -26,6 +27,5 @@ function notifyOthers() {
 }
 
 function refresh() {
-  console.log('refresh', window);
   window.location.reload();
 }

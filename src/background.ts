@@ -1,3 +1,4 @@
+import './xhr-shim';
 import { tabs, runtime } from 'webextension-polyfill';
 
 import { lock } from 'lib/temple/back/actions';
