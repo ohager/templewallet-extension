@@ -105,7 +105,7 @@ export const NETWORKS: TempleNetwork[] = [
     name: 'Europe Testnet ',
     description: 'Public Testnet Node Europe',
     type: 'test',
-    rpcBaseURL: 'https://europe3.testnet.signum.network/',
+    rpcBaseURL: 'https://europe3.testnet.signum.network',
     color: '#FFBB00',
     disabled: false
   },
