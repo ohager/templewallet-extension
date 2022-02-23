@@ -15,8 +15,7 @@ const publicAssetsPlugin = require('./webpack.public.config');
 process.env.VERSION = pkg.version;
 const { TARGET_BROWSER = 'chrome' } = process.env;
 
-// const MANIFEST = process.env.MANIFEST_VERSION === '3' ? 'manifest.json' : 'manifest.v2.json';
-const MANIFEST = 'manifest.json';
+const MANIFEST = process.env.MANIFEST_VERSION === '3' ? 'manifest.json' : 'manifest.v2.json';
 
 const DIST_PATH = path.join(__dirname, 'dist');
 const PUBLIC_PATH = path.join(__dirname, 'public');
