@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.0
+
+Manifest Version 3 Compatible
+
 ## 1.0.2
 
 ### Improvements and Bugfixes
