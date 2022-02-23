@@ -32,7 +32,6 @@ import { ExtensionMessageType, ExtensionRequest, ExtensionResponse } from './dap
 const ACCOUNT_NAME_PATTERN = /^.{0,16}$/;
 const AUTODECLINE_AFTER = 60_000;
 
-const enqueueDApp = createQueue();
 const enqueueUnlock = createQueue();
 
 export async function init() {
@@ -381,14 +380,14 @@ export async function processDApp(origin: string, req: ExtensionRequest): Promis
       return withInited(() => getCurrentPermission(origin));
 
     case ExtensionMessageType.PermissionRequest:
-      return withInited(() => enqueueDApp(() => requestPermission(origin, req)));
+      return withInited(() => requestPermission(origin, req));
 
     // TODO: seems that signum does not need this
     // case TempleDAppMessageType.OperationRequest:
     //   return withInited(() => enqueueDApp(() => requestOperation(origin, req)));
 
     case ExtensionMessageType.SignRequest:
-      return withInited(() => enqueueDApp(() => requestSign(origin, req)));
+      return withInited(() => requestSign(origin, req));
 
     // TODO: seems that signum does not need this
     // case TempleDAppMessageType.BroadcastRequest:

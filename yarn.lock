@@ -1495,27 +1495,27 @@
   resolved "https://registry.yarnpkg.com/@serh11p/jest-webextension-mock/-/jest-webextension-mock-4.0.0.tgz#c3b2a00e8c758e156a4a922718b35183e9023af9"
   integrity sha512-SQDFFOJGwQpaPopzYkFgzdDdi8tL8US/XM2UjBu4rmLLztTI/wOSecwXj/i3lhOUwOs3bHO2Zz9eRu2rPy5p9A==
 
-"@signumjs/contracts@^1.0.0-rc.12":
-  version "1.0.0-rc.12"
-  resolved "https://registry.yarnpkg.com/@signumjs/contracts/-/contracts-1.0.0-rc.12.tgz#534e9171158936a3a9f28f4c376ca3731373c4fc"
-  integrity sha512-I8V3kGYtjHtSvqyKXWgscQHNIn1ir606HUyA2IPwC0gmp7u3ONrictBoEKqmxHFD2RS6ualLWQWqt3WFbQ71gg==
+"@signumjs/contracts@^1.0.0-rc.13":
+  version "1.0.0-rc.13"
+  resolved "https://registry.yarnpkg.com/@signumjs/contracts/-/contracts-1.0.0-rc.13.tgz#33303fac863b6e265bd855c5bacc4ee1ec1b9df7"
+  integrity sha512-KbPqFv9vDE5vEI9K0tI6vb+kaRVpv/Oki6Eqgf8aOghSlfuM2k96TJ9ynW9skuJM2oBEAX8Ngj4TNiigT3pQvA==
   dependencies:
-    "@signumjs/util" "^1.0.0-rc.12"
+    "@signumjs/util" "^1.0.0-rc.13"
 
-"@signumjs/core@^1.0.0-rc.10":
-  version "1.0.0-rc.12"
-  resolved "https://registry.yarnpkg.com/@signumjs/core/-/core-1.0.0-rc.12.tgz#f36e667aa14ba287c1277def1a4c6f07a4f85d68"
-  integrity sha512-1qraJD/ClRIOVxve8mgoHh2/Xz5w8zZFrshlVLEZ7MqlfPH/yfGnqepZdlOVdutqTuevAZImbWLJ7mOCZUXpmQ==
+"@signumjs/core@^1.0.0-rc.13":
+  version "1.0.0-rc.13"
+  resolved "https://registry.yarnpkg.com/@signumjs/core/-/core-1.0.0-rc.13.tgz#8454e946bfa6fd62d66cd01adc358f56ca84ea4c"
+  integrity sha512-skPUQvdp/nun6IY50p8QBZ7m3bPE6W/PCnFy0FYhxQVlwobqK8cJM9IG+yw4ixQWPTi2/PbtTZpj73e4JFdo5w==
   dependencies:
-    "@signumjs/contracts" "^1.0.0-rc.12"
-    "@signumjs/crypto" "^1.0.0-rc.12"
-    "@signumjs/http" "^1.0.0-rc.12"
-    "@signumjs/util" "^1.0.0-rc.12"
+    "@signumjs/contracts" "^1.0.0-rc.13"
+    "@signumjs/crypto" "^1.0.0-rc.13"
+    "@signumjs/http" "^1.0.0-rc.13"
+    "@signumjs/util" "^1.0.0-rc.13"
 
-"@signumjs/crypto@^1.0.0-rc.10", "@signumjs/crypto@^1.0.0-rc.12":
-  version "1.0.0-rc.12"
-  resolved "https://registry.yarnpkg.com/@signumjs/crypto/-/crypto-1.0.0-rc.12.tgz#c2eb6eea9861d43d0bf5902084686443dee19e57"
-  integrity sha512-GwJZi7AQWdFH1RxiKRpkfBwL+OiNyKqnjjGFC7T/d6VXsZ3JE2p+kGyeVL4gYMxiB9sIP/dt87vDH/poOTgEdQ==
+"@signumjs/crypto@^1.0.0-rc.13":
+  version "1.0.0-rc.13"
+  resolved "https://registry.yarnpkg.com/@signumjs/crypto/-/crypto-1.0.0-rc.13.tgz#4e664bd6828d32a8a2ee25294a91341b72891feb"
+  integrity sha512-gHYrJHCc/nC6VPtxshrGeEx9EHQdb7VB6WJHkjnpPVofOTUaYSu9Nzmndgmbk+d4LDVRZexs3Zm+dWBo6Duvug==
   dependencies:
     "@types/crypto-js" "^3.1.43"
     "@types/node" "^12.0.0"
@@ -1525,17 +1525,17 @@
     pako "^1.0.10"
     seedrandom "^3.0.5"
 
-"@signumjs/http@^1.0.0-rc.10", "@signumjs/http@^1.0.0-rc.12":
-  version "1.0.0-rc.12"
-  resolved "https://registry.yarnpkg.com/@signumjs/http/-/http-1.0.0-rc.12.tgz#dfa91474c81e4abe9fc7031c88617cee75f1a70e"
-  integrity sha512-5Ubkl2zPvsHf6v9l2CvgeSv0iIVSm7KihMm0FYNCHNaJo09m6CF6RtM9c9jb6AkL4WjbY3Bw7yUj9Mq8reFnmw==
+"@signumjs/http@^1.0.0-rc.13":
+  version "1.0.0-rc.13"
+  resolved "https://registry.yarnpkg.com/@signumjs/http/-/http-1.0.0-rc.13.tgz#68246ce1e56c23aa855881b1822dce572f32d5bf"
+  integrity sha512-xItl3BKwhsiiZcXyAtadL9UrEP2AvTeCqfHxCsBr9+xDJn56Z1H5kpwlg5RmF/hTWjO7sV0xU1Dsf9Ps61h9og==
   dependencies:
     axios "^0.21.4"
 
-"@signumjs/util@^1.0.0-rc.10", "@signumjs/util@^1.0.0-rc.12":
-  version "1.0.0-rc.12"
-  resolved "https://registry.yarnpkg.com/@signumjs/util/-/util-1.0.0-rc.12.tgz#d8cd95c976028947d22f7f94557ac1589e6b75df"
-  integrity sha512-EiwcgvmuOzZW6z791nxVVgUqVUY/9f2crp1lsWU5gvG78svlli+eseYiBOHrxRKKPgXBv7x+TVJLjnDi9NspJQ==
+"@signumjs/util@^1.0.0-rc.13":
+  version "1.0.0-rc.13"
+  resolved "https://registry.yarnpkg.com/@signumjs/util/-/util-1.0.0-rc.13.tgz#0450da193825b79b8f573883a075474fb7224a9e"
+  integrity sha512-wrQC4Z0oYPmjGuiENHHom9hQE/G7EWSiSqbzCVsJOR+FQ4HbDJC3m417zg5pgDCsSQYNidl9tqDuUOVHggeQVA==
   dependencies:
     bignumber.js "^9.0.0"
     js-base64 "^3.6.0"
@@ -2144,11 +2144,6 @@
   integrity sha512-vep+6yZnGv6owAthIY0w3f72w4dJIb4+yE5PCHveInTlZE9wukvU6Wc5Eig0OUUxcdhTazzeZx1xUaNVLqyQSg==
   dependencies:
     "@types/node" "*"
-
-"@types/libsodium-wrappers@0.7.8":
-  version "0.7.8"
-  resolved "https://registry.yarnpkg.com/@types/libsodium-wrappers/-/libsodium-wrappers-0.7.8.tgz#34575d7692fdbb7a7fdb63afcde381db86ec0de2"
-  integrity sha512-vkDSj6enD3K0+Ep83wnoGUk+f7sqsO4alsqxxEZ8BcTJhFmcY4UehYH3rTf4M3JGHXNhdpGFDdMbWFMgyvw/fA==
 
 "@types/minimatch@^3.0.3":
   version "3.0.5"

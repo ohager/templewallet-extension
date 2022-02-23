@@ -1,6 +1,8 @@
-import { composeApi, Transaction } from '@signumjs/core';
+import { composeApi, LedgerClientFactory, Transaction } from '@signumjs/core';
 import { TempleDAppErrorType } from '@temple-wallet/dapp/dist/types';
 import { v4 as uuid } from 'uuid';
+
+import { HttpAdapterFetch } from 'lib/temple/back/httpAdapterFetch';
 
 import { isSignumAddress } from '../../helpers';
 import { TempleMessageType } from '../../types';
@@ -12,6 +14,7 @@ import { ExtensionMessageType, ExtensionSignRequest, ExtensionSignResponse } fro
 const HEX_PATTERN = /^[0-9a-fA-F]+$/;
 
 export async function requestSign(origin: string, req: ExtensionSignRequest): Promise<ExtensionSignResponse> {
+  console.log('requestSign');
   if (req?.payload?.startsWith('0x')) {
     req = { ...req, payload: req.payload.substring(2) };
   }
@@ -33,7 +36,8 @@ export async function requestSign(origin: string, req: ExtensionSignRequest): Pr
   return new Promise(async (resolve, reject) => {
     const id = uuid();
     const networkRpc = await getNetworkRPC(dApp.network);
-    const ledger = composeApi({ nodeHost: networkRpc });
+    const httpClient = new HttpAdapterFetch(networkRpc);
+    const ledger = LedgerClientFactory.createClient({ nodeHost: networkRpc, httpClient });
     let preview: any;
     try {
       const transaction = await ledger.service.query<Transaction>('parseTransaction', {
