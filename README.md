@@ -1,3 +1,15 @@
+-------------
+
+<div style="background-color: yellow">
+    <h1>⚠️This repo is deprecated⚠️</h1>
+    <p>Use the <a href="https://github.com/signum-network/signum-xt-wallet">new one</a></p>
+</div>
+
+-------------
+
+
+
+
 # Signum XT Wallet
 
 Cryptocurrency wallet for [Signum blockchain platform](https://signum.network) as Web Extension for your Browser.<br>
